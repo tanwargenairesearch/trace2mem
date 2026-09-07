@@ -6,3 +6,8 @@
 *.tfplan
 coverage.out
 .DS_Store
+__pycache__/
+*.egg-info/
+.venv/
+*.sqlite
+*.sqlite-*
