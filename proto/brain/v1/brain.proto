@@ -1,0 +1,67 @@
+syntax = "proto3";
+package brain.v1;
+option go_package = "github.com/brainmemory/brain/gen/brain/v1;brainv1";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/struct.proto";
+
+message Actor { string role = 1; string agent_id = 2; }
+message Source { string id = 1; string format = 2; string version = 3; string location = 4; }
+message Message { string text = 1; }
+message ToolCall { string call_id = 1; string name = 2; string arguments_json = 3; }
+message ToolResult { string call_id = 1; string text = 2; bool failed = 3; }
+message ArtifactReference { string artifact_id = 1; string media_type = 2; string description = 3; }
+message SessionLifecycle { string state = 1; }
+message Event {
+  string event_id = 1;
+  string session_id = 2;
+  google.protobuf.Timestamp occurred_at = 3;
+  optional int64 sequence = 4;
+  Actor actor = 5;
+  Source source = 6;
+  string parent_event_id = 7;
+  google.protobuf.Struct metadata = 8;
+  oneof payload {
+    Message message = 10;
+    ToolCall tool_call = 11;
+    ToolResult tool_result = 12;
+    ArtifactReference artifact_reference = 13;
+    SessionLifecycle session_lifecycle = 14;
+  }
+}
+message AppendEventsRequest { string space_id = 1; repeated Event events = 2; }
+message AppendEventsResponse { int64 accepted = 1; int64 duplicates = 2; int64 watermark = 3; }
+message GetIngestionStatusRequest { string space_id = 1; }
+message GetIngestionStatusResponse { int64 accepted = 1; int64 pending = 2; int64 compiled = 3; string revision = 4; string job_status = 5; string last_error = 6; }
+message UploadArtifactRequest { string space_id = 1; string media_type = 2; bytes content = 3; }
+message UploadArtifactResponse { string artifact_id = 1; string sha256 = 2; }
+message CloseSessionRequest { string space_id = 1; string session_id = 2; }
+message CloseSessionResponse { bool scheduled = 1; }
+message RequestCompilationRequest { string space_id = 1; }
+message RequestCompilationResponse { bool scheduled = 1; }
+service IngestionService {
+  rpc AppendEvents(AppendEventsRequest) returns (AppendEventsResponse);
+  rpc GetIngestionStatus(GetIngestionStatusRequest) returns (GetIngestionStatusResponse);
+  rpc UploadArtifact(UploadArtifactRequest) returns (UploadArtifactResponse);
+  rpc CloseSession(CloseSessionRequest) returns (CloseSessionResponse);
+  rpc RequestCompilation(RequestCompilationRequest) returns (RequestCompilationResponse);
+}
+message File { string path = 1; string sha256 = 2; int64 size = 3; }
+message GetManifestRequest { string space_id = 1; string revision = 2; }
+message GetManifestResponse { string revision = 1; int64 watermark = 2; repeated File files = 3; }
+message ReadFileRequest { string space_id = 1; string revision = 2; string path = 3; }
+message ReadFileResponse { string revision = 1; string content = 2; string sha256 = 3; }
+message SearchRequest { string space_id = 1; string query = 2; string revision = 3; int32 limit = 4; bool without_wiki = 5; }
+message SearchHit { string path = 1; string content = 2; double score = 3; repeated string citations = 4; }
+message SearchResponse { string revision = 1; repeated SearchHit hits = 2; int64 watermark = 3; }
+message GetEvidenceRequest { string space_id = 1; string event_id = 2; }
+message GetEvidenceResponse { Event event = 1; string citation = 2; }
+message GetContextRequest { string space_id = 1; string query = 2; bool without_wiki = 3; }
+message GetContextResponse { string revision = 1; string synthesis = 2; repeated File files = 3; int64 watermark = 4; }
+service MemoryService {
+  rpc GetManifest(GetManifestRequest) returns (GetManifestResponse);
+  rpc ReadFile(ReadFileRequest) returns (ReadFileResponse);
+  rpc Search(SearchRequest) returns (SearchResponse);
+  rpc GetEvidence(GetEvidenceRequest) returns (GetEvidenceResponse);
+  rpc GetContext(GetContextRequest) returns (GetContextResponse);
+}

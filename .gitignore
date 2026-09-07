@@ -1,0 +1,8 @@
+/bin/
+/.local/
+.env
+*.tfstate*
+.terraform/
+*.tfplan
+coverage.out
+.DS_Store
