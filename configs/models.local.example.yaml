@@ -1,0 +1,13 @@
+version: 1
+generation:
+  provider: ollama
+  model: REPLACE_LOCAL_TOOL_CAPABLE_MODEL
+  endpoint: http://host.docker.internal:11434
+embedding:
+  provider: ollama
+  model: REPLACE_LOCAL_EMBEDDING_MODEL
+  endpoint: http://host.docker.internal:11434
+budgets:
+  max_steps: 12
+  max_tokens: 32000
+  daily_tokens: 1000000

@@ -1,0 +1,16 @@
+version: 1
+# REQUIRED: replace placeholders with models available to your account.
+generation:
+  provider: openai
+  model: REPLACE_GENERATION_MODEL
+  api_key_env: OPENAI_API_KEY
+embedding:
+  provider: vertex
+  model: REPLACE_GEMINI_EMBEDDING_MODEL
+  project: REPLACE_GOOGLE_CLOUD_PROJECT
+  location: europe-west2
+  dimensions: 768
+budgets:
+  max_steps: 12
+  max_tokens: 32000
+  daily_tokens: 1000000

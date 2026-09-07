@@ -17,3 +17,16 @@ Real provider tests require explicitly configured models/credentials. GCP smoke 
 
 ## Review ledger
 Pending implementation and tests.
+
+### Review triage (active)
+Must-fix:
+- [in progress] Fence proposal/evaluation persistence against forgetting; purge referenced artifacts.
+- [pending] Incremental bounded Dream inputs, preserve unchanged knowledge, verify empty proposals.
+- [pending] Native tool call/result pairing in both providers with protocol tests.
+- [pending] Concurrent provider budget reservation and embedding accounting.
+- [pending] Validate retrieval citations against inspected sources.
+- [pending] Bound cache across revisions and protect immutable manifest identity.
+- [pending] Cancel requests and close connections during shutdown.
+- [pending] Add valid-token membership/isolation tests.
+- [pending] Remove dead fields/helpers and unused-import placeholders.
+Nice-to-have: broaden semantic benchmark corpus after initial fixtures.

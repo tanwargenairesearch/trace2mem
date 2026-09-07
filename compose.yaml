@@ -1,0 +1,88 @@
+name: brain
+x-app: &app
+  build: {context: ., target: runtime}
+  image: brain:local
+  environment: &env
+    DATABASE_URL: postgres://brain:brain@postgres:5432/brain?sslmode=disable
+    BRAIN_BOOTSTRAP_TOKEN_FILE: /data/secrets/.local/bootstrap-token
+    BRAIN_MASTER_KEY_FILE: /data/secrets/.local/master-key
+    BLOB_DIR: /data/blobs
+    PUBLIC_URL: http://localhost:${BRAIN_PORT:-8787}
+    BRAIN_MODEL_ENDPOINTS: http://ollama:11434,http://host.docker.internal:11434
+    BRAIN_ALLOW_SCRIPTED: ${BRAIN_ALLOW_SCRIPTED:-false}
+  volumes: [blobs:/data/blobs, secrets:/data/secrets:ro]
+  extra_hosts: ["host.docker.internal:host-gateway"]
+services:
+  init:
+    build: {context: ., target: runtime}
+    image: brain:local
+    entrypoint: [brainctl, setup]
+    working_dir: /data/secrets
+    volumes: [secrets:/data/secrets]
+  postgres:
+    image: pgvector/pgvector:pg17
+    environment:
+      POSTGRES_USER: brain
+      POSTGRES_PASSWORD: brain
+      POSTGRES_DB: brain
+    volumes: [postgres:/var/lib/postgresql/data]
+    healthcheck:
+      test: [CMD-SHELL, "pg_isready -U brain"]
+      interval: 2s
+      timeout: 2s
+      retries: 30
+  migrate:
+    <<: *app
+    command: [migrate]
+    depends_on:
+      postgres: {condition: service_healthy}
+      init: {condition: service_completed_successfully}
+  server:
+    <<: *app
+    ports: ["127.0.0.1:${BRAIN_PORT:-8787}:8080"]
+    depends_on:
+      migrate: {condition: service_completed_successfully}
+    healthcheck:
+      test: [CMD, brainctl, doctor, --url, "http://localhost:8080"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+  worker:
+    <<: *app
+    entrypoint: [brain-worker]
+    depends_on:
+      migrate: {condition: service_completed_successfully}
+  ollama:
+    image: ollama/ollama:0.17.0
+    profiles: [ollama]
+    volumes: [ollama:/root/.ollama]
+  test:
+    build: {context: ., target: test}
+    profiles: [test]
+    environment:
+      BRAIN_TEST_URL: http://server:8080
+      BRAIN_TEST_TOKEN_FILE: /data/secrets/.local/bootstrap-token
+      BRAIN_TEST_DATABASE: postgres://brain:brain@postgres:5432/brain?sslmode=disable
+    volumes: [secrets:/data/secrets:ro]
+    depends_on:
+      server: {condition: service_healthy}
+  fuse-test:
+    <<: *app
+    profiles: [fuse]
+    user: root
+    devices: [/dev/fuse:/dev/fuse]
+    cap_add: [SYS_ADMIN]
+    security_opt: [apparmor:unconfined]
+    entrypoint: [/bin/sh, /usr/local/bin/brain-fuse-test]
+    volumes: [secrets:/data/secrets:ro]
+    environment:
+      <<: *env
+      BRAIN_URL: http://server:8080
+      BRAIN_SPACE: ${BRAIN_SPACE:-}
+    depends_on:
+      server: {condition: service_healthy}
+volumes:
+  secrets:
+  postgres:
+  blobs:
+  ollama:

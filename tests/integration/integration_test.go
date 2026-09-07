@@ -1,0 +1,186 @@
+package integration
+
+import (
+	"bytes"
+	"connectrpc.com/connect"
+	"context"
+	"encoding/json"
+	"fmt"
+	"github.com/brainmemory/brain/filesystem"
+	brainv1 "github.com/brainmemory/brain/gen/brain/v1"
+	"github.com/brainmemory/brain/sdk"
+	"google.golang.org/protobuf/types/known/timestamppb"
+	"io"
+	"net/http"
+	"os"
+	"path/filepath"
+	"strings"
+	"testing"
+	"time"
+)
+
+func TestMemoryLifecycle(t *testing.T) {
+	url := os.Getenv("BRAIN_TEST_URL")
+	if url == "" {
+		t.Skip("requires Docker integration stack")
+	}
+	token := os.Getenv("BRAIN_TEST_TOKEN")
+	if f := os.Getenv("BRAIN_TEST_TOKEN_FILE"); f != "" {
+		b, e := os.ReadFile(f)
+		if e != nil {
+			t.Fatal(e)
+		}
+		token = strings.TrimSpace(string(b))
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), 120*time.Second)
+	defer cancel()
+	c := sdk.New(url, token)
+	post := func(route string, body any) map[string]any {
+		t.Helper()
+		b, _ := json.Marshal(body)
+		req, e := http.NewRequestWithContext(ctx, "POST", url+"/api/"+route, bytes.NewReader(b))
+		if e != nil {
+			t.Fatal(e)
+		}
+		req.Header.Set("Authorization", "Bearer "+token)
+		req.Header.Set("Content-Type", "application/json")
+		res, e := http.DefaultClient.Do(req)
+		if e != nil {
+			t.Fatal(e)
+		}
+		defer res.Body.Close()
+		data, _ := io.ReadAll(res.Body)
+		if res.StatusCode != 200 {
+			t.Fatalf("%s: %d %s", route, res.StatusCode, data)
+		}
+		var v map[string]any
+		if e = json.Unmarshal(data, &v); e != nil {
+			t.Fatal(e)
+		}
+		return v
+	}
+	sp := post("spaces", map[string]string{"name": "Integration " + time.Now().Format(time.RFC3339Nano)})["id"].(string)
+	post("model?space="+sp, map[string]string{"provider": "scripted", "model": "fixture-v1", "embedding_model": "fixture-v1", "embedding_provider":"scripted"})
+	event := func(id, text string, offset time.Duration) *brainv1.Event {
+		return &brainv1.Event{EventId: id, SessionId: "s1", Actor: &brainv1.Actor{Role: "user"}, Source: &brainv1.Source{Id: "fixture"}, OccurredAt: timestamppb.New(time.Now().Add(offset)), Payload: &brainv1.Event_Message{Message: &brainv1.Message{Text: text}}}
+	}
+	e1 := event("e1", "Launch: September", -time.Hour)
+	e2 := event("e2", "Format: PDF", -30*time.Minute)
+	batch := &brainv1.AppendEventsRequest{SpaceId: sp, Events: []*brainv1.Event{e1, e2}}
+	a, e := c.Ingestion.AppendEvents(ctx, connect.NewRequest(batch))
+	if e != nil || a.Msg.Accepted != 2 {
+		t.Fatalf("append: %v %v", a, e)
+	}
+	a, e = c.Ingestion.AppendEvents(ctx, connect.NewRequest(batch))
+	if e != nil || a.Msg.Duplicates != 2 {
+		t.Fatalf("duplicate: %v %v", a, e)
+	}
+	e1.GetMessage().Text = "changed"
+	if _, e = c.Ingestion.AppendEvents(ctx, connect.NewRequest(batch)); connect.CodeOf(e) != connect.CodeFailedPrecondition {
+		t.Fatalf("conflicting duplicate accepted: %v", e)
+	}
+	e1.GetMessage().Text = "Launch: September"
+	wait := func(old string) string {
+		t.Helper()
+		ticker := time.NewTicker(250 * time.Millisecond)
+		defer ticker.Stop()
+		for {
+			select {
+			case <-ctx.Done():
+				t.Fatal("compilation timed out")
+				return ""
+			case <-ticker.C:
+				r, e := c.Ingestion.GetIngestionStatus(ctx, connect.NewRequest(&brainv1.GetIngestionStatusRequest{SpaceId: sp}))
+				if e != nil {
+					t.Fatal(e)
+				}
+				if r.Msg.JobStatus == "failed" {
+					t.Fatal(r.Msg.LastError)
+				}
+				if r.Msg.Revision != "" && r.Msg.Revision != old && r.Msg.Pending == 0 {
+					return r.Msg.Revision
+				}
+			}
+		}
+	}
+	first := wait("")
+	manifest, e := c.Memory.GetManifest(ctx, connect.NewRequest(&brainv1.GetManifestRequest{SpaceId: sp}))
+	if e != nil || len(manifest.Msg.Files) < 5 {
+		t.Fatalf("manifest: %v %v", manifest, e)
+	}
+	grpc := sdk.New(url, token, connect.WithGRPC())
+	g, e := grpc.Memory.GetManifest(ctx, connect.NewRequest(&brainv1.GetManifestRequest{SpaceId: sp}))
+	if e != nil {
+		t.Fatal("gRPC", e)
+	}
+	if g.Msg.Revision != first {
+		t.Fatal("gRPC revision differs")
+	}
+	reqBody := `{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"memory_index","arguments":{"space_id":"` + sp + `"}}}`
+	req, _ := http.NewRequestWithContext(ctx, "POST", url+"/mcp", strings.NewReader(reqBody))
+	req.Header.Set("Authorization", "Bearer "+token)
+	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("Accept", "application/json, text/event-stream")
+	req.Header.Set("MCP-Protocol-Version", "2025-06-18")
+	res, e := http.DefaultClient.Do(req)
+	if e != nil {
+		t.Fatal(e)
+	}
+	mb, _ := io.ReadAll(res.Body)
+	res.Body.Close()
+	if res.StatusCode != 200 || !bytes.Contains(mb, []byte("Knowledge index")) {
+		t.Fatalf("MCP: %d %s", res.StatusCode, mb)
+	}
+	cache, e := filesystem.New(ctx, c, sp, first, t.TempDir(), 8<<20)
+	if e != nil {
+		t.Fatal(e)
+	}
+	target := filepath.Join(t.TempDir(), "snapshot")
+	if e = cache.Sync(ctx, target); e != nil {
+		t.Fatal(e)
+	}
+	if _, e = os.ReadFile(filepath.Join(target, "knowledge/index.md")); e != nil {
+		t.Fatal(e)
+	}
+	cache.Client = sdk.New("http://127.0.0.1:1", token)
+	if _, e = cache.Read(ctx, "knowledge/index.md"); e != nil {
+		t.Fatal("warm cache required network", e)
+	}
+	if _, e = cache.Read(ctx, "../../etc/passwd"); e == nil {
+		t.Fatal("traversal accepted")
+	}
+	_, e = c.Ingestion.AppendEvents(ctx, connect.NewRequest(&brainv1.AppendEventsRequest{SpaceId: sp, Events: []*brainv1.Event{event("e3", "Launch: October", 0)}}))
+	if e != nil {
+		t.Fatal(e)
+	}
+	second := wait(first)
+	search, e := c.Memory.Search(ctx, connect.NewRequest(&brainv1.SearchRequest{SpaceId: sp, Query: "October"}))
+	if e != nil || len(search.Msg.Hits) == 0 {
+		t.Fatalf("correction not retrieved: %v %v", search, e)
+	}
+	ev, e := c.Memory.GetEvidence(ctx, connect.NewRequest(&brainv1.GetEvidenceRequest{SpaceId: sp, EventId: "e3"}))
+	if e != nil || ev.Msg.Event.GetMessage().Text != "Launch: October" {
+		t.Fatal("evidence mismatch", e)
+	}
+	contextRes, e := c.Memory.GetContext(ctx, connect.NewRequest(&brainv1.GetContextRequest{SpaceId: sp, Query: "Launch"}))
+	if e != nil || !strings.Contains(contextRes.Msg.Synthesis, "October") {
+		t.Fatalf("context: %v %v", contextRes, e)
+	}
+	post("forget?space="+sp, map[string]string{"event_id": "e3"})
+	if _, e = c.Memory.GetEvidence(ctx, connect.NewRequest(&brainv1.GetEvidenceRequest{SpaceId: sp, EventId: "e3"})); connect.CodeOf(e) != connect.CodeNotFound {
+		t.Fatal("forgotten evidence readable", e)
+	}
+	if _, e = c.Memory.GetManifest(ctx, connect.NewRequest(&brainv1.GetManifestRequest{SpaceId: sp, Revision: second})); e == nil {
+		t.Fatal("old revision after forgetting readable")
+	}
+	wait("")
+	if _, e = c.Ingestion.AppendEvents(ctx, connect.NewRequest(&brainv1.AppendEventsRequest{SpaceId: sp, Events: []*brainv1.Event{event("e3", "Launch: October", 0)}})); e == nil {
+		t.Fatal("tombstoned event resurrected")
+	}
+	bad := sdk.New(url, "invalid")
+	if _, e = bad.Memory.GetManifest(ctx, connect.NewRequest(&brainv1.GetManifestRequest{SpaceId: sp})); e == nil {
+		t.Fatal("unauthenticated read accepted")
+	}
+	t.Logf("space=%s verified revisions %s -> %s", sp, first, second)
+	fmt.Fprint(io.Discard, sp)
+}

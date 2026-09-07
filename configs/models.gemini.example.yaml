@@ -1,0 +1,14 @@
+version: 1
+generation:
+  provider: openai
+  model: REPLACE_GENERATION_MODEL
+  api_key_env: OPENAI_API_KEY
+embedding:
+  provider: gemini
+  model: REPLACE_GEMINI_EMBEDDING_MODEL
+  api_key_env: GEMINI_API_KEY
+  dimensions: 768
+budgets:
+  max_steps: 12
+  max_tokens: 32000
+  daily_tokens: 1000000
