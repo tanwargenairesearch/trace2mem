@@ -10,10 +10,10 @@ import (
 	"errors"
 	"flag"
 	"fmt"
-	"github.com/brainmemory/brain/filesystem"
-	brainv1 "github.com/brainmemory/brain/gen/brain/v1"
-	"github.com/brainmemory/brain/internal/config"
-	"github.com/brainmemory/brain/sdk"
+	"github.com/trace2mem/trace2mem/filesystem"
+	trace2memv1 "github.com/trace2mem/trace2mem/gen/trace2mem/v1"
+	"github.com/trace2mem/trace2mem/internal/config"
+	"github.com/trace2mem/trace2mem/sdk"
 	"io"
 	"net/http"
 	"os"
@@ -41,17 +41,17 @@ func main() {
 }
 func run() error {
 	if len(os.Args) < 2 {
-		return errors.New("usage: brainctl setup|configure|doctor|spaces|create|import|status|compile|search|context|sync|mount|export|forget [flags]")
+		return errors.New("usage: trace2mem setup|configure|doctor|spaces|create|import|status|compile|search|context|sync|mount|export|forget [flags]")
 	}
 	command := os.Args[1]
 	flags := flag.NewFlagSet(command, flag.ContinueOnError)
-	url := flags.String("url", env("BRAIN_URL", "http://localhost:8787"), "server URL")
-	token := flags.String("token", os.Getenv("BRAIN_TOKEN"), "access token (prefer BRAIN_TOKEN)")
-	space := flags.String("space", os.Getenv("BRAIN_SPACE"), "memory space ID")
+	url := flags.String("url", env("TRACE2MEM_URL", "http://localhost:8787"), "server URL")
+	token := flags.String("token", os.Getenv("TRACE2MEM_TOKEN"), "access token (prefer TRACE2MEM_TOKEN)")
+	space := flags.String("space", os.Getenv("TRACE2MEM_SPACE"), "memory space ID")
 	file := flags.String("file", "", "input JSONL file")
 	target := flags.String("target", "", "snapshot or mount directory")
 	revision := flags.String("revision", "", "published revision")
-	cache := flags.String("cache", filepath.Join(os.TempDir(), "brain-cache"), "local cache directory")
+	cache := flags.String("cache", filepath.Join(os.TempDir(), "trace2mem-cache"), "local cache directory")
 	query := flags.String("query", "", "retrieval query")
 	name := flags.String("name", "", "space name")
 	event := flags.String("event", "", "event ID")
@@ -144,25 +144,25 @@ func run() error {
 		defer f.Close()
 		return c.Import(ctx, *space, sdk.JSONL{Reader: f})
 	case "status":
-		r, e := c.Ingestion.GetIngestionStatus(ctx, connect.NewRequest(&brainv1.GetIngestionStatusRequest{SpaceId: *space}))
+		r, e := c.Ingestion.GetIngestionStatus(ctx, connect.NewRequest(&trace2memv1.GetIngestionStatusRequest{SpaceId: *space}))
 		if e != nil {
 			return e
 		}
 		return output(r.Msg)
 	case "compile":
-		r, e := c.Ingestion.RequestCompilation(ctx, connect.NewRequest(&brainv1.RequestCompilationRequest{SpaceId: *space}))
+		r, e := c.Ingestion.RequestCompilation(ctx, connect.NewRequest(&trace2memv1.RequestCompilationRequest{SpaceId: *space}))
 		if e != nil {
 			return e
 		}
 		return output(r.Msg)
 	case "search":
-		r, e := c.Memory.Search(ctx, connect.NewRequest(&brainv1.SearchRequest{SpaceId: *space, Query: *query, Revision: *revision}))
+		r, e := c.Memory.Search(ctx, connect.NewRequest(&trace2memv1.SearchRequest{SpaceId: *space, Query: *query, Revision: *revision}))
 		if e != nil {
 			return e
 		}
 		return output(r.Msg)
 	case "context":
-		r, e := c.Memory.GetContext(ctx, connect.NewRequest(&brainv1.GetContextRequest{SpaceId: *space, Query: *query}))
+		r, e := c.Memory.GetContext(ctx, connect.NewRequest(&trace2memv1.GetContextRequest{SpaceId: *space, Query: *query}))
 		if e != nil {
 			return e
 		}
@@ -223,7 +223,7 @@ func run() error {
 			return e
 		}
 		if *git {
-			for _, args := range [][]string{{"init"}, {"add", "."}, {"-c", "user.name=Brain export", "-c", "user.email=export@localhost", "commit", "-m", "Export memory revision " + ca.Manifest().Revision}} {
+			for _, args := range [][]string{{"init"}, {"add", "."}, {"-c", "user.name=Trace2Mem export", "-c", "user.email=export@localhost", "commit", "-m", "Export memory revision " + ca.Manifest().Revision}} {
 				cmd := exec.CommandContext(ctx, "git", args...)
 				cmd.Dir = *target
 				cmd.Stdout = os.Stdout

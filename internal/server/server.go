@@ -7,13 +7,13 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/brainmemory/brain/gen/brain/v1/brainv1connect"
-	"github.com/brainmemory/brain/internal/blob"
-	"github.com/brainmemory/brain/internal/config"
-	"github.com/brainmemory/brain/internal/domain"
-	"github.com/brainmemory/brain/internal/dream"
-	"github.com/brainmemory/brain/internal/store"
 	"github.com/coreos/go-oidc/v3/oidc"
+	"github.com/trace2mem/trace2mem/gen/trace2mem/v1/trace2memv1connect"
+	"github.com/trace2mem/trace2mem/internal/blob"
+	"github.com/trace2mem/trace2mem/internal/config"
+	"github.com/trace2mem/trace2mem/internal/domain"
+	"github.com/trace2mem/trace2mem/internal/dream"
+	"github.com/trace2mem/trace2mem/internal/store"
 	"log/slog"
 	"net/http"
 	"strings"
@@ -60,9 +60,9 @@ func rpcerr(err error) error {
 func (s *Server) Handler() http.Handler {
 	mux := http.NewServeMux()
 	opts := []connect.HandlerOption{connect.WithReadMaxBytes(12 << 20), connect.WithSendMaxBytes(16 << 20)}
-	p, h := brainv1connect.NewIngestionServiceHandler(s, opts...)
+	p, h := trace2memv1connect.NewIngestionServiceHandler(s, opts...)
 	mux.Handle(p, s.auth(h))
-	p, h = brainv1connect.NewMemoryServiceHandler(s, opts...)
+	p, h = trace2memv1connect.NewMemoryServiceHandler(s, opts...)
 	mux.Handle(p, s.auth(h))
 	mux.Handle("/mcp", s.auth(s.mcp()))
 	mux.Handle("/api/", s.auth(http.HandlerFunc(s.management)))
@@ -115,7 +115,7 @@ func (s *Server) auth(next http.Handler) http.Handler {
 				http.Error(w, "origin rejected", 403)
 				return
 			}
-			if token == "" && r.Header.Get("X-Brain-CSRF") != "1" {
+			if token == "" && r.Header.Get("X-Trace2Mem-CSRF") != "1" {
 				http.Error(w, "CSRF header required", 403)
 				return
 			}

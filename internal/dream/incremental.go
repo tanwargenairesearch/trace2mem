@@ -4,9 +4,9 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
-	brainv1 "github.com/brainmemory/brain/gen/brain/v1"
-	"github.com/brainmemory/brain/internal/domain"
 	"github.com/jackc/pgx/v5"
+	trace2memv1 "github.com/trace2mem/trace2mem/gen/trace2mem/v1"
+	"github.com/trace2mem/trace2mem/internal/domain"
 	"google.golang.org/protobuf/encoding/protojson"
 )
 
@@ -70,7 +70,7 @@ func (e *Engine) sources(ctx context.Context, l domain.Lease, ids map[string]boo
 		if err != nil {
 			return nil, err
 		}
-		var v brainv1.Event
+		var v trace2memv1.Event
 		if err = protojson.Unmarshal(b, &v); err != nil {
 			return nil, err
 		}

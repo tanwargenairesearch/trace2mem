@@ -69,8 +69,8 @@ resource "google_sql_database_instance" "main" {
   }
   depends_on = [google_service_networking_connection.sql]
 }
-resource "google_sql_database" "brain" {
-  name     = "brain"
+resource "google_sql_database" "trace2mem" {
+  name     = "trace2mem"
   instance = google_sql_database_instance.main.name
 }
 resource "google_sql_user" "iam" {
@@ -147,16 +147,16 @@ resource "google_secret_manager_secret_iam_member" "bootstrap" {
 }
 locals {
   shared_env = {
-    INSTANCE_CONNECTION_NAME = google_sql_database_instance.main.connection_name
-    GCS_BUCKET               = google_storage_bucket.blobs.name
-    KMS_KEY                  = google_kms_crypto_key.credentials.id
-    PUBLIC_URL               = var.public_url
-    OIDC_ISSUER              = var.oidc_issuer
-    OIDC_CLIENT_ID           = var.oidc_client_id
-    OAUTH_AUDIENCE           = var.oauth_audience
-    BRAIN_MODEL_ENDPOINTS    = var.model_endpoints
+    INSTANCE_CONNECTION_NAME  = google_sql_database_instance.main.connection_name
+    GCS_BUCKET                = google_storage_bucket.blobs.name
+    KMS_KEY                   = google_kms_crypto_key.credentials.id
+    PUBLIC_URL                = var.public_url
+    OIDC_ISSUER               = var.oidc_issuer
+    OIDC_CLIENT_ID            = var.oidc_client_id
+    OAUTH_AUDIENCE            = var.oauth_audience
+    TRACE2MEM_MODEL_ENDPOINTS = var.model_endpoints
   }
-  db_urls = { for role in ["api", "worker", "migration"] : role => "postgres://${replace(google_sql_user.iam[role].name, "@", "%40")}@localhost/brain?sslmode=disable" }
+  db_urls = { for role in ["api", "worker", "migration"] : role => "postgres://${replace(google_sql_user.iam[role].name, "@", "%40")}@localhost/trace2mem?sslmode=disable" }
 }
 resource "google_cloud_run_v2_service" "api" {
   count               = var.deploy_app ? 1 : 0
@@ -189,7 +189,7 @@ resource "google_cloud_run_v2_service" "api" {
         }
       }
       env {
-        name = "BRAIN_BOOTSTRAP_TOKEN"
+        name = "TRACE2MEM_BOOTSTRAP_TOKEN"
         value_source {
           secret_key_ref {
             secret  = google_secret_manager_secret.bootstrap.secret_id
@@ -245,7 +245,7 @@ resource "google_cloud_run_v2_worker_pool" "worker" {
     }
     containers {
       image   = var.image
-      command = ["brain-worker"]
+      command = ["trace2mem-worker"]
       resources { limits = { cpu = "1", memory = "1Gi" } }
       dynamic "env" {
         for_each = merge(local.shared_env, { DATABASE_URL = local.db_urls.worker })
@@ -289,5 +289,5 @@ resource "google_cloud_run_v2_job" "migrate" {
 }
 output "service_url" { value = try(google_cloud_run_v2_service.api[0].uri, null) }
 output "database_users" { value = { for k, u in google_sql_user.iam : k => u.name } }
-output "image_repository" { value = "${var.region}-docker.pkg.dev/${var.project_id}/${var.name}/brain" }
+output "image_repository" { value = "${var.region}-docker.pkg.dev/${var.project_id}/${var.name}/trace2mem" }
 output "bootstrap_secret" { value = google_secret_manager_secret.bootstrap.secret_id }

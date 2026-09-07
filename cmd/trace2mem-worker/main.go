@@ -3,8 +3,8 @@ package main
 import (
 	"context"
 	"errors"
-	"github.com/brainmemory/brain/internal/app"
-	"github.com/brainmemory/brain/internal/dream"
+	"github.com/trace2mem/trace2mem/internal/app"
+	"github.com/trace2mem/trace2mem/internal/dream"
 	"log/slog"
 	"os"
 	"os/signal"

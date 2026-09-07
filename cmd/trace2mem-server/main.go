@@ -3,10 +3,10 @@ package main
 import (
 	"context"
 	"errors"
-	"github.com/brainmemory/brain/internal/app"
-	"github.com/brainmemory/brain/internal/dream"
-	"github.com/brainmemory/brain/internal/server"
 	"github.com/coreos/go-oidc/v3/oidc"
+	"github.com/trace2mem/trace2mem/internal/app"
+	"github.com/trace2mem/trace2mem/internal/dream"
+	"github.com/trace2mem/trace2mem/internal/server"
 	"golang.org/x/net/http2"
 	"golang.org/x/net/http2/h2c"
 	"log/slog"

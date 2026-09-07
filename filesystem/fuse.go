@@ -77,5 +77,5 @@ func (f *file) Read(ctx context.Context, h fs.FileHandle, dest []byte, off int64
 	return fuse.ReadResultData(b[off:end]), 0
 }
 func Mount(c *Cache, target string) (*fuse.Server, error) {
-	return fs.Mount(target, &root{cache: c}, &fs.Options{MountOptions: fuse.MountOptions{Options: []string{"ro"}, Name: "brain", FsName: "brain-" + c.manifest.Revision}})
+	return fs.Mount(target, &root{cache: c}, &fs.Options{MountOptions: fuse.MountOptions{Options: []string{"ro"}, Name: "trace2mem", FsName: "trace2mem-" + c.manifest.Revision}})
 }

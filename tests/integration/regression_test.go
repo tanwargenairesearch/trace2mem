@@ -8,10 +8,10 @@ import (
 	"connectrpc.com/connect"
 	"errors"
 	"fmt"
-	brainv1 "github.com/brainmemory/brain/gen/brain/v1"
-	"github.com/brainmemory/brain/internal/domain"
-	"github.com/brainmemory/brain/internal/store"
-	"github.com/brainmemory/brain/sdk"
+	trace2memv1 "github.com/trace2mem/trace2mem/gen/trace2mem/v1"
+	"github.com/trace2mem/trace2mem/internal/domain"
+	"github.com/trace2mem/trace2mem/internal/store"
+	"github.com/trace2mem/trace2mem/sdk"
 	"google.golang.org/protobuf/types/known/timestamppb"
 	"os"
 	"strings"
@@ -22,7 +22,7 @@ import (
 
 func database(t *testing.T) *store.Store {
 	t.Helper()
-	url := os.Getenv("BRAIN_TEST_DATABASE")
+	url := os.Getenv("TRACE2MEM_TEST_DATABASE")
 	if url == "" {
 		t.Skip("requires Docker database")
 	}
@@ -103,7 +103,7 @@ func TestConcurrentBudgetReservation(t *testing.T) {
 func TestValidTokenIsolation(t *testing.T) {
 	s := database(t)
 	ctx := context.Background()
-	url := os.Getenv("BRAIN_TEST_URL")
+	url := os.Getenv("TRACE2MEM_TEST_URL")
 	if url == "" {
 		t.Skip("server required")
 	}
@@ -129,13 +129,13 @@ func TestValidTokenIsolation(t *testing.T) {
 			t.Fatal(e)
 		}
 		c := sdk.New(url, token)
-		if _, e = c.Memory.GetManifest(ctx, connect.NewRequest(&brainv1.GetManifestRequest{SpaceId: sp})); e != nil {
+		if _, e = c.Memory.GetManifest(ctx, connect.NewRequest(&trace2memv1.GetManifestRequest{SpaceId: sp})); e != nil {
 			t.Fatal("authorized read rejected", e)
 		}
-		if _, e = c.Memory.GetManifest(ctx, connect.NewRequest(&brainv1.GetManifestRequest{SpaceId: other})); connect.CodeOf(e) != connect.CodePermissionDenied {
+		if _, e = c.Memory.GetManifest(ctx, connect.NewRequest(&trace2memv1.GetManifestRequest{SpaceId: other})); connect.CodeOf(e) != connect.CodePermissionDenied {
 			t.Fatal("cross-space access allowed", role, e)
 		}
-		_, e = c.Ingestion.RequestCompilation(ctx, connect.NewRequest(&brainv1.RequestCompilationRequest{SpaceId: sp}))
+		_, e = c.Ingestion.RequestCompilation(ctx, connect.NewRequest(&trace2memv1.RequestCompilationRequest{SpaceId: sp}))
 		if role == "reader" && connect.CodeOf(e) != connect.CodePermissionDenied {
 			t.Fatal("reader write allowed", e)
 		}
@@ -160,7 +160,7 @@ func TestIncrementalHistoryBeyondPromptLimit(t *testing.T) {
 	}
 	events := []store.InputEvent{}
 	for i := 0; i < 180; i++ {
-		ev := &brainv1.Event{EventId: fmt.Sprintf("e%03d", i), SessionId: "s1", OccurredAt: timestamppb.Now(), Actor: &brainv1.Actor{Role: "user"}, Source: &brainv1.Source{Id: "fixture"}, Payload: &brainv1.Event_Message{Message: &brainv1.Message{Text: fmt.Sprintf("Topic%03d: ", i) + strings.Repeat("bounded evidence ", 240)}}}
+		ev := &trace2memv1.Event{EventId: fmt.Sprintf("e%03d", i), SessionId: "s1", OccurredAt: timestamppb.Now(), Actor: &trace2memv1.Actor{Role: "user"}, Source: &trace2memv1.Source{Id: "fixture"}, Payload: &trace2memv1.Event_Message{Message: &trace2memv1.Message{Text: fmt.Sprintf("Topic%03d: ", i) + strings.Repeat("bounded evidence ", 240)}}}
 		// Use generated Protobuf JSON, not the Go oneof representation.
 		raw := fmt.Sprintf(`{"eventId":"e%03d","sessionId":"s1","occurredAt":"2026-09-07T12:00:00Z","actor":{"role":"user"},"source":{"id":"fixture"},"message":{"text":%q}}`, i, ev.GetMessage().Text)
 		events = append(events, store.InputEvent{ID: ev.EventId, Session: "s1", Hash: domain.Hash([]byte(raw)), JSON: []byte(raw), Occurred: time.Now()})

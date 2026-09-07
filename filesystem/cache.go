@@ -7,9 +7,9 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	brainv1 "github.com/brainmemory/brain/gen/brain/v1"
-	"github.com/brainmemory/brain/internal/domain"
-	"github.com/brainmemory/brain/sdk"
+	trace2memv1 "github.com/trace2mem/trace2mem/gen/trace2mem/v1"
+	"github.com/trace2mem/trace2mem/internal/domain"
+	"github.com/trace2mem/trace2mem/sdk"
 	"golang.org/x/sys/unix"
 	"google.golang.org/protobuf/proto"
 	"os"
@@ -22,14 +22,14 @@ type Cache struct {
 	Client      *sdk.Client
 	space, root string
 	budgetRoot  string
-	manifest    *brainv1.GetManifestResponse
+	manifest    *trace2memv1.GetManifestResponse
 	MaxBytes    int64
 	mu          sync.Mutex
 	locks       map[string]*sync.Mutex
 }
 
 func New(ctx context.Context, c *sdk.Client, space, revision, root string, max int64) (*Cache, error) {
-	res, e := c.Memory.GetManifest(ctx, connect.NewRequest(&brainv1.GetManifestRequest{SpaceId: space, Revision: revision}))
+	res, e := c.Memory.GetManifest(ctx, connect.NewRequest(&trace2memv1.GetManifestRequest{SpaceId: space, Revision: revision}))
 	if e != nil {
 		return nil, e
 	}
@@ -72,7 +72,7 @@ func (c *Cache) Read(ctx context.Context, path string) ([]byte, error) {
 	if !domain.ValidPath(path) {
 		return nil, errors.New("invalid path")
 	}
-	var file *brainv1.File
+	var file *trace2memv1.File
 	for _, f := range c.manifest.Files {
 		if f.Path == path {
 			file = f
@@ -99,7 +99,7 @@ func (c *Cache) Read(ctx context.Context, path string) ([]byte, error) {
 	if e != nil && !os.IsNotExist(e) {
 		return nil, e
 	}
-	res, e := c.Client.Memory.ReadFile(ctx, connect.NewRequest(&brainv1.ReadFileRequest{SpaceId: c.space, Revision: c.manifest.Revision, Path: path}))
+	res, e := c.Client.Memory.ReadFile(ctx, connect.NewRequest(&trace2memv1.ReadFileRequest{SpaceId: c.space, Revision: c.manifest.Revision, Path: path}))
 	if e != nil {
 		return nil, fmt.Errorf("uncached file unavailable: %w", e)
 	}
@@ -217,7 +217,7 @@ func (c *Cache) SyncSelected(ctx context.Context, target string, paths []string)
 	if e := os.MkdirAll(parent, 0700); e != nil {
 		return e
 	}
-	tmp, e := os.MkdirTemp(parent, ".brain-snapshot-")
+	tmp, e := os.MkdirTemp(parent, ".trace2mem-snapshot-")
 	if e != nil {
 		return e
 	}
@@ -247,6 +247,6 @@ func (c *Cache) SyncSelected(ctx context.Context, target string, paths []string)
 }
 
 // Manifest returns a copy so callers cannot change a cache's pinned revision.
-func (c *Cache) Manifest() *brainv1.GetManifestResponse {
-	return proto.Clone(c.manifest).(*brainv1.GetManifestResponse)
+func (c *Cache) Manifest() *trace2memv1.GetManifestResponse {
+	return proto.Clone(c.manifest).(*trace2memv1.GetManifestResponse)
 }

@@ -64,4 +64,10 @@ Passed `TestProviderCapabilities` using `moonshotai/kimi-k3` through OpenRouter 
 
 Reproduced the login failure in system Chrome: `Referrer-Policy: no-referrer` caused the form POST to send `Origin: null`, which the server correctly rejected. Changed the response policy to `strict-origin-when-cross-origin`; same-origin login succeeds while foreign/null origins remain rejected by regression tests. Login/public URL trailing slash handling is consistent.
 
-The web console now uses a Perplexity-inspired warm neutral/teal palette, sans-serif typography, sidebar navigation, shared space selector/status, and an Ask Brain input connected to the existing cited context API. Desktop and 390px mobile Chrome checks passed, with no horizontal overflow or JavaScript errors. Server race tests passed. Three-lens review completed; hidden space/status findings were fixed and re-reviewed.
+The web console now uses a Perplexity-inspired warm neutral/teal palette, sans-serif typography, sidebar navigation, shared space selector/status, and an Ask Trace2Mem input connected to the existing cited context API. Desktop and 390px mobile Chrome checks passed, with no horizontal overflow or JavaScript errors. Server race tests passed. Three-lens review completed; hidden space/status findings were fixed and re-reviewed.
+
+## Trace2Mem rename — 2026-09-07
+
+Renamed product branding, CLI/server/worker binaries, Go module and generated Protobuf namespace, MCP server identity, cookies/CSRF header, environment variables, Docker images/project, Terraform defaults, fixtures, scripts, and release documentation. Fresh installs use Trace2Mem storage names. The local deployment reuses original volumes/database through private configuration and retains the same bootstrap token. Pre-switch baseline: 19 spaces, 555 events. Three-lens rename review: zero findings. This is an intentional pre-release API namespace change, not an additive compatibility claim.
+
+Rename verification passed: Go race suite; Protobuf lint; Terraform validation/mock test; Docker HTTP/gRPC/MCP lifecycle and incremental regressions; read-only Linux FUSE; Chrome login/navigation/mobile checks with no JavaScript errors. Immediately after switching containers, counts remained 19 spaces and 555 events. Existing bootstrap credentials were used successfully by the renamed app.

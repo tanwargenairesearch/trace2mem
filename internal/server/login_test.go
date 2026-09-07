@@ -2,7 +2,7 @@ package server
 
 import (
 	"encoding/base64"
-	"github.com/brainmemory/brain/internal/config"
+	"github.com/trace2mem/trace2mem/internal/config"
 	"net/http"
 	"net/http/httptest"
 	"strings"

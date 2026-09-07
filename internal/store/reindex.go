@@ -3,7 +3,7 @@ package store
 import (
 	"context"
 	"encoding/json"
-	"github.com/brainmemory/brain/internal/domain"
+	"github.com/trace2mem/trace2mem/internal/domain"
 )
 
 func (s *Store) PublishReindex(ctx context.Context, l domain.Lease, identity string) error {

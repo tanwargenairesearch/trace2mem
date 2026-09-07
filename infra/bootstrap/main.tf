@@ -20,4 +20,4 @@ resource "google_storage_bucket" "state" {
   versioning { enabled = true }
   lifecycle { prevent_destroy = true }
 }
-output "backend_config" { value = "bucket = \"${google_storage_bucket.state.name}\"\nprefix = \"brain\"" }
+output "backend_config" { value = "bucket = \"${google_storage_bucket.state.name}\"\nprefix = \"trace2mem\"" }

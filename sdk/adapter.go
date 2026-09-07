@@ -5,17 +5,17 @@ import (
 	"bufio"
 	"context"
 	"fmt"
-	brainv1 "github.com/brainmemory/brain/gen/brain/v1"
+	trace2memv1 "github.com/trace2mem/trace2mem/gen/trace2mem/v1"
 	"google.golang.org/protobuf/encoding/protojson"
 	"io"
 )
 
 type Adapter interface {
-	Read(context.Context, func(*brainv1.Event) error) error
+	Read(context.Context, func(*trace2memv1.Event) error) error
 }
 type JSONL struct{ Reader io.Reader }
 
-func (a JSONL) Read(ctx context.Context, emit func(*brainv1.Event) error) error {
+func (a JSONL) Read(ctx context.Context, emit func(*trace2memv1.Event) error) error {
 	s := bufio.NewScanner(a.Reader)
 	s.Buffer(make([]byte, 4096), 1<<20)
 	line := 0
@@ -27,7 +27,7 @@ func (a JSONL) Read(ctx context.Context, emit func(*brainv1.Event) error) error 
 		if len(s.Bytes()) == 0 {
 			continue
 		}
-		var v brainv1.Event
+		var v trace2memv1.Event
 		if e := protojson.Unmarshal(s.Bytes(), &v); e != nil {
 			return fmt.Errorf("line %d: %w", line, e)
 		}

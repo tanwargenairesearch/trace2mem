@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/brainmemory/brain/internal/domain"
+	"github.com/trace2mem/trace2mem/internal/domain"
 	"unicode/utf8"
 )
 

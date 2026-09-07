@@ -77,7 +77,7 @@ resource "google_monitoring_alert_policy" "compilation_failures" {
 output "database_bootstrap_sql" {
   value = <<-SQL
     CREATE EXTENSION IF NOT EXISTS vector;
-    GRANT CREATE ON DATABASE brain TO "${google_sql_user.iam["migration"].name}";
+    GRANT CREATE ON DATABASE trace2mem TO "${google_sql_user.iam["migration"].name}";
     GRANT USAGE, CREATE ON SCHEMA public TO "${google_sql_user.iam["migration"].name}";
     GRANT USAGE ON SCHEMA public TO "${google_sql_user.iam["api"].name}", "${google_sql_user.iam["worker"].name}";
     ALTER DEFAULT PRIVILEGES FOR ROLE "${google_sql_user.iam["migration"].name}" IN SCHEMA public GRANT SELECT,INSERT,UPDATE,DELETE ON TABLES TO "${google_sql_user.iam["api"].name}", "${google_sql_user.iam["worker"].name}";

@@ -23,11 +23,11 @@ jobs:
           mkdir -p dist
           for platform in linux darwin; do
             for arch in amd64 arm64; do
-              CGO_ENABLED=0 GOOS="$platform" GOARCH="$arch" go build -trimpath -o dist/brainctl ./cmd/brainctl
-              tar -czf "dist/brainctl-${platform}-${arch}.tar.gz" -C dist brainctl
+              CGO_ENABLED=0 GOOS="$platform" GOARCH="$arch" go build -trimpath -o dist/trace2mem ./cmd/trace2mem
+              tar -czf "dist/trace2mem-${platform}-${arch}.tar.gz" -C dist trace2mem
             done
           done
-          rm dist/brainctl
+          rm dist/trace2mem
           sha256sum dist/*.tar.gz > dist/checksums.txt
       - name: Publish images with SBOM and provenance
         env:

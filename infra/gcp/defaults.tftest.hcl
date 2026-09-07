@@ -1,7 +1,7 @@
 mock_provider "google" {}
 run "small_default" {
   command = plan
-  variables { project_id = "brain-test-project" }
+  variables { project_id = "trace2mem-test-project" }
   assert {
     condition     = google_sql_database_instance.main.settings[0].availability_type == "ZONAL"
     error_message = "Default database must remain zonal."

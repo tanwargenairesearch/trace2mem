@@ -1,33 +1,33 @@
-name: brain
+name: trace2mem
 x-app: &app
   build: {context: ., target: runtime}
-  image: brain:local
+  image: trace2mem:local
   environment: &env
-    DATABASE_URL: postgres://brain:brain@postgres:5432/brain?sslmode=disable
-    BRAIN_BOOTSTRAP_TOKEN_FILE: /data/secrets/.local/bootstrap-token
-    BRAIN_MASTER_KEY_FILE: /data/secrets/.local/master-key
+    DATABASE_URL: ${TRACE2MEM_DATABASE_URL:-postgres://trace2mem:trace2mem@postgres:5432/trace2mem?sslmode=disable}
+    TRACE2MEM_BOOTSTRAP_TOKEN_FILE: /data/secrets/.local/bootstrap-token
+    TRACE2MEM_MASTER_KEY_FILE: /data/secrets/.local/master-key
     BLOB_DIR: /data/blobs
-    PUBLIC_URL: http://localhost:${BRAIN_PORT:-8787}
-    BRAIN_MODEL_ENDPOINTS: ${BRAIN_MODEL_ENDPOINTS:-http://ollama:11434,http://host.docker.internal:11434}
-    BRAIN_ALLOW_SCRIPTED: ${BRAIN_ALLOW_SCRIPTED:-false}
+    PUBLIC_URL: http://localhost:${TRACE2MEM_PORT:-8787}
+    TRACE2MEM_MODEL_ENDPOINTS: ${TRACE2MEM_MODEL_ENDPOINTS:-http://ollama:11434,http://host.docker.internal:11434}
+    TRACE2MEM_ALLOW_SCRIPTED: ${TRACE2MEM_ALLOW_SCRIPTED:-false}
   volumes: [blobs:/data/blobs, secrets:/data/secrets:ro]
   extra_hosts: ["host.docker.internal:host-gateway"]
 services:
   init:
     build: {context: ., target: runtime}
-    image: brain:local
-    entrypoint: [brainctl, setup]
+    image: trace2mem:local
+    entrypoint: [trace2mem, setup]
     working_dir: /data/secrets
     volumes: [secrets:/data/secrets]
   postgres:
     image: pgvector/pgvector:pg17
     environment:
-      POSTGRES_USER: brain
-      POSTGRES_PASSWORD: brain
-      POSTGRES_DB: brain
+      POSTGRES_USER: ${TRACE2MEM_DB_USER:-trace2mem}
+      POSTGRES_PASSWORD: ${TRACE2MEM_DB_PASSWORD:-trace2mem}
+      POSTGRES_DB: ${TRACE2MEM_DB_NAME:-trace2mem}
     volumes: [postgres:/var/lib/postgresql/data]
     healthcheck:
-      test: [CMD-SHELL, "pg_isready -U brain"]
+      test: [CMD-SHELL, "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
       interval: 2s
       timeout: 2s
       retries: 30
@@ -39,17 +39,17 @@ services:
       init: {condition: service_completed_successfully}
   server:
     <<: *app
-    ports: ["127.0.0.1:${BRAIN_PORT:-8787}:8080"]
+    ports: ["127.0.0.1:${TRACE2MEM_PORT:-8787}:8080"]
     depends_on:
       migrate: {condition: service_completed_successfully}
     healthcheck:
-      test: [CMD, brainctl, doctor, --url, "http://localhost:8080"]
+      test: [CMD, trace2mem, doctor, --url, "http://localhost:8080"]
       interval: 5s
       timeout: 5s
       retries: 20
   worker:
     <<: *app
-    entrypoint: [brain-worker]
+    entrypoint: [trace2mem-worker]
     depends_on:
       migrate: {condition: service_completed_successfully}
   ollama:
@@ -60,9 +60,9 @@ services:
     build: {context: ., target: test}
     profiles: [test]
     environment:
-      BRAIN_TEST_URL: http://server:8080
-      BRAIN_TEST_TOKEN_FILE: /data/secrets/.local/bootstrap-token
-      BRAIN_TEST_DATABASE: postgres://brain:brain@postgres:5432/brain?sslmode=disable
+      TRACE2MEM_TEST_URL: http://server:8080
+      TRACE2MEM_TEST_TOKEN_FILE: /data/secrets/.local/bootstrap-token
+      TRACE2MEM_TEST_DATABASE: ${TRACE2MEM_DATABASE_URL:-postgres://trace2mem:trace2mem@postgres:5432/trace2mem?sslmode=disable}
     volumes: [secrets:/data/secrets:ro]
     depends_on:
       server: {condition: service_healthy}
@@ -73,16 +73,22 @@ services:
     devices: [/dev/fuse:/dev/fuse]
     cap_add: [SYS_ADMIN]
     security_opt: [apparmor:unconfined]
-    entrypoint: [/bin/sh, /usr/local/bin/brain-fuse-test]
+    entrypoint: [/bin/sh, /usr/local/bin/trace2mem-fuse-test]
     volumes: [secrets:/data/secrets:ro]
     environment:
       <<: *env
-      BRAIN_URL: http://server:8080
-      BRAIN_SPACE: ${BRAIN_SPACE:-}
+      TRACE2MEM_URL: http://server:8080
+      TRACE2MEM_SPACE: ${TRACE2MEM_SPACE:-}
     depends_on:
       server: {condition: service_healthy}
 volumes:
   secrets:
+    name: ${TRACE2MEM_SECRETS_VOLUME:-trace2mem_secrets}
+    external: ${TRACE2MEM_EXTERNAL_VOLUMES:-false}
   postgres:
+    name: ${TRACE2MEM_POSTGRES_VOLUME:-trace2mem_postgres}
+    external: ${TRACE2MEM_EXTERNAL_VOLUMES:-false}
   blobs:
+    name: ${TRACE2MEM_BLOBS_VOLUME:-trace2mem_blobs}
+    external: ${TRACE2MEM_EXTERNAL_VOLUMES:-false}
   ollama:

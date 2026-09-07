@@ -3,9 +3,9 @@ package server
 import (
 	"encoding/base64"
 	"encoding/json"
-	"github.com/brainmemory/brain/internal/domain"
-	"github.com/brainmemory/brain/internal/store"
 	"github.com/coreos/go-oidc/v3/oidc"
+	"github.com/trace2mem/trace2mem/internal/domain"
+	"github.com/trace2mem/trace2mem/internal/store"
 	"golang.org/x/oauth2"
 	"net/http"
 	"strings"
@@ -18,7 +18,7 @@ type session struct {
 }
 
 func (s *Server) cookiePrincipal(r *http.Request) (domain.Principal, error) {
-	c, e := r.Cookie("brain_session")
+	c, e := r.Cookie("trace2mem_session")
 	if e != nil {
 		return domain.Principal{}, domain.ErrForbidden
 	}
@@ -45,7 +45,7 @@ func (s *Server) setSession(w http.ResponseWriter, r *http.Request, p domain.Pri
 	if e != nil {
 		return e
 	}
-	http.SetCookie(w, &http.Cookie{Name: "brain_session", Value: base64.RawURLEncoding.EncodeToString(b), Path: "/", HttpOnly: true, Secure: strings.HasPrefix(s.Config.PublicURL, "https:"), SameSite: http.SameSiteLaxMode, MaxAge: 28800})
+	http.SetCookie(w, &http.Cookie{Name: "trace2mem_session", Value: base64.RawURLEncoding.EncodeToString(b), Path: "/", HttpOnly: true, Secure: strings.HasPrefix(s.Config.PublicURL, "https:"), SameSite: http.SameSiteLaxMode, MaxAge: 28800})
 	return nil
 }
 func (s *Server) oauth() oauth2.Config {
@@ -86,7 +86,7 @@ func (s *Server) login(w http.ResponseWriter, r *http.Request) {
 		failure(w, e)
 		return
 	}
-	http.SetCookie(w, &http.Cookie{Name: "brain_oauth", Value: base64.RawURLEncoding.EncodeToString(b), Path: "/oauth/callback", HttpOnly: true, Secure: strings.HasPrefix(s.Config.PublicURL, "https:"), SameSite: http.SameSiteLaxMode, MaxAge: 300})
+	http.SetCookie(w, &http.Cookie{Name: "trace2mem_oauth", Value: base64.RawURLEncoding.EncodeToString(b), Path: "/oauth/callback", HttpOnly: true, Secure: strings.HasPrefix(s.Config.PublicURL, "https:"), SameSite: http.SameSiteLaxMode, MaxAge: 300})
 	c := s.oauth()
 	http.Redirect(w, r, c.AuthCodeURL(state, oauth2.S256ChallengeOption(verifier), oidc.Nonce(state)), 302)
 }
@@ -95,7 +95,7 @@ func (s *Server) callback(w http.ResponseWriter, r *http.Request) {
 		http.NotFound(w, r)
 		return
 	}
-	cookie, e := r.Cookie("brain_oauth")
+	cookie, e := r.Cookie("trace2mem_oauth")
 	if e != nil {
 		http.Error(w, "missing login state", 400)
 		return
@@ -111,7 +111,7 @@ func (s *Server) callback(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "invalid login state", 400)
 		return
 	}
-	http.SetCookie(w, &http.Cookie{Name: "brain_oauth", Path: "/oauth/callback", MaxAge: -1})
+	http.SetCookie(w, &http.Cookie{Name: "trace2mem_oauth", Path: "/oauth/callback", MaxAge: -1})
 	c := s.oauth()
 	token, e := c.Exchange(r.Context(), r.URL.Query().Get("code"), oauth2.VerifierOption(state["verifier"]))
 	if e != nil {

@@ -23,7 +23,7 @@ func Load() Config {
 		}
 		return d
 	}
-	return Config{DatabaseURL: get("DATABASE_URL", "postgres://brain:brain@localhost:5432/brain?sslmode=disable"), Addr: ":" + get("PORT", "8080"), BlobDir: get("BLOB_DIR", ".local/blobs"), BootstrapToken: os.Getenv("BRAIN_BOOTSTRAP_TOKEN"), MasterKey: os.Getenv("BRAIN_MASTER_KEY"), AllowedEndpoints: os.Getenv("BRAIN_MODEL_ENDPOINTS"), OIDCIssuer: os.Getenv("OIDC_ISSUER"), OIDCClient: os.Getenv("OIDC_CLIENT_ID"), OIDCSecret: os.Getenv("OIDC_CLIENT_SECRET"), PublicURL: get("PUBLIC_URL", "http://localhost:8080"), OAuthAudience: os.Getenv("OAUTH_AUDIENCE"), GCSBucket: os.Getenv("GCS_BUCKET"), KMSKey: os.Getenv("KMS_KEY"), Scripted: os.Getenv("BRAIN_ALLOW_SCRIPTED") == "true"}
+	return Config{DatabaseURL: get("DATABASE_URL", "postgres://trace2mem:trace2mem@localhost:5432/trace2mem?sslmode=disable"), Addr: ":" + get("PORT", "8080"), BlobDir: get("BLOB_DIR", ".local/blobs"), BootstrapToken: os.Getenv("TRACE2MEM_BOOTSTRAP_TOKEN"), MasterKey: os.Getenv("TRACE2MEM_MASTER_KEY"), AllowedEndpoints: os.Getenv("TRACE2MEM_MODEL_ENDPOINTS"), OIDCIssuer: os.Getenv("OIDC_ISSUER"), OIDCClient: os.Getenv("OIDC_CLIENT_ID"), OIDCSecret: os.Getenv("OIDC_CLIENT_SECRET"), PublicURL: get("PUBLIC_URL", "http://localhost:8080"), OAuthAudience: os.Getenv("OAUTH_AUDIENCE"), GCSBucket: os.Getenv("GCS_BUCKET"), KMSKey: os.Getenv("KMS_KEY"), Scripted: os.Getenv("TRACE2MEM_ALLOW_SCRIPTED") == "true"}
 }
 
 type Vault interface {
@@ -35,7 +35,7 @@ type LocalVault struct{ aead cipher.AEAD }
 func NewVault(key string) (Vault, error) {
 	b, e := base64.StdEncoding.DecodeString(key)
 	if e != nil || len(b) != 32 {
-		return nil, errors.New("BRAIN_MASTER_KEY must be a base64 encoded 32-byte key")
+		return nil, errors.New("TRACE2MEM_MASTER_KEY must be a base64 encoded 32-byte key")
 	}
 	c, e := aes.NewCipher(b)
 	if e != nil {

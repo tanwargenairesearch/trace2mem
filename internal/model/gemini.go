@@ -6,7 +6,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/brainmemory/brain/internal/domain"
+	"github.com/trace2mem/trace2mem/internal/domain"
 	"golang.org/x/oauth2/google"
 	"io"
 	"net/http"

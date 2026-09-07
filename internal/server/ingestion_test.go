@@ -1,13 +1,13 @@
 package server
 
 import (
-	brainv1 "github.com/brainmemory/brain/gen/brain/v1"
+	trace2memv1 "github.com/trace2mem/trace2mem/gen/trace2mem/v1"
 	"google.golang.org/protobuf/types/known/timestamppb"
 	"testing"
 )
 
 func TestEventValidation(t *testing.T) {
-	e := &brainv1.Event{EventId: "e1", SessionId: "s1", Source: &brainv1.Source{Id: "adapter"}, Actor: &brainv1.Actor{Role: "user"}, OccurredAt: timestamppb.Now(), Payload: &brainv1.Event_Message{Message: &brainv1.Message{Text: "hello"}}}
+	e := &trace2memv1.Event{EventId: "e1", SessionId: "s1", Source: &trace2memv1.Source{Id: "adapter"}, Actor: &trace2memv1.Actor{Role: "user"}, OccurredAt: timestamppb.Now(), Payload: &trace2memv1.Event_Message{Message: &trace2memv1.Message{Text: "hello"}}}
 	if err := ValidateEvent(e); err != nil {
 		t.Fatal(err)
 	}

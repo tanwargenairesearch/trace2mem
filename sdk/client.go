@@ -3,14 +3,14 @@ package sdk
 import (
 	"connectrpc.com/connect"
 	"context"
-	brainv1 "github.com/brainmemory/brain/gen/brain/v1"
-	"github.com/brainmemory/brain/gen/brain/v1/brainv1connect"
+	trace2memv1 "github.com/trace2mem/trace2mem/gen/trace2mem/v1"
+	"github.com/trace2mem/trace2mem/gen/trace2mem/v1/trace2memv1connect"
 	"net/http"
 )
 
 type Client struct {
-	Ingestion  brainv1connect.IngestionServiceClient
-	Memory     brainv1connect.MemoryServiceClient
+	Ingestion  trace2memv1connect.IngestionServiceClient
+	Memory     trace2memv1connect.MemoryServiceClient
 	HTTP       *http.Client
 	URL, Token string
 }
@@ -24,21 +24,21 @@ func New(url, token string, opts ...connect.ClientOption) *Client {
 		}
 	}))
 	opts = append(opts, auth)
-	return &Client{brainv1connect.NewIngestionServiceClient(hc, url, opts...), brainv1connect.NewMemoryServiceClient(hc, url, opts...), hc, url, token}
+	return &Client{trace2memv1connect.NewIngestionServiceClient(hc, url, opts...), trace2memv1connect.NewMemoryServiceClient(hc, url, opts...), hc, url, token}
 }
 func (c *Client) Import(ctx context.Context, space string, a Adapter) error {
-	batch := []*brainv1.Event{}
+	batch := []*trace2memv1.Event{}
 	flush := func() error {
 		if len(batch) == 0 {
 			return nil
 		}
-		_, e := c.Ingestion.AppendEvents(ctx, connect.NewRequest(&brainv1.AppendEventsRequest{SpaceId: space, Events: batch}))
+		_, e := c.Ingestion.AppendEvents(ctx, connect.NewRequest(&trace2memv1.AppendEventsRequest{SpaceId: space, Events: batch}))
 		if e == nil {
 			batch = nil
 		}
 		return e
 	}
-	e := a.Read(ctx, func(v *brainv1.Event) error {
+	e := a.Read(ctx, func(v *trace2memv1.Event) error {
 		batch = append(batch, v)
 		if len(batch) == 64 {
 			return flush()

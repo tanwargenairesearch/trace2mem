@@ -5,16 +5,16 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
-	brainv1 "github.com/brainmemory/brain/gen/brain/v1"
-	"github.com/brainmemory/brain/internal/domain"
-	"github.com/brainmemory/brain/internal/store"
+	trace2memv1 "github.com/trace2mem/trace2mem/gen/trace2mem/v1"
+	"github.com/trace2mem/trace2mem/internal/domain"
+	"github.com/trace2mem/trace2mem/internal/store"
 	"google.golang.org/protobuf/encoding/protojson"
 	"google.golang.org/protobuf/types/known/timestamppb"
 	"time"
 	"unicode/utf8"
 )
 
-func ValidateEvent(v *brainv1.Event) error {
+func ValidateEvent(v *trace2memv1.Event) error {
 	if v == nil || !domain.ValidID(v.EventId) || !domain.ValidID(v.SessionId) {
 		return errors.New("valid event and session IDs required")
 	}
@@ -30,23 +30,23 @@ func ValidateEvent(v *brainv1.Event) error {
 		return errors.New("actor role must be user, assistant, tool or system")
 	}
 	switch p := v.Payload.(type) {
-	case *brainv1.Event_Message:
+	case *trace2memv1.Event_Message:
 		if p.Message == nil || p.Message.Text == "" {
 			return errors.New("message text required")
 		}
-	case *brainv1.Event_ToolCall:
+	case *trace2memv1.Event_ToolCall:
 		if p.ToolCall == nil || !domain.ValidID(p.ToolCall.CallId) || p.ToolCall.Name == "" || !json.Valid([]byte(p.ToolCall.ArgumentsJson)) {
 			return errors.New("valid tool call required")
 		}
-	case *brainv1.Event_ToolResult:
+	case *trace2memv1.Event_ToolResult:
 		if p.ToolResult == nil || !domain.ValidID(p.ToolResult.CallId) {
 			return errors.New("valid tool result required")
 		}
-	case *brainv1.Event_ArtifactReference:
+	case *trace2memv1.Event_ArtifactReference:
 		if p.ArtifactReference == nil || !domain.ValidID(p.ArtifactReference.ArtifactId) {
 			return errors.New("artifact ID required")
 		}
-	case *brainv1.Event_SessionLifecycle:
+	case *trace2memv1.Event_SessionLifecycle:
 		if p.SessionLifecycle == nil || (p.SessionLifecycle.State != "started" && p.SessionLifecycle.State != "closed") {
 			return errors.New("invalid lifecycle state")
 		}
@@ -55,7 +55,7 @@ func ValidateEvent(v *brainv1.Event) error {
 	}
 	return nil
 }
-func (s *Server) AppendEvents(ctx context.Context, r *connect.Request[brainv1.AppendEventsRequest]) (*connect.Response[brainv1.AppendEventsResponse], error) {
+func (s *Server) AppendEvents(ctx context.Context, r *connect.Request[trace2memv1.AppendEventsRequest]) (*connect.Response[trace2memv1.AppendEventsResponse], error) {
 	p := principal(ctx)
 	if e := s.Store.Authorize(ctx, p, r.Msg.SpaceId, true); e != nil {
 		return nil, rpcerr(e)
@@ -89,19 +89,19 @@ func (s *Server) AppendEvents(ctx context.Context, r *connect.Request[brainv1.Ap
 	if e != nil {
 		return nil, rpcerr(e)
 	}
-	return connect.NewResponse(&brainv1.AppendEventsResponse{Accepted: a, Duplicates: d, Watermark: w}), nil
+	return connect.NewResponse(&trace2memv1.AppendEventsResponse{Accepted: a, Duplicates: d, Watermark: w}), nil
 }
-func (s *Server) GetIngestionStatus(ctx context.Context, r *connect.Request[brainv1.GetIngestionStatusRequest]) (*connect.Response[brainv1.GetIngestionStatusResponse], error) {
+func (s *Server) GetIngestionStatus(ctx context.Context, r *connect.Request[trace2memv1.GetIngestionStatusRequest]) (*connect.Response[trace2memv1.GetIngestionStatusResponse], error) {
 	p := principal(ctx)
 	if e := s.Store.Authorize(ctx, p, r.Msg.SpaceId, false); e != nil {
 		return nil, rpcerr(e)
 	}
-	out := &brainv1.GetIngestionStatusResponse{}
+	out := &trace2memv1.GetIngestionStatusResponse{}
 	e := s.Store.DB.QueryRow(ctx, `SELECT (SELECT count(*) FROM events WHERE tenant=$1 AND space=$2 AND NOT deleted),(SELECT count(*) FROM events WHERE tenant=$1 AND space=$2 AND NOT deleted AND ordinal<=s.watermark),s.revision,COALESCE(j.status,''),COALESCE(j.error,'') FROM spaces s LEFT JOIN jobs j ON j.tenant=s.tenant AND j.space=s.id WHERE s.tenant=$1 AND s.id=$2`, p.Tenant, r.Msg.SpaceId).Scan(&out.Accepted, &out.Compiled, &out.Revision, &out.JobStatus, &out.LastError)
 	out.Pending = out.Accepted - out.Compiled
 	return connect.NewResponse(out), rpcerr(e)
 }
-func (s *Server) UploadArtifact(ctx context.Context, r *connect.Request[brainv1.UploadArtifactRequest]) (*connect.Response[brainv1.UploadArtifactResponse], error) {
+func (s *Server) UploadArtifact(ctx context.Context, r *connect.Request[trace2memv1.UploadArtifactRequest]) (*connect.Response[trace2memv1.UploadArtifactResponse], error) {
 	p := principal(ctx)
 	if e := s.Store.Authorize(ctx, p, r.Msg.SpaceId, true); e != nil {
 		return nil, rpcerr(e)
@@ -128,21 +128,21 @@ func (s *Server) UploadArtifact(ctx context.Context, r *connect.Request[brainv1.
 		cleanup := s.Blob.Delete(ctx, key)
 		return nil, rpcerr(errors.Join(e, cleanup))
 	}
-	return connect.NewResponse(&brainv1.UploadArtifactResponse{ArtifactId: id, Sha256: hash}), nil
+	return connect.NewResponse(&trace2memv1.UploadArtifactResponse{ArtifactId: id, Sha256: hash}), nil
 }
-func (s *Server) RequestCompilation(ctx context.Context, r *connect.Request[brainv1.RequestCompilationRequest]) (*connect.Response[brainv1.RequestCompilationResponse], error) {
+func (s *Server) RequestCompilation(ctx context.Context, r *connect.Request[trace2memv1.RequestCompilationRequest]) (*connect.Response[trace2memv1.RequestCompilationResponse], error) {
 	p := principal(ctx)
 	if e := s.Store.Authorize(ctx, p, r.Msg.SpaceId, true); e != nil {
 		return nil, rpcerr(e)
 	}
 	e := s.Store.Schedule(ctx, p.Tenant, r.Msg.SpaceId)
-	return connect.NewResponse(&brainv1.RequestCompilationResponse{Scheduled: e == nil}), rpcerr(e)
+	return connect.NewResponse(&trace2memv1.RequestCompilationResponse{Scheduled: e == nil}), rpcerr(e)
 }
-func (s *Server) CloseSession(ctx context.Context, r *connect.Request[brainv1.CloseSessionRequest]) (*connect.Response[brainv1.CloseSessionResponse], error) {
+func (s *Server) CloseSession(ctx context.Context, r *connect.Request[trace2memv1.CloseSessionRequest]) (*connect.Response[trace2memv1.CloseSessionResponse], error) {
 	if !domain.ValidID(r.Msg.SessionId) {
 		return nil, connect.NewError(connect.CodeInvalidArgument, errors.New("invalid session ID"))
 	}
-	ev := &brainv1.Event{EventId: "close-" + store.ID(), SessionId: r.Msg.SessionId, OccurredAt: timestamppb.New(time.Now()), Actor: &brainv1.Actor{Role: "system"}, Source: &brainv1.Source{Id: "brain-api", Format: "brain.v1"}, Payload: &brainv1.Event_SessionLifecycle{SessionLifecycle: &brainv1.SessionLifecycle{State: "closed"}}}
-	_, e := s.AppendEvents(ctx, connect.NewRequest(&brainv1.AppendEventsRequest{SpaceId: r.Msg.SpaceId, Events: []*brainv1.Event{ev}}))
-	return connect.NewResponse(&brainv1.CloseSessionResponse{Scheduled: e == nil}), e
+	ev := &trace2memv1.Event{EventId: "close-" + store.ID(), SessionId: r.Msg.SessionId, OccurredAt: timestamppb.New(time.Now()), Actor: &trace2memv1.Actor{Role: "system"}, Source: &trace2memv1.Source{Id: "trace2mem-api", Format: "trace2mem.v1"}, Payload: &trace2memv1.Event_SessionLifecycle{SessionLifecycle: &trace2memv1.SessionLifecycle{State: "closed"}}}
+	_, e := s.AppendEvents(ctx, connect.NewRequest(&trace2memv1.AppendEventsRequest{SpaceId: r.Msg.SpaceId, Events: []*trace2memv1.Event{ev}}))
+	return connect.NewResponse(&trace2memv1.CloseSessionResponse{Scheduled: e == nil}), e
 }

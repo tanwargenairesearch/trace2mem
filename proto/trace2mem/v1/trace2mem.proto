@@ -1,6 +1,6 @@
 syntax = "proto3";
-package brain.v1;
-option go_package = "github.com/brainmemory/brain/gen/brain/v1;brainv1";
+package trace2mem.v1;
+option go_package = "github.com/trace2mem/trace2mem/gen/trace2mem/v1;trace2memv1";
 
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/struct.proto";

@@ -5,12 +5,12 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	brainv1 "github.com/brainmemory/brain/gen/brain/v1"
-	"github.com/brainmemory/brain/internal/blob"
-	"github.com/brainmemory/brain/internal/config"
-	"github.com/brainmemory/brain/internal/domain"
-	"github.com/brainmemory/brain/internal/model"
-	"github.com/brainmemory/brain/internal/store"
+	trace2memv1 "github.com/trace2mem/trace2mem/gen/trace2mem/v1"
+	"github.com/trace2mem/trace2mem/internal/blob"
+	"github.com/trace2mem/trace2mem/internal/config"
+	"github.com/trace2mem/trace2mem/internal/domain"
+	"github.com/trace2mem/trace2mem/internal/model"
+	"github.com/trace2mem/trace2mem/internal/store"
 	"google.golang.org/protobuf/encoding/protojson"
 	"sort"
 	"strings"
@@ -25,16 +25,16 @@ type Engine struct {
 	Config config.Config
 }
 
-func Record(e *brainv1.Event) domain.Record {
+func Record(e *trace2memv1.Event) domain.Record {
 	r := domain.Record{ID: e.EventId, Session: e.SessionId, Role: e.GetActor().GetRole(), Occurred: e.GetOccurredAt().AsTime(), Sequence: e.GetSequence()}
 	switch p := e.Payload.(type) {
-	case *brainv1.Event_Message:
+	case *trace2memv1.Event_Message:
 		r.Text = p.Message.Text
-	case *brainv1.Event_ToolCall:
+	case *trace2memv1.Event_ToolCall:
 		r.Text = "Tool call " + p.ToolCall.Name + ": " + p.ToolCall.ArgumentsJson
-	case *brainv1.Event_ToolResult:
+	case *trace2memv1.Event_ToolResult:
 		r.Text = p.ToolResult.Text
-	case *brainv1.Event_ArtifactReference:
+	case *trace2memv1.Event_ArtifactReference:
 		r.Text = "Artifact " + p.ArtifactReference.ArtifactId + ": " + p.ArtifactReference.Description
 	}
 	return r
@@ -114,7 +114,7 @@ func (e *Engine) Run(ctx context.Context, l domain.Lease) error {
 	}
 	records := []domain.Record{}
 	for _, b := range raw {
-		var ev brainv1.Event
+		var ev trace2memv1.Event
 		if err = protojson.Unmarshal(b, &ev); err != nil {
 			return err
 		}

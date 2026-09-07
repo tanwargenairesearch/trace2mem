@@ -1,4 +1,4 @@
-module github.com/brainmemory/brain
+module github.com/trace2mem/trace2mem
 
 go 1.26.6
 

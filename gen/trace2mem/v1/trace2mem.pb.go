@@ -2,9 +2,9 @@
 // versions:
 // 	protoc-gen-go v1.36.11
 // 	protoc        (unknown)
-// source: brain/v1/brain.proto
+// source: trace2mem/v1/trace2mem.proto
 
-package brainv1
+package trace2memv1
 
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -33,7 +33,7 @@ type Actor struct {
 
 func (x *Actor) Reset() {
 	*x = Actor{}
-	mi := &file_brain_v1_brain_proto_msgTypes[0]
+	mi := &file_trace2mem_v1_trace2mem_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -45,7 +45,7 @@ func (x *Actor) String() string {
 func (*Actor) ProtoMessage() {}
 
 func (x *Actor) ProtoReflect() protoreflect.Message {
-	mi := &file_brain_v1_brain_proto_msgTypes[0]
+	mi := &file_trace2mem_v1_trace2mem_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -58,7 +58,7 @@ func (x *Actor) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Actor.ProtoReflect.Descriptor instead.
 func (*Actor) Descriptor() ([]byte, []int) {
-	return file_brain_v1_brain_proto_rawDescGZIP(), []int{0}
+	return file_trace2mem_v1_trace2mem_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *Actor) GetRole() string {
@@ -87,7 +87,7 @@ type Source struct {
 
 func (x *Source) Reset() {
 	*x = Source{}
-	mi := &file_brain_v1_brain_proto_msgTypes[1]
+	mi := &file_trace2mem_v1_trace2mem_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -99,7 +99,7 @@ func (x *Source) String() string {
 func (*Source) ProtoMessage() {}
 
 func (x *Source) ProtoReflect() protoreflect.Message {
-	mi := &file_brain_v1_brain_proto_msgTypes[1]
+	mi := &file_trace2mem_v1_trace2mem_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -112,7 +112,7 @@ func (x *Source) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Source.ProtoReflect.Descriptor instead.
 func (*Source) Descriptor() ([]byte, []int) {
-	return file_brain_v1_brain_proto_rawDescGZIP(), []int{1}
+	return file_trace2mem_v1_trace2mem_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *Source) GetId() string {
@@ -152,7 +152,7 @@ type Message struct {
 
 func (x *Message) Reset() {
 	*x = Message{}
-	mi := &file_brain_v1_brain_proto_msgTypes[2]
+	mi := &file_trace2mem_v1_trace2mem_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -164,7 +164,7 @@ func (x *Message) String() string {
 func (*Message) ProtoMessage() {}
 
 func (x *Message) ProtoReflect() protoreflect.Message {
-	mi := &file_brain_v1_brain_proto_msgTypes[2]
+	mi := &file_trace2mem_v1_trace2mem_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -177,7 +177,7 @@ func (x *Message) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Message.ProtoReflect.Descriptor instead.
 func (*Message) Descriptor() ([]byte, []int) {
-	return file_brain_v1_brain_proto_rawDescGZIP(), []int{2}
+	return file_trace2mem_v1_trace2mem_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *Message) GetText() string {
@@ -198,7 +198,7 @@ type ToolCall struct {
 
 func (x *ToolCall) Reset() {
 	*x = ToolCall{}
-	mi := &file_brain_v1_brain_proto_msgTypes[3]
+	mi := &file_trace2mem_v1_trace2mem_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -210,7 +210,7 @@ func (x *ToolCall) String() string {
 func (*ToolCall) ProtoMessage() {}
 
 func (x *ToolCall) ProtoReflect() protoreflect.Message {
-	mi := &file_brain_v1_brain_proto_msgTypes[3]
+	mi := &file_trace2mem_v1_trace2mem_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -223,7 +223,7 @@ func (x *ToolCall) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ToolCall.ProtoReflect.Descriptor instead.
 func (*ToolCall) Descriptor() ([]byte, []int) {
-	return file_brain_v1_brain_proto_rawDescGZIP(), []int{3}
+	return file_trace2mem_v1_trace2mem_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *ToolCall) GetCallId() string {
@@ -258,7 +258,7 @@ type ToolResult struct {
 
 func (x *ToolResult) Reset() {
 	*x = ToolResult{}
-	mi := &file_brain_v1_brain_proto_msgTypes[4]
+	mi := &file_trace2mem_v1_trace2mem_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -270,7 +270,7 @@ func (x *ToolResult) String() string {
 func (*ToolResult) ProtoMessage() {}
 
 func (x *ToolResult) ProtoReflect() protoreflect.Message {
-	mi := &file_brain_v1_brain_proto_msgTypes[4]
+	mi := &file_trace2mem_v1_trace2mem_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -283,7 +283,7 @@ func (x *ToolResult) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ToolResult.ProtoReflect.Descriptor instead.
 func (*ToolResult) Descriptor() ([]byte, []int) {
-	return file_brain_v1_brain_proto_rawDescGZIP(), []int{4}
+	return file_trace2mem_v1_trace2mem_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *ToolResult) GetCallId() string {
@@ -318,7 +318,7 @@ type ArtifactReference struct {
 
 func (x *ArtifactReference) Reset() {
 	*x = ArtifactReference{}
-	mi := &file_brain_v1_brain_proto_msgTypes[5]
+	mi := &file_trace2mem_v1_trace2mem_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -330,7 +330,7 @@ func (x *ArtifactReference) String() string {
 func (*ArtifactReference) ProtoMessage() {}
 
 func (x *ArtifactReference) ProtoReflect() protoreflect.Message {
-	mi := &file_brain_v1_brain_proto_msgTypes[5]
+	mi := &file_trace2mem_v1_trace2mem_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -343,7 +343,7 @@ func (x *ArtifactReference) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ArtifactReference.ProtoReflect.Descriptor instead.
 func (*ArtifactReference) Descriptor() ([]byte, []int) {
-	return file_brain_v1_brain_proto_rawDescGZIP(), []int{5}
+	return file_trace2mem_v1_trace2mem_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *ArtifactReference) GetArtifactId() string {
@@ -376,7 +376,7 @@ type SessionLifecycle struct {
 
 func (x *SessionLifecycle) Reset() {
 	*x = SessionLifecycle{}
-	mi := &file_brain_v1_brain_proto_msgTypes[6]
+	mi := &file_trace2mem_v1_trace2mem_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -388,7 +388,7 @@ func (x *SessionLifecycle) String() string {
 func (*SessionLifecycle) ProtoMessage() {}
 
 func (x *SessionLifecycle) ProtoReflect() protoreflect.Message {
-	mi := &file_brain_v1_brain_proto_msgTypes[6]
+	mi := &file_trace2mem_v1_trace2mem_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -401,7 +401,7 @@ func (x *SessionLifecycle) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SessionLifecycle.ProtoReflect.Descriptor instead.
 func (*SessionLifecycle) Descriptor() ([]byte, []int) {
-	return file_brain_v1_brain_proto_rawDescGZIP(), []int{6}
+	return file_trace2mem_v1_trace2mem_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *SessionLifecycle) GetState() string {
@@ -435,7 +435,7 @@ type Event struct {
 
 func (x *Event) Reset() {
 	*x = Event{}
-	mi := &file_brain_v1_brain_proto_msgTypes[7]
+	mi := &file_trace2mem_v1_trace2mem_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -447,7 +447,7 @@ func (x *Event) String() string {
 func (*Event) ProtoMessage() {}
 
 func (x *Event) ProtoReflect() protoreflect.Message {
-	mi := &file_brain_v1_brain_proto_msgTypes[7]
+	mi := &file_trace2mem_v1_trace2mem_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -460,7 +460,7 @@ func (x *Event) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Event.ProtoReflect.Descriptor instead.
 func (*Event) Descriptor() ([]byte, []int) {
-	return file_brain_v1_brain_proto_rawDescGZIP(), []int{7}
+	return file_trace2mem_v1_trace2mem_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *Event) GetEventId() string {
@@ -615,7 +615,7 @@ type AppendEventsRequest struct {
 
 func (x *AppendEventsRequest) Reset() {
 	*x = AppendEventsRequest{}
-	mi := &file_brain_v1_brain_proto_msgTypes[8]
+	mi := &file_trace2mem_v1_trace2mem_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -627,7 +627,7 @@ func (x *AppendEventsRequest) String() string {
 func (*AppendEventsRequest) ProtoMessage() {}
 
 func (x *AppendEventsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_brain_v1_brain_proto_msgTypes[8]
+	mi := &file_trace2mem_v1_trace2mem_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -640,7 +640,7 @@ func (x *AppendEventsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AppendEventsRequest.ProtoReflect.Descriptor instead.
 func (*AppendEventsRequest) Descriptor() ([]byte, []int) {
-	return file_brain_v1_brain_proto_rawDescGZIP(), []int{8}
+	return file_trace2mem_v1_trace2mem_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *AppendEventsRequest) GetSpaceId() string {
@@ -668,7 +668,7 @@ type AppendEventsResponse struct {
 
 func (x *AppendEventsResponse) Reset() {
 	*x = AppendEventsResponse{}
-	mi := &file_brain_v1_brain_proto_msgTypes[9]
+	mi := &file_trace2mem_v1_trace2mem_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -680,7 +680,7 @@ func (x *AppendEventsResponse) String() string {
 func (*AppendEventsResponse) ProtoMessage() {}
 
 func (x *AppendEventsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_brain_v1_brain_proto_msgTypes[9]
+	mi := &file_trace2mem_v1_trace2mem_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -693,7 +693,7 @@ func (x *AppendEventsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AppendEventsResponse.ProtoReflect.Descriptor instead.
 func (*AppendEventsResponse) Descriptor() ([]byte, []int) {
-	return file_brain_v1_brain_proto_rawDescGZIP(), []int{9}
+	return file_trace2mem_v1_trace2mem_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *AppendEventsResponse) GetAccepted() int64 {
@@ -726,7 +726,7 @@ type GetIngestionStatusRequest struct {
 
 func (x *GetIngestionStatusRequest) Reset() {
 	*x = GetIngestionStatusRequest{}
-	mi := &file_brain_v1_brain_proto_msgTypes[10]
+	mi := &file_trace2mem_v1_trace2mem_proto_msgTypes[10]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -738,7 +738,7 @@ func (x *GetIngestionStatusRequest) String() string {
 func (*GetIngestionStatusRequest) ProtoMessage() {}
 
 func (x *GetIngestionStatusRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_brain_v1_brain_proto_msgTypes[10]
+	mi := &file_trace2mem_v1_trace2mem_proto_msgTypes[10]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -751,7 +751,7 @@ func (x *GetIngestionStatusRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetIngestionStatusRequest.ProtoReflect.Descriptor instead.
 func (*GetIngestionStatusRequest) Descriptor() ([]byte, []int) {
-	return file_brain_v1_brain_proto_rawDescGZIP(), []int{10}
+	return file_trace2mem_v1_trace2mem_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *GetIngestionStatusRequest) GetSpaceId() string {
@@ -775,7 +775,7 @@ type GetIngestionStatusResponse struct {
 
 func (x *GetIngestionStatusResponse) Reset() {
 	*x = GetIngestionStatusResponse{}
-	mi := &file_brain_v1_brain_proto_msgTypes[11]
+	mi := &file_trace2mem_v1_trace2mem_proto_msgTypes[11]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -787,7 +787,7 @@ func (x *GetIngestionStatusResponse) String() string {
 func (*GetIngestionStatusResponse) ProtoMessage() {}
 
 func (x *GetIngestionStatusResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_brain_v1_brain_proto_msgTypes[11]
+	mi := &file_trace2mem_v1_trace2mem_proto_msgTypes[11]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -800,7 +800,7 @@ func (x *GetIngestionStatusResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetIngestionStatusResponse.ProtoReflect.Descriptor instead.
 func (*GetIngestionStatusResponse) Descriptor() ([]byte, []int) {
-	return file_brain_v1_brain_proto_rawDescGZIP(), []int{11}
+	return file_trace2mem_v1_trace2mem_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *GetIngestionStatusResponse) GetAccepted() int64 {
@@ -856,7 +856,7 @@ type UploadArtifactRequest struct {
 
 func (x *UploadArtifactRequest) Reset() {
 	*x = UploadArtifactRequest{}
-	mi := &file_brain_v1_brain_proto_msgTypes[12]
+	mi := &file_trace2mem_v1_trace2mem_proto_msgTypes[12]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -868,7 +868,7 @@ func (x *UploadArtifactRequest) String() string {
 func (*UploadArtifactRequest) ProtoMessage() {}
 
 func (x *UploadArtifactRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_brain_v1_brain_proto_msgTypes[12]
+	mi := &file_trace2mem_v1_trace2mem_proto_msgTypes[12]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -881,7 +881,7 @@ func (x *UploadArtifactRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UploadArtifactRequest.ProtoReflect.Descriptor instead.
 func (*UploadArtifactRequest) Descriptor() ([]byte, []int) {
-	return file_brain_v1_brain_proto_rawDescGZIP(), []int{12}
+	return file_trace2mem_v1_trace2mem_proto_rawDescGZIP(), []int{12}
 }
 
 func (x *UploadArtifactRequest) GetSpaceId() string {
@@ -915,7 +915,7 @@ type UploadArtifactResponse struct {
 
 func (x *UploadArtifactResponse) Reset() {
 	*x = UploadArtifactResponse{}
-	mi := &file_brain_v1_brain_proto_msgTypes[13]
+	mi := &file_trace2mem_v1_trace2mem_proto_msgTypes[13]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -927,7 +927,7 @@ func (x *UploadArtifactResponse) String() string {
 func (*UploadArtifactResponse) ProtoMessage() {}
 
 func (x *UploadArtifactResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_brain_v1_brain_proto_msgTypes[13]
+	mi := &file_trace2mem_v1_trace2mem_proto_msgTypes[13]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -940,7 +940,7 @@ func (x *UploadArtifactResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UploadArtifactResponse.ProtoReflect.Descriptor instead.
 func (*UploadArtifactResponse) Descriptor() ([]byte, []int) {
-	return file_brain_v1_brain_proto_rawDescGZIP(), []int{13}
+	return file_trace2mem_v1_trace2mem_proto_rawDescGZIP(), []int{13}
 }
 
 func (x *UploadArtifactResponse) GetArtifactId() string {
@@ -967,7 +967,7 @@ type CloseSessionRequest struct {
 
 func (x *CloseSessionRequest) Reset() {
 	*x = CloseSessionRequest{}
-	mi := &file_brain_v1_brain_proto_msgTypes[14]
+	mi := &file_trace2mem_v1_trace2mem_proto_msgTypes[14]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -979,7 +979,7 @@ func (x *CloseSessionRequest) String() string {
 func (*CloseSessionRequest) ProtoMessage() {}
 
 func (x *CloseSessionRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_brain_v1_brain_proto_msgTypes[14]
+	mi := &file_trace2mem_v1_trace2mem_proto_msgTypes[14]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -992,7 +992,7 @@ func (x *CloseSessionRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CloseSessionRequest.ProtoReflect.Descriptor instead.
 func (*CloseSessionRequest) Descriptor() ([]byte, []int) {
-	return file_brain_v1_brain_proto_rawDescGZIP(), []int{14}
+	return file_trace2mem_v1_trace2mem_proto_rawDescGZIP(), []int{14}
 }
 
 func (x *CloseSessionRequest) GetSpaceId() string {
@@ -1018,7 +1018,7 @@ type CloseSessionResponse struct {
 
 func (x *CloseSessionResponse) Reset() {
 	*x = CloseSessionResponse{}
-	mi := &file_brain_v1_brain_proto_msgTypes[15]
+	mi := &file_trace2mem_v1_trace2mem_proto_msgTypes[15]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1030,7 +1030,7 @@ func (x *CloseSessionResponse) String() string {
 func (*CloseSessionResponse) ProtoMessage() {}
 
 func (x *CloseSessionResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_brain_v1_brain_proto_msgTypes[15]
+	mi := &file_trace2mem_v1_trace2mem_proto_msgTypes[15]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1043,7 +1043,7 @@ func (x *CloseSessionResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CloseSessionResponse.ProtoReflect.Descriptor instead.
 func (*CloseSessionResponse) Descriptor() ([]byte, []int) {
-	return file_brain_v1_brain_proto_rawDescGZIP(), []int{15}
+	return file_trace2mem_v1_trace2mem_proto_rawDescGZIP(), []int{15}
 }
 
 func (x *CloseSessionResponse) GetScheduled() bool {
@@ -1062,7 +1062,7 @@ type RequestCompilationRequest struct {
 
 func (x *RequestCompilationRequest) Reset() {
 	*x = RequestCompilationRequest{}
-	mi := &file_brain_v1_brain_proto_msgTypes[16]
+	mi := &file_trace2mem_v1_trace2mem_proto_msgTypes[16]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1074,7 +1074,7 @@ func (x *RequestCompilationRequest) String() string {
 func (*RequestCompilationRequest) ProtoMessage() {}
 
 func (x *RequestCompilationRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_brain_v1_brain_proto_msgTypes[16]
+	mi := &file_trace2mem_v1_trace2mem_proto_msgTypes[16]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1087,7 +1087,7 @@ func (x *RequestCompilationRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RequestCompilationRequest.ProtoReflect.Descriptor instead.
 func (*RequestCompilationRequest) Descriptor() ([]byte, []int) {
-	return file_brain_v1_brain_proto_rawDescGZIP(), []int{16}
+	return file_trace2mem_v1_trace2mem_proto_rawDescGZIP(), []int{16}
 }
 
 func (x *RequestCompilationRequest) GetSpaceId() string {
@@ -1106,7 +1106,7 @@ type RequestCompilationResponse struct {
 
 func (x *RequestCompilationResponse) Reset() {
 	*x = RequestCompilationResponse{}
-	mi := &file_brain_v1_brain_proto_msgTypes[17]
+	mi := &file_trace2mem_v1_trace2mem_proto_msgTypes[17]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1118,7 +1118,7 @@ func (x *RequestCompilationResponse) String() string {
 func (*RequestCompilationResponse) ProtoMessage() {}
 
 func (x *RequestCompilationResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_brain_v1_brain_proto_msgTypes[17]
+	mi := &file_trace2mem_v1_trace2mem_proto_msgTypes[17]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1131,7 +1131,7 @@ func (x *RequestCompilationResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RequestCompilationResponse.ProtoReflect.Descriptor instead.
 func (*RequestCompilationResponse) Descriptor() ([]byte, []int) {
-	return file_brain_v1_brain_proto_rawDescGZIP(), []int{17}
+	return file_trace2mem_v1_trace2mem_proto_rawDescGZIP(), []int{17}
 }
 
 func (x *RequestCompilationResponse) GetScheduled() bool {
@@ -1152,7 +1152,7 @@ type File struct {
 
 func (x *File) Reset() {
 	*x = File{}
-	mi := &file_brain_v1_brain_proto_msgTypes[18]
+	mi := &file_trace2mem_v1_trace2mem_proto_msgTypes[18]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1164,7 +1164,7 @@ func (x *File) String() string {
 func (*File) ProtoMessage() {}
 
 func (x *File) ProtoReflect() protoreflect.Message {
-	mi := &file_brain_v1_brain_proto_msgTypes[18]
+	mi := &file_trace2mem_v1_trace2mem_proto_msgTypes[18]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1177,7 +1177,7 @@ func (x *File) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use File.ProtoReflect.Descriptor instead.
 func (*File) Descriptor() ([]byte, []int) {
-	return file_brain_v1_brain_proto_rawDescGZIP(), []int{18}
+	return file_trace2mem_v1_trace2mem_proto_rawDescGZIP(), []int{18}
 }
 
 func (x *File) GetPath() string {
@@ -1211,7 +1211,7 @@ type GetManifestRequest struct {
 
 func (x *GetManifestRequest) Reset() {
 	*x = GetManifestRequest{}
-	mi := &file_brain_v1_brain_proto_msgTypes[19]
+	mi := &file_trace2mem_v1_trace2mem_proto_msgTypes[19]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1223,7 +1223,7 @@ func (x *GetManifestRequest) String() string {
 func (*GetManifestRequest) ProtoMessage() {}
 
 func (x *GetManifestRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_brain_v1_brain_proto_msgTypes[19]
+	mi := &file_trace2mem_v1_trace2mem_proto_msgTypes[19]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1236,7 +1236,7 @@ func (x *GetManifestRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetManifestRequest.ProtoReflect.Descriptor instead.
 func (*GetManifestRequest) Descriptor() ([]byte, []int) {
-	return file_brain_v1_brain_proto_rawDescGZIP(), []int{19}
+	return file_trace2mem_v1_trace2mem_proto_rawDescGZIP(), []int{19}
 }
 
 func (x *GetManifestRequest) GetSpaceId() string {
@@ -1264,7 +1264,7 @@ type GetManifestResponse struct {
 
 func (x *GetManifestResponse) Reset() {
 	*x = GetManifestResponse{}
-	mi := &file_brain_v1_brain_proto_msgTypes[20]
+	mi := &file_trace2mem_v1_trace2mem_proto_msgTypes[20]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1276,7 +1276,7 @@ func (x *GetManifestResponse) String() string {
 func (*GetManifestResponse) ProtoMessage() {}
 
 func (x *GetManifestResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_brain_v1_brain_proto_msgTypes[20]
+	mi := &file_trace2mem_v1_trace2mem_proto_msgTypes[20]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1289,7 +1289,7 @@ func (x *GetManifestResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetManifestResponse.ProtoReflect.Descriptor instead.
 func (*GetManifestResponse) Descriptor() ([]byte, []int) {
-	return file_brain_v1_brain_proto_rawDescGZIP(), []int{20}
+	return file_trace2mem_v1_trace2mem_proto_rawDescGZIP(), []int{20}
 }
 
 func (x *GetManifestResponse) GetRevision() string {
@@ -1324,7 +1324,7 @@ type ReadFileRequest struct {
 
 func (x *ReadFileRequest) Reset() {
 	*x = ReadFileRequest{}
-	mi := &file_brain_v1_brain_proto_msgTypes[21]
+	mi := &file_trace2mem_v1_trace2mem_proto_msgTypes[21]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1336,7 +1336,7 @@ func (x *ReadFileRequest) String() string {
 func (*ReadFileRequest) ProtoMessage() {}
 
 func (x *ReadFileRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_brain_v1_brain_proto_msgTypes[21]
+	mi := &file_trace2mem_v1_trace2mem_proto_msgTypes[21]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1349,7 +1349,7 @@ func (x *ReadFileRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ReadFileRequest.ProtoReflect.Descriptor instead.
 func (*ReadFileRequest) Descriptor() ([]byte, []int) {
-	return file_brain_v1_brain_proto_rawDescGZIP(), []int{21}
+	return file_trace2mem_v1_trace2mem_proto_rawDescGZIP(), []int{21}
 }
 
 func (x *ReadFileRequest) GetSpaceId() string {
@@ -1384,7 +1384,7 @@ type ReadFileResponse struct {
 
 func (x *ReadFileResponse) Reset() {
 	*x = ReadFileResponse{}
-	mi := &file_brain_v1_brain_proto_msgTypes[22]
+	mi := &file_trace2mem_v1_trace2mem_proto_msgTypes[22]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1396,7 +1396,7 @@ func (x *ReadFileResponse) String() string {
 func (*ReadFileResponse) ProtoMessage() {}
 
 func (x *ReadFileResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_brain_v1_brain_proto_msgTypes[22]
+	mi := &file_trace2mem_v1_trace2mem_proto_msgTypes[22]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1409,7 +1409,7 @@ func (x *ReadFileResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ReadFileResponse.ProtoReflect.Descriptor instead.
 func (*ReadFileResponse) Descriptor() ([]byte, []int) {
-	return file_brain_v1_brain_proto_rawDescGZIP(), []int{22}
+	return file_trace2mem_v1_trace2mem_proto_rawDescGZIP(), []int{22}
 }
 
 func (x *ReadFileResponse) GetRevision() string {
@@ -1446,7 +1446,7 @@ type SearchRequest struct {
 
 func (x *SearchRequest) Reset() {
 	*x = SearchRequest{}
-	mi := &file_brain_v1_brain_proto_msgTypes[23]
+	mi := &file_trace2mem_v1_trace2mem_proto_msgTypes[23]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1458,7 +1458,7 @@ func (x *SearchRequest) String() string {
 func (*SearchRequest) ProtoMessage() {}
 
 func (x *SearchRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_brain_v1_brain_proto_msgTypes[23]
+	mi := &file_trace2mem_v1_trace2mem_proto_msgTypes[23]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1471,7 +1471,7 @@ func (x *SearchRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SearchRequest.ProtoReflect.Descriptor instead.
 func (*SearchRequest) Descriptor() ([]byte, []int) {
-	return file_brain_v1_brain_proto_rawDescGZIP(), []int{23}
+	return file_trace2mem_v1_trace2mem_proto_rawDescGZIP(), []int{23}
 }
 
 func (x *SearchRequest) GetSpaceId() string {
@@ -1521,7 +1521,7 @@ type SearchHit struct {
 
 func (x *SearchHit) Reset() {
 	*x = SearchHit{}
-	mi := &file_brain_v1_brain_proto_msgTypes[24]
+	mi := &file_trace2mem_v1_trace2mem_proto_msgTypes[24]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1533,7 +1533,7 @@ func (x *SearchHit) String() string {
 func (*SearchHit) ProtoMessage() {}
 
 func (x *SearchHit) ProtoReflect() protoreflect.Message {
-	mi := &file_brain_v1_brain_proto_msgTypes[24]
+	mi := &file_trace2mem_v1_trace2mem_proto_msgTypes[24]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1546,7 +1546,7 @@ func (x *SearchHit) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SearchHit.ProtoReflect.Descriptor instead.
 func (*SearchHit) Descriptor() ([]byte, []int) {
-	return file_brain_v1_brain_proto_rawDescGZIP(), []int{24}
+	return file_trace2mem_v1_trace2mem_proto_rawDescGZIP(), []int{24}
 }
 
 func (x *SearchHit) GetPath() string {
@@ -1589,7 +1589,7 @@ type SearchResponse struct {
 
 func (x *SearchResponse) Reset() {
 	*x = SearchResponse{}
-	mi := &file_brain_v1_brain_proto_msgTypes[25]
+	mi := &file_trace2mem_v1_trace2mem_proto_msgTypes[25]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1601,7 +1601,7 @@ func (x *SearchResponse) String() string {
 func (*SearchResponse) ProtoMessage() {}
 
 func (x *SearchResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_brain_v1_brain_proto_msgTypes[25]
+	mi := &file_trace2mem_v1_trace2mem_proto_msgTypes[25]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1614,7 +1614,7 @@ func (x *SearchResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SearchResponse.ProtoReflect.Descriptor instead.
 func (*SearchResponse) Descriptor() ([]byte, []int) {
-	return file_brain_v1_brain_proto_rawDescGZIP(), []int{25}
+	return file_trace2mem_v1_trace2mem_proto_rawDescGZIP(), []int{25}
 }
 
 func (x *SearchResponse) GetRevision() string {
@@ -1655,7 +1655,7 @@ type GetEvidenceRequest struct {
 
 func (x *GetEvidenceRequest) Reset() {
 	*x = GetEvidenceRequest{}
-	mi := &file_brain_v1_brain_proto_msgTypes[26]
+	mi := &file_trace2mem_v1_trace2mem_proto_msgTypes[26]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1667,7 +1667,7 @@ func (x *GetEvidenceRequest) String() string {
 func (*GetEvidenceRequest) ProtoMessage() {}
 
 func (x *GetEvidenceRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_brain_v1_brain_proto_msgTypes[26]
+	mi := &file_trace2mem_v1_trace2mem_proto_msgTypes[26]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1680,7 +1680,7 @@ func (x *GetEvidenceRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetEvidenceRequest.ProtoReflect.Descriptor instead.
 func (*GetEvidenceRequest) Descriptor() ([]byte, []int) {
-	return file_brain_v1_brain_proto_rawDescGZIP(), []int{26}
+	return file_trace2mem_v1_trace2mem_proto_rawDescGZIP(), []int{26}
 }
 
 func (x *GetEvidenceRequest) GetSpaceId() string {
@@ -1707,7 +1707,7 @@ type GetEvidenceResponse struct {
 
 func (x *GetEvidenceResponse) Reset() {
 	*x = GetEvidenceResponse{}
-	mi := &file_brain_v1_brain_proto_msgTypes[27]
+	mi := &file_trace2mem_v1_trace2mem_proto_msgTypes[27]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1719,7 +1719,7 @@ func (x *GetEvidenceResponse) String() string {
 func (*GetEvidenceResponse) ProtoMessage() {}
 
 func (x *GetEvidenceResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_brain_v1_brain_proto_msgTypes[27]
+	mi := &file_trace2mem_v1_trace2mem_proto_msgTypes[27]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1732,7 +1732,7 @@ func (x *GetEvidenceResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetEvidenceResponse.ProtoReflect.Descriptor instead.
 func (*GetEvidenceResponse) Descriptor() ([]byte, []int) {
-	return file_brain_v1_brain_proto_rawDescGZIP(), []int{27}
+	return file_trace2mem_v1_trace2mem_proto_rawDescGZIP(), []int{27}
 }
 
 func (x *GetEvidenceResponse) GetEvent() *Event {
@@ -1760,7 +1760,7 @@ type GetContextRequest struct {
 
 func (x *GetContextRequest) Reset() {
 	*x = GetContextRequest{}
-	mi := &file_brain_v1_brain_proto_msgTypes[28]
+	mi := &file_trace2mem_v1_trace2mem_proto_msgTypes[28]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1772,7 +1772,7 @@ func (x *GetContextRequest) String() string {
 func (*GetContextRequest) ProtoMessage() {}
 
 func (x *GetContextRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_brain_v1_brain_proto_msgTypes[28]
+	mi := &file_trace2mem_v1_trace2mem_proto_msgTypes[28]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1785,7 +1785,7 @@ func (x *GetContextRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetContextRequest.ProtoReflect.Descriptor instead.
 func (*GetContextRequest) Descriptor() ([]byte, []int) {
-	return file_brain_v1_brain_proto_rawDescGZIP(), []int{28}
+	return file_trace2mem_v1_trace2mem_proto_rawDescGZIP(), []int{28}
 }
 
 func (x *GetContextRequest) GetSpaceId() string {
@@ -1821,7 +1821,7 @@ type GetContextResponse struct {
 
 func (x *GetContextResponse) Reset() {
 	*x = GetContextResponse{}
-	mi := &file_brain_v1_brain_proto_msgTypes[29]
+	mi := &file_trace2mem_v1_trace2mem_proto_msgTypes[29]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1833,7 +1833,7 @@ func (x *GetContextResponse) String() string {
 func (*GetContextResponse) ProtoMessage() {}
 
 func (x *GetContextResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_brain_v1_brain_proto_msgTypes[29]
+	mi := &file_trace2mem_v1_trace2mem_proto_msgTypes[29]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1846,7 +1846,7 @@ func (x *GetContextResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetContextResponse.ProtoReflect.Descriptor instead.
 func (*GetContextResponse) Descriptor() ([]byte, []int) {
-	return file_brain_v1_brain_proto_rawDescGZIP(), []int{29}
+	return file_trace2mem_v1_trace2mem_proto_rawDescGZIP(), []int{29}
 }
 
 func (x *GetContextResponse) GetRevision() string {
@@ -1877,11 +1877,11 @@ func (x *GetContextResponse) GetWatermark() int64 {
 	return 0
 }
 
-var File_brain_v1_brain_proto protoreflect.FileDescriptor
+var File_trace2mem_v1_trace2mem_proto protoreflect.FileDescriptor
 
-const file_brain_v1_brain_proto_rawDesc = "" +
+const file_trace2mem_v1_trace2mem_proto_rawDesc = "" +
 	"\n" +
-	"\x14brain/v1/brain.proto\x12\bbrain.v1\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1cgoogle/protobuf/struct.proto\"6\n" +
+	"\x1ctrace2mem/v1/trace2mem.proto\x12\ftrace2mem.v1\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1cgoogle/protobuf/struct.proto\"6\n" +
 	"\x05Actor\x12\x12\n" +
 	"\x04role\x18\x01 \x01(\tR\x04role\x12\x19\n" +
 	"\bagent_id\x18\x02 \x01(\tR\aagentId\"f\n" +
@@ -1908,30 +1908,30 @@ const file_brain_v1_brain_proto_rawDesc = "" +
 	"media_type\x18\x02 \x01(\tR\tmediaType\x12 \n" +
 	"\vdescription\x18\x03 \x01(\tR\vdescription\"(\n" +
 	"\x10SessionLifecycle\x12\x14\n" +
-	"\x05state\x18\x01 \x01(\tR\x05state\"\x99\x05\n" +
+	"\x05state\x18\x01 \x01(\tR\x05state\"\xb5\x05\n" +
 	"\x05Event\x12\x19\n" +
 	"\bevent_id\x18\x01 \x01(\tR\aeventId\x12\x1d\n" +
 	"\n" +
 	"session_id\x18\x02 \x01(\tR\tsessionId\x12;\n" +
 	"\voccurred_at\x18\x03 \x01(\v2\x1a.google.protobuf.TimestampR\n" +
 	"occurredAt\x12\x1f\n" +
-	"\bsequence\x18\x04 \x01(\x03H\x01R\bsequence\x88\x01\x01\x12%\n" +
-	"\x05actor\x18\x05 \x01(\v2\x0f.brain.v1.ActorR\x05actor\x12(\n" +
-	"\x06source\x18\x06 \x01(\v2\x10.brain.v1.SourceR\x06source\x12&\n" +
+	"\bsequence\x18\x04 \x01(\x03H\x01R\bsequence\x88\x01\x01\x12)\n" +
+	"\x05actor\x18\x05 \x01(\v2\x13.trace2mem.v1.ActorR\x05actor\x12,\n" +
+	"\x06source\x18\x06 \x01(\v2\x14.trace2mem.v1.SourceR\x06source\x12&\n" +
 	"\x0fparent_event_id\x18\a \x01(\tR\rparentEventId\x123\n" +
-	"\bmetadata\x18\b \x01(\v2\x17.google.protobuf.StructR\bmetadata\x12-\n" +
+	"\bmetadata\x18\b \x01(\v2\x17.google.protobuf.StructR\bmetadata\x121\n" +
 	"\amessage\x18\n" +
-	" \x01(\v2\x11.brain.v1.MessageH\x00R\amessage\x121\n" +
-	"\ttool_call\x18\v \x01(\v2\x12.brain.v1.ToolCallH\x00R\btoolCall\x127\n" +
-	"\vtool_result\x18\f \x01(\v2\x14.brain.v1.ToolResultH\x00R\n" +
-	"toolResult\x12L\n" +
-	"\x12artifact_reference\x18\r \x01(\v2\x1b.brain.v1.ArtifactReferenceH\x00R\x11artifactReference\x12I\n" +
-	"\x11session_lifecycle\x18\x0e \x01(\v2\x1a.brain.v1.SessionLifecycleH\x00R\x10sessionLifecycleB\t\n" +
+	" \x01(\v2\x15.trace2mem.v1.MessageH\x00R\amessage\x125\n" +
+	"\ttool_call\x18\v \x01(\v2\x16.trace2mem.v1.ToolCallH\x00R\btoolCall\x12;\n" +
+	"\vtool_result\x18\f \x01(\v2\x18.trace2mem.v1.ToolResultH\x00R\n" +
+	"toolResult\x12P\n" +
+	"\x12artifact_reference\x18\r \x01(\v2\x1f.trace2mem.v1.ArtifactReferenceH\x00R\x11artifactReference\x12M\n" +
+	"\x11session_lifecycle\x18\x0e \x01(\v2\x1e.trace2mem.v1.SessionLifecycleH\x00R\x10sessionLifecycleB\t\n" +
 	"\apayloadB\v\n" +
-	"\t_sequence\"Y\n" +
+	"\t_sequence\"]\n" +
 	"\x13AppendEventsRequest\x12\x19\n" +
-	"\bspace_id\x18\x01 \x01(\tR\aspaceId\x12'\n" +
-	"\x06events\x18\x02 \x03(\v2\x0f.brain.v1.EventR\x06events\"p\n" +
+	"\bspace_id\x18\x01 \x01(\tR\aspaceId\x12+\n" +
+	"\x06events\x18\x02 \x03(\v2\x13.trace2mem.v1.EventR\x06events\"p\n" +
 	"\x14AppendEventsResponse\x12\x1a\n" +
 	"\baccepted\x18\x01 \x01(\x03R\baccepted\x12\x1e\n" +
 	"\n" +
@@ -1974,11 +1974,11 @@ const file_brain_v1_brain_proto_rawDesc = "" +
 	"\x04size\x18\x03 \x01(\x03R\x04size\"K\n" +
 	"\x12GetManifestRequest\x12\x19\n" +
 	"\bspace_id\x18\x01 \x01(\tR\aspaceId\x12\x1a\n" +
-	"\brevision\x18\x02 \x01(\tR\brevision\"u\n" +
+	"\brevision\x18\x02 \x01(\tR\brevision\"y\n" +
 	"\x13GetManifestResponse\x12\x1a\n" +
 	"\brevision\x18\x01 \x01(\tR\brevision\x12\x1c\n" +
-	"\twatermark\x18\x02 \x01(\x03R\twatermark\x12$\n" +
-	"\x05files\x18\x03 \x03(\v2\x0e.brain.v1.FileR\x05files\"\\\n" +
+	"\twatermark\x18\x02 \x01(\x03R\twatermark\x12(\n" +
+	"\x05files\x18\x03 \x03(\v2\x12.trace2mem.v1.FileR\x05files\"\\\n" +
 	"\x0fReadFileRequest\x12\x19\n" +
 	"\bspace_id\x18\x01 \x01(\tR\aspaceId\x12\x1a\n" +
 	"\brevision\x18\x02 \x01(\tR\brevision\x12\x12\n" +
@@ -1997,123 +1997,123 @@ const file_brain_v1_brain_proto_rawDesc = "" +
 	"\x04path\x18\x01 \x01(\tR\x04path\x12\x18\n" +
 	"\acontent\x18\x02 \x01(\tR\acontent\x12\x14\n" +
 	"\x05score\x18\x03 \x01(\x01R\x05score\x12\x1c\n" +
-	"\tcitations\x18\x04 \x03(\tR\tcitations\"\x9c\x01\n" +
+	"\tcitations\x18\x04 \x03(\tR\tcitations\"\xa0\x01\n" +
 	"\x0eSearchResponse\x12\x1a\n" +
-	"\brevision\x18\x01 \x01(\tR\brevision\x12'\n" +
-	"\x04hits\x18\x02 \x03(\v2\x13.brain.v1.SearchHitR\x04hits\x12\x1c\n" +
+	"\brevision\x18\x01 \x01(\tR\brevision\x12+\n" +
+	"\x04hits\x18\x02 \x03(\v2\x17.trace2mem.v1.SearchHitR\x04hits\x12\x1c\n" +
 	"\twatermark\x18\x03 \x01(\x03R\twatermark\x12'\n" +
 	"\x0fsemantic_status\x18\x04 \x01(\tR\x0esemanticStatus\"J\n" +
 	"\x12GetEvidenceRequest\x12\x19\n" +
 	"\bspace_id\x18\x01 \x01(\tR\aspaceId\x12\x19\n" +
-	"\bevent_id\x18\x02 \x01(\tR\aeventId\"X\n" +
-	"\x13GetEvidenceResponse\x12%\n" +
-	"\x05event\x18\x01 \x01(\v2\x0f.brain.v1.EventR\x05event\x12\x1a\n" +
+	"\bevent_id\x18\x02 \x01(\tR\aeventId\"\\\n" +
+	"\x13GetEvidenceResponse\x12)\n" +
+	"\x05event\x18\x01 \x01(\v2\x13.trace2mem.v1.EventR\x05event\x12\x1a\n" +
 	"\bcitation\x18\x02 \x01(\tR\bcitation\"g\n" +
 	"\x11GetContextRequest\x12\x19\n" +
 	"\bspace_id\x18\x01 \x01(\tR\aspaceId\x12\x14\n" +
 	"\x05query\x18\x02 \x01(\tR\x05query\x12!\n" +
-	"\fwithout_wiki\x18\x03 \x01(\bR\vwithoutWiki\"\x92\x01\n" +
+	"\fwithout_wiki\x18\x03 \x01(\bR\vwithoutWiki\"\x96\x01\n" +
 	"\x12GetContextResponse\x12\x1a\n" +
 	"\brevision\x18\x01 \x01(\tR\brevision\x12\x1c\n" +
-	"\tsynthesis\x18\x02 \x01(\tR\tsynthesis\x12$\n" +
-	"\x05files\x18\x03 \x03(\v2\x0e.brain.v1.FileR\x05files\x12\x1c\n" +
-	"\twatermark\x18\x04 \x01(\x03R\twatermark2\xc7\x03\n" +
-	"\x10IngestionService\x12M\n" +
-	"\fAppendEvents\x12\x1d.brain.v1.AppendEventsRequest\x1a\x1e.brain.v1.AppendEventsResponse\x12_\n" +
-	"\x12GetIngestionStatus\x12#.brain.v1.GetIngestionStatusRequest\x1a$.brain.v1.GetIngestionStatusResponse\x12S\n" +
-	"\x0eUploadArtifact\x12\x1f.brain.v1.UploadArtifactRequest\x1a .brain.v1.UploadArtifactResponse\x12M\n" +
-	"\fCloseSession\x12\x1d.brain.v1.CloseSessionRequest\x1a\x1e.brain.v1.CloseSessionResponse\x12_\n" +
-	"\x12RequestCompilation\x12#.brain.v1.RequestCompilationRequest\x1a$.brain.v1.RequestCompilationResponse2\xf0\x02\n" +
-	"\rMemoryService\x12J\n" +
-	"\vGetManifest\x12\x1c.brain.v1.GetManifestRequest\x1a\x1d.brain.v1.GetManifestResponse\x12A\n" +
-	"\bReadFile\x12\x19.brain.v1.ReadFileRequest\x1a\x1a.brain.v1.ReadFileResponse\x12;\n" +
-	"\x06Search\x12\x17.brain.v1.SearchRequest\x1a\x18.brain.v1.SearchResponse\x12J\n" +
-	"\vGetEvidence\x12\x1c.brain.v1.GetEvidenceRequest\x1a\x1d.brain.v1.GetEvidenceResponse\x12G\n" +
+	"\tsynthesis\x18\x02 \x01(\tR\tsynthesis\x12(\n" +
+	"\x05files\x18\x03 \x03(\v2\x12.trace2mem.v1.FileR\x05files\x12\x1c\n" +
+	"\twatermark\x18\x04 \x01(\x03R\twatermark2\xef\x03\n" +
+	"\x10IngestionService\x12U\n" +
+	"\fAppendEvents\x12!.trace2mem.v1.AppendEventsRequest\x1a\".trace2mem.v1.AppendEventsResponse\x12g\n" +
+	"\x12GetIngestionStatus\x12'.trace2mem.v1.GetIngestionStatusRequest\x1a(.trace2mem.v1.GetIngestionStatusResponse\x12[\n" +
+	"\x0eUploadArtifact\x12#.trace2mem.v1.UploadArtifactRequest\x1a$.trace2mem.v1.UploadArtifactResponse\x12U\n" +
+	"\fCloseSession\x12!.trace2mem.v1.CloseSessionRequest\x1a\".trace2mem.v1.CloseSessionResponse\x12g\n" +
+	"\x12RequestCompilation\x12'.trace2mem.v1.RequestCompilationRequest\x1a(.trace2mem.v1.RequestCompilationResponse2\x98\x03\n" +
+	"\rMemoryService\x12R\n" +
+	"\vGetManifest\x12 .trace2mem.v1.GetManifestRequest\x1a!.trace2mem.v1.GetManifestResponse\x12I\n" +
+	"\bReadFile\x12\x1d.trace2mem.v1.ReadFileRequest\x1a\x1e.trace2mem.v1.ReadFileResponse\x12C\n" +
+	"\x06Search\x12\x1b.trace2mem.v1.SearchRequest\x1a\x1c.trace2mem.v1.SearchResponse\x12R\n" +
+	"\vGetEvidence\x12 .trace2mem.v1.GetEvidenceRequest\x1a!.trace2mem.v1.GetEvidenceResponse\x12O\n" +
 	"\n" +
-	"GetContext\x12\x1b.brain.v1.GetContextRequest\x1a\x1c.brain.v1.GetContextResponseB3Z1github.com/brainmemory/brain/gen/brain/v1;brainv1b\x06proto3"
+	"GetContext\x12\x1f.trace2mem.v1.GetContextRequest\x1a .trace2mem.v1.GetContextResponseB=Z;github.com/trace2mem/trace2mem/gen/trace2mem/v1;trace2memv1b\x06proto3"
 
 var (
-	file_brain_v1_brain_proto_rawDescOnce sync.Once
-	file_brain_v1_brain_proto_rawDescData []byte
+	file_trace2mem_v1_trace2mem_proto_rawDescOnce sync.Once
+	file_trace2mem_v1_trace2mem_proto_rawDescData []byte
 )
 
-func file_brain_v1_brain_proto_rawDescGZIP() []byte {
-	file_brain_v1_brain_proto_rawDescOnce.Do(func() {
-		file_brain_v1_brain_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_brain_v1_brain_proto_rawDesc), len(file_brain_v1_brain_proto_rawDesc)))
+func file_trace2mem_v1_trace2mem_proto_rawDescGZIP() []byte {
+	file_trace2mem_v1_trace2mem_proto_rawDescOnce.Do(func() {
+		file_trace2mem_v1_trace2mem_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_trace2mem_v1_trace2mem_proto_rawDesc), len(file_trace2mem_v1_trace2mem_proto_rawDesc)))
 	})
-	return file_brain_v1_brain_proto_rawDescData
+	return file_trace2mem_v1_trace2mem_proto_rawDescData
 }
 
-var file_brain_v1_brain_proto_msgTypes = make([]protoimpl.MessageInfo, 30)
-var file_brain_v1_brain_proto_goTypes = []any{
-	(*Actor)(nil),                      // 0: brain.v1.Actor
-	(*Source)(nil),                     // 1: brain.v1.Source
-	(*Message)(nil),                    // 2: brain.v1.Message
-	(*ToolCall)(nil),                   // 3: brain.v1.ToolCall
-	(*ToolResult)(nil),                 // 4: brain.v1.ToolResult
-	(*ArtifactReference)(nil),          // 5: brain.v1.ArtifactReference
-	(*SessionLifecycle)(nil),           // 6: brain.v1.SessionLifecycle
-	(*Event)(nil),                      // 7: brain.v1.Event
-	(*AppendEventsRequest)(nil),        // 8: brain.v1.AppendEventsRequest
-	(*AppendEventsResponse)(nil),       // 9: brain.v1.AppendEventsResponse
-	(*GetIngestionStatusRequest)(nil),  // 10: brain.v1.GetIngestionStatusRequest
-	(*GetIngestionStatusResponse)(nil), // 11: brain.v1.GetIngestionStatusResponse
-	(*UploadArtifactRequest)(nil),      // 12: brain.v1.UploadArtifactRequest
-	(*UploadArtifactResponse)(nil),     // 13: brain.v1.UploadArtifactResponse
-	(*CloseSessionRequest)(nil),        // 14: brain.v1.CloseSessionRequest
-	(*CloseSessionResponse)(nil),       // 15: brain.v1.CloseSessionResponse
-	(*RequestCompilationRequest)(nil),  // 16: brain.v1.RequestCompilationRequest
-	(*RequestCompilationResponse)(nil), // 17: brain.v1.RequestCompilationResponse
-	(*File)(nil),                       // 18: brain.v1.File
-	(*GetManifestRequest)(nil),         // 19: brain.v1.GetManifestRequest
-	(*GetManifestResponse)(nil),        // 20: brain.v1.GetManifestResponse
-	(*ReadFileRequest)(nil),            // 21: brain.v1.ReadFileRequest
-	(*ReadFileResponse)(nil),           // 22: brain.v1.ReadFileResponse
-	(*SearchRequest)(nil),              // 23: brain.v1.SearchRequest
-	(*SearchHit)(nil),                  // 24: brain.v1.SearchHit
-	(*SearchResponse)(nil),             // 25: brain.v1.SearchResponse
-	(*GetEvidenceRequest)(nil),         // 26: brain.v1.GetEvidenceRequest
-	(*GetEvidenceResponse)(nil),        // 27: brain.v1.GetEvidenceResponse
-	(*GetContextRequest)(nil),          // 28: brain.v1.GetContextRequest
-	(*GetContextResponse)(nil),         // 29: brain.v1.GetContextResponse
+var file_trace2mem_v1_trace2mem_proto_msgTypes = make([]protoimpl.MessageInfo, 30)
+var file_trace2mem_v1_trace2mem_proto_goTypes = []any{
+	(*Actor)(nil),                      // 0: trace2mem.v1.Actor
+	(*Source)(nil),                     // 1: trace2mem.v1.Source
+	(*Message)(nil),                    // 2: trace2mem.v1.Message
+	(*ToolCall)(nil),                   // 3: trace2mem.v1.ToolCall
+	(*ToolResult)(nil),                 // 4: trace2mem.v1.ToolResult
+	(*ArtifactReference)(nil),          // 5: trace2mem.v1.ArtifactReference
+	(*SessionLifecycle)(nil),           // 6: trace2mem.v1.SessionLifecycle
+	(*Event)(nil),                      // 7: trace2mem.v1.Event
+	(*AppendEventsRequest)(nil),        // 8: trace2mem.v1.AppendEventsRequest
+	(*AppendEventsResponse)(nil),       // 9: trace2mem.v1.AppendEventsResponse
+	(*GetIngestionStatusRequest)(nil),  // 10: trace2mem.v1.GetIngestionStatusRequest
+	(*GetIngestionStatusResponse)(nil), // 11: trace2mem.v1.GetIngestionStatusResponse
+	(*UploadArtifactRequest)(nil),      // 12: trace2mem.v1.UploadArtifactRequest
+	(*UploadArtifactResponse)(nil),     // 13: trace2mem.v1.UploadArtifactResponse
+	(*CloseSessionRequest)(nil),        // 14: trace2mem.v1.CloseSessionRequest
+	(*CloseSessionResponse)(nil),       // 15: trace2mem.v1.CloseSessionResponse
+	(*RequestCompilationRequest)(nil),  // 16: trace2mem.v1.RequestCompilationRequest
+	(*RequestCompilationResponse)(nil), // 17: trace2mem.v1.RequestCompilationResponse
+	(*File)(nil),                       // 18: trace2mem.v1.File
+	(*GetManifestRequest)(nil),         // 19: trace2mem.v1.GetManifestRequest
+	(*GetManifestResponse)(nil),        // 20: trace2mem.v1.GetManifestResponse
+	(*ReadFileRequest)(nil),            // 21: trace2mem.v1.ReadFileRequest
+	(*ReadFileResponse)(nil),           // 22: trace2mem.v1.ReadFileResponse
+	(*SearchRequest)(nil),              // 23: trace2mem.v1.SearchRequest
+	(*SearchHit)(nil),                  // 24: trace2mem.v1.SearchHit
+	(*SearchResponse)(nil),             // 25: trace2mem.v1.SearchResponse
+	(*GetEvidenceRequest)(nil),         // 26: trace2mem.v1.GetEvidenceRequest
+	(*GetEvidenceResponse)(nil),        // 27: trace2mem.v1.GetEvidenceResponse
+	(*GetContextRequest)(nil),          // 28: trace2mem.v1.GetContextRequest
+	(*GetContextResponse)(nil),         // 29: trace2mem.v1.GetContextResponse
 	(*timestamppb.Timestamp)(nil),      // 30: google.protobuf.Timestamp
 	(*structpb.Struct)(nil),            // 31: google.protobuf.Struct
 }
-var file_brain_v1_brain_proto_depIdxs = []int32{
-	30, // 0: brain.v1.Event.occurred_at:type_name -> google.protobuf.Timestamp
-	0,  // 1: brain.v1.Event.actor:type_name -> brain.v1.Actor
-	1,  // 2: brain.v1.Event.source:type_name -> brain.v1.Source
-	31, // 3: brain.v1.Event.metadata:type_name -> google.protobuf.Struct
-	2,  // 4: brain.v1.Event.message:type_name -> brain.v1.Message
-	3,  // 5: brain.v1.Event.tool_call:type_name -> brain.v1.ToolCall
-	4,  // 6: brain.v1.Event.tool_result:type_name -> brain.v1.ToolResult
-	5,  // 7: brain.v1.Event.artifact_reference:type_name -> brain.v1.ArtifactReference
-	6,  // 8: brain.v1.Event.session_lifecycle:type_name -> brain.v1.SessionLifecycle
-	7,  // 9: brain.v1.AppendEventsRequest.events:type_name -> brain.v1.Event
-	18, // 10: brain.v1.GetManifestResponse.files:type_name -> brain.v1.File
-	24, // 11: brain.v1.SearchResponse.hits:type_name -> brain.v1.SearchHit
-	7,  // 12: brain.v1.GetEvidenceResponse.event:type_name -> brain.v1.Event
-	18, // 13: brain.v1.GetContextResponse.files:type_name -> brain.v1.File
-	8,  // 14: brain.v1.IngestionService.AppendEvents:input_type -> brain.v1.AppendEventsRequest
-	10, // 15: brain.v1.IngestionService.GetIngestionStatus:input_type -> brain.v1.GetIngestionStatusRequest
-	12, // 16: brain.v1.IngestionService.UploadArtifact:input_type -> brain.v1.UploadArtifactRequest
-	14, // 17: brain.v1.IngestionService.CloseSession:input_type -> brain.v1.CloseSessionRequest
-	16, // 18: brain.v1.IngestionService.RequestCompilation:input_type -> brain.v1.RequestCompilationRequest
-	19, // 19: brain.v1.MemoryService.GetManifest:input_type -> brain.v1.GetManifestRequest
-	21, // 20: brain.v1.MemoryService.ReadFile:input_type -> brain.v1.ReadFileRequest
-	23, // 21: brain.v1.MemoryService.Search:input_type -> brain.v1.SearchRequest
-	26, // 22: brain.v1.MemoryService.GetEvidence:input_type -> brain.v1.GetEvidenceRequest
-	28, // 23: brain.v1.MemoryService.GetContext:input_type -> brain.v1.GetContextRequest
-	9,  // 24: brain.v1.IngestionService.AppendEvents:output_type -> brain.v1.AppendEventsResponse
-	11, // 25: brain.v1.IngestionService.GetIngestionStatus:output_type -> brain.v1.GetIngestionStatusResponse
-	13, // 26: brain.v1.IngestionService.UploadArtifact:output_type -> brain.v1.UploadArtifactResponse
-	15, // 27: brain.v1.IngestionService.CloseSession:output_type -> brain.v1.CloseSessionResponse
-	17, // 28: brain.v1.IngestionService.RequestCompilation:output_type -> brain.v1.RequestCompilationResponse
-	20, // 29: brain.v1.MemoryService.GetManifest:output_type -> brain.v1.GetManifestResponse
-	22, // 30: brain.v1.MemoryService.ReadFile:output_type -> brain.v1.ReadFileResponse
-	25, // 31: brain.v1.MemoryService.Search:output_type -> brain.v1.SearchResponse
-	27, // 32: brain.v1.MemoryService.GetEvidence:output_type -> brain.v1.GetEvidenceResponse
-	29, // 33: brain.v1.MemoryService.GetContext:output_type -> brain.v1.GetContextResponse
+var file_trace2mem_v1_trace2mem_proto_depIdxs = []int32{
+	30, // 0: trace2mem.v1.Event.occurred_at:type_name -> google.protobuf.Timestamp
+	0,  // 1: trace2mem.v1.Event.actor:type_name -> trace2mem.v1.Actor
+	1,  // 2: trace2mem.v1.Event.source:type_name -> trace2mem.v1.Source
+	31, // 3: trace2mem.v1.Event.metadata:type_name -> google.protobuf.Struct
+	2,  // 4: trace2mem.v1.Event.message:type_name -> trace2mem.v1.Message
+	3,  // 5: trace2mem.v1.Event.tool_call:type_name -> trace2mem.v1.ToolCall
+	4,  // 6: trace2mem.v1.Event.tool_result:type_name -> trace2mem.v1.ToolResult
+	5,  // 7: trace2mem.v1.Event.artifact_reference:type_name -> trace2mem.v1.ArtifactReference
+	6,  // 8: trace2mem.v1.Event.session_lifecycle:type_name -> trace2mem.v1.SessionLifecycle
+	7,  // 9: trace2mem.v1.AppendEventsRequest.events:type_name -> trace2mem.v1.Event
+	18, // 10: trace2mem.v1.GetManifestResponse.files:type_name -> trace2mem.v1.File
+	24, // 11: trace2mem.v1.SearchResponse.hits:type_name -> trace2mem.v1.SearchHit
+	7,  // 12: trace2mem.v1.GetEvidenceResponse.event:type_name -> trace2mem.v1.Event
+	18, // 13: trace2mem.v1.GetContextResponse.files:type_name -> trace2mem.v1.File
+	8,  // 14: trace2mem.v1.IngestionService.AppendEvents:input_type -> trace2mem.v1.AppendEventsRequest
+	10, // 15: trace2mem.v1.IngestionService.GetIngestionStatus:input_type -> trace2mem.v1.GetIngestionStatusRequest
+	12, // 16: trace2mem.v1.IngestionService.UploadArtifact:input_type -> trace2mem.v1.UploadArtifactRequest
+	14, // 17: trace2mem.v1.IngestionService.CloseSession:input_type -> trace2mem.v1.CloseSessionRequest
+	16, // 18: trace2mem.v1.IngestionService.RequestCompilation:input_type -> trace2mem.v1.RequestCompilationRequest
+	19, // 19: trace2mem.v1.MemoryService.GetManifest:input_type -> trace2mem.v1.GetManifestRequest
+	21, // 20: trace2mem.v1.MemoryService.ReadFile:input_type -> trace2mem.v1.ReadFileRequest
+	23, // 21: trace2mem.v1.MemoryService.Search:input_type -> trace2mem.v1.SearchRequest
+	26, // 22: trace2mem.v1.MemoryService.GetEvidence:input_type -> trace2mem.v1.GetEvidenceRequest
+	28, // 23: trace2mem.v1.MemoryService.GetContext:input_type -> trace2mem.v1.GetContextRequest
+	9,  // 24: trace2mem.v1.IngestionService.AppendEvents:output_type -> trace2mem.v1.AppendEventsResponse
+	11, // 25: trace2mem.v1.IngestionService.GetIngestionStatus:output_type -> trace2mem.v1.GetIngestionStatusResponse
+	13, // 26: trace2mem.v1.IngestionService.UploadArtifact:output_type -> trace2mem.v1.UploadArtifactResponse
+	15, // 27: trace2mem.v1.IngestionService.CloseSession:output_type -> trace2mem.v1.CloseSessionResponse
+	17, // 28: trace2mem.v1.IngestionService.RequestCompilation:output_type -> trace2mem.v1.RequestCompilationResponse
+	20, // 29: trace2mem.v1.MemoryService.GetManifest:output_type -> trace2mem.v1.GetManifestResponse
+	22, // 30: trace2mem.v1.MemoryService.ReadFile:output_type -> trace2mem.v1.ReadFileResponse
+	25, // 31: trace2mem.v1.MemoryService.Search:output_type -> trace2mem.v1.SearchResponse
+	27, // 32: trace2mem.v1.MemoryService.GetEvidence:output_type -> trace2mem.v1.GetEvidenceResponse
+	29, // 33: trace2mem.v1.MemoryService.GetContext:output_type -> trace2mem.v1.GetContextResponse
 	24, // [24:34] is the sub-list for method output_type
 	14, // [14:24] is the sub-list for method input_type
 	14, // [14:14] is the sub-list for extension type_name
@@ -2121,12 +2121,12 @@ var file_brain_v1_brain_proto_depIdxs = []int32{
 	0,  // [0:14] is the sub-list for field type_name
 }
 
-func init() { file_brain_v1_brain_proto_init() }
-func file_brain_v1_brain_proto_init() {
-	if File_brain_v1_brain_proto != nil {
+func init() { file_trace2mem_v1_trace2mem_proto_init() }
+func file_trace2mem_v1_trace2mem_proto_init() {
+	if File_trace2mem_v1_trace2mem_proto != nil {
 		return
 	}
-	file_brain_v1_brain_proto_msgTypes[7].OneofWrappers = []any{
+	file_trace2mem_v1_trace2mem_proto_msgTypes[7].OneofWrappers = []any{
 		(*Event_Message)(nil),
 		(*Event_ToolCall)(nil),
 		(*Event_ToolResult)(nil),
@@ -2137,17 +2137,17 @@ func file_brain_v1_brain_proto_init() {
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_brain_v1_brain_proto_rawDesc), len(file_brain_v1_brain_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_trace2mem_v1_trace2mem_proto_rawDesc), len(file_trace2mem_v1_trace2mem_proto_rawDesc)),
 			NumEnums:      0,
 			NumMessages:   30,
 			NumExtensions: 0,
 			NumServices:   2,
 		},
-		GoTypes:           file_brain_v1_brain_proto_goTypes,
-		DependencyIndexes: file_brain_v1_brain_proto_depIdxs,
-		MessageInfos:      file_brain_v1_brain_proto_msgTypes,
+		GoTypes:           file_trace2mem_v1_trace2mem_proto_goTypes,
+		DependencyIndexes: file_trace2mem_v1_trace2mem_proto_depIdxs,
+		MessageInfos:      file_trace2mem_v1_trace2mem_proto_msgTypes,
 	}.Build()
-	File_brain_v1_brain_proto = out.File
-	file_brain_v1_brain_proto_goTypes = nil
-	file_brain_v1_brain_proto_depIdxs = nil
+	File_trace2mem_v1_trace2mem_proto = out.File
+	file_trace2mem_v1_trace2mem_proto_goTypes = nil
+	file_trace2mem_v1_trace2mem_proto_depIdxs = nil
 }

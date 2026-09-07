@@ -4,8 +4,8 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
-	"github.com/brainmemory/brain/internal/domain"
 	"github.com/jackc/pgx/v5"
+	"github.com/trace2mem/trace2mem/internal/domain"
 	"time"
 )
 

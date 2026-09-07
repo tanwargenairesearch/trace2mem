@@ -3,7 +3,7 @@ package store
 import (
 	"context"
 	"errors"
-	"github.com/brainmemory/brain/internal/domain"
+	"github.com/trace2mem/trace2mem/internal/domain"
 )
 
 var ErrBudget = errors.New("daily provider token budget exhausted")

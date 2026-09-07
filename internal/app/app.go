@@ -5,9 +5,9 @@ import (
 	"cloud.google.com/go/storage"
 	"context"
 	"errors"
-	"github.com/brainmemory/brain/internal/blob"
-	"github.com/brainmemory/brain/internal/config"
-	"github.com/brainmemory/brain/internal/store"
+	"github.com/trace2mem/trace2mem/internal/blob"
+	"github.com/trace2mem/trace2mem/internal/config"
+	"github.com/trace2mem/trace2mem/internal/store"
 	"os"
 	"strings"
 )
@@ -21,7 +21,7 @@ type App struct {
 }
 
 func Open(ctx context.Context) (*App, error) {
-	for _, key := range []string{"BRAIN_BOOTSTRAP_TOKEN", "BRAIN_MASTER_KEY"} {
+	for _, key := range []string{"TRACE2MEM_BOOTSTRAP_TOKEN", "TRACE2MEM_MASTER_KEY"} {
 		if f := os.Getenv(key + "_FILE"); f != "" {
 			b, e := os.ReadFile(f)
 			if e != nil {

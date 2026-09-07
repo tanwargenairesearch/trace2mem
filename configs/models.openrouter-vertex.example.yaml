@@ -1,6 +1,6 @@
 version: 1
 # OpenRouter implements the Responses wire protocol used by the openai adapter.
-# The operator must allow https://openrouter.ai/api/v1 in BRAIN_MODEL_ENDPOINTS.
+# The operator must allow https://openrouter.ai/api/v1 in TRACE2MEM_MODEL_ENDPOINTS.
 generation:
   provider: openai
   endpoint: https://openrouter.ai/api/v1

@@ -4,10 +4,10 @@ import (
 	"connectrpc.com/connect"
 	"context"
 	"encoding/json"
-	brainv1 "github.com/brainmemory/brain/gen/brain/v1"
-	"github.com/brainmemory/brain/internal/domain"
-	"github.com/brainmemory/brain/internal/model"
-	"github.com/brainmemory/brain/internal/store"
+	trace2memv1 "github.com/trace2mem/trace2mem/gen/trace2mem/v1"
+	"github.com/trace2mem/trace2mem/internal/domain"
+	"github.com/trace2mem/trace2mem/internal/model"
+	"github.com/trace2mem/trace2mem/internal/store"
 	"net/http"
 	"strings"
 	"time"
@@ -55,7 +55,7 @@ func (s *Server) runEvaluation(ctx context.Context, p domain.Principal, sp strin
 	for _, c := range cases {
 		for _, wiki := range []bool{true, false} {
 			start := time.Now()
-			res, e := s.GetContext(ctx, connect.NewRequest(&brainv1.GetContextRequest{SpaceId: sp, Query: c.Query, WithoutWiki: !wiki}))
+			res, e := s.GetContext(ctx, connect.NewRequest(&trace2memv1.GetContextRequest{SpaceId: sp, Query: c.Query, WithoutWiki: !wiki}))
 			if e != nil {
 				return out, e
 			}

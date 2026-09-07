@@ -2,8 +2,8 @@ package server
 
 import (
 	"encoding/json"
-	"github.com/brainmemory/brain/internal/domain"
-	"github.com/brainmemory/brain/internal/model"
+	"github.com/trace2mem/trace2mem/internal/domain"
+	"github.com/trace2mem/trace2mem/internal/model"
 	"net/http"
 	"strings"
 	"time"

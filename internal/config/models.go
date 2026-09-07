@@ -2,7 +2,7 @@ package config
 
 import (
 	"errors"
-	"github.com/brainmemory/brain/internal/domain"
+	"github.com/trace2mem/trace2mem/internal/domain"
 	"go.yaml.in/yaml/v3"
 	"io"
 	"os"

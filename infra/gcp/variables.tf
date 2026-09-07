@@ -5,7 +5,7 @@ variable "region" {
 }
 variable "name" {
   type    = string
-  default = "brain"
+  default = "trace2mem"
 }
 variable "image" {
   type        = string
