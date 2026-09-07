@@ -161,6 +161,11 @@ func (s *Server) candidates(w http.ResponseWriter, r *http.Request, p domain.Pri
 			return
 		}
 		defer tx.Rollback(ctx)
+		var locked string
+		if e = tx.QueryRow(ctx, "SELECT id FROM spaces WHERE tenant=$1 AND id=$2 FOR UPDATE", p.Tenant, sp).Scan(&locked); e != nil {
+			failure(w, e)
+			return
+		}
 		var prompt string
 		e = tx.QueryRow(ctx, "SELECT prompt FROM candidates WHERE tenant=$1 AND space=$2 AND id=$3", p.Tenant, sp, a.PromoteID).Scan(&prompt)
 		if e != nil {
@@ -189,6 +194,15 @@ func (s *Server) candidates(w http.ResponseWriter, r *http.Request, p domain.Pri
 	var baseline evalReport
 	if e := json.Unmarshal(b, &baseline); e != nil {
 		failure(w, e)
+		return
+	}
+	var baselineCurrent string
+	if e := s.Store.DB.QueryRow(ctx, "SELECT revision FROM spaces WHERE tenant=$1 AND id=$2", p.Tenant, sp).Scan(&baselineCurrent); e != nil {
+		failure(w, e)
+		return
+	}
+	if baselineCurrent != baseline.Revision || baseline.Revision == "" {
+		failure(w, domain.ErrConflict)
 		return
 	}
 	development := []evalResult{}
@@ -242,7 +256,7 @@ func (s *Server) candidates(w http.ResponseWriter, r *http.Request, p domain.Pri
 		failure(w, e)
 		return
 	}
-	if current != report.Revision {
+	if current != report.Revision || current != baseline.Revision {
 		failure(w, domain.ErrConflict)
 		return
 	}

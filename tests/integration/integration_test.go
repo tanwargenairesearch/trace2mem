@@ -60,7 +60,7 @@ func TestMemoryLifecycle(t *testing.T) {
 		return v
 	}
 	sp := post("spaces", map[string]string{"name": "Integration " + time.Now().Format(time.RFC3339Nano)})["id"].(string)
-	post("model?space="+sp, map[string]string{"provider": "scripted", "model": "fixture-v1", "embedding_model": "fixture-v1", "embedding_provider":"scripted"})
+	post("model?space="+sp, map[string]string{"provider": "scripted", "model": "fixture-v1", "embedding_model": "fixture-v1", "embedding_provider": "scripted"})
 	event := func(id, text string, offset time.Duration) *brainv1.Event {
 		return &brainv1.Event{EventId: id, SessionId: "s1", Actor: &brainv1.Actor{Role: "user"}, Source: &brainv1.Source{Id: "fixture"}, OccurredAt: timestamppb.New(time.Now().Add(offset)), Payload: &brainv1.Event_Message{Message: &brainv1.Message{Text: text}}}
 	}
@@ -165,6 +165,15 @@ func TestMemoryLifecycle(t *testing.T) {
 	contextRes, e := c.Memory.GetContext(ctx, connect.NewRequest(&brainv1.GetContextRequest{SpaceId: sp, Query: "Launch"}))
 	if e != nil || !strings.Contains(contextRes.Msg.Synthesis, "October") {
 		t.Fatalf("context: %v %v", contextRes, e)
+	}
+	post("model?space="+sp, map[string]string{"provider": "scripted", "model": "fixture-v1", "embedding_provider": "scripted", "embedding_model": "fixture-v2"})
+	reindexed := wait(second)
+	if reindexed == second {
+		t.Fatal("embedding change did not publish an index")
+	}
+	afterIndex, e := c.Memory.Search(ctx, connect.NewRequest(&brainv1.SearchRequest{SpaceId: sp, Query: "PDF"}))
+	if e != nil || len(afterIndex.Msg.Hits) == 0 {
+		t.Fatal("unchanged knowledge lost during reindex", e)
 	}
 	post("forget?space="+sp, map[string]string{"event_id": "e3"})
 	if _, e = c.Memory.GetEvidence(ctx, connect.NewRequest(&brainv1.GetEvidenceRequest{SpaceId: sp, EventId: "e3"})); connect.CodeOf(e) != connect.CodeNotFound {

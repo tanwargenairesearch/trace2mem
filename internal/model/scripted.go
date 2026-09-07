@@ -79,7 +79,7 @@ func (Scripted) Generate(ctx context.Context, t []Turn, tools []Tool) (Reply, er
 			supersedes := []string{}
 			for _, o := range old {
 				if o.Subject == sub && o.Status == "current" {
-					supersedes = append(supersedes, o.Citations...)
+					supersedes = append(supersedes, o.StableID())
 				}
 			}
 			obs = append(obs, domain.Observation{Subject: sub, Text: text, Origin: v.Role, Status: "current", Citations: []string{v.ID}, Supersedes: supersedes})

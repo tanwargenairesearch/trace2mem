@@ -53,7 +53,7 @@ message ReadFileRequest { string space_id = 1; string revision = 2; string path 
 message ReadFileResponse { string revision = 1; string content = 2; string sha256 = 3; }
 message SearchRequest { string space_id = 1; string query = 2; string revision = 3; int32 limit = 4; bool without_wiki = 5; }
 message SearchHit { string path = 1; string content = 2; double score = 3; repeated string citations = 4; }
-message SearchResponse { string revision = 1; repeated SearchHit hits = 2; int64 watermark = 3; }
+message SearchResponse { string revision = 1; repeated SearchHit hits = 2; int64 watermark = 3; string semantic_status = 4; }
 message GetEvidenceRequest { string space_id = 1; string event_id = 2; }
 message GetEvidenceResponse { Event event = 1; string citation = 2; }
 message GetContextRequest { string space_id = 1; string query = 2; bool without_wiki = 3; }

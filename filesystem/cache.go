@@ -47,7 +47,22 @@ func New(ctx context.Context, c *sdk.Client, space, revision, root string, max i
 			return nil, errors.New("invalid server manifest")
 		}
 	}
+	lock, e := os.OpenFile(filepath.Join(budgetRoot, ".cache-lock"), os.O_CREATE|os.O_RDWR, 0600)
+	if e != nil {
+		return nil, e
+	}
+	defer lock.Close()
+	if e = unix.Flock(int(lock.Fd()), unix.LOCK_EX); e != nil {
+		return nil, e
+	}
+	defer unix.Flock(int(lock.Fd()), unix.LOCK_UN)
 	b, _ := json.Marshal(res.Msg)
+	if e = cache.makeRoom(int64(len(b)), "manifest.json"); e != nil {
+		return nil, e
+	}
+	if e = os.MkdirAll(root, 0700); e != nil {
+		return nil, e
+	}
 	if e = os.WriteFile(filepath.Join(root, "manifest.json"), b, 0600); e != nil {
 		return nil, e
 	}
@@ -106,6 +121,9 @@ func (c *Cache) Read(ctx context.Context, path string) ([]byte, error) {
 	if e = c.makeRoom(int64(len(b)), file.Sha256); e != nil {
 		return nil, e
 	}
+	if e = os.MkdirAll(c.root, 0700); e != nil {
+		return nil, e
+	}
 	f, e := os.CreateTemp(c.root, ".download-")
 	if e != nil {
 		return nil, e
@@ -141,14 +159,16 @@ func (c *Cache) makeRoom(size int64, keep string) error {
 		if d.IsDir() {
 			return nil
 		}
-		if len(d.Name()) != 64 {
+		if d.Name() == ".cache-lock" {
 			return nil
 		}
 		i, err := d.Info()
 		if err != nil {
 			return err
 		}
-		total += i.Size()
+		if path != filepath.Join(c.root, keep) {
+			total += i.Size()
+		}
 		if path != filepath.Join(c.root, keep) {
 			entries = append(entries, entry{path, i.Size(), i.ModTime().UnixNano()})
 		}
@@ -166,6 +186,9 @@ func (c *Cache) makeRoom(size int64, keep string) error {
 			return e
 		}
 		total -= v.size
+		if parent := filepath.Dir(v.name); parent != c.budgetRoot {
+			_ = os.Remove(parent)
+		}
 	}
 	if total+size > c.MaxBytes {
 		return errors.New("cache budget exhausted")
@@ -173,6 +196,18 @@ func (c *Cache) makeRoom(size int64, keep string) error {
 	return nil
 }
 func (c *Cache) Sync(ctx context.Context, target string) error {
+	return c.SyncSelected(ctx, target, nil)
+}
+
+// SyncSelected writes only selected paths; nil selects the full revision.
+func (c *Cache) SyncSelected(ctx context.Context, target string, paths []string) error {
+	selected := map[string]bool{}
+	for _, p := range paths {
+		selected[p] = true
+	}
+	manifest := c.Manifest()
+	manifest.Files = nil
+
 	if _, e := os.Stat(target); e == nil {
 		return errors.New("sync target must not exist; choose a new snapshot directory")
 	} else if !os.IsNotExist(e) {
@@ -188,6 +223,10 @@ func (c *Cache) Sync(ctx context.Context, target string) error {
 	}
 	defer os.RemoveAll(tmp)
 	for _, f := range c.manifest.Files {
+		if paths != nil && !selected[f.Path] {
+			continue
+		}
+		manifest.Files = append(manifest.Files, f)
 		b, e := c.Read(ctx, f.Path)
 		if e != nil {
 			return e
@@ -200,7 +239,7 @@ func (c *Cache) Sync(ctx context.Context, target string) error {
 			return e
 		}
 	}
-	b, _ := json.MarshalIndent(c.manifest, "", "  ")
+	b, _ := json.MarshalIndent(manifest, "", "  ")
 	if e = os.WriteFile(filepath.Join(tmp, "manifest.json"), b, 0400); e != nil {
 		return e
 	}

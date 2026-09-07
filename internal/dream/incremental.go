@@ -8,7 +8,6 @@ import (
 	"github.com/brainmemory/brain/internal/domain"
 	"github.com/jackc/pgx/v5"
 	"google.golang.org/protobuf/encoding/protojson"
-	"strings"
 )
 
 func appendUnique(dst, src []domain.Record) []domain.Record {
@@ -83,9 +82,11 @@ func (e *Engine) merge(ctx context.Context, l domain.Lease, updates []domain.Obs
 	subjects := map[string]bool{}
 	replaced := map[string]bool{}
 	keys := map[string]bool{}
-	for _, o := range updates {
+	for i := range updates {
+		updates[i].ID = updates[i].StableID()
+		o := updates[i]
 		subjects[o.Subject] = true
-		keys[o.Subject+"\x00"+strings.Join(o.Citations, ",")] = true
+		keys[o.ID] = true
 		for _, id := range o.Supersedes {
 			replaced[id] = true
 		}
@@ -114,14 +115,16 @@ func (e *Engine) merge(ctx context.Context, l domain.Lease, updates []domain.Obs
 				rows.Close()
 				return nil, nil, err
 			}
-			if keys[old.Subject+"\x00"+strings.Join(old.Citations, ",")] {
+			old.ID = old.StableID()
+			if keys[old.ID] {
 				continue
 			}
 			for _, id := range old.Citations {
 				ids[id] = true
-				if replaced[id] {
-					old.Status = "superseded"
-				}
+
+			}
+			if replaced[old.ID] {
+				old.Status = "superseded"
 			}
 			merged = append(merged, old)
 		}

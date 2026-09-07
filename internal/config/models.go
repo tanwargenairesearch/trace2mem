@@ -44,7 +44,7 @@ func ParseModels(r io.Reader) (domain.ModelConfig, error) {
 		return domain.ModelConfig{}, errors.New("model config version must be 1")
 	}
 	for _, s := range []ModelSelection{f.Generation, f.Embedding} {
-		if s.Provider == "" || s.Model == "" || strings.Contains(s.Model, "REPLACE_") || s.Model == "latest" {
+		if s.Provider == "" || s.Model == "" || strings.Contains(s.Model, "REPLACE_") || (s.Model == "latest" || strings.HasSuffix(s.Model, ":latest")) {
 			return domain.ModelConfig{}, errors.New("each role requires an explicit provider and model")
 		}
 	}

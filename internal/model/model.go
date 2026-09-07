@@ -60,6 +60,12 @@ type combined struct {
 }
 
 func New(c domain.ModelConfig) (Provider, error) {
+	for _, m := range []string{c.Model, c.EmbeddingModel} {
+		if strings.TrimSpace(m) == "" || strings.Contains(m, "REPLACE_") || m == "latest" || strings.HasSuffix(m, ":latest") {
+			return nil, errors.New("explicit generation and embedding model versions required")
+		}
+	}
+
 	if c.EmbeddingProvider == "" || c.EmbeddingModel == "" {
 		return nil, errors.New("explicit embedding provider and model required")
 	}
@@ -88,7 +94,7 @@ func New(c domain.ModelConfig) (Provider, error) {
 	default:
 		return nil, errors.New("unsupported embedding provider")
 	}
-	return combined{Generator: gen, Embedder: embed}, nil
+	return combined{Generator: gen, Embedder: chunked{embed}}, nil
 }
 func newGeneration(c domain.ModelConfig) (Provider, error) {
 	switch c.Provider {
@@ -279,6 +285,9 @@ func (p *HTTP) Embed(ctx context.Context, texts []string) ([][]float32, error) {
 	return out, nil
 }
 func Object(properties map[string]any, required ...string) map[string]any {
+	if required == nil {
+		required = []string{}
+	}
 	return map[string]any{"type": "object", "properties": properties, "required": required, "additionalProperties": false}
 }
 func Probe(ctx context.Context, p Provider) error {

@@ -68,7 +68,7 @@ func (s *Server) Search(ctx context.Context, r *connect.Request[brainv1.SearchRe
 	if e != nil {
 		return nil, rpcerr(e)
 	}
-	out := &brainv1.SearchResponse{Revision: v.Revision, Watermark: v.Watermark}
+	out := &brainv1.SearchResponse{Revision: v.Revision, Watermark: v.Watermark, SemanticStatus: "not_requested"}
 	words := strings.Fields(strings.ToLower(r.Msg.Query))
 	for _, p := range v.Pages {
 		if r.Msg.WithoutWiki && strings.HasPrefix(p.Path, "knowledge/") {
@@ -88,10 +88,23 @@ func (s *Server) Search(ctx context.Context, r *connect.Request[brainv1.SearchRe
 	// Semantic retrieval is tied to the embedding generation that produced the revision.
 	if len(words) > 0 {
 		p := principal(ctx)
+		out.SemanticStatus = "provider_unavailable_keyword_only"
 		provider, c, err := s.Engine.Provider(ctx, p.Tenant, r.Msg.SpaceId)
+		if err == nil {
+			var incompatible bool
+			err = s.Store.DB.QueryRow(ctx, "SELECT EXISTS(SELECT 1 FROM pages WHERE tenant=$1 AND space=$2 AND revision=$3 AND embedding IS NOT NULL AND embedding_model<>$4)", p.Tenant, r.Msg.SpaceId, v.Revision, c.EmbeddingIdentity()).Scan(&incompatible)
+			if err != nil {
+				return nil, rpcerr(err)
+			}
+			if incompatible {
+				out.SemanticStatus = "incompatible_embedding_generation_keyword_only"
+				err = domain.ErrConflict
+			}
+		}
 		if err == nil {
 			vec, err := provider.Embed(ctx, []string{r.Msg.Query})
 			if err == nil && len(vec) == 1 && len(vec[0]) > 0 {
+				out.SemanticStatus = "ready"
 				b, _ := json.Marshal(vec[0])
 				rows, err := s.Store.DB.Query(ctx, `SELECT path,content,citations,1-(embedding <=> $4::vector) FROM pages WHERE tenant=$1 AND space=$2 AND revision=$3 AND embedding_model=$5 AND vector_dims(embedding)=$6 AND (NOT $7 OR path NOT LIKE 'knowledge/%') ORDER BY embedding <=> $4::vector LIMIT 20`, p.Tenant, r.Msg.SpaceId, v.Revision, string(b), c.EmbeddingIdentity(), len(vec[0]), r.Msg.WithoutWiki)
 				if err != nil {

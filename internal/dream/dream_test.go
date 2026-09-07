@@ -38,3 +38,17 @@ func TestPathsAndEvidence(t *testing.T) {
 		}
 	}
 }
+
+func TestObservationIdentitySeparatesFactsFromSameSource(t *testing.T) {
+	a := domain.Observation{Subject: "project", Text: "uses Go", Origin: "user", Citations: []string{"event1"}}
+	b := a
+	b.Text = "deadline Friday"
+	if a.StableID() == b.StableID() {
+		t.Fatal("distinct facts share identity")
+	}
+	c := a
+	c.Status = "superseded"
+	if a.StableID() != c.StableID() {
+		t.Fatal("temporal status changed identity")
+	}
+}

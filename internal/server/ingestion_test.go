@@ -21,3 +21,14 @@ func TestEventValidation(t *testing.T) {
 		t.Fatal("missing payload accepted")
 	}
 }
+func TestSynthesisCannotInventCitations(t *testing.T) {
+	if validateSynthesis("Claim [cite:missing]", map[string]bool{"e1": true}) == nil {
+		t.Fatal("uninspected citation accepted")
+	}
+	if validateSynthesis("Uncited assertion", map[string]bool{"e1": true}) == nil {
+		t.Fatal("uncited synthesis accepted")
+	}
+	if e := validateSynthesis("Claim [cite:e1]", map[string]bool{"e1": true}); e != nil {
+		t.Fatal(e)
+	}
+}

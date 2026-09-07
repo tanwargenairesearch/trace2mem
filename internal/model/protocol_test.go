@@ -41,3 +41,18 @@ func TestToolContinuation(t *testing.T) {
 		})
 	}
 }
+
+func TestZeroArgumentToolSchema(t *testing.T) {
+	b, e := json.Marshal(Object(map[string]any{}))
+	if e != nil {
+		t.Fatal(e)
+	}
+	var schema map[string]any
+	if e = json.Unmarshal(b, &schema); e != nil {
+		t.Fatal(e)
+	}
+	required, ok := schema["required"].([]any)
+	if !ok || len(required) != 0 {
+		t.Fatalf("invalid no-argument schema %s", b)
+	}
+}

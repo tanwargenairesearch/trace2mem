@@ -43,6 +43,8 @@ func (g *Gemini) Embed(ctx context.Context, texts []string) ([][]float32, error)
 			client = &http.Client{Timeout: 90 * time.Second}
 		}
 	}
+	copyClient := *client
+	client = &copyClient
 	client.CheckRedirect = func(*http.Request, []*http.Request) error { return errors.New("embedding redirects disabled") }
 	if endpoint == "" {
 		if c.EmbeddingProvider == "vertex" {

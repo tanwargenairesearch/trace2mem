@@ -44,6 +44,7 @@ type Page struct {
 	Vector    []float32 `json:"vector,omitempty"`
 }
 type Observation struct {
+	ID         string   `json:"id"`
 	Subject    string   `json:"subject"`
 	Text       string   `json:"text"`
 	Origin     string   `json:"origin"`
@@ -57,6 +58,7 @@ type Snapshot struct {
 	Pages     []Page `json:"pages"`
 }
 type Lease struct {
+	Reindex                 bool
 	Tenant, Space, Parent   string
 	Fence, Watermark, Epoch int64
 }
@@ -103,5 +105,9 @@ func ValidID(s string) bool {
 }
 
 func (c ModelConfig) EmbeddingIdentity() string {
-	return c.EmbeddingProvider + ":" + c.EmbeddingModel + ":" + fmt.Sprint(c.EmbeddingDimensions)
+	return "chunk1024-pool-v1:" + c.EmbeddingProvider + ":" + c.EmbeddingModel + ":" + fmt.Sprint(c.EmbeddingDimensions) + ":" + Hash([]byte(c.EmbeddingEndpoint + "/" + c.EmbeddingProject + "/" + c.EmbeddingLocation))[:16]
+}
+
+func (o Observation) StableID() string {
+	return Hash([]byte(o.Subject + "\x00" + o.Text + "\x00" + o.Origin + "\x00" + strings.Join(o.Citations, ",")))
 }

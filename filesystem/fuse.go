@@ -4,6 +4,7 @@ package filesystem
 
 import (
 	"context"
+	"encoding/json"
 	"github.com/hanwen/go-fuse/v2/fs"
 	"github.com/hanwen/go-fuse/v2/fuse"
 	"path"
@@ -23,6 +24,9 @@ type file struct {
 }
 
 func (r *root) OnAdd(ctx context.Context) {
+	b, _ := json.Marshal(r.cache.manifest)
+	manifestNode := &file{cache: r.cache, path: "manifest.json", size: uint64(len(b))}
+	r.AddChild("manifest.json", r.NewPersistentInode(ctx, manifestNode, fs.StableAttr{Mode: syscall.S_IFREG}), true)
 	for _, f := range r.cache.manifest.Files {
 		dir := r.EmbeddedInode()
 		parts := strings.Split(f.Path, "/")
@@ -53,7 +57,13 @@ func (f *file) Read(ctx context.Context, h fs.FileHandle, dest []byte, off int64
 	if off < 0 {
 		return nil, syscall.EINVAL
 	}
-	b, e := f.cache.Read(ctx, f.path)
+	var b []byte
+	var e error
+	if f.path == "manifest.json" {
+		b, e = json.Marshal(f.cache.manifest)
+	} else {
+		b, e = f.cache.Read(ctx, f.path)
+	}
 	if e != nil {
 		return nil, syscall.EIO
 	}

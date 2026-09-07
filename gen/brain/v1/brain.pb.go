@@ -1578,12 +1578,13 @@ func (x *SearchHit) GetCitations() []string {
 }
 
 type SearchResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Revision      string                 `protobuf:"bytes,1,opt,name=revision,proto3" json:"revision,omitempty"`
-	Hits          []*SearchHit           `protobuf:"bytes,2,rep,name=hits,proto3" json:"hits,omitempty"`
-	Watermark     int64                  `protobuf:"varint,3,opt,name=watermark,proto3" json:"watermark,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	Revision       string                 `protobuf:"bytes,1,opt,name=revision,proto3" json:"revision,omitempty"`
+	Hits           []*SearchHit           `protobuf:"bytes,2,rep,name=hits,proto3" json:"hits,omitempty"`
+	Watermark      int64                  `protobuf:"varint,3,opt,name=watermark,proto3" json:"watermark,omitempty"`
+	SemanticStatus string                 `protobuf:"bytes,4,opt,name=semantic_status,json=semanticStatus,proto3" json:"semantic_status,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
 }
 
 func (x *SearchResponse) Reset() {
@@ -1635,6 +1636,13 @@ func (x *SearchResponse) GetWatermark() int64 {
 		return x.Watermark
 	}
 	return 0
+}
+
+func (x *SearchResponse) GetSemanticStatus() string {
+	if x != nil {
+		return x.SemanticStatus
+	}
+	return ""
 }
 
 type GetEvidenceRequest struct {
@@ -1989,11 +1997,12 @@ const file_brain_v1_brain_proto_rawDesc = "" +
 	"\x04path\x18\x01 \x01(\tR\x04path\x12\x18\n" +
 	"\acontent\x18\x02 \x01(\tR\acontent\x12\x14\n" +
 	"\x05score\x18\x03 \x01(\x01R\x05score\x12\x1c\n" +
-	"\tcitations\x18\x04 \x03(\tR\tcitations\"s\n" +
+	"\tcitations\x18\x04 \x03(\tR\tcitations\"\x9c\x01\n" +
 	"\x0eSearchResponse\x12\x1a\n" +
 	"\brevision\x18\x01 \x01(\tR\brevision\x12'\n" +
 	"\x04hits\x18\x02 \x03(\v2\x13.brain.v1.SearchHitR\x04hits\x12\x1c\n" +
-	"\twatermark\x18\x03 \x01(\x03R\twatermark\"J\n" +
+	"\twatermark\x18\x03 \x01(\x03R\twatermark\x12'\n" +
+	"\x0fsemantic_status\x18\x04 \x01(\tR\x0esemanticStatus\"J\n" +
 	"\x12GetEvidenceRequest\x12\x19\n" +
 	"\bspace_id\x18\x01 \x01(\tR\aspaceId\x12\x19\n" +
 	"\bevent_id\x18\x02 \x01(\tR\aeventId\"X\n" +

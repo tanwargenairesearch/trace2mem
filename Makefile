@@ -9,14 +9,17 @@ build:
 generate:
 	buf lint
 	buf generate
-setup: build
-	bin/brainctl setup
-dev-up: setup
+setup:
+	docker compose run --build --rm init
+
+bootstrap-token:
+	docker compose run --no-deps --rm --entrypoint cat init /data/secrets/.local/bootstrap-token
+dev-up:
 	docker compose up --build -d
 test:
 	$(GO) test -race ./...
 test-integration: test-e2e
-test-e2e: setup
+test-e2e:
 	BRAIN_ALLOW_SCRIPTED=true docker compose up --build -d
 	docker compose --profile test run --build --rm test go test -v ./tests/integration
 test-fuse:
@@ -31,3 +34,12 @@ terraform-check:
 	terraform -chdir=infra/bootstrap validate
 	terraform -chdir=infra/gcp init -backend=false
 	terraform -chdir=infra/gcp validate
+
+test-model:
+	$(GO) test -v ./tests/live
+
+test-release:
+	scripts/acceptance.sh
+
+vuln:
+	$(GO) run golang.org/x/vuln/cmd/govulncheck@v1.1.4 ./...

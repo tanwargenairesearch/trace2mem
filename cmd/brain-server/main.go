@@ -59,6 +59,7 @@ func run() error {
 	}
 }
 func main() {
+	slog.SetDefault(slog.New(slog.NewJSONHandler(os.Stdout, nil)))
 	if e := run(); e != nil {
 		slog.Error("server stopped", "error", e)
 		os.Exit(1)

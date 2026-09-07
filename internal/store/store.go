@@ -14,7 +14,6 @@ import (
 	"github.com/jackc/pgx/v5/pgxpool"
 	"net"
 	"os"
-	"sort"
 	"strings"
 	"time"
 )
@@ -301,7 +300,7 @@ func (s *Store) Claim(ctx context.Context) (*domain.Lease, error) {
 	if e != nil {
 		return nil, e
 	}
-	e = tx.QueryRow(ctx, `SELECT revision,generation,(SELECT COALESCE(max(ordinal),s.watermark) FROM (SELECT ordinal,sum(COALESCE(pg_column_size(payload),0)) OVER(ORDER BY ordinal) AS bytes FROM events WHERE tenant=$1 AND space=$2 AND ordinal>s.watermark ORDER BY ordinal LIMIT 128) batch WHERE bytes<=262144) FROM spaces s WHERE tenant=$1 AND id=$2`, l.Tenant, l.Space).Scan(&l.Parent, &l.Epoch, &l.Watermark)
+	e = tx.QueryRow(ctx, `SELECT revision,generation,pending_model IS NOT NULL,CASE WHEN pending_model IS NOT NULL THEN watermark ELSE (SELECT COALESCE(max(ordinal),s.watermark) FROM (SELECT ordinal,sum(COALESCE(octet_length(payload::text),0)) OVER(ORDER BY ordinal) AS bytes FROM events WHERE tenant=$1 AND space=$2 AND ordinal>s.watermark ORDER BY ordinal LIMIT 128) batch WHERE bytes<=262144) END FROM spaces s WHERE tenant=$1 AND id=$2`, l.Tenant, l.Space).Scan(&l.Parent, &l.Epoch, &l.Reindex, &l.Watermark)
 	if e != nil {
 		return nil, e
 	}
@@ -432,6 +431,7 @@ func (s *Store) Publish(ctx context.Context, l domain.Lease, pages []domain.Page
 	if err != nil {
 		return "", err
 	}
+
 	_, e = tx.Exec(ctx, "UPDATE spaces SET revision=$3,watermark=$4,suppressed=false WHERE tenant=$1 AND id=$2", l.Tenant, l.Space, id, l.Watermark)
 	if e != nil {
 		return "", e
@@ -491,7 +491,10 @@ func (s *Store) Forget(ctx context.Context, t, sp, id string) error {
 		return e
 	}
 	defer tx.Rollback(ctx)
-	_, e = tx.Exec(ctx, "UPDATE spaces SET generation=generation+1,suppressed=true,revision='',watermark=0 WHERE tenant=$1 AND id=$2", t, sp)
+	if _, e = tx.Exec(ctx, "DELETE FROM reindex_pages WHERE tenant=$1 AND space=$2", t, sp); e != nil {
+		return e
+	}
+	_, e = tx.Exec(ctx, "UPDATE spaces SET generation=generation+1,suppressed=true,revision='',watermark=0,model=COALESCE(pending_model,model),credential=COALESCE(pending_credential,credential),pending_model=NULL,pending_credential=NULL WHERE tenant=$1 AND id=$2", t, sp)
 	if e != nil {
 		return e
 	}
@@ -528,12 +531,4 @@ func (s *Store) Forget(ctx context.Context, t, sp, id string) error {
 		return e
 	}
 	return tx.Commit(ctx)
-}
-func SortedPages(m map[string]domain.Page) []domain.Page {
-	out := make([]domain.Page, 0, len(m))
-	for _, v := range m {
-		out = append(out, v)
-	}
-	sort.Slice(out, func(i, j int) bool { return out[i].Path < out[j].Path })
-	return out
 }

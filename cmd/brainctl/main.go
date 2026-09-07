@@ -171,7 +171,11 @@ func run() error {
 			if e != nil {
 				return e
 			}
-			if e = ca.Sync(ctx, *target); e != nil {
+			paths := []string{"knowledge/index.md"}
+			for _, f := range r.Msg.Files {
+				paths = append(paths, f.Path)
+			}
+			if e = ca.SyncSelected(ctx, *target, paths); e != nil {
 				return e
 			}
 		}
