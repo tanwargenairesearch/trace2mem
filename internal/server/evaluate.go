@@ -55,7 +55,7 @@ func (s *Server) runEvaluation(ctx context.Context, p domain.Principal, sp strin
 	for _, c := range cases {
 		for _, wiki := range []bool{true, false} {
 			start := time.Now()
-			res, e := s.GetContext(ctx, connect.NewRequest(&trace2memv1.GetContextRequest{SpaceId: sp, Query: c.Query, WithoutWiki: !wiki}))
+			res, e := s.GetContext(ctx, connect.NewRequest(&trace2memv1.GetContextRequest{Query: c.Query, WithoutWiki: !wiki}))
 			if e != nil {
 				return out, e
 			}

@@ -26,13 +26,13 @@ func New(url, token string, opts ...connect.ClientOption) *Client {
 	opts = append(opts, auth)
 	return &Client{trace2memv1connect.NewIngestionServiceClient(hc, url, opts...), trace2memv1connect.NewMemoryServiceClient(hc, url, opts...), hc, url, token}
 }
-func (c *Client) Import(ctx context.Context, space string, a Adapter) error {
+func (c *Client) Import(ctx context.Context, a Adapter) error {
 	batch := []*trace2memv1.Event{}
 	flush := func() error {
 		if len(batch) == 0 {
 			return nil
 		}
-		_, e := c.Ingestion.AppendEvents(ctx, connect.NewRequest(&trace2memv1.AppendEventsRequest{SpaceId: space, Events: batch}))
+		_, e := c.Ingestion.AppendEvents(ctx, connect.NewRequest(&trace2memv1.AppendEventsRequest{Events: batch}))
 		if e == nil {
 			batch = nil
 		}

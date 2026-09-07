@@ -88,11 +88,14 @@ func (s *Store) Token(ctx context.Context, token string) (domain.Principal, erro
 	return p, e
 }
 func (s *Store) CreateToken(ctx context.Context, p domain.Principal, scopes []string) (string, error) {
+	if !p.Scopes["manage"] || len(scopes) == 0 {
+		return "", domain.ErrForbidden
+	}
 	for _, scope := range scopes {
-		if scope != "read" && scope != "write" {
+		if scope != "read" && scope != "ingest" && scope != "manage" {
 			return "", domain.ErrForbidden
 		}
-		if !p.Admin && !p.Scopes[scope] {
+		if !p.Scopes[scope] {
 			return "", domain.ErrForbidden
 		}
 	}

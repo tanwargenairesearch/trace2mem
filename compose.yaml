@@ -62,8 +62,9 @@ services:
     environment:
       TRACE2MEM_TEST_URL: http://server:8080
       TRACE2MEM_TEST_TOKEN_FILE: /data/secrets/.local/bootstrap-token
+      TRACE2MEM_FUSE_TOKEN_FILE: /test-output/token
       TRACE2MEM_TEST_DATABASE: ${TRACE2MEM_DATABASE_URL:-postgres://trace2mem:trace2mem@postgres:5432/trace2mem?sslmode=disable}
-    volumes: [secrets:/data/secrets:ro]
+    volumes: [secrets:/data/secrets:ro, test-output:/test-output]
     depends_on:
       server: {condition: service_healthy}
   fuse-test:
@@ -74,14 +75,14 @@ services:
     cap_add: [SYS_ADMIN]
     security_opt: [apparmor:unconfined]
     entrypoint: [/bin/sh, /usr/local/bin/trace2mem-fuse-test]
-    volumes: [secrets:/data/secrets:ro]
+    volumes: [secrets:/data/secrets:ro, test-output:/test-output:ro]
     environment:
       <<: *env
       TRACE2MEM_URL: http://server:8080
-      TRACE2MEM_SPACE: ${TRACE2MEM_SPACE:-}
     depends_on:
       server: {condition: service_healthy}
 volumes:
+  test-output:
   secrets:
     name: ${TRACE2MEM_SECRETS_VOLUME:-trace2mem_secrets}
     external: ${TRACE2MEM_EXTERNAL_VOLUMES:-false}

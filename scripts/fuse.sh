@@ -1,9 +1,8 @@
 #!/bin/sh
 set -eu
-: "${TRACE2MEM_SPACE:?Set TRACE2MEM_SPACE to a compiled fixture space}"
-export TRACE2MEM_TOKEN="$(cat /data/secrets/.local/bootstrap-token)"
+export TRACE2MEM_TOKEN="$(cat /test-output/token)"
 mkdir -p /tmp/trace2mem-mount
-trace2mem mount --space "$TRACE2MEM_SPACE" --target /tmp/trace2mem-mount &
+trace2mem mount --target /tmp/trace2mem-mount &
 pid=$!
 trap 'kill "$pid" 2>/dev/null || true; wait "$pid" 2>/dev/null || true' EXIT
 n=0

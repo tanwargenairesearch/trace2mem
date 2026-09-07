@@ -2,8 +2,6 @@ package integration
 
 import (
 	"context"
-	"crypto/sha256"
-	"encoding/hex"
 
 	"connectrpc.com/connect"
 	"errors"
@@ -37,8 +35,8 @@ func TestDeletionFencesProposalsAndPublication(t *testing.T) {
 	s := database(t)
 	ctx := context.Background()
 	tenant := "regression-" + store.ID()
-	p := domain.Principal{Tenant: tenant, Subject: "owner", Admin: true}
-	sp, e := s.CreateSpace(ctx, p, "fencing")
+	p := domain.Principal{Tenant: tenant, Subject: "owner"}
+	sp, e := p.MemoryID(), s.EnsureMemory(ctx, p)
 	if e != nil {
 		t.Fatal(e)
 	}
@@ -76,7 +74,8 @@ func TestConcurrentBudgetReservation(t *testing.T) {
 	s := database(t)
 	ctx := context.Background()
 	tenant := "budget-" + store.ID()
-	sp, e := s.CreateSpace(ctx, domain.Principal{Tenant: tenant, Subject: "owner", Admin: true}, "budget")
+	p := domain.Principal{Tenant: tenant, Subject: "owner"}
+	sp, e := p.MemoryID(), s.EnsureMemory(ctx, p)
 	if e != nil {
 		t.Fatal(e)
 	}
@@ -108,34 +107,31 @@ func TestValidTokenIsolation(t *testing.T) {
 		t.Skip("server required")
 	}
 	tenant := "isolation-" + store.ID()
-	owner := domain.Principal{Tenant: tenant, Subject: "owner", Admin: true}
-	sp, e := s.CreateSpace(ctx, owner, "private")
-	if e != nil {
-		t.Fatal(e)
-	}
-	other, e := s.CreateSpace(ctx, owner, "other")
-	if e != nil {
+	owner := domain.Principal{Tenant: tenant, Subject: "owner", Scopes: map[string]bool{"read": true, "ingest": true, "manage": true}}
+	if e := s.EnsureMemory(ctx, owner); e != nil {
 		t.Fatal(e)
 	}
 	for _, role := range []string{"reader", "editor"} {
-		_, e = s.DB.Exec(ctx, "INSERT INTO members VALUES($1,$2,$3,$4)", tenant, sp, role, role)
-		if e != nil {
+		p := domain.Principal{Tenant: tenant, Subject: role, Scopes: map[string]bool{"read": true, "ingest": true, "manage": true}}
+		if e := s.EnsureMemory(ctx, p); e != nil {
 			t.Fatal(e)
 		}
-		token := "token-" + store.ID()
-		h := sha256.Sum256([]byte(token))
-		_, e = s.DB.Exec(ctx, "INSERT INTO tokens VALUES($1,$2,$3,$4,$5,false)", hex.EncodeToString(h[:]), tenant, role, []string{"read", "write"}, time.Now().Add(time.Hour))
+		scopes := []string{"read"}
+		if role == "editor" {
+			scopes = append(scopes, "ingest")
+		}
+		token, e := s.CreateToken(ctx, p, scopes)
 		if e != nil {
 			t.Fatal(e)
 		}
 		c := sdk.New(url, token)
-		if _, e = c.Memory.GetManifest(ctx, connect.NewRequest(&trace2memv1.GetManifestRequest{SpaceId: sp})); e != nil {
+		if _, e = c.Memory.GetManifest(ctx, connect.NewRequest(&trace2memv1.GetManifestRequest{})); e != nil {
 			t.Fatal("authorized read rejected", e)
 		}
-		if _, e = c.Memory.GetManifest(ctx, connect.NewRequest(&trace2memv1.GetManifestRequest{SpaceId: other})); connect.CodeOf(e) != connect.CodePermissionDenied {
-			t.Fatal("cross-space access allowed", role, e)
+		if e = s.Authorize(ctx, p, owner.MemoryID(), false); !errors.Is(e, domain.ErrForbidden) {
+			t.Fatal("cross-user access allowed, including for administrator", role, e)
 		}
-		_, e = c.Ingestion.RequestCompilation(ctx, connect.NewRequest(&trace2memv1.RequestCompilationRequest{SpaceId: sp}))
+		_, e = c.Ingestion.RequestCompilation(ctx, connect.NewRequest(&trace2memv1.RequestCompilationRequest{}))
 		if role == "reader" && connect.CodeOf(e) != connect.CodePermissionDenied {
 			t.Fatal("reader write allowed", e)
 		}
@@ -150,7 +146,8 @@ func TestIncrementalHistoryBeyondPromptLimit(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), 90*time.Second)
 	defer cancel()
 	tenant := "large-" + store.ID()
-	sp, e := s.CreateSpace(ctx, domain.Principal{Tenant: tenant, Subject: "owner", Admin: true}, "large history")
+	p := domain.Principal{Tenant: tenant, Subject: "owner"}
+	sp, e := p.MemoryID(), s.EnsureMemory(ctx, p)
 	if e != nil {
 		t.Fatal(e)
 	}

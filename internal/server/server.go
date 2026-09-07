@@ -59,7 +59,7 @@ func rpcerr(err error) error {
 }
 func (s *Server) Handler() http.Handler {
 	mux := http.NewServeMux()
-	opts := []connect.HandlerOption{connect.WithReadMaxBytes(12 << 20), connect.WithSendMaxBytes(16 << 20)}
+	opts := []connect.HandlerOption{connect.WithCodec(memoryJSONCodec{}), connect.WithInterceptors(connect.UnaryInterceptorFunc(rejectLegacySpace)), connect.WithReadMaxBytes(12 << 20), connect.WithSendMaxBytes(16 << 20)}
 	p, h := trace2memv1connect.NewIngestionServiceHandler(s, opts...)
 	mux.Handle(p, s.auth(h))
 	p, h = trace2memv1connect.NewMemoryServiceHandler(s, opts...)
@@ -83,7 +83,7 @@ func (s *Server) Handler() http.Handler {
 			http.NotFound(w, r)
 			return
 		}
-		respond(w, map[string]any{"resource": s.Config.PublicURL + "/mcp", "authorization_servers": []string{s.Config.OIDCIssuer}, "scopes_supported": []string{"read", "write"}})
+		respond(w, map[string]any{"resource": s.Config.PublicURL + "/mcp", "authorization_servers": []string{s.Config.OIDCIssuer}, "scopes_supported": []string{"read", "ingest", "manage"}})
 	})
 	mux.HandleFunc("/", s.console)
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -120,6 +120,10 @@ func (s *Server) auth(next http.Handler) http.Handler {
 				return
 			}
 		}
+		if e := s.Store.EnsureMemory(r.Context(), p); e != nil {
+			failure(w, e)
+			return
+		}
 		next.ServeHTTP(w, r.WithContext(context.WithValue(r.Context(), principalKey{}, p)))
 	})
 }
@@ -128,7 +132,7 @@ func (s *Server) authenticate(ctx context.Context, token string) (domain.Princip
 		return domain.Principal{}, domain.ErrForbidden
 	}
 	if s.Config.BootstrapToken != "" && subtle.ConstantTimeCompare([]byte(token), []byte(s.Config.BootstrapToken)) == 1 {
-		return domain.Principal{Tenant: "default", Subject: "admin", Admin: true, Scopes: map[string]bool{"read": true, "write": true}}, nil
+		return domain.Principal{Tenant: "default", Subject: "admin", Scopes: map[string]bool{"read": true, "ingest": true, "manage": true}}, nil
 	}
 	p, e := s.Store.Token(ctx, token)
 	if e == nil {
@@ -149,9 +153,9 @@ func (s *Server) authenticate(ctx context.Context, token string) (domain.Princip
 		if e = id.Claims(&claims); e != nil {
 			return p, e
 		}
-		p = domain.Principal{Tenant: "default", Subject: id.Subject, Scopes: map[string]bool{}}
+		p = domain.Principal{Tenant: "default", Subject: domain.Hash([]byte(id.Issuer + "\x00" + id.Subject)), Scopes: map[string]bool{}}
 		for _, scope := range strings.Fields(claims.Scope) {
-			if scope == "read" || scope == "write" {
+			if scope == "read" || scope == "ingest" || scope == "manage" {
 				p.Scopes[scope] = true
 			}
 		}

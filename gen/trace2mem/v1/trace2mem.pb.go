@@ -607,7 +607,6 @@ func (*Event_SessionLifecycle) isEvent_Payload() {}
 
 type AppendEventsRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	SpaceId       string                 `protobuf:"bytes,1,opt,name=space_id,json=spaceId,proto3" json:"space_id,omitempty"`
 	Events        []*Event               `protobuf:"bytes,2,rep,name=events,proto3" json:"events,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -641,13 +640,6 @@ func (x *AppendEventsRequest) ProtoReflect() protoreflect.Message {
 // Deprecated: Use AppendEventsRequest.ProtoReflect.Descriptor instead.
 func (*AppendEventsRequest) Descriptor() ([]byte, []int) {
 	return file_trace2mem_v1_trace2mem_proto_rawDescGZIP(), []int{8}
-}
-
-func (x *AppendEventsRequest) GetSpaceId() string {
-	if x != nil {
-		return x.SpaceId
-	}
-	return ""
 }
 
 func (x *AppendEventsRequest) GetEvents() []*Event {
@@ -719,7 +711,6 @@ func (x *AppendEventsResponse) GetWatermark() int64 {
 
 type GetIngestionStatusRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	SpaceId       string                 `protobuf:"bytes,1,opt,name=space_id,json=spaceId,proto3" json:"space_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -752,13 +743,6 @@ func (x *GetIngestionStatusRequest) ProtoReflect() protoreflect.Message {
 // Deprecated: Use GetIngestionStatusRequest.ProtoReflect.Descriptor instead.
 func (*GetIngestionStatusRequest) Descriptor() ([]byte, []int) {
 	return file_trace2mem_v1_trace2mem_proto_rawDescGZIP(), []int{10}
-}
-
-func (x *GetIngestionStatusRequest) GetSpaceId() string {
-	if x != nil {
-		return x.SpaceId
-	}
-	return ""
 }
 
 type GetIngestionStatusResponse struct {
@@ -847,7 +831,6 @@ func (x *GetIngestionStatusResponse) GetLastError() string {
 
 type UploadArtifactRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	SpaceId       string                 `protobuf:"bytes,1,opt,name=space_id,json=spaceId,proto3" json:"space_id,omitempty"`
 	MediaType     string                 `protobuf:"bytes,2,opt,name=media_type,json=mediaType,proto3" json:"media_type,omitempty"`
 	Content       []byte                 `protobuf:"bytes,3,opt,name=content,proto3" json:"content,omitempty"`
 	unknownFields protoimpl.UnknownFields
@@ -882,13 +865,6 @@ func (x *UploadArtifactRequest) ProtoReflect() protoreflect.Message {
 // Deprecated: Use UploadArtifactRequest.ProtoReflect.Descriptor instead.
 func (*UploadArtifactRequest) Descriptor() ([]byte, []int) {
 	return file_trace2mem_v1_trace2mem_proto_rawDescGZIP(), []int{12}
-}
-
-func (x *UploadArtifactRequest) GetSpaceId() string {
-	if x != nil {
-		return x.SpaceId
-	}
-	return ""
 }
 
 func (x *UploadArtifactRequest) GetMediaType() string {
@@ -959,7 +935,6 @@ func (x *UploadArtifactResponse) GetSha256() string {
 
 type CloseSessionRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	SpaceId       string                 `protobuf:"bytes,1,opt,name=space_id,json=spaceId,proto3" json:"space_id,omitempty"`
 	SessionId     string                 `protobuf:"bytes,2,opt,name=session_id,json=sessionId,proto3" json:"session_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -993,13 +968,6 @@ func (x *CloseSessionRequest) ProtoReflect() protoreflect.Message {
 // Deprecated: Use CloseSessionRequest.ProtoReflect.Descriptor instead.
 func (*CloseSessionRequest) Descriptor() ([]byte, []int) {
 	return file_trace2mem_v1_trace2mem_proto_rawDescGZIP(), []int{14}
-}
-
-func (x *CloseSessionRequest) GetSpaceId() string {
-	if x != nil {
-		return x.SpaceId
-	}
-	return ""
 }
 
 func (x *CloseSessionRequest) GetSessionId() string {
@@ -1055,7 +1023,6 @@ func (x *CloseSessionResponse) GetScheduled() bool {
 
 type RequestCompilationRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	SpaceId       string                 `protobuf:"bytes,1,opt,name=space_id,json=spaceId,proto3" json:"space_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1088,13 +1055,6 @@ func (x *RequestCompilationRequest) ProtoReflect() protoreflect.Message {
 // Deprecated: Use RequestCompilationRequest.ProtoReflect.Descriptor instead.
 func (*RequestCompilationRequest) Descriptor() ([]byte, []int) {
 	return file_trace2mem_v1_trace2mem_proto_rawDescGZIP(), []int{16}
-}
-
-func (x *RequestCompilationRequest) GetSpaceId() string {
-	if x != nil {
-		return x.SpaceId
-	}
-	return ""
 }
 
 type RequestCompilationResponse struct {
@@ -1203,7 +1163,6 @@ func (x *File) GetSize() int64 {
 
 type GetManifestRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	SpaceId       string                 `protobuf:"bytes,1,opt,name=space_id,json=spaceId,proto3" json:"space_id,omitempty"`
 	Revision      string                 `protobuf:"bytes,2,opt,name=revision,proto3" json:"revision,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -1239,13 +1198,6 @@ func (*GetManifestRequest) Descriptor() ([]byte, []int) {
 	return file_trace2mem_v1_trace2mem_proto_rawDescGZIP(), []int{19}
 }
 
-func (x *GetManifestRequest) GetSpaceId() string {
-	if x != nil {
-		return x.SpaceId
-	}
-	return ""
-}
-
 func (x *GetManifestRequest) GetRevision() string {
 	if x != nil {
 		return x.Revision
@@ -1255,6 +1207,7 @@ func (x *GetManifestRequest) GetRevision() string {
 
 type GetManifestResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
+	MemoryId      string                 `protobuf:"bytes,5,opt,name=memory_id,json=memoryId,proto3" json:"memory_id,omitempty"`
 	Revision      string                 `protobuf:"bytes,1,opt,name=revision,proto3" json:"revision,omitempty"`
 	Watermark     int64                  `protobuf:"varint,2,opt,name=watermark,proto3" json:"watermark,omitempty"`
 	Files         []*File                `protobuf:"bytes,3,rep,name=files,proto3" json:"files,omitempty"`
@@ -1292,6 +1245,13 @@ func (*GetManifestResponse) Descriptor() ([]byte, []int) {
 	return file_trace2mem_v1_trace2mem_proto_rawDescGZIP(), []int{20}
 }
 
+func (x *GetManifestResponse) GetMemoryId() string {
+	if x != nil {
+		return x.MemoryId
+	}
+	return ""
+}
+
 func (x *GetManifestResponse) GetRevision() string {
 	if x != nil {
 		return x.Revision
@@ -1315,7 +1275,6 @@ func (x *GetManifestResponse) GetFiles() []*File {
 
 type ReadFileRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	SpaceId       string                 `protobuf:"bytes,1,opt,name=space_id,json=spaceId,proto3" json:"space_id,omitempty"`
 	Revision      string                 `protobuf:"bytes,2,opt,name=revision,proto3" json:"revision,omitempty"`
 	Path          string                 `protobuf:"bytes,3,opt,name=path,proto3" json:"path,omitempty"`
 	unknownFields protoimpl.UnknownFields
@@ -1350,13 +1309,6 @@ func (x *ReadFileRequest) ProtoReflect() protoreflect.Message {
 // Deprecated: Use ReadFileRequest.ProtoReflect.Descriptor instead.
 func (*ReadFileRequest) Descriptor() ([]byte, []int) {
 	return file_trace2mem_v1_trace2mem_proto_rawDescGZIP(), []int{21}
-}
-
-func (x *ReadFileRequest) GetSpaceId() string {
-	if x != nil {
-		return x.SpaceId
-	}
-	return ""
 }
 
 func (x *ReadFileRequest) GetRevision() string {
@@ -1435,7 +1387,6 @@ func (x *ReadFileResponse) GetSha256() string {
 
 type SearchRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	SpaceId       string                 `protobuf:"bytes,1,opt,name=space_id,json=spaceId,proto3" json:"space_id,omitempty"`
 	Query         string                 `protobuf:"bytes,2,opt,name=query,proto3" json:"query,omitempty"`
 	Revision      string                 `protobuf:"bytes,3,opt,name=revision,proto3" json:"revision,omitempty"`
 	Limit         int32                  `protobuf:"varint,4,opt,name=limit,proto3" json:"limit,omitempty"`
@@ -1472,13 +1423,6 @@ func (x *SearchRequest) ProtoReflect() protoreflect.Message {
 // Deprecated: Use SearchRequest.ProtoReflect.Descriptor instead.
 func (*SearchRequest) Descriptor() ([]byte, []int) {
 	return file_trace2mem_v1_trace2mem_proto_rawDescGZIP(), []int{23}
-}
-
-func (x *SearchRequest) GetSpaceId() string {
-	if x != nil {
-		return x.SpaceId
-	}
-	return ""
 }
 
 func (x *SearchRequest) GetQuery() string {
@@ -1647,7 +1591,6 @@ func (x *SearchResponse) GetSemanticStatus() string {
 
 type GetEvidenceRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	SpaceId       string                 `protobuf:"bytes,1,opt,name=space_id,json=spaceId,proto3" json:"space_id,omitempty"`
 	EventId       string                 `protobuf:"bytes,2,opt,name=event_id,json=eventId,proto3" json:"event_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -1681,13 +1624,6 @@ func (x *GetEvidenceRequest) ProtoReflect() protoreflect.Message {
 // Deprecated: Use GetEvidenceRequest.ProtoReflect.Descriptor instead.
 func (*GetEvidenceRequest) Descriptor() ([]byte, []int) {
 	return file_trace2mem_v1_trace2mem_proto_rawDescGZIP(), []int{26}
-}
-
-func (x *GetEvidenceRequest) GetSpaceId() string {
-	if x != nil {
-		return x.SpaceId
-	}
-	return ""
 }
 
 func (x *GetEvidenceRequest) GetEventId() string {
@@ -1751,7 +1687,6 @@ func (x *GetEvidenceResponse) GetCitation() string {
 
 type GetContextRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	SpaceId       string                 `protobuf:"bytes,1,opt,name=space_id,json=spaceId,proto3" json:"space_id,omitempty"`
 	Query         string                 `protobuf:"bytes,2,opt,name=query,proto3" json:"query,omitempty"`
 	WithoutWiki   bool                   `protobuf:"varint,3,opt,name=without_wiki,json=withoutWiki,proto3" json:"without_wiki,omitempty"`
 	unknownFields protoimpl.UnknownFields
@@ -1786,13 +1721,6 @@ func (x *GetContextRequest) ProtoReflect() protoreflect.Message {
 // Deprecated: Use GetContextRequest.ProtoReflect.Descriptor instead.
 func (*GetContextRequest) Descriptor() ([]byte, []int) {
 	return file_trace2mem_v1_trace2mem_proto_rawDescGZIP(), []int{28}
-}
-
-func (x *GetContextRequest) GetSpaceId() string {
-	if x != nil {
-		return x.SpaceId
-	}
-	return ""
 }
 
 func (x *GetContextRequest) GetQuery() string {
@@ -1928,18 +1856,16 @@ const file_trace2mem_v1_trace2mem_proto_rawDesc = "" +
 	"\x12artifact_reference\x18\r \x01(\v2\x1f.trace2mem.v1.ArtifactReferenceH\x00R\x11artifactReference\x12M\n" +
 	"\x11session_lifecycle\x18\x0e \x01(\v2\x1e.trace2mem.v1.SessionLifecycleH\x00R\x10sessionLifecycleB\t\n" +
 	"\apayloadB\v\n" +
-	"\t_sequence\"]\n" +
-	"\x13AppendEventsRequest\x12\x19\n" +
-	"\bspace_id\x18\x01 \x01(\tR\aspaceId\x12+\n" +
-	"\x06events\x18\x02 \x03(\v2\x13.trace2mem.v1.EventR\x06events\"p\n" +
+	"\t_sequence\"R\n" +
+	"\x13AppendEventsRequest\x12+\n" +
+	"\x06events\x18\x02 \x03(\v2\x13.trace2mem.v1.EventR\x06eventsJ\x04\b\x01\x10\x02R\bspace_id\"p\n" +
 	"\x14AppendEventsResponse\x12\x1a\n" +
 	"\baccepted\x18\x01 \x01(\x03R\baccepted\x12\x1e\n" +
 	"\n" +
 	"duplicates\x18\x02 \x01(\x03R\n" +
 	"duplicates\x12\x1c\n" +
-	"\twatermark\x18\x03 \x01(\x03R\twatermark\"6\n" +
-	"\x19GetIngestionStatusRequest\x12\x19\n" +
-	"\bspace_id\x18\x01 \x01(\tR\aspaceId\"\xc8\x01\n" +
+	"\twatermark\x18\x03 \x01(\x03R\twatermark\"+\n" +
+	"\x19GetIngestionStatusRequestJ\x04\b\x01\x10\x02R\bspace_id\"\xc8\x01\n" +
 	"\x1aGetIngestionStatusResponse\x12\x1a\n" +
 	"\baccepted\x18\x01 \x01(\x03R\baccepted\x12\x18\n" +
 	"\apending\x18\x02 \x01(\x03R\apending\x12\x1a\n" +
@@ -1948,51 +1874,46 @@ const file_trace2mem_v1_trace2mem_proto_rawDesc = "" +
 	"\n" +
 	"job_status\x18\x05 \x01(\tR\tjobStatus\x12\x1d\n" +
 	"\n" +
-	"last_error\x18\x06 \x01(\tR\tlastError\"k\n" +
-	"\x15UploadArtifactRequest\x12\x19\n" +
-	"\bspace_id\x18\x01 \x01(\tR\aspaceId\x12\x1d\n" +
+	"last_error\x18\x06 \x01(\tR\tlastError\"`\n" +
+	"\x15UploadArtifactRequest\x12\x1d\n" +
 	"\n" +
 	"media_type\x18\x02 \x01(\tR\tmediaType\x12\x18\n" +
-	"\acontent\x18\x03 \x01(\fR\acontent\"Q\n" +
+	"\acontent\x18\x03 \x01(\fR\acontentJ\x04\b\x01\x10\x02R\bspace_id\"Q\n" +
 	"\x16UploadArtifactResponse\x12\x1f\n" +
 	"\vartifact_id\x18\x01 \x01(\tR\n" +
 	"artifactId\x12\x16\n" +
-	"\x06sha256\x18\x02 \x01(\tR\x06sha256\"O\n" +
-	"\x13CloseSessionRequest\x12\x19\n" +
-	"\bspace_id\x18\x01 \x01(\tR\aspaceId\x12\x1d\n" +
+	"\x06sha256\x18\x02 \x01(\tR\x06sha256\"D\n" +
+	"\x13CloseSessionRequest\x12\x1d\n" +
 	"\n" +
-	"session_id\x18\x02 \x01(\tR\tsessionId\"4\n" +
+	"session_id\x18\x02 \x01(\tR\tsessionIdJ\x04\b\x01\x10\x02R\bspace_id\"4\n" +
 	"\x14CloseSessionResponse\x12\x1c\n" +
-	"\tscheduled\x18\x01 \x01(\bR\tscheduled\"6\n" +
-	"\x19RequestCompilationRequest\x12\x19\n" +
-	"\bspace_id\x18\x01 \x01(\tR\aspaceId\":\n" +
+	"\tscheduled\x18\x01 \x01(\bR\tscheduled\"+\n" +
+	"\x19RequestCompilationRequestJ\x04\b\x01\x10\x02R\bspace_id\":\n" +
 	"\x1aRequestCompilationResponse\x12\x1c\n" +
 	"\tscheduled\x18\x01 \x01(\bR\tscheduled\"F\n" +
 	"\x04File\x12\x12\n" +
 	"\x04path\x18\x01 \x01(\tR\x04path\x12\x16\n" +
 	"\x06sha256\x18\x02 \x01(\tR\x06sha256\x12\x12\n" +
-	"\x04size\x18\x03 \x01(\x03R\x04size\"K\n" +
-	"\x12GetManifestRequest\x12\x19\n" +
-	"\bspace_id\x18\x01 \x01(\tR\aspaceId\x12\x1a\n" +
-	"\brevision\x18\x02 \x01(\tR\brevision\"y\n" +
-	"\x13GetManifestResponse\x12\x1a\n" +
+	"\x04size\x18\x03 \x01(\x03R\x04size\"@\n" +
+	"\x12GetManifestRequest\x12\x1a\n" +
+	"\brevision\x18\x02 \x01(\tR\brevisionJ\x04\b\x01\x10\x02R\bspace_id\"\x96\x01\n" +
+	"\x13GetManifestResponse\x12\x1b\n" +
+	"\tmemory_id\x18\x05 \x01(\tR\bmemoryId\x12\x1a\n" +
 	"\brevision\x18\x01 \x01(\tR\brevision\x12\x1c\n" +
 	"\twatermark\x18\x02 \x01(\x03R\twatermark\x12(\n" +
-	"\x05files\x18\x03 \x03(\v2\x12.trace2mem.v1.FileR\x05files\"\\\n" +
-	"\x0fReadFileRequest\x12\x19\n" +
-	"\bspace_id\x18\x01 \x01(\tR\aspaceId\x12\x1a\n" +
+	"\x05files\x18\x03 \x03(\v2\x12.trace2mem.v1.FileR\x05files\"Q\n" +
+	"\x0fReadFileRequest\x12\x1a\n" +
 	"\brevision\x18\x02 \x01(\tR\brevision\x12\x12\n" +
-	"\x04path\x18\x03 \x01(\tR\x04path\"`\n" +
+	"\x04path\x18\x03 \x01(\tR\x04pathJ\x04\b\x01\x10\x02R\bspace_id\"`\n" +
 	"\x10ReadFileResponse\x12\x1a\n" +
 	"\brevision\x18\x01 \x01(\tR\brevision\x12\x18\n" +
 	"\acontent\x18\x02 \x01(\tR\acontent\x12\x16\n" +
-	"\x06sha256\x18\x03 \x01(\tR\x06sha256\"\x95\x01\n" +
-	"\rSearchRequest\x12\x19\n" +
-	"\bspace_id\x18\x01 \x01(\tR\aspaceId\x12\x14\n" +
+	"\x06sha256\x18\x03 \x01(\tR\x06sha256\"\x8a\x01\n" +
+	"\rSearchRequest\x12\x14\n" +
 	"\x05query\x18\x02 \x01(\tR\x05query\x12\x1a\n" +
 	"\brevision\x18\x03 \x01(\tR\brevision\x12\x14\n" +
 	"\x05limit\x18\x04 \x01(\x05R\x05limit\x12!\n" +
-	"\fwithout_wiki\x18\x05 \x01(\bR\vwithoutWiki\"m\n" +
+	"\fwithout_wiki\x18\x05 \x01(\bR\vwithoutWikiJ\x04\b\x01\x10\x02R\bspace_id\"m\n" +
 	"\tSearchHit\x12\x12\n" +
 	"\x04path\x18\x01 \x01(\tR\x04path\x12\x18\n" +
 	"\acontent\x18\x02 \x01(\tR\acontent\x12\x14\n" +
@@ -2002,17 +1923,15 @@ const file_trace2mem_v1_trace2mem_proto_rawDesc = "" +
 	"\brevision\x18\x01 \x01(\tR\brevision\x12+\n" +
 	"\x04hits\x18\x02 \x03(\v2\x17.trace2mem.v1.SearchHitR\x04hits\x12\x1c\n" +
 	"\twatermark\x18\x03 \x01(\x03R\twatermark\x12'\n" +
-	"\x0fsemantic_status\x18\x04 \x01(\tR\x0esemanticStatus\"J\n" +
+	"\x0fsemantic_status\x18\x04 \x01(\tR\x0esemanticStatus\"?\n" +
 	"\x12GetEvidenceRequest\x12\x19\n" +
-	"\bspace_id\x18\x01 \x01(\tR\aspaceId\x12\x19\n" +
-	"\bevent_id\x18\x02 \x01(\tR\aeventId\"\\\n" +
+	"\bevent_id\x18\x02 \x01(\tR\aeventIdJ\x04\b\x01\x10\x02R\bspace_id\"\\\n" +
 	"\x13GetEvidenceResponse\x12)\n" +
 	"\x05event\x18\x01 \x01(\v2\x13.trace2mem.v1.EventR\x05event\x12\x1a\n" +
-	"\bcitation\x18\x02 \x01(\tR\bcitation\"g\n" +
-	"\x11GetContextRequest\x12\x19\n" +
-	"\bspace_id\x18\x01 \x01(\tR\aspaceId\x12\x14\n" +
+	"\bcitation\x18\x02 \x01(\tR\bcitation\"\\\n" +
+	"\x11GetContextRequest\x12\x14\n" +
 	"\x05query\x18\x02 \x01(\tR\x05query\x12!\n" +
-	"\fwithout_wiki\x18\x03 \x01(\bR\vwithoutWiki\"\x96\x01\n" +
+	"\fwithout_wiki\x18\x03 \x01(\bR\vwithoutWikiJ\x04\b\x01\x10\x02R\bspace_id\"\x96\x01\n" +
 	"\x12GetContextResponse\x12\x1a\n" +
 	"\brevision\x18\x01 \x01(\tR\brevision\x12\x1c\n" +
 	"\tsynthesis\x18\x02 \x01(\tR\tsynthesis\x12(\n" +

@@ -116,93 +116,40 @@ func (s *Store) Migrate(ctx context.Context) error {
 	}
 	return nil
 }
-func (s *Store) Authorize(ctx context.Context, p domain.Principal, space string, write bool) error {
-	if !domain.ValidID(space) {
-		return domain.ErrNotFound
+func (s *Store) Authorize(ctx context.Context, p domain.Principal, memory string, write bool) error {
+	if p.Subject == "" || memory != p.MemoryID() {
+		return domain.ErrForbidden
 	}
 	scope := "read"
 	if write {
-		scope = "write"
+		scope = "ingest"
 	}
-	if !p.Admin && !p.Scopes[scope] {
+	if !p.Scopes[scope] {
 		return domain.ErrForbidden
 	}
-	var role string
-	err := s.DB.QueryRow(ctx, "SELECT role FROM members WHERE tenant=$1 AND space=$2 AND subject=$3", p.Tenant, space, p.Subject).Scan(&role)
-	if p.Admin {
-		var ok bool
-		e := s.DB.QueryRow(ctx, "SELECT EXISTS(SELECT 1 FROM spaces WHERE tenant=$1 AND id=$2)", p.Tenant, space).Scan(&ok)
-		if e != nil {
-			return e
-		}
-		if ok {
-			return nil
-		}
-		return domain.ErrNotFound
-	}
-	if errors.Is(err, pgx.ErrNoRows) {
-		return domain.ErrForbidden
-	}
+	var owned bool
+	err := s.DB.QueryRow(ctx, "SELECT EXISTS(SELECT 1 FROM user_memories WHERE tenant=$1 AND subject=$2 AND memory_id=$3)", p.Tenant, p.Subject, memory).Scan(&owned)
 	if err != nil {
 		return err
 	}
-	if write && role == "reader" {
+	if !owned {
 		return domain.ErrForbidden
 	}
 	return nil
 }
-func (s *Store) Owner(ctx context.Context, p domain.Principal, space string) error {
-	if e := s.Authorize(ctx, p, space, true); e != nil {
-		return e
+func (s *Store) Owner(ctx context.Context, p domain.Principal, memory string) error {
+	if !p.Scopes["manage"] || p.Subject == "" || memory != p.MemoryID() {
+		return domain.ErrForbidden
 	}
-	if p.Admin {
-		return nil
+	var owned bool
+	err := s.DB.QueryRow(ctx, "SELECT EXISTS(SELECT 1 FROM user_memories WHERE tenant=$1 AND subject=$2 AND memory_id=$3)", p.Tenant, p.Subject, memory).Scan(&owned)
+	if err != nil {
+		return err
 	}
-	var role string
-	e := s.DB.QueryRow(ctx, "SELECT role FROM members WHERE tenant=$1 AND space=$2 AND subject=$3", p.Tenant, space, p.Subject).Scan(&role)
-	if e != nil {
-		return e
-	}
-	if role != "owner" {
+	if !owned {
 		return domain.ErrForbidden
 	}
 	return nil
-}
-func (s *Store) CreateSpace(ctx context.Context, p domain.Principal, name string) (string, error) {
-	if !p.Admin && !p.Scopes["write"] {
-		return "", domain.ErrForbidden
-	}
-	id := ID()
-	tx, e := s.DB.Begin(ctx)
-	if e != nil {
-		return "", e
-	}
-	defer tx.Rollback(ctx)
-	_, e = tx.Exec(ctx, "INSERT INTO spaces(tenant,id,name) VALUES($1,$2,$3)", p.Tenant, id, name)
-	if e != nil {
-		return "", e
-	}
-	_, e = tx.Exec(ctx, "INSERT INTO members VALUES($1,$2,$3,'owner')", p.Tenant, id, p.Subject)
-	if e != nil {
-		return "", e
-	}
-	return id, tx.Commit(ctx)
-}
-func (s *Store) Spaces(ctx context.Context, p domain.Principal) ([]domain.Space, error) {
-	rows, e := s.DB.Query(ctx, `SELECT s.id,s.name,COALESCE(m.role,'owner'),s.revision FROM spaces s LEFT JOIN members m ON m.tenant=s.tenant AND m.space=s.id AND m.subject=$2 WHERE s.tenant=$1 AND ($3 OR m.subject IS NOT NULL) ORDER BY s.name`, p.Tenant, p.Subject, p.Admin)
-	if e != nil {
-		return nil, e
-	}
-	defer rows.Close()
-	out := []domain.Space{}
-	for rows.Next() {
-		var v domain.Space
-		if e = rows.Scan(&v.ID, &v.Name, &v.Role, &v.Revision); e != nil {
-			return nil, e
-		}
-		out = append(out, v)
-	}
-	return out, rows.Err()
 }
 func Schedule(ctx context.Context, tx pgx.Tx, tenant, space string) error {
 	_, e := tx.Exec(ctx, `INSERT INTO jobs(tenant,space) VALUES($1,$2) ON CONFLICT(tenant,space) DO UPDATE SET requested=true,status=CASE WHEN jobs.status='running' THEN 'running' ELSE 'pending' END,available_at=now(),error=''`, tenant, space)

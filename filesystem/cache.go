@@ -19,17 +19,17 @@ import (
 )
 
 type Cache struct {
-	Client      *sdk.Client
-	space, root string
-	budgetRoot  string
-	manifest    *trace2memv1.GetManifestResponse
-	MaxBytes    int64
-	mu          sync.Mutex
-	locks       map[string]*sync.Mutex
+	Client     *sdk.Client
+	root       string
+	budgetRoot string
+	manifest   *trace2memv1.GetManifestResponse
+	MaxBytes   int64
+	mu         sync.Mutex
+	locks      map[string]*sync.Mutex
 }
 
-func New(ctx context.Context, c *sdk.Client, space, revision, root string, max int64) (*Cache, error) {
-	res, e := c.Memory.GetManifest(ctx, connect.NewRequest(&trace2memv1.GetManifestRequest{SpaceId: space, Revision: revision}))
+func New(ctx context.Context, c *sdk.Client, revision, root string, max int64) (*Cache, error) {
+	res, e := c.Memory.GetManifest(ctx, connect.NewRequest(&trace2memv1.GetManifestRequest{Revision: revision}))
 	if e != nil {
 		return nil, e
 	}
@@ -37,11 +37,11 @@ func New(ctx context.Context, c *sdk.Client, space, revision, root string, max i
 		return nil, errors.New("no published memory revision")
 	}
 	budgetRoot := root
-	root = filepath.Join(root, domain.Hash([]byte(c.URL+"/"+space+"/"+res.Msg.Revision)))
+	root = filepath.Join(root, domain.Hash([]byte(c.URL+"/"+res.Msg.MemoryId+"/"+res.Msg.Revision)))
 	if e = os.MkdirAll(root, 0700); e != nil {
 		return nil, e
 	}
-	cache := &Cache{Client: c, space: space, root: root, manifest: res.Msg, budgetRoot: budgetRoot, MaxBytes: max, locks: map[string]*sync.Mutex{}}
+	cache := &Cache{Client: c, root: root, manifest: res.Msg, budgetRoot: budgetRoot, MaxBytes: max, locks: map[string]*sync.Mutex{}}
 	for _, f := range res.Msg.Files {
 		if !domain.ValidPath(f.Path) || len(f.Sha256) != 64 || f.Size < 0 {
 			return nil, errors.New("invalid server manifest")
@@ -99,7 +99,7 @@ func (c *Cache) Read(ctx context.Context, path string) ([]byte, error) {
 	if e != nil && !os.IsNotExist(e) {
 		return nil, e
 	}
-	res, e := c.Client.Memory.ReadFile(ctx, connect.NewRequest(&trace2memv1.ReadFileRequest{SpaceId: c.space, Revision: c.manifest.Revision, Path: path}))
+	res, e := c.Client.Memory.ReadFile(ctx, connect.NewRequest(&trace2memv1.ReadFileRequest{Revision: c.manifest.Revision, Path: path}))
 	if e != nil {
 		return nil, fmt.Errorf("uncached file unavailable: %w", e)
 	}

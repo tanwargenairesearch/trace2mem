@@ -23,11 +23,11 @@ func (s *Server) snapshot(ctx context.Context, sp, rev string) (domain.Snapshot,
 	return s.Store.Snapshot(ctx, p.Tenant, sp, rev)
 }
 func (s *Server) GetManifest(ctx context.Context, r *connect.Request[trace2memv1.GetManifestRequest]) (*connect.Response[trace2memv1.GetManifestResponse], error) {
-	v, e := s.snapshot(ctx, r.Msg.SpaceId, r.Msg.Revision)
+	v, e := s.snapshot(ctx, principal(ctx).MemoryID(), r.Msg.Revision)
 	if e != nil {
 		return nil, rpcerr(e)
 	}
-	out := &trace2memv1.GetManifestResponse{Revision: v.Revision, Watermark: v.Watermark}
+	out := &trace2memv1.GetManifestResponse{MemoryId: principal(ctx).MemoryID(), Revision: v.Revision, Watermark: v.Watermark}
 	for _, p := range v.Pages {
 		out.Files = append(out.Files, &trace2memv1.File{Path: p.Path, Sha256: p.Hash, Size: int64(len(p.Content))})
 	}
@@ -37,7 +37,7 @@ func (s *Server) ReadFile(ctx context.Context, r *connect.Request[trace2memv1.Re
 	if !domain.ValidPath(r.Msg.Path) {
 		return nil, connect.NewError(connect.CodeInvalidArgument, errors.New("invalid path"))
 	}
-	v, e := s.snapshot(ctx, r.Msg.SpaceId, r.Msg.Revision)
+	v, e := s.snapshot(ctx, principal(ctx).MemoryID(), r.Msg.Revision)
 	if e != nil {
 		return nil, rpcerr(e)
 	}
@@ -50,10 +50,10 @@ func (s *Server) ReadFile(ctx context.Context, r *connect.Request[trace2memv1.Re
 }
 func (s *Server) GetEvidence(ctx context.Context, r *connect.Request[trace2memv1.GetEvidenceRequest]) (*connect.Response[trace2memv1.GetEvidenceResponse], error) {
 	p := principal(ctx)
-	if e := s.Store.Authorize(ctx, p, r.Msg.SpaceId, false); e != nil {
+	if e := s.Store.Authorize(ctx, p, principal(ctx).MemoryID(), false); e != nil {
 		return nil, rpcerr(e)
 	}
-	b, e := s.Store.EventJSON(ctx, p.Tenant, r.Msg.SpaceId, r.Msg.EventId)
+	b, e := s.Store.EventJSON(ctx, p.Tenant, principal(ctx).MemoryID(), r.Msg.EventId)
 	if e != nil {
 		return nil, rpcerr(e)
 	}
@@ -64,7 +64,7 @@ func (s *Server) GetEvidence(ctx context.Context, r *connect.Request[trace2memv1
 	return connect.NewResponse(&trace2memv1.GetEvidenceResponse{Event: &ev, Citation: "[cite:" + ev.EventId + "]"}), nil
 }
 func (s *Server) Search(ctx context.Context, r *connect.Request[trace2memv1.SearchRequest]) (*connect.Response[trace2memv1.SearchResponse], error) {
-	v, e := s.snapshot(ctx, r.Msg.SpaceId, r.Msg.Revision)
+	v, e := s.snapshot(ctx, principal(ctx).MemoryID(), r.Msg.Revision)
 	if e != nil {
 		return nil, rpcerr(e)
 	}
@@ -89,10 +89,10 @@ func (s *Server) Search(ctx context.Context, r *connect.Request[trace2memv1.Sear
 	if len(words) > 0 {
 		p := principal(ctx)
 		out.SemanticStatus = "provider_unavailable_keyword_only"
-		provider, c, err := s.Engine.Provider(ctx, p.Tenant, r.Msg.SpaceId)
+		provider, c, err := s.Engine.Provider(ctx, p.Tenant, principal(ctx).MemoryID())
 		if err == nil {
 			var incompatible bool
-			err = s.Store.DB.QueryRow(ctx, "SELECT EXISTS(SELECT 1 FROM pages WHERE tenant=$1 AND space=$2 AND revision=$3 AND embedding IS NOT NULL AND embedding_model<>$4)", p.Tenant, r.Msg.SpaceId, v.Revision, c.EmbeddingIdentity()).Scan(&incompatible)
+			err = s.Store.DB.QueryRow(ctx, "SELECT EXISTS(SELECT 1 FROM pages WHERE tenant=$1 AND space=$2 AND revision=$3 AND embedding IS NOT NULL AND embedding_model<>$4)", p.Tenant, principal(ctx).MemoryID(), v.Revision, c.EmbeddingIdentity()).Scan(&incompatible)
 			if err != nil {
 				return nil, rpcerr(err)
 			}
@@ -106,7 +106,7 @@ func (s *Server) Search(ctx context.Context, r *connect.Request[trace2memv1.Sear
 			if err == nil && len(vec) == 1 && len(vec[0]) > 0 {
 				out.SemanticStatus = "ready"
 				b, _ := json.Marshal(vec[0])
-				rows, err := s.Store.DB.Query(ctx, `SELECT path,content,citations,1-(embedding <=> $4::vector) FROM pages WHERE tenant=$1 AND space=$2 AND revision=$3 AND embedding_model=$5 AND vector_dims(embedding)=$6 AND (NOT $7 OR path NOT LIKE 'knowledge/%') ORDER BY embedding <=> $4::vector LIMIT 20`, p.Tenant, r.Msg.SpaceId, v.Revision, string(b), c.EmbeddingIdentity(), len(vec[0]), r.Msg.WithoutWiki)
+				rows, err := s.Store.DB.Query(ctx, `SELECT path,content,citations,1-(embedding <=> $4::vector) FROM pages WHERE tenant=$1 AND space=$2 AND revision=$3 AND embedding_model=$5 AND vector_dims(embedding)=$6 AND (NOT $7 OR path NOT LIKE 'knowledge/%') ORDER BY embedding <=> $4::vector LIMIT 20`, p.Tenant, principal(ctx).MemoryID(), v.Revision, string(b), c.EmbeddingIdentity(), len(vec[0]), r.Msg.WithoutWiki)
 				if err != nil {
 					return nil, rpcerr(err)
 				}
@@ -158,16 +158,26 @@ func (s *Server) Search(ctx context.Context, r *connect.Request[trace2memv1.Sear
 	return connect.NewResponse(out), nil
 }
 func (s *Server) GetContext(ctx context.Context, r *connect.Request[trace2memv1.GetContextRequest]) (*connect.Response[trace2memv1.GetContextResponse], error) {
-	v, e := s.snapshot(ctx, r.Msg.SpaceId, "")
+	v, e := s.snapshot(ctx, principal(ctx).MemoryID(), "")
 	if e != nil {
 		return nil, rpcerr(e)
 	}
 	p := principal(ctx)
-	provider, c, e := s.Engine.Provider(ctx, p.Tenant, r.Msg.SpaceId)
+	cfg, _, err := s.Store.Config(ctx, p.Tenant, principal(ctx).MemoryID())
+	if err != nil {
+		return nil, rpcerr(err)
+	}
+	if cfg.Provider == "" || cfg.Model == "" || cfg.EmbeddingProvider == "" || cfg.EmbeddingModel == "" {
+		return nil, connect.NewError(connect.CodeFailedPrecondition, errors.New("configure generation and embedding models for your memory before asking for an answer"))
+	}
+	if v.Revision == "" {
+		return nil, connect.NewError(connect.CodeFailedPrecondition, errors.New("import events and publish a memory revision before asking for an answer"))
+	}
+	provider, c, e := s.Engine.Provider(ctx, p.Tenant, principal(ctx).MemoryID())
 	if e != nil {
 		return nil, rpcerr(e)
 	}
-	used, e := s.Store.Used(ctx, p.Tenant, r.Msg.SpaceId)
+	used, e := s.Store.Used(ctx, p.Tenant, principal(ctx).MemoryID())
 	if e != nil {
 		return nil, rpcerr(e)
 	}
@@ -218,7 +228,7 @@ func (s *Server) GetContext(ctx context.Context, r *connect.Request[trace2memv1.
 			if a.Query == "" {
 				a.Query = r.Msg.Query
 			}
-			res, e := s.Search(ctx, connect.NewRequest(&trace2memv1.SearchRequest{SpaceId: r.Msg.SpaceId, Query: a.Query, Revision: v.Revision, Limit: a.Limit, WithoutWiki: r.Msg.WithoutWiki}))
+			res, e := s.Search(ctx, connect.NewRequest(&trace2memv1.SearchRequest{Query: a.Query, Revision: v.Revision, Limit: a.Limit, WithoutWiki: r.Msg.WithoutWiki}))
 			if e != nil {
 				return nil, e
 			}

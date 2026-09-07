@@ -20,14 +20,13 @@ var (
 type Principal struct {
 	Tenant, Subject string
 	Scopes          map[string]bool
-	Admin           bool
 }
-type Space struct {
-	ID       string `json:"id"`
-	Name     string `json:"name"`
-	Role     string `json:"role"`
-	Revision string `json:"revision"`
+
+// MemoryID is derived only from a verified principal, never from an event payload.
+func (p Principal) MemoryID() string {
+	return Hash([]byte(p.Tenant + "\x00" + p.Subject))
 }
+
 type Record struct {
 	ID       string    `json:"id"`
 	Session  string    `json:"session"`

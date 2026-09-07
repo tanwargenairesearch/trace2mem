@@ -29,15 +29,15 @@ message Event {
     SessionLifecycle session_lifecycle = 14;
   }
 }
-message AppendEventsRequest { string space_id = 1; repeated Event events = 2; }
+message AppendEventsRequest { reserved 1; reserved "space_id"; repeated Event events = 2; }
 message AppendEventsResponse { int64 accepted = 1; int64 duplicates = 2; int64 watermark = 3; }
-message GetIngestionStatusRequest { string space_id = 1; }
+message GetIngestionStatusRequest { reserved 1; reserved "space_id"; }
 message GetIngestionStatusResponse { int64 accepted = 1; int64 pending = 2; int64 compiled = 3; string revision = 4; string job_status = 5; string last_error = 6; }
-message UploadArtifactRequest { string space_id = 1; string media_type = 2; bytes content = 3; }
+message UploadArtifactRequest { reserved 1; reserved "space_id"; string media_type = 2; bytes content = 3; }
 message UploadArtifactResponse { string artifact_id = 1; string sha256 = 2; }
-message CloseSessionRequest { string space_id = 1; string session_id = 2; }
+message CloseSessionRequest { reserved 1; reserved "space_id"; string session_id = 2; }
 message CloseSessionResponse { bool scheduled = 1; }
-message RequestCompilationRequest { string space_id = 1; }
+message RequestCompilationRequest { reserved 1; reserved "space_id"; }
 message RequestCompilationResponse { bool scheduled = 1; }
 service IngestionService {
   rpc AppendEvents(AppendEventsRequest) returns (AppendEventsResponse);
@@ -47,16 +47,16 @@ service IngestionService {
   rpc RequestCompilation(RequestCompilationRequest) returns (RequestCompilationResponse);
 }
 message File { string path = 1; string sha256 = 2; int64 size = 3; }
-message GetManifestRequest { string space_id = 1; string revision = 2; }
-message GetManifestResponse { string revision = 1; int64 watermark = 2; repeated File files = 3; }
-message ReadFileRequest { string space_id = 1; string revision = 2; string path = 3; }
+message GetManifestRequest { reserved 1; reserved "space_id"; string revision = 2; }
+message GetManifestResponse { string memory_id = 5; string revision = 1; int64 watermark = 2; repeated File files = 3; }
+message ReadFileRequest { reserved 1; reserved "space_id"; string revision = 2; string path = 3; }
 message ReadFileResponse { string revision = 1; string content = 2; string sha256 = 3; }
-message SearchRequest { string space_id = 1; string query = 2; string revision = 3; int32 limit = 4; bool without_wiki = 5; }
+message SearchRequest { reserved 1; reserved "space_id"; string query = 2; string revision = 3; int32 limit = 4; bool without_wiki = 5; }
 message SearchHit { string path = 1; string content = 2; double score = 3; repeated string citations = 4; }
 message SearchResponse { string revision = 1; repeated SearchHit hits = 2; int64 watermark = 3; string semantic_status = 4; }
-message GetEvidenceRequest { string space_id = 1; string event_id = 2; }
+message GetEvidenceRequest { reserved 1; reserved "space_id"; string event_id = 2; }
 message GetEvidenceResponse { Event event = 1; string citation = 2; }
-message GetContextRequest { string space_id = 1; string query = 2; bool without_wiki = 3; }
+message GetContextRequest { reserved 1; reserved "space_id"; string query = 2; bool without_wiki = 3; }
 message GetContextResponse { string revision = 1; string synthesis = 2; repeated File files = 3; int64 watermark = 4; }
 service MemoryService {
   rpc GetManifest(GetManifestRequest) returns (GetManifestResponse);

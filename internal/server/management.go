@@ -13,36 +13,10 @@ func (s *Server) management(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 	p := principal(ctx)
 	route := strings.TrimPrefix(r.URL.Path, "/api/")
-	sp := r.URL.Query().Get("space")
-	if route == "spaces" {
-		if r.Method == "GET" {
-			v, e := s.Store.Spaces(ctx, p)
-			if e != nil {
-				failure(w, e)
-				return
-			}
-			respond(w, v)
-			return
-		}
-		if r.Method == "POST" {
-			var a struct {
-				Name string `json:"name"`
-			}
-			if !decode(w, r, &a) {
-				return
-			}
-			if strings.TrimSpace(a.Name) == "" || len(a.Name) > 200 {
-				http.Error(w, "space name required", 400)
-				return
-			}
-			id, e := s.Store.CreateSpace(ctx, p, a.Name)
-			if e != nil {
-				failure(w, e)
-				return
-			}
-			respond(w, map[string]string{"id": id})
-			return
-		}
+	sp := p.MemoryID()
+	if r.URL.Query().Has("space") || r.URL.Query().Has("space_id") || r.URL.Query().Has("spaceId") || route == "spaces" || route == "members" {
+		http.Error(w, "spaces were removed; upgrade your client to per-user memory", http.StatusBadRequest)
+		return
 	}
 	if route == "tokens" {
 		if r.Method != "POST" {
@@ -64,11 +38,30 @@ func (s *Server) management(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	write := r.Method != "GET"
-	if e := s.Store.Authorize(ctx, p, sp, write); e != nil {
+	var accessErr error
+	if route == "compile" {
+		accessErr = s.Store.Authorize(ctx, p, sp, true)
+	} else if write || route == "model" {
+		accessErr = s.Store.Owner(ctx, p, sp)
+	} else {
+		accessErr = s.Store.Authorize(ctx, p, sp, false)
+	}
+	if e := accessErr; e != nil {
 		failure(w, e)
 		return
 	}
 	switch route {
+	case "model-status":
+		if r.Method != "GET" {
+			http.Error(w, "GET required", 405)
+			return
+		}
+		c, _, e := s.Store.Config(ctx, p.Tenant, sp)
+		if e != nil {
+			failure(w, e)
+			return
+		}
+		respond(w, map[string]any{"generation_configured": c.Provider != "" && c.Model != "", "embedding_configured": c.EmbeddingProvider != "" && c.EmbeddingModel != "", "generation_provider": c.Provider, "generation_model": c.Model, "embedding_provider": c.EmbeddingProvider, "embedding_model": c.EmbeddingModel, "test_provider": c.Provider == "scripted" || c.EmbeddingProvider == "scripted"})
 	case "model":
 		if e := s.Store.Owner(ctx, p, sp); e != nil {
 			failure(w, e)
@@ -130,55 +123,6 @@ func (s *Server) management(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		respond(w, map[string]bool{"configured": true})
-	case "members":
-		if e := s.Store.Owner(ctx, p, sp); e != nil {
-			failure(w, e)
-			return
-		}
-		if r.Method == "GET" {
-			rows, e := s.Store.DB.Query(ctx, "SELECT subject,role FROM members WHERE tenant=$1 AND space=$2 ORDER BY subject", p.Tenant, sp)
-			if e != nil {
-				failure(w, e)
-				return
-			}
-			defer rows.Close()
-			out := []map[string]string{}
-			for rows.Next() {
-				var subject, role string
-				if e = rows.Scan(&subject, &role); e != nil {
-					failure(w, e)
-					return
-				}
-				out = append(out, map[string]string{"subject": subject, "role": role})
-			}
-			if e = rows.Err(); e != nil {
-				failure(w, e)
-				return
-			}
-			respond(w, out)
-			return
-		}
-		var a struct {
-			Subject string `json:"subject"`
-			Role    string `json:"role"`
-		}
-		if !decode(w, r, &a) {
-			return
-		}
-		if a.Subject == "" || len(a.Subject) > 256 || (a.Role != "owner" && a.Role != "editor" && a.Role != "reader") {
-			http.Error(w, "valid subject and role required", 400)
-			return
-		}
-		if a.Subject == p.Subject && !p.Admin {
-			http.Error(w, "cannot change own role", 400)
-			return
-		}
-		_, e := s.Store.DB.Exec(ctx, "INSERT INTO members VALUES($1,$2,$3,$4) ON CONFLICT(tenant,space,subject) DO UPDATE SET role=$4", p.Tenant, sp, a.Subject, a.Role)
-		if e != nil {
-			failure(w, e)
-			return
-		}
-		respond(w, map[string]bool{"saved": true})
 	case "forget":
 		if r.Method != "POST" {
 			http.Error(w, "POST required", 405)

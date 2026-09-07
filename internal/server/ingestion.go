@@ -57,7 +57,7 @@ func ValidateEvent(v *trace2memv1.Event) error {
 }
 func (s *Server) AppendEvents(ctx context.Context, r *connect.Request[trace2memv1.AppendEventsRequest]) (*connect.Response[trace2memv1.AppendEventsResponse], error) {
 	p := principal(ctx)
-	if e := s.Store.Authorize(ctx, p, r.Msg.SpaceId, true); e != nil {
+	if e := s.Store.Authorize(ctx, p, principal(ctx).MemoryID(), true); e != nil {
 		return nil, rpcerr(e)
 	}
 	if len(r.Msg.Events) == 0 || len(r.Msg.Events) > 256 {
@@ -85,7 +85,7 @@ func (s *Server) AppendEvents(ctx context.Context, r *connect.Request[trace2memv
 		}
 		events = append(events, store.InputEvent{ID: v.EventId, Session: v.SessionId, Hash: domain.Hash(canonical), JSON: canonical, Occurred: v.OccurredAt.AsTime()})
 	}
-	a, d, w, e := s.Store.Append(ctx, p.Tenant, r.Msg.SpaceId, events)
+	a, d, w, e := s.Store.Append(ctx, p.Tenant, principal(ctx).MemoryID(), events)
 	if e != nil {
 		return nil, rpcerr(e)
 	}
@@ -93,17 +93,17 @@ func (s *Server) AppendEvents(ctx context.Context, r *connect.Request[trace2memv
 }
 func (s *Server) GetIngestionStatus(ctx context.Context, r *connect.Request[trace2memv1.GetIngestionStatusRequest]) (*connect.Response[trace2memv1.GetIngestionStatusResponse], error) {
 	p := principal(ctx)
-	if e := s.Store.Authorize(ctx, p, r.Msg.SpaceId, false); e != nil {
+	if e := s.Store.Authorize(ctx, p, principal(ctx).MemoryID(), false); e != nil {
 		return nil, rpcerr(e)
 	}
 	out := &trace2memv1.GetIngestionStatusResponse{}
-	e := s.Store.DB.QueryRow(ctx, `SELECT (SELECT count(*) FROM events WHERE tenant=$1 AND space=$2 AND NOT deleted),(SELECT count(*) FROM events WHERE tenant=$1 AND space=$2 AND NOT deleted AND ordinal<=s.watermark),s.revision,COALESCE(j.status,''),COALESCE(j.error,'') FROM spaces s LEFT JOIN jobs j ON j.tenant=s.tenant AND j.space=s.id WHERE s.tenant=$1 AND s.id=$2`, p.Tenant, r.Msg.SpaceId).Scan(&out.Accepted, &out.Compiled, &out.Revision, &out.JobStatus, &out.LastError)
+	e := s.Store.DB.QueryRow(ctx, `SELECT (SELECT count(*) FROM events WHERE tenant=$1 AND space=$2 AND NOT deleted),(SELECT count(*) FROM events WHERE tenant=$1 AND space=$2 AND NOT deleted AND ordinal<=s.watermark),s.revision,COALESCE(j.status,''),COALESCE(j.error,'') FROM spaces s LEFT JOIN jobs j ON j.tenant=s.tenant AND j.space=s.id WHERE s.tenant=$1 AND s.id=$2`, p.Tenant, principal(ctx).MemoryID()).Scan(&out.Accepted, &out.Compiled, &out.Revision, &out.JobStatus, &out.LastError)
 	out.Pending = out.Accepted - out.Compiled
 	return connect.NewResponse(out), rpcerr(e)
 }
 func (s *Server) UploadArtifact(ctx context.Context, r *connect.Request[trace2memv1.UploadArtifactRequest]) (*connect.Response[trace2memv1.UploadArtifactResponse], error) {
 	p := principal(ctx)
-	if e := s.Store.Authorize(ctx, p, r.Msg.SpaceId, true); e != nil {
+	if e := s.Store.Authorize(ctx, p, principal(ctx).MemoryID(), true); e != nil {
 		return nil, rpcerr(e)
 	}
 	if len(r.Msg.Content) == 0 || len(r.Msg.Content) > 8<<20 {
@@ -119,11 +119,11 @@ func (s *Server) UploadArtifact(ctx context.Context, r *connect.Request[trace2me
 	}
 	id := store.ID()
 	hash := domain.Hash(r.Msg.Content)
-	key := p.Tenant + "/" + r.Msg.SpaceId + "/" + id
+	key := p.Tenant + "/" + principal(ctx).MemoryID() + "/" + id
 	if e := s.Blob.Put(ctx, key, r.Msg.Content); e != nil {
 		return nil, rpcerr(e)
 	}
-	_, e := s.Store.DB.Exec(ctx, "INSERT INTO artifacts VALUES($1,$2,$3,$4,$5,$6,$7)", p.Tenant, r.Msg.SpaceId, id, key, hash, len(r.Msg.Content), r.Msg.MediaType)
+	_, e := s.Store.DB.Exec(ctx, "INSERT INTO artifacts VALUES($1,$2,$3,$4,$5,$6,$7)", p.Tenant, principal(ctx).MemoryID(), id, key, hash, len(r.Msg.Content), r.Msg.MediaType)
 	if e != nil {
 		cleanup := s.Blob.Delete(ctx, key)
 		return nil, rpcerr(errors.Join(e, cleanup))
@@ -132,10 +132,10 @@ func (s *Server) UploadArtifact(ctx context.Context, r *connect.Request[trace2me
 }
 func (s *Server) RequestCompilation(ctx context.Context, r *connect.Request[trace2memv1.RequestCompilationRequest]) (*connect.Response[trace2memv1.RequestCompilationResponse], error) {
 	p := principal(ctx)
-	if e := s.Store.Authorize(ctx, p, r.Msg.SpaceId, true); e != nil {
+	if e := s.Store.Authorize(ctx, p, principal(ctx).MemoryID(), true); e != nil {
 		return nil, rpcerr(e)
 	}
-	e := s.Store.Schedule(ctx, p.Tenant, r.Msg.SpaceId)
+	e := s.Store.Schedule(ctx, p.Tenant, principal(ctx).MemoryID())
 	return connect.NewResponse(&trace2memv1.RequestCompilationResponse{Scheduled: e == nil}), rpcerr(e)
 }
 func (s *Server) CloseSession(ctx context.Context, r *connect.Request[trace2memv1.CloseSessionRequest]) (*connect.Response[trace2memv1.CloseSessionResponse], error) {
@@ -143,6 +143,6 @@ func (s *Server) CloseSession(ctx context.Context, r *connect.Request[trace2memv
 		return nil, connect.NewError(connect.CodeInvalidArgument, errors.New("invalid session ID"))
 	}
 	ev := &trace2memv1.Event{EventId: "close-" + store.ID(), SessionId: r.Msg.SessionId, OccurredAt: timestamppb.New(time.Now()), Actor: &trace2memv1.Actor{Role: "system"}, Source: &trace2memv1.Source{Id: "trace2mem-api", Format: "trace2mem.v1"}, Payload: &trace2memv1.Event_SessionLifecycle{SessionLifecycle: &trace2memv1.SessionLifecycle{State: "closed"}}}
-	_, e := s.AppendEvents(ctx, connect.NewRequest(&trace2memv1.AppendEventsRequest{SpaceId: r.Msg.SpaceId, Events: []*trace2memv1.Event{ev}}))
+	_, e := s.AppendEvents(ctx, connect.NewRequest(&trace2memv1.AppendEventsRequest{Events: []*trace2memv1.Event{ev}}))
 	return connect.NewResponse(&trace2memv1.CloseSessionResponse{Scheduled: e == nil}), e
 }

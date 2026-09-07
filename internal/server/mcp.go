@@ -10,7 +10,6 @@ import (
 )
 
 type memoryArgs struct {
-	SpaceID  string `json:"space_id" jsonschema:"Memory space identifier"`
 	Query    string `json:"query,omitempty"`
 	Path     string `json:"path,omitempty"`
 	Revision string `json:"revision,omitempty"`
@@ -21,41 +20,50 @@ func (s *Server) mcp() http.Handler {
 	server := mcp.NewServer(&mcp.Implementation{Name: "trace2mem", Version: "0.1.0"}, nil)
 	for _, name := range []string{"memory_index", "memory_search", "memory_read", "memory_evidence", "memory_context", "memory_status"} {
 		mcp.AddTool(server, &mcp.Tool{Name: name, Description: "Read authorized memory: " + name}, func(ctx context.Context, req *mcp.CallToolRequest, a memoryArgs) (*mcp.CallToolResult, any, error) {
+			var legacy map[string]json.RawMessage
+			if err := json.Unmarshal(req.Params.Arguments, &legacy); err != nil {
+				return nil, nil, err
+			}
+			for _, key := range []string{"space_id", "spaceId", "space"} {
+				if _, ok := legacy[key]; ok {
+					return nil, nil, errLegacySpace
+				}
+			}
 			var result any
 			var err error
 			switch name {
 			case "memory_index":
-				r, e := s.ReadFile(ctx, connect.NewRequest(&trace2memv1.ReadFileRequest{SpaceId: a.SpaceID, Revision: a.Revision, Path: "knowledge/index.md"}))
+				r, e := s.ReadFile(ctx, connect.NewRequest(&trace2memv1.ReadFileRequest{Revision: a.Revision, Path: "knowledge/index.md"}))
 				if e == nil {
 					result = r.Msg
 				}
 				err = e
 			case "memory_search":
-				r, e := s.Search(ctx, connect.NewRequest(&trace2memv1.SearchRequest{SpaceId: a.SpaceID, Query: a.Query, Revision: a.Revision}))
+				r, e := s.Search(ctx, connect.NewRequest(&trace2memv1.SearchRequest{Query: a.Query, Revision: a.Revision}))
 				if e == nil {
 					result = r.Msg
 				}
 				err = e
 			case "memory_read":
-				r, e := s.ReadFile(ctx, connect.NewRequest(&trace2memv1.ReadFileRequest{SpaceId: a.SpaceID, Path: a.Path, Revision: a.Revision}))
+				r, e := s.ReadFile(ctx, connect.NewRequest(&trace2memv1.ReadFileRequest{Path: a.Path, Revision: a.Revision}))
 				if e == nil {
 					result = r.Msg
 				}
 				err = e
 			case "memory_evidence":
-				r, e := s.GetEvidence(ctx, connect.NewRequest(&trace2memv1.GetEvidenceRequest{SpaceId: a.SpaceID, EventId: a.EventID}))
+				r, e := s.GetEvidence(ctx, connect.NewRequest(&trace2memv1.GetEvidenceRequest{EventId: a.EventID}))
 				if e == nil {
 					result = r.Msg
 				}
 				err = e
 			case "memory_context":
-				r, e := s.GetContext(ctx, connect.NewRequest(&trace2memv1.GetContextRequest{SpaceId: a.SpaceID, Query: a.Query}))
+				r, e := s.GetContext(ctx, connect.NewRequest(&trace2memv1.GetContextRequest{Query: a.Query}))
 				if e == nil {
 					result = r.Msg
 				}
 				err = e
 			case "memory_status":
-				r, e := s.GetIngestionStatus(ctx, connect.NewRequest(&trace2memv1.GetIngestionStatusRequest{SpaceId: a.SpaceID}))
+				r, e := s.GetIngestionStatus(ctx, connect.NewRequest(&trace2memv1.GetIngestionStatusRequest{}))
 				if e == nil {
 					result = r.Msg
 				}

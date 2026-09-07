@@ -4,9 +4,9 @@ The provider-independent domain is in `internal/domain`; storage, Dream, transpo
 
 ## Durable event flow
 
-Authenticated identity supplies the tenant; membership and token scopes authorize the requested space. Append accepts up to 256 events, each at most 64 KiB in canonical Protobuf JSON. Identical event-ID/content retries are harmless; changed content conflicts. Scheduling and insertion share a transaction. Original source times remain separate from ingestion order. Tool events retain call relationships even when results arrive late. Unsupported payloads fail explicitly.
+Authenticated identity resolves one personal memory. Verified OIDC issuer/subject pairs identify users; per-user token scopes authorize reads, ingestion, and management. No caller-selected memory identifier is accepted. Append accepts up to 256 events, each at most 64 KiB in canonical Protobuf JSON. Identical event-ID/content retries are harmless; changed content conflicts. Scheduling and insertion share a transaction. Original source times remain separate from ingestion order. Tool events retain call relationships even when results arrive late. Unsupported payloads fail explicitly.
 
-The queue issues renewable leases and monotonically increasing fencing tokens. Dream reads a bounded incremental watermark, inspects related prior notes, proposes observations, and separately verifies support. Every publication locks the space and checks parent revision, deletion generation, and live lease token. Source text is untrusted evidence and cannot authorize service actions. Worker tools have no shell execution capability.
+The queue issues renewable leases and monotonically increasing fencing tokens. Dream reads a bounded incremental watermark, inspects related prior notes, proposes observations, and separately verifies support. Every publication locks the user’s memory and checks parent revision, deletion generation, and live lease token. Source text is untrusted evidence and cannot authorize service actions. Worker tools have no shell execution capability.
 
 ## Memory
 

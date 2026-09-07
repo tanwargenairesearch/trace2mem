@@ -124,7 +124,7 @@ func (s *Server) callback(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "identity verification failed", 401)
 		return
 	}
-	p := domain.Principal{Tenant: "default", Subject: id.Subject, Scopes: map[string]bool{"read": true, "write": true}}
+	p := domain.Principal{Tenant: "default", Subject: domain.Hash([]byte(id.Issuer + "\x00" + id.Subject)), Scopes: map[string]bool{"read": true, "ingest": true, "manage": true}}
 	if e = s.setSession(w, r, p); e != nil {
 		failure(w, e)
 		return
