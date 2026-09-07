@@ -53,7 +53,7 @@ func (s *Server) oauth() oauth2.Config {
 }
 func (s *Server) login(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
-		if origin := r.Header.Get("Origin"); origin != "" && origin != s.Config.PublicURL {
+		if origin := r.Header.Get("Origin"); origin != "" && origin != strings.TrimRight(s.Config.PublicURL, "/") {
 			http.Error(w, "origin rejected", 403)
 			return
 		}

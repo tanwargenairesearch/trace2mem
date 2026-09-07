@@ -59,3 +59,9 @@ Implementation commit: `d832614`. Local API/console remains at http://localhost:
 ## Live capability probe — 2026-09-07
 
 Passed `TestProviderCapabilities` using `moonshotai/kimi-k3` through OpenRouter Responses and `gemini-embedding-001` through Vertex ADC, region `us-central1`, 768 dimensions. Combined test duration: 3.36 seconds. The model returned the required structured tool call and embeddings passed dimensional validation. This is a capability check, not an end-to-end memory quality evaluation. Configuration with the local project is in ignored `.local/models.openrouter-vertex.yaml`; the portable example is `configs/models.openrouter-vertex.example.yaml`. No key or ADC credential was copied into the repository or Docker.
+
+## Web login and interface — 2026-09-07
+
+Reproduced the login failure in system Chrome: `Referrer-Policy: no-referrer` caused the form POST to send `Origin: null`, which the server correctly rejected. Changed the response policy to `strict-origin-when-cross-origin`; same-origin login succeeds while foreign/null origins remain rejected by regression tests. Login/public URL trailing slash handling is consistent.
+
+The web console now uses a Perplexity-inspired warm neutral/teal palette, sans-serif typography, sidebar navigation, shared space selector/status, and an Ask Brain input connected to the existing cited context API. Desktop and 390px mobile Chrome checks passed, with no horizontal overflow or JavaScript errors. Server race tests passed. Three-lens review completed; hidden space/status findings were fixed and re-reviewed.

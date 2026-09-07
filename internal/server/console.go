@@ -6,14 +6,18 @@ import (
 	"net/http"
 )
 
-//go:embed console.html console.js
+//go:embed console.html console.js console.css
 var consoleFiles embed.FS
 var pageTemplate = template.Must(template.ParseFS(consoleFiles, "console.html"))
 
 func (s *Server) console(w http.ResponseWriter, r *http.Request) {
-	if r.URL.Path == "/console.js" {
-		w.Header().Set("Content-Type", "text/javascript")
-		b, _ := consoleFiles.ReadFile("console.js")
+	if r.URL.Path == "/console.js" || r.URL.Path == "/console.css" {
+		if r.URL.Path == "/console.css" {
+			w.Header().Set("Content-Type", "text/css")
+		} else {
+			w.Header().Set("Content-Type", "text/javascript")
+		}
+		b, _ := consoleFiles.ReadFile(r.URL.Path[1:])
 		w.Write(b)
 		return
 	}
