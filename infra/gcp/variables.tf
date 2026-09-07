@@ -65,3 +65,16 @@ variable "deletion_protection" {
   type    = bool
   default = true
 }
+variable "notification_channels" {
+  type    = list(string)
+  default = []
+}
+variable "oidc_client_secret_id" {
+  description = "Optional existing Secret Manager secret ID; value is provisioned outside Terraform."
+  type        = string
+  default     = ""
+}
+variable "oidc_client_secret_version" {
+  type    = string
+  default = "latest"
+}

@@ -1,0 +1,42 @@
+name: Release
+on:
+  push:
+    tags: ['v*']
+permissions:
+  contents: write
+  packages: write
+jobs:
+  release:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: actions/setup-go@d35c59abb061a4a6fb18e82ac0862c26744d6ab5
+        with:
+          go-version: '1.26.6'
+      - uses: docker/setup-qemu-action@29109295f81e9208d7d86ff1c6c12d2833863392
+      - uses: docker/setup-buildx-action@e468171a9de216ec08956ac3ada2f0791b6bd435
+      - run: go test -race ./...
+      - run: go run golang.org/x/vuln/cmd/govulncheck@v1.1.4 ./...
+      - run: scripts/acceptance.sh
+      - name: Build CLI archives
+        run: |
+          mkdir -p dist
+          for platform in linux darwin; do
+            for arch in amd64 arm64; do
+              CGO_ENABLED=0 GOOS="$platform" GOARCH="$arch" go build -trimpath -o dist/brainctl ./cmd/brainctl
+              tar -czf "dist/brainctl-${platform}-${arch}.tar.gz" -C dist brainctl
+            done
+          done
+          rm dist/brainctl
+          sha256sum dist/*.tar.gz > dist/checksums.txt
+      - name: Publish images with SBOM and provenance
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          printf '%s' "$GH_TOKEN" | docker login ghcr.io -u "$GITHUB_ACTOR" --password-stdin
+          image="ghcr.io/${GITHUB_REPOSITORY,,}:${GITHUB_REF_NAME}"
+          docker buildx build --target runtime --platform linux/amd64,linux/arm64 --sbom=true --provenance=mode=max --push -t "$image" .
+      - name: Create draft release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" --draft --generate-notes dist/*

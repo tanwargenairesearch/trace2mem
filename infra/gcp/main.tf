@@ -156,7 +156,7 @@ locals {
     OAUTH_AUDIENCE           = var.oauth_audience
     BRAIN_MODEL_ENDPOINTS    = var.model_endpoints
   }
-  db_urls = { for role in ["api", "worker", "migration"] : role => "postgres://${google_sql_user.iam[role].name}@localhost/brain?sslmode=disable" }
+  db_urls = { for role in ["api", "worker", "migration"] : role => "postgres://${replace(google_sql_user.iam[role].name, "@", "%40")}@localhost/brain?sslmode=disable" }
 }
 resource "google_cloud_run_v2_service" "api" {
   count               = var.deploy_app ? 1 : 0
@@ -194,6 +194,18 @@ resource "google_cloud_run_v2_service" "api" {
           secret_key_ref {
             secret  = google_secret_manager_secret.bootstrap.secret_id
             version = "latest"
+          }
+        }
+      }
+      dynamic "env" {
+        for_each = var.oidc_client_secret_id != "" ? [1] : []
+        content {
+          name = "OIDC_CLIENT_SECRET"
+          value_source {
+            secret_key_ref {
+              secret  = var.oidc_client_secret_id
+              version = var.oidc_client_secret_version
+            }
           }
         }
       }
@@ -246,7 +258,7 @@ resource "google_cloud_run_v2_worker_pool" "worker" {
   }
 }
 resource "google_cloud_run_v2_job" "migrate" {
-  count               = var.deploy_app ? 1 : 0
+  count               = var.image != "" ? 1 : 0
   name                = "${var.name}-migrate"
   location            = var.region
   deletion_protection = var.deletion_protection
