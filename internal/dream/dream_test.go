@@ -24,7 +24,7 @@ func TestRejectUnsupportedAndMisattributedClaims(t *testing.T) {
 func TestPathsAndEvidence(t *testing.T) {
 	r := []domain.Record{{ID: "e1", Session: "s1", Role: "user", Text: "October"}}
 	o := []domain.Observation{{Subject: "../../launch", Text: "October", Origin: "user", Status: "current", Citations: []string{"e1"}}}
-	pages := Build(o, r)
+	pages := buildSourcePages(o, r)
 	seen := map[string]bool{}
 	for _, p := range pages {
 		if !domain.ValidPath(p.Path) {
@@ -32,7 +32,7 @@ func TestPathsAndEvidence(t *testing.T) {
 		}
 		seen[p.Path] = true
 	}
-	for _, p := range []string{"knowledge/index.md", "sessions/evidence/e1.json", "sessions/s1/summary.md"} {
+	for _, p := range []string{"knowledge/index.md", "sessions/evidence/e1.json"} {
 		if !seen[p] {
 			t.Errorf("missing %s", p)
 		}

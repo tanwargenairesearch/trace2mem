@@ -70,4 +70,4 @@ This pre-release API removes spaces, memberships, `space_id`, and `--space`. Upg
 
 Agent credentials belong to one user. Scopes are `read`, `ingest`, and `manage`; token creation requires `manage` and cannot grant scopes the issuer lacks. Verified OIDC identities include issuer and subject. The local bootstrap token owns only its local user memory. See the in-app `/guide` for capture and retrieval instructions.
 
-The complete Brain-alignment redesign is underway. Dream summaries, explicit relationship proposals, scheduling modes, and the LangChain adapter remain pending; consult [implementation status](docs/IMPLEMENTATION.md).
+The complete Brain-alignment redesign is underway. Dream summaries and explicit relationship proposals are implemented with deterministic tests. Scheduling modes and the LangChain adapter remain pending; consult [implementation status](docs/IMPLEMENTATION.md).

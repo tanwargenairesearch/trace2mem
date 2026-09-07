@@ -31,7 +31,7 @@ func (e *Engine) prior(ctx context.Context, l domain.Lease, query string) (strin
 	if err != nil {
 		return "", nil, err
 	}
-	var notes []json.RawMessage
+	var notes []domain.Observation
 	ids := map[string]bool{}
 	size := 0
 	for rows.Next() {
@@ -46,7 +46,12 @@ func (e *Engine) prior(ctx context.Context, l domain.Lease, query string) (strin
 			rows.Close()
 			return "", nil, errors.New("prior subject exceeds tool budget; narrow the query")
 		}
-		notes = append(notes, json.RawMessage(content))
+		note, parseErr := parseNote(content)
+		if parseErr != nil {
+			rows.Close()
+			return "", nil, parseErr
+		}
+		notes = append(notes, note)
 		for _, id := range cites {
 			ids[id] = true
 		}
@@ -110,10 +115,10 @@ func (e *Engine) merge(ctx context.Context, l domain.Lease, updates []domain.Obs
 				rows.Close()
 				return nil, nil, err
 			}
-			var old domain.Observation
-			if err = json.Unmarshal([]byte(content), &old); err != nil {
+			old, parseErr := parseNote(content)
+			if parseErr != nil {
 				rows.Close()
-				return nil, nil, err
+				return nil, nil, parseErr
 			}
 			old.ID = old.StableID()
 			if keys[old.ID] {

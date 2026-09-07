@@ -26,8 +26,8 @@ func (m *metered) Generate(ctx context.Context, turns []model.Turn, tools []mode
 	if e != nil {
 		return model.Reply{}, e
 	}
-	if len(b) > 1<<20 {
-		return model.Reply{}, errors.New("model input exceeds 1 MiB")
+	if len(b) > 3<<20 {
+		return model.Reply{}, errors.New("model input exceeds 3 MiB")
 	}
 	reserve := int64(len(b)*2 + 4096)
 	id, e := m.engine.Store.Reserve(ctx, m.tenant, m.space, "generation", reserve, m.config.DailyTokens)

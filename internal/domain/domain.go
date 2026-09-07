@@ -3,6 +3,7 @@ package domain
 import (
 	"crypto/sha256"
 	"encoding/hex"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"path"
@@ -28,12 +29,13 @@ func (p Principal) MemoryID() string {
 }
 
 type Record struct {
-	ID       string    `json:"id"`
-	Session  string    `json:"session"`
-	Role     string    `json:"role"`
-	Text     string    `json:"text"`
-	Occurred time.Time `json:"occurred"`
-	Sequence int64     `json:"sequence"`
+	Event    json.RawMessage `json:"-"`
+	ID       string          `json:"id"`
+	Session  string          `json:"session"`
+	Role     string          `json:"role"`
+	Text     string          `json:"text"`
+	Occurred time.Time       `json:"occurred"`
+	Sequence int64           `json:"sequence"`
 }
 type Page struct {
 	Path      string    `json:"path"`

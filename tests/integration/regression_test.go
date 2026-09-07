@@ -62,6 +62,9 @@ func TestDeletionFencesProposalsAndPublication(t *testing.T) {
 	if _, e = s.Publish(ctx, *l, []domain.Page{{Path: "knowledge/index.md", Content: "secret"}}, true, ""); !errors.Is(e, domain.ErrLease) {
 		t.Fatal("stale publication accepted", e)
 	}
+	if e = s.PublishNoop(ctx, *l, "already correct", true); !errors.Is(e, domain.ErrLease) {
+		t.Fatal("no-op bypassed forgetting fence", e)
+	}
 	var n int
 	if e = s.DB.QueryRow(ctx, "SELECT count(*) FROM proposals WHERE tenant=$1", tenant).Scan(&n); e != nil || n != 0 {
 		t.Fatal("forgotten content retained", n, e)

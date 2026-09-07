@@ -3,8 +3,8 @@
 This tracks the accepted redesign. It is not a completion claim.
 
 - Ownership/API: implemented; Go tests, race checks, Protobuf lint, Docker ownership/lifecycle checks, and Chrome model-readiness/guide checks passed. Linux Docker FUSE reads, recursive search, and write rejection passed. All ownership review findings resolved.
-- Dream: pending actual summaries, Markdown notes, synthesized pages, explicit relationships, orientation, and fenced no-op.
-- Scheduling: pending automatic/daily/manual modes and missing-model blocking/resumption.
+- Dream: implemented model-authored summaries and subject syntheses, readable Markdown notes with stable provenance metadata, explicit/preserved relationships, bounded orientation, semantic verification, and fenced no-op. Deterministic Docker scenarios passed; real-model quality remains unmeasured.
+- Scheduling: missing-model blocking/resumption implemented and tested. Automatic/daily/manual timing modes remain pending.
 - LangChain: pending capture hooks, bounded durable spool, context bootstrap, and end-to-end example.
 - Console: per-user navigation/model readiness/guide implemented; final navigation and connections/settings remain.
 - Evaluation: pending fact-based metrics, pinned ablations and opt-in real-model report.
@@ -23,3 +23,9 @@ Three-lens review ran against the ownership changes. Must-fix findings and resol
 - Dead model reset helper and stale space wording: removed.
 
 Existing local volumes remain untouched; fresh `trace2mem_user_*` volumes hold this installation. Prior private configuration is backed up in ignored `.local/before-per-user.env`.
+
+## Dream review tracking
+
+All three review lenses cleared after fixes: no-op verification now receives inspected memory/tool results; composition includes previous subject pages and preserves omitted relationships unless explicit removal reasons pass verification; missing-model transitions lock memory before jobs to match configuration writes; source rendering no longer duplicates composed summaries/pages. Go and Docker tests include no-op watermark/fencing, configuration resumption, temporal corrections, forgetting, and large histories. Linux FUSE checks passed with the new Markdown layers.
+
+Composition is bounded to 2 MiB input and provider request envelopes to 3 MiB; summaries/pages have a 32 KiB limit and prior summary evidence is bounded to 1,024 references. Oversized workloads fail explicitly rather than silently dropping evidence. Further memory-quality and scale evaluation is required.

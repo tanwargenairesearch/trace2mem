@@ -3,7 +3,9 @@ package model
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"github.com/trace2mem/trace2mem/internal/domain"
+	"sort"
 	"strings"
 )
 
@@ -25,6 +27,46 @@ func (Scripted) Generate(ctx context.Context, t []Turn, tools []Tool) (Reply, er
 	}
 	if has("probe") {
 		r.Calls = []Call{{"probe", "probe", json.RawMessage(`{"value":"ok"}`)}}
+		return r, nil
+	}
+	if has("compose_wiki") {
+		var input struct {
+			Observations []domain.Observation `json:"observations"`
+			Evidence     []domain.Record      `json:"evidence"`
+		}
+		if err := json.Unmarshal([]byte(t[len(t)-1].Text), &input); err != nil {
+			return Reply{}, err
+		}
+		sessions := map[string]string{}
+		subjects := map[string]string{}
+		for _, v := range input.Evidence {
+			text := []rune(v.Text)
+			if len(text) > 80 {
+				text = text[:80]
+			}
+			sessions[v.Session] += fmt.Sprintf("%s reported %s [cite:%s]. ", v.Role, string(text), v.ID)
+		}
+		for _, o := range input.Observations {
+			subjects[o.Subject] += fmt.Sprintf("%s (%s, %s)", o.Text, o.Status, o.Origin)
+			for _, id := range o.Citations {
+				subjects[o.Subject] += " [cite:" + id + "]"
+			}
+			subjects[o.Subject] += "\n\n"
+		}
+		list := func(values map[string]string) []map[string]any {
+			keys := []string{}
+			for k := range values {
+				keys = append(keys, k)
+			}
+			sort.Strings(keys)
+			out := []map[string]any{}
+			for _, k := range keys {
+				out = append(out, map[string]any{"name": k, "text": values[k], "related": []string{}, "removed_links": []any{}})
+			}
+			return out
+		}
+		b, _ := json.Marshal(map[string]any{"sessions": list(sessions), "subjects": list(subjects)})
+		r.Calls = []Call{{ID: "compose", Name: "compose_wiki", Arguments: b}}
 		return r, nil
 	}
 	if has("read_history") {

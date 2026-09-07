@@ -4,9 +4,9 @@
 
 Compose owns `trace2mem_postgres`, `trace2mem_blobs`, and `trace2mem_secrets`. `make bootstrap-token` prints the authoritative token. The encryption key is in the secrets volume; losing it makes stored provider credentials unrecoverable. Keep a restricted backup alongside a PostgreSQL dump and blob backup. Never commit keys, access tokens, provider secrets, or Terraform state.
 
-Only localhost receives published application traffic. Shared installations must configure an external OIDC issuer/client and OAuth service audience. Browser login uses authorization code + PKCE and nonce. MCP OAuth needs an authorization server with discovery, scopes, audience, and PKCE; an OIDC login alone does not provide MCP authorization. Tokens and memberships are enforced by the same service logic across transports.
+Only localhost receives published application traffic. Shared installations must configure an external OIDC issuer/client and OAuth service audience. Browser login uses authorization code + PKCE and nonce. MCP OAuth needs an authorization server with discovery, scopes, audience, and PKCE; an OIDC login alone does not provide MCP authorization. Per-user ownership and token scopes are enforced by the same service logic across transports.
 
-Forgetting immediately suppresses the space, removes affected evidence and revisions, then queues rebuilding from remaining events. Tombstones reject replay of deleted IDs. Artifact deletion is queued when no live reference remains. Database backups, GCS soft-deleted versions, and client exports have separate retention and cannot be instantly recalled. Configure retention to match your policy and record purge completion.
+Forgetting immediately suppresses the user’s published memory, removes affected evidence and revisions, then queues rebuilding from remaining events. Tombstones reject replay of deleted IDs. Artifact deletion is queued when no live reference remains. Database backups, GCS soft-deleted versions, and client exports have separate retention and cannot be instantly recalled. Configure retention to match your policy and record purge completion.
 
 ## Google Cloud
 

@@ -56,6 +56,13 @@ func (s *Store) SetConfig(ctx context.Context, t, sp string, c domain.ModelConfi
 		}
 	} else {
 		_, e = tx.Exec(ctx, "UPDATE spaces SET model=$3,credential=$4,pending_model=NULL,pending_credential=NULL,generation=generation+1 WHERE tenant=$1 AND id=$2", t, sp, b, key)
+		if e == nil {
+			var pending bool
+			e = tx.QueryRow(ctx, "SELECT EXISTS(SELECT 1 FROM events WHERE tenant=$1 AND space=$2 AND ordinal>(SELECT watermark FROM spaces WHERE tenant=$1 AND id=$2))", t, sp).Scan(&pending)
+			if e == nil && pending {
+				e = Schedule(ctx, tx, t, sp)
+			}
+		}
 	}
 	if e != nil {
 		return e

@@ -10,8 +10,8 @@ The queue issues renewable leases and monotonically increasing fencing tokens. D
 
 ## Memory
 
-- `sessions/evidence/`: structured source excerpts; session segments contain only newly ingested records.
-- `notes/`: individual observations with actor attribution, stable ID, citations, status, and supersession links to other observation IDs.
+- `sessions/evidence/`: original event envelopes alongside inspected excerpts; updated session summaries are model-authored.
+- `notes/`: readable Markdown observations with hidden structured provenance, actor attribution, stable IDs, citations, status, and supersession links.
 - `knowledge/`: subject pages, compact index, links, and compilation log.
 
 Corrections preserve prior observations with temporal status and supersede individual facts. Subject pages changed by a compilation replace that subject's notes while untouched pages carry forward. Structural and model-based semantic verification gate publication. Semantic judgment is recorded and can be wrong; scripted tests do not establish real-model factual accuracy.

@@ -234,13 +234,16 @@ func (s *Store) Append(ctx context.Context, t, sp string, events []InputEvent) (
 	return
 }
 func (s *Store) Claim(ctx context.Context) (*domain.Lease, error) {
+	if err := s.blockUnconfigured(ctx); err != nil {
+		return nil, err
+	}
 	tx, e := s.DB.Begin(ctx)
 	if e != nil {
 		return nil, e
 	}
 	defer tx.Rollback(ctx)
 	l := &domain.Lease{}
-	e = tx.QueryRow(ctx, `UPDATE jobs SET status='running',fence=fence+1,lease_until=now()+interval '90 seconds',requested=false,attempts=attempts+1 WHERE (tenant,space)=(SELECT tenant,space FROM jobs WHERE (status='pending' AND available_at<=now()) OR (status='running' AND lease_until<now()) ORDER BY available_at FOR UPDATE SKIP LOCKED LIMIT 1) RETURNING tenant,space,fence`).Scan(&l.Tenant, &l.Space, &l.Fence)
+	e = tx.QueryRow(ctx, `UPDATE jobs SET status='running',fence=fence+1,lease_until=now()+interval '90 seconds',requested=false,attempts=attempts+1 WHERE (tenant,space)=(SELECT tenant,space FROM jobs j WHERE ((status='pending' AND available_at<=now()) OR (status='running' AND lease_until<now())) AND EXISTS(SELECT 1 FROM spaces s WHERE s.tenant=j.tenant AND s.id=j.space AND COALESCE(s.model->>'provider','')<>'' AND COALESCE(s.model->>'model','')<>'' AND COALESCE(s.model->>'embedding_provider','')<>'' AND COALESCE(s.model->>'embedding_model','')<>'') ORDER BY available_at FOR UPDATE SKIP LOCKED LIMIT 1) RETURNING tenant,space,fence`).Scan(&l.Tenant, &l.Space, &l.Fence)
 	if errors.Is(e, pgx.ErrNoRows) {
 		return nil, nil
 	}
