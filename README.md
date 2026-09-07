@@ -61,3 +61,5 @@ The deterministic provider requires `BRAIN_ALLOW_SCRIPTED=true` and is a fixture
 Read [architecture](docs/ARCHITECTURE.md), [operations](docs/OPERATIONS.md), and [implementation/validation status](docs/IMPLEMENTATION.md). The Go module namespace `github.com/brainmemory/brain` is a placeholder until a public repository owner is selected.
 
 For a capability check using the same YAML: `BRAIN_LIVE_CONFIG=/absolute/path/models.yaml make test-model`. This makes real provider calls; use your intended account and budget. Docker startup does not select or download a real model.
+
+OpenRouter users can copy `configs/models.openrouter-vertex.example.yaml`. The generation provider is `openai` because this selects the Responses protocol; the endpoint selects OpenRouter. Add `https://openrouter.ai/api/v1` to the operator's `BRAIN_MODEL_ENDPOINTS`. Vertex uses ADC in the process running the test; host ADC is not automatically available inside Docker. The sample's `us-central1` is an embedding location independent of the service deployment region. Review it for your data-location requirements.

@@ -8,7 +8,7 @@ x-app: &app
     BRAIN_MASTER_KEY_FILE: /data/secrets/.local/master-key
     BLOB_DIR: /data/blobs
     PUBLIC_URL: http://localhost:${BRAIN_PORT:-8787}
-    BRAIN_MODEL_ENDPOINTS: http://ollama:11434,http://host.docker.internal:11434
+    BRAIN_MODEL_ENDPOINTS: ${BRAIN_MODEL_ENDPOINTS:-http://ollama:11434,http://host.docker.internal:11434}
     BRAIN_ALLOW_SCRIPTED: ${BRAIN_ALLOW_SCRIPTED:-false}
   volumes: [blobs:/data/blobs, secrets:/data/secrets:ro]
   extra_hosts: ["host.docker.internal:host-gateway"]

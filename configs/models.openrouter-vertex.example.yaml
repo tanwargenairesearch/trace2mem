@@ -1,0 +1,18 @@
+version: 1
+# OpenRouter implements the Responses wire protocol used by the openai adapter.
+# The operator must allow https://openrouter.ai/api/v1 in BRAIN_MODEL_ENDPOINTS.
+generation:
+  provider: openai
+  endpoint: https://openrouter.ai/api/v1
+  model: moonshotai/kimi-k3
+  api_key_env: OPENROUTER_API_KEY
+embedding:
+  provider: vertex
+  model: gemini-embedding-001
+  project: REPLACE_GOOGLE_CLOUD_PROJECT
+  location: us-central1
+  dimensions: 768
+budgets:
+  max_steps: 6
+  max_tokens: 2048
+  daily_tokens: 50000

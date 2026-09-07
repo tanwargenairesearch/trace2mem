@@ -55,3 +55,7 @@ The cloud deployment is not authorized implicitly by local Terraform validation.
 ## Local checkpoint
 
 Implementation commit: `d832614`. Local API/console remains at http://localhost:18787 for this workstation (8787 was occupied). Obtain the bootstrap token with `make bootstrap-token`. No provider secret values are committed.
+
+## Live capability probe — 2026-09-07
+
+Passed `TestProviderCapabilities` using `moonshotai/kimi-k3` through OpenRouter Responses and `gemini-embedding-001` through Vertex ADC, region `us-central1`, 768 dimensions. Combined test duration: 3.36 seconds. The model returned the required structured tool call and embeddings passed dimensional validation. This is a capability check, not an end-to-end memory quality evaluation. Configuration with the local project is in ignored `.local/models.openrouter-vertex.yaml`; the portable example is `configs/models.openrouter-vertex.example.yaml`. No key or ADC credential was copied into the repository or Docker.
