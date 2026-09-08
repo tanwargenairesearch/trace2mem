@@ -69,3 +69,12 @@ README now leads with the problem, capture/maintenance/retrieval workflow, and r
 ## Architecture figure review — 2026-09-08
 
 Replaced the overview flowchart with an original, cloud-neutral SVG/PNG using Brain's foreground/durable-memory/background separation. Added a reading guide and implementation references. Production and design review found no issues; the principles finding was resolved by changing the publication caption to “Changes rejected by validation remain unpublished,” preserving the explicit fallibility warning. The local browser preview was blocked by URL policy; PNG rendering was inspected offline instead. SVG parsing, local links, and diff checks passed. No application behavior changed.
+
+
+## Review-driven MVP delivery — 2026-09-08
+
+All five slices in [the improvement plan](IMPROVEMENT_PLAN.md) are implemented and committed: `234d8ba` (capture/cache cancellation), `5d56073` (cross-subject corrections), `d28248b` (progressive retrieval), `97835ac` (Dream investigation and passage verification), and `11df64e` (evaluation plumbing). Each received focused tests and cleared the production, design and principles review lenses.
+
+Final acceptance used a clean archive of `11df64e`, fresh isolated Docker volumes, a server and worker, and scripted models. Integration and Dream suites and Linux FUSE checks passed; attempted filesystem writes were rejected as expected. The runner removed only its temporary resources. Go vet, the ordinary race suite, focused database-backed race tests and five Python benchmark tests passed separately.
+
+No new real-model evaluation, cloud deployment or public posting was performed. Per-passage verification enforcement does not prove improved semantic judgment; the historical Harbor error remains an observed baseline result awaiting a matched replay. The external-agent benchmark is implemented but no integration-benefit delta has yet been measured. The normal development stack and its stored histories were preserved.

@@ -32,10 +32,18 @@ See [evaluation](EVALUATION.md) for the reproducible fixture, scoring limits, an
 
 The [richer Kimi project-agent exercise](../reports/2026-09-08-harbor/README.md) published two revisions and demonstrated fresh-session index/read/evidence retrieval. Its saved-trace audit passes; manual inspection found an incorrect tentative-versus-approved historical interpretation that semantic verification missed. This is an observed quality gap, not merely an untested possibility.
 
+## Review-driven improvements — 2026-09-08
+
+Five reviewed implementation slices now preserve reused SDK event envelopes, cancel blocked cache waits, validate cross-subject corrections, provide progressive index/search/read/evidence tools, and paginate Dream investigation. Publication requires complete per-passage support, attribution and temporal judgments, with bounded neighboring subject evidence. Judgment remains fallible: the Harbor real-model historical error has not been replayed against this change.
+
+Evaluation supports repeated counterbalanced pairs and resolved-source recall. The [external-agent benchmark](../evaluation/README.md) adds three matched conditions, explicit artifact expectations, bounded subprocess execution and failure records. No new live trials or quality/cost improvement measurements were performed.
+
+Fresh-checkout Docker integration/Dream and Linux FUSE acceptance passed at `11df64e`. Go vet, ordinary race tests, focused database race tests and five Python benchmark tests passed. These checks establish implementation behavior, not semantic quality or cloud readiness.
+
 ## Remaining limitations
 
 External connector investigation and Dream subagent delegation are deferred. Native macOS FUSE, external OIDC/OAuth interoperability, cloud IAM/private database access, cloud restore, release publication, and public CI execution are not verified by local Docker. No GitHub or LinkedIn publication has been performed.
 
-Snapshots currently load corpus pages into memory. Composition has explicit bounded inputs rather than unbounded scaling. Large-corpus performance, broad contradiction cases, exhaustive crash/failure injection, and independent semantic evaluation need further evidence. Lexical rubric scores can miss paraphrases or accept misleading phrasing; they are not semantic proof. Embedding token usage is estimated.
+Foreground manifests load metadata only; file reads target a pinned path and search retrieves bounded candidates. Full snapshots used by background/export/evaluation paths still load corpus pages into memory. Composition has explicit bounded inputs rather than unbounded scaling. Large-corpus performance, broad contradiction cases, exhaustive crash/failure injection, and independent semantic evaluation need further evidence. Lexical rubric scores can miss paraphrases or accept misleading phrasing; they are not semantic proof. Embedding token usage is estimated.
 
 The development application is at `http://localhost:18787`. Use `make bootstrap-token` for its current credential. Old `brain_*` volumes were preserved; fresh per-user `trace2mem_user_*` volumes hold current development data. No private model keys or ADC credentials are tracked.

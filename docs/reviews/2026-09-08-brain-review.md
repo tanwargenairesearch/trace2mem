@@ -44,3 +44,16 @@ These are open recommendations, not completed fixes. Review findings remain unre
 The source separation, durable idempotent ingestion, per-user ownership, explicit model configuration, fenced publication, revision-pinned access, and honest reports are foundations to retain. PostgreSQL replacing Git as transactional coordinator is a defensible adaptation; reproducing Brain's internal infrastructure is not the goal.
 
 See [the outcome measurement plan](../OUTCOMES.md) for what to show publicly and what remains unmeasured.
+
+
+## Implementation follow-up — 2026-09-08
+
+The findings above describe the reviewed baseline. Follow-up work is tracked in [the improvement plan](../IMPROVEMENT_PLAN.md):
+
+- R1 and R4: event cloning and cancellable cache waits implemented in `234d8ba`.
+- R2: bounded cross-subject supersession validation implemented in `5d56073`.
+- Progressive retrieval: metadata/targeted reads and explicit source resolution implemented in `d28248b`.
+- R3 and investigation: pagination, adjacent subject evidence and complete per-passage judgments implemented in `97835ac`. A regression proves rejection of an adverse temporal judgment; it does **not** establish that a real model detects the Harbor conflict. That replay remains unperformed.
+- R5: repeated counterbalanced pairs, stronger optional lexical checks and a bounded external-agent artifact benchmark implemented in `11df64e`. Actual matched agent trials and quality/performance claims remain pending measurement.
+
+Each slice cleared production, design and principles re-review. Fresh-checkout Docker integration/Dream and Linux FUSE acceptance passed at `11df64e`; Go vet/race, focused database race tests and Python benchmark tests passed. This closes the implemented mechanics above, not a general production-readiness or semantic-correctness gate. Original measured artifacts remain unchanged.
