@@ -12,6 +12,12 @@ jobs:
           go-version: '1.26.6'
       - run: go test -race ./...
       - run: go vet ./...
+      - name: LangChain adapter
+        run: |
+          python3 -m venv /tmp/trace2mem-python
+          /tmp/trace2mem-python/bin/pip install --require-hashes -r integrations/langchain/requirements.lock
+          /tmp/trace2mem-python/bin/pip install --no-deps ./integrations/langchain
+          /tmp/trace2mem-python/bin/python -m unittest discover -s integrations/langchain/tests -v
       - run: go run golang.org/x/vuln/cmd/govulncheck@v1.1.4 ./...
       - run: scripts/acceptance.sh
       - if: always()

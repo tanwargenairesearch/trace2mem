@@ -187,6 +187,7 @@ func (p *HTTP) Generate(ctx context.Context, turns []Turn, tools []Tool) (Reply,
 			Name      string `json:"name"`
 			Arguments string `json:"arguments"`
 			Content   []struct {
+				Type string `json:"type"`
 				Text string `json:"text"`
 			} `json:"content"`
 		} `json:"output"`
@@ -205,8 +206,12 @@ func (p *HTTP) Generate(ctx context.Context, turns []Turn, tools []Tool) (Reply,
 		if o.Type == "function_call" {
 			out.Calls = append(out.Calls, Call{o.ID, o.Name, json.RawMessage(o.Arguments)})
 		}
-		for _, c := range o.Content {
-			out.Text += c.Text
+		if o.Type == "message" {
+			for _, c := range o.Content {
+				if c.Type == "output_text" {
+					out.Text += c.Text
+				}
+			}
 		}
 	}
 	return out, e

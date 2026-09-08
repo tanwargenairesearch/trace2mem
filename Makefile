@@ -1,6 +1,6 @@
 GO ?= go
 export GOCACHE ?= /tmp/trace2mem-go-cache
-.PHONY: build generate setup dev-up test test-integration test-e2e test-fuse test-model-local test-model-openai terraform-check
+.PHONY: build generate setup dev-up test test-integration test-e2e test-fuse test-model-local test-model-openai terraform-check test-fresh-checkout
 build:
 	mkdir -p bin
 	$(GO) build -o bin/trace2mem-server ./cmd/trace2mem-server
@@ -34,6 +34,10 @@ terraform-check:
 	terraform -chdir=infra/bootstrap validate
 	terraform -chdir=infra/gcp init -backend=false
 	terraform -chdir=infra/gcp validate
+	terraform -chdir=infra/gcp test
+
+test-fresh-checkout:
+	scripts/fresh-checkout.sh
 
 test-model:
 	$(GO) test -v ./tests/live

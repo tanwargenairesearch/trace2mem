@@ -7,8 +7,8 @@ This tracks the accepted redesign. It is not a completion claim.
 - Scheduling: durable automatic/daily/manual modes, missing-model blocking, credential recovery, and pinned approved ranges implemented. Automatic mode uses 60 seconds quiet and a five-minute cap; daily scheduling coalesces catch-up work and handles DST.
 - LangChain: capture hooks, bounded durable spool, context helper, JSONL import, and a two-conversation example implemented. Five callback/durability tests passed. Live and saved-JSONL flows passed against Docker; a second LangChain conversation receives initial context and invokes retrieval.
 - Console: per-user navigation, model readiness, guide, Connections tokens and Settings scheduling implemented; desktop/mobile Chrome controls verified.
-- Evaluation: pending fact-based metrics, pinned ablations and opt-in real-model report.
-- Operations: pending final Terraform, fresh-checkout and release checks.
+- Evaluation: pinned paired runs, explicit fact/evidence rubrics, failed-answer records, request usage, optimizer accounting and fenced promotion implemented. Live-model report is in progress.
+- Operations: Terraform validation/mock test passed; public guides and clean-checkout acceptance script added. Fresh-checkout validation is next; cloud/release publication remains separate.
 
 ## Ownership review tracking
 
@@ -37,3 +37,7 @@ Review findings fixed: serialize close with capture transactions; cap consecutiv
 ## Scheduling and console review tracking
 
 Production: credential replacement previously left failed jobs stranded, and CloseSession reported scheduling even in manual mode. Both fixed with Docker regressions; resumed jobs retain their approved watermark. Principles: queued request watermark now determines the promoted target, and schedule normalization is explicit. Design: no findings. All three re-review lenses report zero findings. Go race tests, Protobuf lint, Docker timing/catch-up/manual-range tests, and Chrome navigation/schedule controls passed on 2026-09-08.
+
+## Evaluation review tracking
+
+All review commitments resolved: unresolved embedding reservations included; optimizer invocation/usage persisted separately; pending reindex and baseline generation changes block promotion. Citation recall was accurately renamed, the corrected-deadline rubric strengthened, and nested counters documented. Docker regression tests passed; all three final review lenses report zero findings. Live testing additionally exposed reasoning-item text leaking into answers; the Responses parser now returns only message/output_text, covered by a protocol regression. Failed answers remain visible in evaluation reports.

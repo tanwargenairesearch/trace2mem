@@ -1,77 +1,37 @@
 # Implementation and validation status
 
-## Implemented foundation
+Trace2Mem is an experimental agent memory service inspired by Brain. The [alignment matrix](BRAIN_ALIGNMENT.md) distinguishes its principles from our engineering adaptations. This is not a production-readiness or equivalent-performance claim.
 
-- Apache-2.0, Go binaries, versioned Protobuf/Connect contract, JSONL adapter/importer.
-- PostgreSQL durable ingestion, idempotency/conflicts, scoped identity and membership, durable leased jobs.
-- Three memory layers, stable observation IDs and citations, bounded Dream tools, structural/semantic proposal verification, fenced revision publication, corrections and forgetting.
-- Explicit YAML generation/embedding configuration, OpenAI/Ollama generation, Gemini/Vertex/OpenAI/Ollama embeddings, credential encryption, budget reservations, resumable staged reindex.
-- Keyword/semantic retrieval with explicit semantic status, bounded context agent, six MCP tools, pinned directory export/cache and read-only FUSE.
-- Basic management console, OIDC/OAuth configuration, evaluations and operator candidate promotion.
-- Local Compose, Google Cloud Terraform, CI/release workflows and operations documentation.
+## Implemented
 
-These are implementation claims, not completion of every release acceptance criterion in the original plan.
+- One memory per authenticated user, inherited scoped agent credentials, issuer/subject identity mapping, and space-free HTTP/gRPC/MCP/CLI contracts.
+- Durable idempotent event ingestion with original envelopes, tool relationships, source times, tombstones and per-user isolation.
+- Actual session summaries, readable notes, synthesized subjects, explicit relationships, stable citations, incremental Dream investigation, staged verification and fenced publication/no-op.
+- Automatic, daily and manual durable schedules; quiet-period cap, timezone/DST behavior, catch-up and missing-model blocking/recovery.
+- Independent explicit generation/embedding configuration, encrypted credentials, endpoint approval, budgets and staged embedding reindex.
+- Search, cited synthesis, initial index, pinned directory materialization and cached read-only Linux FUSE.
+- LangChain callback capture, bounded persistent retry spool, initial context helper and live/saved-history examples. Pi/Hermes documentation defines the adapter contract only.
+- Memory, Import, Activity, Models, Connections and Settings web screens, provider-neutral onboarding and an in-app integration guide.
+- Pinned paired evaluation with fact/citation rubrics, per-request usage/transcripts and explicit operator candidate promotion.
+- Docker, optional GCP Terraform, CI/release definitions and operational documentation.
 
-## Tests recorded locally
+## Recorded validation
 
-2026-09-07, Apple Silicon host with Linux Docker:
+2026-09-08, Apple Silicon host with Linux Docker:
 
-- Go 1.26.6 unit/race suite: passed after dependency security updates.
-- Docker HTTP/gRPC/MCP lifecycle: passed. Durable duplicate/conflict handling, citations, temporal correction, embedding-model replacement, forgetting, directory synchronization and offline warm reads.
-- Database regressions: passed. Stale proposal/publication after forgetting, concurrent budget reservations, valid-token membership isolation, incremental 180-event history over the prompt limit preserving all subjects.
-- Linux Docker FUSE smoke: passed. `ls`, `stat`, `cat`, recursive citation search, and write rejection. Native macOS FUSE not tested.
-- Terraform bootstrap/GCP init and validation: passed. GCP mock plan test: passed. Formatting, Protobuf lint, and backward-compatibility check against e49b7c6: passed.
-- Go vet: passed after final dependency update.
-- Vulnerability scan found advisories in Go1.26.3 and dependencies; patched to Go1.26.6 and identified fixed module versions. Final scan: zero reachable vulnerabilities; one advisory remains in imported/required code that the scanner reports is not called.
+- Go unit/race checks, Protobuf lint, and deterministic Docker lifecycle tests passed.
+- HTTP/gRPC/MCP identity isolation with colliding IDs, concurrent first-use provisioning, correction/forgetting, pinned directory/offline reads and lease/budget regressions passed.
+- Scheduling tests cover 60-second quiet period, five-minute cap, daily catch-up/DST, manual accepted-range boundaries, credential recovery and accurate session-close scheduling status.
+- Chrome desktop/mobile navigation, missing-model Ask readiness, guide and saved scheduling settings passed.
+- LangChain's five callback/spool tests and live/JSONL demonstrations passed in the preceding integration milestone.
+- Terraform formatting, initialization/validation and one mock small-deployment test passed. No cloud apply was performed.
 
-## Three-lens review triage
+See [evaluation](EVALUATION.md) for the reproducible fixture, scoring limits, and real-model results. The deterministic model tests plumbing and cannot establish memory quality.
 
-Must-fix findings addressed:
+## Remaining limitations
 
-- Fence proposal and candidate persistence against forgetting; lock candidate promotion before reading its content.
-- Use serialized rather than compressed payload bytes for incremental bounds; retain only new records in session segments.
-- Native provider tool-call/result pairing and empty-required JSON Schema correctness.
-- Reserve concurrent provider budgets and mark embedding usage as estimated.
-- Validate synthesized citations against inspected evidence.
-- Bound cache metadata/content across revisions, preserve manifest identity, account replacements correctly, and synchronize selected context files.
-- Preserve independent facts through stable observation IDs; keep inspected artifact ranges in materialized evidence.
-- Stage embedding configuration, checkpoint vectors, publish by transactional SQL join, and explicitly report historical index incompatibility.
-- Inject optional OIDC client secret by Secret Manager reference; use one Compose bootstrap identity.
-- Close/cancel server and worker resources; remove dead declarations.
-- Require Docker and Linux FUSE acceptance before release image publication.
+External connector investigation and Dream subagent delegation are deferred. Native macOS FUSE, external OIDC/OAuth interoperability, cloud IAM/private database access, cloud restore, release publication, and public CI execution are not verified by local Docker. No GitHub or LinkedIn publication has been performed.
 
-Production and design reviewers reported zero findings on the final bounded reindex/search/artifact fixes. Principles' release-gate finding was addressed by scripts/acceptance.sh in both CI and release workflows.
+Snapshots currently load corpus pages into memory. Composition has explicit bounded inputs rather than unbounded scaling. Large-corpus performance, broad contradiction cases, exhaustive crash/failure injection, and independent semantic evaluation need further evidence. Lexical rubric scores can miss paraphrases or accept misleading phrasing; they are not semantic proof. Embedding token usage is estimated.
 
-Deferred / remaining release gates:
-
-- Real Gemini/Vertex/Ollama/OpenAI capability and memory-quality evaluation needs user-selected model IDs, credentials, and project where applicable. No measured quality or cost improvement is claimed.
-- Cloud smoke deployment, IAM/private SQL validation, actual backup restoration, and external OIDC/OAuth interoperability remain untested.
-- CI workflows, cross-platform release artifacts, registry SBOM/provenance publication have not run on GitHub.
-- FUSE performance comparison, interrupted downloads/cache exhaustion/offline full-working-set stress, broader semantic contradictions/artifact-only claims, and exhaustive failure-injection tests remain to broaden.
-- Snapshot APIs load corpus content into Go memory; pagination/database keyword retrieval and complete metrics/dashboards are needed before large-scale production claims.
-
-The cloud deployment is not authorized implicitly by local Terraform validation. No Terraform apply or image publication has been performed.
-
-## Local checkpoint
-
-Implementation commit: `d832614`. Local API/console remains at http://localhost:18787 for this workstation (8787 was occupied). Obtain the bootstrap token with `make bootstrap-token`. No provider secret values are committed.
-
-## Live capability probe — 2026-09-07
-
-Passed `TestProviderCapabilities` using `moonshotai/kimi-k3` through OpenRouter Responses and `gemini-embedding-001` through Vertex ADC, region `us-central1`, 768 dimensions. Combined test duration: 3.36 seconds. The model returned the required structured tool call and embeddings passed dimensional validation. This is a capability check, not an end-to-end memory quality evaluation. Configuration with the local project is in ignored `.local/models.openrouter-vertex.yaml`; the portable example is `configs/models.openrouter-vertex.example.yaml`. No key or ADC credential was copied into the repository or Docker.
-
-## Web login and interface — 2026-09-07
-
-Reproduced the login failure in system Chrome: `Referrer-Policy: no-referrer` caused the form POST to send `Origin: null`, which the server correctly rejected. Changed the response policy to `strict-origin-when-cross-origin`; same-origin login succeeds while foreign/null origins remain rejected by regression tests. Login/public URL trailing slash handling is consistent.
-
-The web console now uses a Perplexity-inspired warm neutral/teal palette, sans-serif typography, sidebar navigation, shared space selector/status, and an Ask Trace2Mem input connected to the existing cited context API. Desktop and 390px mobile Chrome checks passed, with no horizontal overflow or JavaScript errors. Server race tests passed. Three-lens review completed; hidden space/status findings were fixed and re-reviewed.
-
-## Trace2Mem rename — 2026-09-07
-
-Renamed product branding, CLI/server/worker binaries, Go module and generated Protobuf namespace, MCP server identity, cookies/CSRF header, environment variables, Docker images/project, Terraform defaults, fixtures, scripts, and release documentation. Fresh installs use Trace2Mem storage names. The local deployment reuses original volumes/database through private configuration and retains the same bootstrap token. Pre-switch baseline: 19 spaces, 555 events. Three-lens rename review: zero findings. This is an intentional pre-release API namespace change, not an additive compatibility claim.
-
-Rename verification passed: Go race suite; Protobuf lint; Terraform validation/mock test; Docker HTTP/gRPC/MCP lifecycle and incremental regressions; read-only Linux FUSE; Chrome login/navigation/mobile checks with no JavaScript errors. Immediately after switching containers, counts remained 19 spaces and 555 events. Existing bootstrap credentials were used successfully by the renamed app.
-
-## Provider-neutral model setup — 2026-09-07
-
-Split Models into independent Generation and Embeddings cards with unselected provider placeholders. Provider-specific fields are shown and validated only for the selected adapter: Vertex alone requests project/location and explains ADC; API-key providers request their own credentials; Ollama requests a reachable endpoint. OpenRouter maps to the existing Responses adapter. Hidden fields are excluded from submission and switching spaces clears unsaved settings/credentials. Scripted options appear only when the deployment enables them. Explore copy now explicitly describes searching the selected space's published memory.
+The development application is at `http://localhost:18787`. Use `make bootstrap-token` for its current credential. Old `brain_*` volumes were preserved; fresh per-user `trace2mem_user_*` volumes hold current development data. No private model keys or ADC credentials are tracked.

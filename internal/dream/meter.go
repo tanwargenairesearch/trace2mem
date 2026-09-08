@@ -14,6 +14,14 @@ type metered struct {
 	config        domain.ModelConfig
 	tenant, space string
 }
+type compilationKey struct{}
+
+func meteredOperation(ctx context.Context, operation string) string {
+	if ctx.Value(compilationKey{}) != nil {
+		return "compilation/" + operation
+	}
+	return operation
+}
 
 func (e *Engine) Meter(p model.Provider, c domain.ModelConfig, t, sp string) model.Provider {
 	return &metered{e, p, c, t, sp}
@@ -30,10 +38,12 @@ func (m *metered) Generate(ctx context.Context, turns []model.Turn, tools []mode
 		return model.Reply{}, errors.New("model input exceeds 3 MiB")
 	}
 	reserve := int64(len(b)*2 + 4096)
-	id, e := m.engine.Store.Reserve(ctx, m.tenant, m.space, "generation", reserve, m.config.DailyTokens)
+	id, e := m.engine.Store.Reserve(ctx, m.tenant, m.space, meteredOperation(ctx, "generation"), reserve, m.config.DailyTokens)
 	if e != nil {
 		return model.Reply{}, e
 	}
+	charged := domain.Usage{Input: reserve, Estimated: true, Unresolved: true}
+	defer func() { countUsage(ctx, false, charged) }()
 	r, e := m.provider.Generate(ctx, turns, tools)
 	if e != nil {
 		return r, e
@@ -44,6 +54,7 @@ func (m *metered) Generate(ctx context.Context, turns []model.Turn, tools []mode
 	if e = m.engine.Store.Reconcile(ctx, id, r.Usage); e != nil {
 		return r, e
 	}
+	charged = r.Usage
 	return r, nil
 }
 func (m *metered) Embed(ctx context.Context, texts []string) ([][]float32, error) {
@@ -55,10 +66,12 @@ func (m *metered) Embed(ctx context.Context, texts []string) ([][]float32, error
 		return nil, errors.New("embedding input exceeds 2 MiB")
 	}
 	estimate := int64(bytes*2 + len(texts))
-	id, e := m.engine.Store.Reserve(ctx, m.tenant, m.space, "embedding", estimate, m.config.DailyTokens)
+	id, e := m.engine.Store.Reserve(ctx, m.tenant, m.space, meteredOperation(ctx, "embedding"), estimate, m.config.DailyTokens)
 	if e != nil {
 		return nil, e
 	}
+	charged := domain.Usage{Input: estimate, Estimated: true, Unresolved: true}
+	defer func() { countUsage(ctx, true, charged) }()
 	v, e := m.provider.Embed(ctx, texts)
 	if e != nil {
 		return nil, e
@@ -66,5 +79,6 @@ func (m *metered) Embed(ctx context.Context, texts []string) ([][]float32, error
 	if e = m.engine.Store.Reconcile(ctx, id, domain.Usage{Input: estimate, Estimated: true}); e != nil {
 		return nil, e
 	}
+	charged.Unresolved = false
 	return v, nil
 }

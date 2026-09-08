@@ -4,80 +4,190 @@ import (
 	"connectrpc.com/connect"
 	"context"
 	"encoding/json"
+	"errors"
+	"fmt"
 	trace2memv1 "github.com/trace2mem/trace2mem/gen/trace2mem/v1"
 	"github.com/trace2mem/trace2mem/internal/domain"
+	"github.com/trace2mem/trace2mem/internal/dream"
 	"github.com/trace2mem/trace2mem/internal/model"
 	"github.com/trace2mem/trace2mem/internal/store"
+	"google.golang.org/protobuf/encoding/protojson"
 	"net/http"
-	"strings"
 	"time"
 )
 
 type evalCase struct {
-	Query     string   `json:"query"`
-	Expected  string   `json:"expected"`
-	Citations []string `json:"citations"`
-	Split     string   `json:"split"`
+	Query string         `json:"query"`
+	Facts []expectedFact `json:"facts"`
+	Split string         `json:"split"`
+}
+type evaluationTraceKey struct{}
+type evaluationTrace struct {
+	Turns            []model.Turn `json:"turns"`
+	Tools            []model.Tool `json:"tools"`
+	SemanticStatuses []string     `json:"semantic_statuses"`
 }
 type evalResult struct {
-	Query     string  `json:"query"`
-	Split     string  `json:"split"`
-	Wiki      bool    `json:"wiki"`
-	Correct   bool    `json:"correct"`
-	Recall    float64 `json:"recall"`
-	LatencyMS int64   `json:"latency_ms"`
-	Answer    string  `json:"answer"`
+	Error      string          `json:"error,omitempty"`
+	Query      string          `json:"query"`
+	Split      string          `json:"split"`
+	Wiki       bool            `json:"wiki"`
+	Correct    bool            `json:"correct"`
+	Facts      []factScore     `json:"facts"`
+	Recall     float64         `json:"answer_citation_recall"`
+	LatencyMS  int64           `json:"latency_ms"`
+	Answer     string          `json:"answer"`
+	Generation domain.Usage    `json:"generation_usage"`
+	Embedding  domain.Usage    `json:"embedding_usage"`
+	Trace      evaluationTrace `json:"trace"`
 }
+type evaluationPrices struct {
+	GenerationInput  float64 `json:"generation_input_per_million_usd"`
+	GenerationOutput float64 `json:"generation_output_per_million_usd"`
+	EmbeddingInput   float64 `json:"embedding_input_per_million_usd"`
+}
+
+func (p evaluationPrices) cost(generation, embedding domain.Usage) float64 {
+	return (float64(generation.Input)*p.GenerationInput + float64(generation.Output)*p.GenerationOutput + float64(embedding.Input)*p.EmbeddingInput) / 1e6
+}
+
 type evalReport struct {
-	Revision string             `json:"revision"`
-	Cases    []evalCase         `json:"cases"`
-	Results  []evalResult       `json:"results"`
-	Tokens   int64              `json:"tokens"`
-	Model    domain.ModelConfig `json:"model"`
+	Optimization          *optimizationReport `json:"optimization,omitempty"`
+	Prices                *evaluationPrices   `json:"operator_prices,omitempty"`
+	RetrievalCostUSD      *float64            `json:"retrieval_cost_usd"`
+	CompilationGeneration domain.Usage        `json:"recorded_compilation_generation"`
+	CompilationEmbedding  domain.Usage        `json:"recorded_compilation_embedding"`
+	CompilationCostUSD    *float64            `json:"recorded_compilation_cost_usd"`
+
+	Revision   string             `json:"revision"`
+	Watermark  int64              `json:"watermark"`
+	Generation int64              `json:"configuration_generation"`
+	Cases      []evalCase         `json:"cases"`
+	Results    []evalResult       `json:"results"`
+	Tokens     int64              `json:"tokens"`
+	Model      domain.ModelConfig `json:"model"`
+	Prompt     string             `json:"retrieval_prompt"`
+	Evidence   map[string]string  `json:"evidence"`
+	CreatedAt  time.Time          `json:"created_at"`
+	Scoring    string             `json:"scoring"`
+}
+type optimizationReport struct {
+	BaselineID string       `json:"baseline_id"`
+	Turns      []model.Turn `json:"turns"`
+	Reply      model.Reply  `json:"reply"`
+	Usage      domain.Usage `json:"usage"`
+	LatencyMS  int64        `json:"latency_ms"`
+	CostUSD    *float64     `json:"cost_usd"`
 }
 type retrievalPromptKey struct{}
 
-func (s *Server) runEvaluation(ctx context.Context, p domain.Principal, sp string, cases []evalCase) (evalReport, error) {
-	v, e := s.Store.Snapshot(ctx, p.Tenant, sp, "")
-	if e != nil {
-		return evalReport{}, e
+func (s *Server) runEvaluation(ctx context.Context, p domain.Principal, sp string, cases []evalCase, prices *evaluationPrices) (evalReport, error) {
+	var out evalReport
+	out.Prices = prices
+	if prices != nil && (prices.GenerationInput < 0 || prices.GenerationOutput < 0 || prices.EmbeddingInput < 0) {
+		return out, errors.New("prices cannot be negative")
 	}
-	cfg, _, e := s.Store.Config(ctx, p.Tenant, sp)
-	if e != nil {
-		return evalReport{}, e
+	if err := validateCases(cases); err != nil {
+		return out, err
 	}
-	cfg.Key = ""
-	out := evalReport{Revision: v.Revision, Cases: cases, Model: cfg}
-	before, e := s.Store.Used(ctx, p.Tenant, sp)
-	if e != nil {
-		return out, e
+	if err := s.Store.DB.QueryRow(ctx, "SELECT generation FROM spaces WHERE tenant=$1 AND id=$2", p.Tenant, sp).Scan(&out.Generation); err != nil {
+		return out, err
+	}
+	v, err := s.Store.Snapshot(ctx, p.Tenant, sp, "")
+	if err != nil {
+		return out, err
+	}
+	cfg, _, err := s.Store.Config(ctx, p.Tenant, sp)
+	if err != nil {
+		return out, err
+	}
+	cfg.Key, cfg.EmbeddingKey = "", ""
+	out.Revision, out.Watermark, out.Cases, out.Model = v.Revision, v.Watermark, cases, cfg
+	out.CreatedAt = time.Now().UTC()
+	for operation, total := range map[string]*domain.Usage{"compilation/generation": &out.CompilationGeneration, "compilation/embedding": &out.CompilationEmbedding} {
+		if err := s.Store.DB.QueryRow(ctx, "SELECT COALESCE(sum(input_tokens),0),COALESCE(sum(output_tokens),0),COALESCE(bool_or(estimated),false) FROM usage WHERE tenant=$1 AND space=$2 AND operation=$3 AND created_at<=$4", p.Tenant, sp, operation, out.CreatedAt).Scan(&total.Input, &total.Output, &total.Estimated); err != nil {
+			return out, err
+		}
+	}
+	if prices != nil {
+		cost := prices.cost(out.CompilationGeneration, out.CompilationEmbedding)
+		out.CompilationCostUSD = &cost
+		out.RetrievalCostUSD = new(float64)
+	}
+
+	out.Scoring = "case-specific RE2 facts, same-line supporting citations and forbidden assertions; lexical support only, no independent semantic judge"
+	out.Prompt = cfg.RetrievalPrompt
+	if override, ok := ctx.Value(retrievalPromptKey{}).(string); ok {
+		out.Prompt = override
+	}
+	out.Evidence = map[string]string{}
+	published := map[string]bool{}
+	for _, page := range v.Pages {
+		for _, id := range page.Citations {
+			published[id] = true
+		}
+	}
+	for _, c := range cases {
+		for _, f := range c.Facts {
+			for _, id := range f.Citations {
+				if !published[id] {
+					return out, fmt.Errorf("expected citation %s is absent from pinned revision", id)
+				}
+				if _, ok := out.Evidence[id]; ok {
+					continue
+				}
+				raw, err := s.Store.EventJSON(ctx, p.Tenant, sp, id)
+				if err != nil {
+					return out, err
+				}
+				var event trace2memv1.Event
+				if err := protojson.Unmarshal(raw, &event); err != nil {
+					return out, err
+				}
+				out.Evidence[id] = event.GetMessage().GetText() + "\n" + event.GetToolResult().GetText()
+			}
+		}
 	}
 	for _, c := range cases {
 		for _, wiki := range []bool{true, false} {
+			measured, usage := dream.WithUsage(ctx)
+			trace := evaluationTrace{}
+			measured = context.WithValue(measured, evaluationTraceKey{}, &trace)
 			start := time.Now()
-			res, e := s.GetContext(ctx, connect.NewRequest(&trace2memv1.GetContextRequest{Query: c.Query, WithoutWiki: !wiki}))
-			if e != nil {
-				return out, e
+			res, err := s.GetContext(measured, connect.NewRequest(&trace2memv1.GetContextRequest{Query: c.Query, WithoutWiki: !wiki, Revision: v.Revision}))
+			var answer, failure string
+			if err != nil {
+				if ctx.Err() != nil {
+					return out, ctx.Err()
+				}
+				failure = err.Error()
+			} else {
+				answer = res.Msg.Synthesis
 			}
-			if res.Msg.Revision != v.Revision {
+			var generation int64
+			if err := s.Store.DB.QueryRow(ctx, "SELECT generation FROM spaces WHERE tenant=$1 AND id=$2", p.Tenant, sp).Scan(&generation); err != nil {
+				return out, err
+			}
+			if generation != out.Generation || (res != nil && res.Msg.Revision != v.Revision) {
 				return out, domain.ErrConflict
 			}
-			hit := 0
-			for _, id := range c.Citations {
-				if strings.Contains(res.Msg.Synthesis, "[cite:"+id+"]") {
-					hit++
-				}
+			facts, recall, correct := scoreFacts(c, answer, out.Evidence)
+			gen, embed := usage.Snapshot()
+			out.Tokens += gen.Total() + embed.Total()
+			if prices != nil {
+				*out.RetrievalCostUSD += prices.cost(gen, embed)
 			}
-			recall := 1.
-			if len(c.Citations) > 0 {
-				recall = float64(hit) / float64(len(c.Citations))
+			out.Results = append(out.Results, evalResult{Error: failure, Query: c.Query, Split: c.Split, Wiki: wiki, Correct: correct && failure == "", Facts: facts, Recall: recall, LatencyMS: time.Since(start).Milliseconds(), Answer: answer, Generation: gen, Embedding: embed, Trace: trace})
+			b, err := json.Marshal(out)
+			if err != nil {
+				return out, err
 			}
-			out.Results = append(out.Results, evalResult{Query: c.Query, Split: c.Split, Wiki: wiki, Correct: strings.Contains(strings.ToLower(res.Msg.Synthesis), strings.ToLower(c.Expected)), Recall: recall, LatencyMS: time.Since(start).Milliseconds(), Answer: res.Msg.Synthesis})
+			if len(b) > 16<<20 {
+				return out, errors.New("evaluation report exceeds 16 MiB; split the cases")
+			}
 		}
 	}
-	after, e := s.Store.Used(ctx, p.Tenant, sp)
-	out.Tokens = after - before
-	return out, e
+	return out, nil
 }
 func (s *Server) evaluate(w http.ResponseWriter, r *http.Request, p domain.Principal, sp string) {
 	if r.Method != "POST" {
@@ -85,24 +195,19 @@ func (s *Server) evaluate(w http.ResponseWriter, r *http.Request, p domain.Princ
 		return
 	}
 	var a struct {
-		Cases []evalCase `json:"cases"`
+		Cases  []evalCase        `json:"cases"`
+		Prices *evaluationPrices `json:"prices,omitempty"`
 	}
 	if !decode(w, r, &a) {
 		return
 	}
-	if len(a.Cases) < 1 || len(a.Cases) > 20 {
-		http.Error(w, "provide 1–20 cases", 400)
+	if err := validateCases(a.Cases); err != nil {
+		http.Error(w, err.Error(), 400)
 		return
-	}
-	for _, c := range a.Cases {
-		if c.Query == "" || c.Expected == "" || (c.Split != "development" && c.Split != "heldout") {
-			http.Error(w, "query, expected and development/heldout split required", 400)
-			return
-		}
 	}
 	ctx, cancel := context.WithTimeout(r.Context(), 5*time.Minute)
 	defer cancel()
-	report, e := s.runEvaluation(ctx, p, sp, a.Cases)
+	report, e := s.runEvaluation(ctx, p, sp, a.Cases, a.Prices)
 	if e != nil {
 		failure(w, e)
 		return
@@ -116,12 +221,13 @@ func (s *Server) evaluate(w http.ResponseWriter, r *http.Request, p domain.Princ
 	}
 	defer tx.Rollback(ctx)
 	var current string
-	e = tx.QueryRow(ctx, "SELECT revision FROM spaces WHERE tenant=$1 AND id=$2 FOR UPDATE", p.Tenant, sp).Scan(&current)
+	var generation int64
+	e = tx.QueryRow(ctx, "SELECT revision,generation FROM spaces WHERE tenant=$1 AND id=$2 FOR UPDATE", p.Tenant, sp).Scan(&current, &generation)
 	if e != nil {
 		failure(w, e)
 		return
 	}
-	if current != report.Revision {
+	if current != report.Revision || generation != report.Generation {
 		failure(w, domain.ErrConflict)
 		return
 	}
@@ -134,7 +240,7 @@ func (s *Server) evaluate(w http.ResponseWriter, r *http.Request, p domain.Princ
 		failure(w, e)
 		return
 	}
-	respond(w, map[string]any{"id": id, "report": report, "scoring": "case-insensitive expected substring and exact citation recall; not an independent correctness judge"})
+	respond(w, map[string]any{"id": id, "report": report, "scoring": report.Scoring})
 }
 func (s *Server) candidates(w http.ResponseWriter, r *http.Request, p domain.Principal, sp string) {
 	if e := s.Store.Owner(r.Context(), p, sp); e != nil {
@@ -161,18 +267,26 @@ func (s *Server) candidates(w http.ResponseWriter, r *http.Request, p domain.Pri
 			return
 		}
 		defer tx.Rollback(ctx)
-		var locked string
-		if e = tx.QueryRow(ctx, "SELECT id FROM spaces WHERE tenant=$1 AND id=$2 FOR UPDATE", p.Tenant, sp).Scan(&locked); e != nil {
+		var current string
+		var generation int64
+		var pending bool
+		if e = tx.QueryRow(ctx, "SELECT revision,generation,pending_model IS NOT NULL FROM spaces WHERE tenant=$1 AND id=$2 FOR UPDATE", p.Tenant, sp).Scan(&current, &generation, &pending); e != nil {
 			failure(w, e)
 			return
 		}
 		var prompt string
-		e = tx.QueryRow(ctx, "SELECT prompt FROM candidates WHERE tenant=$1 AND space=$2 AND id=$3", p.Tenant, sp, a.PromoteID).Scan(&prompt)
+		var testedRevision string
+		var testedGeneration int64
+		e = tx.QueryRow(ctx, "SELECT c.prompt,e.revision,(e.report->>'configuration_generation')::bigint FROM candidates c JOIN evaluations e ON e.id=c.evaluation_id AND e.tenant=c.tenant AND e.space=c.space WHERE c.tenant=$1 AND c.space=$2 AND c.id=$3", p.Tenant, sp, a.PromoteID).Scan(&prompt, &testedRevision, &testedGeneration)
 		if e != nil {
 			failure(w, domain.ErrNotFound)
 			return
 		}
-		_, e = tx.Exec(ctx, "UPDATE spaces SET model=jsonb_set(model,'{retrieval_prompt}',to_jsonb($3::text)) WHERE tenant=$1 AND id=$2", p.Tenant, sp, prompt)
+		if pending || current != testedRevision || generation != testedGeneration {
+			failure(w, domain.ErrConflict)
+			return
+		}
+		_, e = tx.Exec(ctx, "UPDATE spaces SET generation=generation+1,model=jsonb_set(model,'{retrieval_prompt}',to_jsonb($3::text)) WHERE tenant=$1 AND id=$2", p.Tenant, sp, prompt)
 		if e == nil {
 			_, e = tx.Exec(ctx, "UPDATE candidates SET promoted=true WHERE id=$1", a.PromoteID)
 		}
@@ -197,11 +311,12 @@ func (s *Server) candidates(w http.ResponseWriter, r *http.Request, p domain.Pri
 		return
 	}
 	var baselineCurrent string
-	if e := s.Store.DB.QueryRow(ctx, "SELECT revision FROM spaces WHERE tenant=$1 AND id=$2", p.Tenant, sp).Scan(&baselineCurrent); e != nil {
+	var baselineGeneration int64
+	if e := s.Store.DB.QueryRow(ctx, "SELECT revision,generation FROM spaces WHERE tenant=$1 AND id=$2", p.Tenant, sp).Scan(&baselineCurrent, &baselineGeneration); e != nil {
 		failure(w, e)
 		return
 	}
-	if baselineCurrent != baseline.Revision || baseline.Revision == "" {
+	if baselineCurrent != baseline.Revision || baseline.Revision == "" || baselineGeneration != baseline.Generation {
 		failure(w, domain.ErrConflict)
 		return
 	}
@@ -227,21 +342,32 @@ func (s *Server) candidates(w http.ResponseWriter, r *http.Request, p domain.Pri
 		return
 	}
 	dev, _ := json.Marshal(development)
-	reply, e := provider.Generate(ctx, []model.Turn{{Role: "system", Text: "Propose a concise retrieval instruction to improve these development results. Preserve evidence citation and untrusted-data handling. Output only the instruction."}, {Role: "user", Text: string(dev)}}, nil)
+	optimization := optimizationReport{BaselineID: a.EvaluationID, Turns: []model.Turn{{Role: "system", Text: "Propose a concise retrieval instruction to improve these development results. Preserve evidence citation and untrusted-data handling. Output only the instruction."}, {Role: "user", Text: string(dev)}}}
+	measured, usage := dream.WithUsage(ctx)
+	started := time.Now()
+	reply, e := provider.Generate(measured, optimization.Turns, nil)
 	if e != nil {
 		failure(w, e)
 		return
+	}
+	optimization.Reply = reply
+	optimization.Usage, _ = usage.Snapshot()
+	optimization.LatencyMS = time.Since(started).Milliseconds()
+	if baseline.Prices != nil {
+		cost := baseline.Prices.cost(optimization.Usage, domain.Usage{})
+		optimization.CostUSD = &cost
 	}
 
 	if reply.Text == "" {
 		http.Error(w, "empty candidate", 422)
 		return
 	}
-	report, e := s.runEvaluation(context.WithValue(ctx, retrievalPromptKey{}, reply.Text), p, sp, heldout)
+	report, e := s.runEvaluation(context.WithValue(ctx, retrievalPromptKey{}, reply.Text), p, sp, heldout, baseline.Prices)
 	if e != nil {
 		failure(w, e)
 		return
 	}
+	report.Optimization = &optimization
 	id, eid := store.ID(), store.ID()
 	rb, _ := json.Marshal(report)
 	tx, e := s.Store.DB.Begin(ctx)
@@ -251,12 +377,13 @@ func (s *Server) candidates(w http.ResponseWriter, r *http.Request, p domain.Pri
 	}
 	defer tx.Rollback(ctx)
 	var current string
-	e = tx.QueryRow(ctx, "SELECT revision FROM spaces WHERE tenant=$1 AND id=$2 FOR UPDATE", p.Tenant, sp).Scan(&current)
+	var generation int64
+	e = tx.QueryRow(ctx, "SELECT revision,generation FROM spaces WHERE tenant=$1 AND id=$2 FOR UPDATE", p.Tenant, sp).Scan(&current, &generation)
 	if e != nil {
 		failure(w, e)
 		return
 	}
-	if current != report.Revision || current != baseline.Revision {
+	if current != report.Revision || current != baseline.Revision || generation != report.Generation || generation != baseline.Generation {
 		failure(w, domain.ErrConflict)
 		return
 	}

@@ -754,15 +754,17 @@ func (*GetIngestionStatusRequest) Descriptor() ([]byte, []int) {
 }
 
 type GetIngestionStatusResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Accepted      int64                  `protobuf:"varint,1,opt,name=accepted,proto3" json:"accepted,omitempty"`
-	Pending       int64                  `protobuf:"varint,2,opt,name=pending,proto3" json:"pending,omitempty"`
-	Compiled      int64                  `protobuf:"varint,3,opt,name=compiled,proto3" json:"compiled,omitempty"`
-	Revision      string                 `protobuf:"bytes,4,opt,name=revision,proto3" json:"revision,omitempty"`
-	JobStatus     string                 `protobuf:"bytes,5,opt,name=job_status,json=jobStatus,proto3" json:"job_status,omitempty"`
-	LastError     string                 `protobuf:"bytes,6,opt,name=last_error,json=lastError,proto3" json:"last_error,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state              protoimpl.MessageState `protogen:"open.v1"`
+	Accepted           int64                  `protobuf:"varint,1,opt,name=accepted,proto3" json:"accepted,omitempty"`
+	Pending            int64                  `protobuf:"varint,2,opt,name=pending,proto3" json:"pending,omitempty"`
+	Compiled           int64                  `protobuf:"varint,3,opt,name=compiled,proto3" json:"compiled,omitempty"`
+	Revision           string                 `protobuf:"bytes,4,opt,name=revision,proto3" json:"revision,omitempty"`
+	JobStatus          string                 `protobuf:"bytes,5,opt,name=job_status,json=jobStatus,proto3" json:"job_status,omitempty"`
+	LastError          string                 `protobuf:"bytes,6,opt,name=last_error,json=lastError,proto3" json:"last_error,omitempty"`
+	AcceptedWatermark  int64                  `protobuf:"varint,7,opt,name=accepted_watermark,json=acceptedWatermark,proto3" json:"accepted_watermark,omitempty"`
+	ProcessedWatermark int64                  `protobuf:"varint,8,opt,name=processed_watermark,json=processedWatermark,proto3" json:"processed_watermark,omitempty"`
+	unknownFields      protoimpl.UnknownFields
+	sizeCache          protoimpl.SizeCache
 }
 
 func (x *GetIngestionStatusResponse) Reset() {
@@ -835,6 +837,20 @@ func (x *GetIngestionStatusResponse) GetLastError() string {
 		return x.LastError
 	}
 	return ""
+}
+
+func (x *GetIngestionStatusResponse) GetAcceptedWatermark() int64 {
+	if x != nil {
+		return x.AcceptedWatermark
+	}
+	return 0
+}
+
+func (x *GetIngestionStatusResponse) GetProcessedWatermark() int64 {
+	if x != nil {
+		return x.ProcessedWatermark
+	}
+	return 0
 }
 
 type UploadArtifactRequest struct {
@@ -1697,6 +1713,7 @@ type GetContextRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Query         string                 `protobuf:"bytes,2,opt,name=query,proto3" json:"query,omitempty"`
 	WithoutWiki   bool                   `protobuf:"varint,3,opt,name=without_wiki,json=withoutWiki,proto3" json:"without_wiki,omitempty"`
+	Revision      string                 `protobuf:"bytes,4,opt,name=revision,proto3" json:"revision,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1743,6 +1760,13 @@ func (x *GetContextRequest) GetWithoutWiki() bool {
 		return x.WithoutWiki
 	}
 	return false
+}
+
+func (x *GetContextRequest) GetRevision() string {
+	if x != nil {
+		return x.Revision
+	}
+	return ""
 }
 
 type GetContextResponse struct {
@@ -1874,7 +1898,7 @@ const file_trace2mem_v1_trace2mem_proto_rawDesc = "" +
 	"duplicates\x12\x1c\n" +
 	"\twatermark\x18\x03 \x01(\x03R\twatermark\x12\x1c\n" +
 	"\tscheduled\x18\x04 \x01(\bR\tscheduled\"+\n" +
-	"\x19GetIngestionStatusRequestJ\x04\b\x01\x10\x02R\bspace_id\"\xc8\x01\n" +
+	"\x19GetIngestionStatusRequestJ\x04\b\x01\x10\x02R\bspace_id\"\xa8\x02\n" +
 	"\x1aGetIngestionStatusResponse\x12\x1a\n" +
 	"\baccepted\x18\x01 \x01(\x03R\baccepted\x12\x18\n" +
 	"\apending\x18\x02 \x01(\x03R\apending\x12\x1a\n" +
@@ -1883,7 +1907,9 @@ const file_trace2mem_v1_trace2mem_proto_rawDesc = "" +
 	"\n" +
 	"job_status\x18\x05 \x01(\tR\tjobStatus\x12\x1d\n" +
 	"\n" +
-	"last_error\x18\x06 \x01(\tR\tlastError\"`\n" +
+	"last_error\x18\x06 \x01(\tR\tlastError\x12-\n" +
+	"\x12accepted_watermark\x18\a \x01(\x03R\x11acceptedWatermark\x12/\n" +
+	"\x13processed_watermark\x18\b \x01(\x03R\x12processedWatermark\"`\n" +
 	"\x15UploadArtifactRequest\x12\x1d\n" +
 	"\n" +
 	"media_type\x18\x02 \x01(\tR\tmediaType\x12\x18\n" +
@@ -1937,10 +1963,11 @@ const file_trace2mem_v1_trace2mem_proto_rawDesc = "" +
 	"\bevent_id\x18\x02 \x01(\tR\aeventIdJ\x04\b\x01\x10\x02R\bspace_id\"\\\n" +
 	"\x13GetEvidenceResponse\x12)\n" +
 	"\x05event\x18\x01 \x01(\v2\x13.trace2mem.v1.EventR\x05event\x12\x1a\n" +
-	"\bcitation\x18\x02 \x01(\tR\bcitation\"\\\n" +
+	"\bcitation\x18\x02 \x01(\tR\bcitation\"x\n" +
 	"\x11GetContextRequest\x12\x14\n" +
 	"\x05query\x18\x02 \x01(\tR\x05query\x12!\n" +
-	"\fwithout_wiki\x18\x03 \x01(\bR\vwithoutWikiJ\x04\b\x01\x10\x02R\bspace_id\"\x96\x01\n" +
+	"\fwithout_wiki\x18\x03 \x01(\bR\vwithoutWiki\x12\x1a\n" +
+	"\brevision\x18\x04 \x01(\tR\brevisionJ\x04\b\x01\x10\x02R\bspace_id\"\x96\x01\n" +
 	"\x12GetContextResponse\x12\x1a\n" +
 	"\brevision\x18\x01 \x01(\tR\brevision\x12\x1c\n" +
 	"\tsynthesis\x18\x02 \x01(\tR\tsynthesis\x12(\n" +

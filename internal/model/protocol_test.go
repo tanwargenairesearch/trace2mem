@@ -23,7 +23,7 @@ func TestToolContinuation(t *testing.T) {
 					if len(msgs) != 3 || msgs[1]["type"] != "function_call" || msgs[2]["type"] != "function_call_output" || msgs[1]["call_id"] != msgs[2]["call_id"] {
 						t.Errorf("unpaired OpenAI call: %v", msgs)
 					}
-					w.Write([]byte(`{"output":[{"type":"message","content":[{"text":"ok"}]}],"usage":{"input_tokens":10,"output_tokens":2}}`))
+					w.Write([]byte(`{"output":[{"type":"reasoning","content":[{"type":"reasoning_text","text":"private reasoning [cite:placeholder]"}]},{"type":"message","content":[{"type":"output_text","text":"ok"},{"type":"reasoning_text","text":"excluded"}]}],"usage":{"input_tokens":10,"output_tokens":2}}`))
 				} else {
 					json.Unmarshal(in["messages"], &msgs)
 					if len(msgs) != 3 || msgs[1]["role"] != "assistant" || msgs[1]["tool_calls"] == nil || msgs[2]["role"] != "tool" {

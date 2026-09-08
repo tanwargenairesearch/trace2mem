@@ -1,6 +1,8 @@
 # Trace2Mem
 
-An experimental, self-hosted Go agent memory service inspired by Brain. It maintains one memory per authenticated user. The service that turns agent events into cited notes and a Markdown knowledge wiki. Apache-2.0. This repository is an implementation under validation, not a production release or a claim of measured memory-quality gains.
+An experimental, self-hosted Go agent memory service inspired by Brain. It maintains one memory per authenticated user. It turns agent events into cited notes and a Markdown knowledge wiki. Apache-2.0. This repository is an implementation under validation, not a production release or a claim of measured memory-quality gains.
+
+Start with the [Docker quickstart](docs/QUICKSTART.md), [agent integration guide](docs/INTEGRATION.md), [Brain alignment](docs/BRAIN_ALIGNMENT.md), and [validation status](docs/IMPLEMENTATION.md).
 
 ## Local Docker
 

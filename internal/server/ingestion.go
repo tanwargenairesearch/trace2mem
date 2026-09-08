@@ -97,7 +97,7 @@ func (s *Server) GetIngestionStatus(ctx context.Context, r *connect.Request[trac
 		return nil, rpcerr(e)
 	}
 	out := &trace2memv1.GetIngestionStatusResponse{}
-	e := s.Store.DB.QueryRow(ctx, `SELECT (SELECT count(*) FROM events WHERE tenant=$1 AND space=$2 AND NOT deleted),(SELECT count(*) FROM events WHERE tenant=$1 AND space=$2 AND NOT deleted AND ordinal<=s.watermark),s.revision,COALESCE(j.status,''),COALESCE(j.error,'') FROM spaces s LEFT JOIN jobs j ON j.tenant=s.tenant AND j.space=s.id WHERE s.tenant=$1 AND s.id=$2`, p.Tenant, principal(ctx).MemoryID()).Scan(&out.Accepted, &out.Compiled, &out.Revision, &out.JobStatus, &out.LastError)
+	e := s.Store.DB.QueryRow(ctx, `SELECT (SELECT count(*) FROM events WHERE tenant=$1 AND space=$2 AND NOT deleted),(SELECT count(*) FROM events WHERE tenant=$1 AND space=$2 AND NOT deleted AND ordinal<=s.watermark),s.revision,COALESCE(j.status,''),COALESCE(j.error,''),(SELECT COALESCE(max(ordinal),0) FROM events WHERE tenant=$1 AND space=$2),s.watermark FROM spaces s LEFT JOIN jobs j ON j.tenant=s.tenant AND j.space=s.id WHERE s.tenant=$1 AND s.id=$2`, p.Tenant, principal(ctx).MemoryID()).Scan(&out.Accepted, &out.Compiled, &out.Revision, &out.JobStatus, &out.LastError, &out.AcceptedWatermark, &out.ProcessedWatermark)
 	out.Pending = out.Accepted - out.Compiled
 	return connect.NewResponse(out), rpcerr(e)
 }

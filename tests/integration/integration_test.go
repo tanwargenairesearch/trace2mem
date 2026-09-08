@@ -110,6 +110,51 @@ func TestMemoryLifecycle(t *testing.T) {
 		}
 	}
 	first := wait("")
+	cases := []any{}
+	for _, split := range []string{"development", "heldout"} {
+		cases = append(cases, map[string]any{"query": "Launch", "split": split, "facts": []any{map[string]any{"id": "launch", "answer_pattern": "September", "evidence_pattern": "Launch: September", "citations": []string{"e1"}}}})
+	}
+	evaluation := post("evaluate", map[string]any{"cases": cases})
+	report := evaluation["report"].(map[string]any)
+	if report["revision"] != first || len(report["results"].([]any)) != 4 || report["tokens"].(float64) <= 0 {
+		t.Fatal("invalid paired evaluation")
+	}
+	candidate := post("candidates", map[string]any{"evaluation_id": evaluation["id"]})
+	if candidate["heldout_report"].(map[string]any)["optimization"] == nil {
+		t.Fatal("missing optimizer accounting")
+	}
+	if _, err := db.DB.Exec(ctx, "UPDATE spaces SET pending_model=model WHERE tenant=$1 AND id=$2", p.Tenant, p.MemoryID()); err != nil {
+		t.Fatal(err)
+	}
+	promotion, _ := json.Marshal(map[string]any{"promote_id": candidate["id"]})
+	pendingRequest, _ := http.NewRequestWithContext(ctx, "POST", url+"/api/candidates", bytes.NewReader(promotion))
+	pendingRequest.Header.Set("Authorization", "Bearer "+token)
+	pendingRequest.Header.Set("Content-Type", "application/json")
+	pendingResponse, err := http.DefaultClient.Do(pendingRequest)
+	if err != nil {
+		t.Fatal(err)
+	}
+	pendingResponse.Body.Close()
+	if pendingResponse.StatusCode != 409 {
+		t.Fatal("promotion accepted during reindex", pendingResponse.StatusCode)
+	}
+	if _, err := db.DB.Exec(ctx, "UPDATE spaces SET pending_model=NULL WHERE tenant=$1 AND id=$2", p.Tenant, p.MemoryID()); err != nil {
+		t.Fatal(err)
+	}
+	post("candidates", map[string]any{"promote_id": candidate["id"]})
+	if _, err := db.DB.Exec(ctx, `UPDATE spaces SET generation=generation+1,model=jsonb_set(model,'{provider}','"unavailable-fixture"') WHERE tenant=$1 AND id=$2`, p.Tenant, p.MemoryID()); err != nil {
+		t.Fatal(err)
+	}
+	failed := post("evaluate", map[string]any{"cases": cases})["report"].(map[string]any)["results"].([]any)
+	for _, result := range failed {
+		row := result.(map[string]any)
+		if row["error"] == nil || row["correct"] != false {
+			t.Fatal("failed answer not recorded")
+		}
+	}
+	if _, err := db.DB.Exec(ctx, `UPDATE spaces SET generation=generation+1,model=jsonb_set(model,'{provider}','"scripted"') WHERE tenant=$1 AND id=$2`, p.Tenant, p.MemoryID()); err != nil {
+		t.Fatal(err)
+	}
 	manifest, e := c.Memory.GetManifest(ctx, connect.NewRequest(&trace2memv1.GetManifestRequest{}))
 	if e != nil || len(manifest.Msg.Files) < 5 {
 		t.Fatalf("manifest: %v %v", manifest, e)

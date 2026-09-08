@@ -83,9 +83,10 @@ type ModelConfig struct {
 	Key             string `json:"key,omitempty"`
 }
 type Usage struct {
-	Input     int64 `json:"input_tokens"`
-	Output    int64 `json:"output_tokens"`
-	Estimated bool  `json:"estimated"`
+	Input      int64 `json:"input_tokens"`
+	Output     int64 `json:"output_tokens"`
+	Estimated  bool  `json:"estimated"`
+	Unresolved bool  `json:"unresolved,omitempty"`
 }
 
 func (u Usage) Total() int64 { return u.Input + u.Output }

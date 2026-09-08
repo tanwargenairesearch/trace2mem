@@ -63,7 +63,7 @@ func run() error {
 			if l == nil {
 				continue
 			}
-			slog.Info("compilation started", "memory_id", l.Space, "fence", l.Fence)
+			slog.Info("compilation started", "memory_id", l.Space, "fence", l.Fence, "watermark", l.Watermark)
 			if e = engine.Run(ctx, *l); e != nil {
 				slog.Error("compilation failed", "memory_id", l.Space, "error", e)
 				save, cancel := context.WithTimeout(context.Background(), 5*time.Second)
@@ -73,7 +73,7 @@ func run() error {
 					slog.Error("job failure recording failed", "error", err)
 				}
 			} else {
-				slog.Info("compilation published", "memory_id", l.Space)
+				slog.Info("compilation completed", "memory_id", l.Space, "watermark", l.Watermark)
 			}
 		}
 	}

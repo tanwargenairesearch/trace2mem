@@ -2,6 +2,16 @@
 
 The provider-independent domain is in `internal/domain`; storage, Dream, transport, and model implementations depend inward on it. PostgreSQL is the publication coordinator. Blob storage holds uploaded sources. The server and worker share migrations and storage but run independently.
 
+```mermaid
+flowchart LR
+  Agents[User agents] -->|events| Service[Trace2Mem API]
+  Service --> Storage[PostgreSQL + blob storage]
+  Storage <--> Dream[Dream worker]
+  Dream --> Wiki[Published memory wiki]
+  Wiki --> Access[MCP · API · files]
+  Access --> Agents
+```
+
 ## Durable event flow
 
 Authenticated identity resolves one personal memory. Verified OIDC issuer/subject pairs identify users; per-user token scopes authorize reads, ingestion, and management. No caller-selected memory identifier is accepted. Append accepts up to 256 events, each at most 64 KiB in canonical Protobuf JSON. Identical event-ID/content retries are harmless; changed content conflicts. Scheduling and insertion share a transaction. Original source times remain separate from ingestion order. Tool events retain call relationships even when results arrive late. Unsupported payloads fail explicitly.
@@ -20,9 +30,9 @@ Corrections preserve prior observations with temporal status and supersede indiv
 
 Generation and embeddings have separate Go interfaces and configuration. OpenAI uses Responses function-call/result items; Ollama uses its native tool-call protocol. Gemini API-key embeddings use `embedContent`; Vertex IAM embeddings use `predict`. See the [Gemini API](https://ai.google.dev/api/embeddings) and [Vertex text embedding API](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/embeddings/get-text-embeddings).
 
-Embedding identity includes provider, model, dimension selection, endpoint/project/location, and chunking algorithm. New configurations are staged while the current configuration remains usable. The worker checkpoints vectors in batches of 16 pages keyed by the space generation, resuming after interruption. It atomically publishes a fully reindexed revision and activates the pending configuration. Changing configuration or forgetting invalidates staged work. Historical revisions with incompatible vectors return keyword results with explicit `semantic_status`; their content remains readable until retention/forgetting removes it.
+Embedding identity includes provider, model, dimension selection, endpoint/project/location, and chunking algorithm. New configurations are staged while the current configuration remains usable. The worker checkpoints vectors in batches of 16 pages keyed by the memory configuration generation, resuming after interruption. It atomically publishes a fully reindexed revision and activates the pending configuration. Changing configuration or forgetting invalidates staged work. Historical revisions with incompatible vectors return keyword results with explicit `semantic_status`; their content remains readable until retention/forgetting removes it.
 
-Budgets reserve conservative token estimates before provider requests, serialized per space. Generation usage is reconciled when available; embedding usage is marked estimated. Failed calls retain their reservation. Limits constrain request bytes, tool steps, and time. Daily budget exhaustion requires operator action or a later retry.
+Budgets reserve conservative token estimates before provider requests, serialized per user. Generation usage is reconciled when available; embedding usage is marked estimated. Failed calls retain their reservation. Limits constrain request bytes, tool steps, and time. Daily budget exhaustion requires operator action or a later retry.
 
 ## Access and portability
 
@@ -32,4 +42,6 @@ The filesystem fetches its manifest once, uses local metadata, verifies content 
 
 ## Current implementation limits
 
-Snapshot retrieval loads page content into memory; very large corpora need paginated metadata and database-side keyword retrieval before production scale claims. Embedding pooling and expected-substring evaluation are baseline implementations requiring real-model measurement. Artifact inspection currently supports UTF-8 text ranges. The console is functional Go HTML with small JavaScript, not a finished hosted product. External OIDC/OAuth interoperability and cloud restore/deployment require environment-specific smoke tests.
+Snapshot retrieval loads page content into memory; very large corpora need paginated metadata and database-side keyword retrieval before production scale claims. Embedding pooling and deterministic fact/evidence rubrics require broader real-model measurement. Artifact inspection currently supports UTF-8 text ranges. The console is functional Go HTML with small JavaScript, not a finished hosted product. External OIDC/OAuth interoperability and cloud restore/deployment require environment-specific smoke tests.
+
+The Responses adapter extracts final `output_text` from message items; reasoning items are not returned as answers or included in retrieval transcripts. This follows the typed [Responses output contract](https://developers.openai.com/api/reference/typescript/resources/beta/subresources/responses/methods/create). Tool calls remain separate structured records.
