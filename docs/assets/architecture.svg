@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1120" role="img" aria-labelledby="title desc"><title id="title">Trace2Mem architecture</title><desc id="desc">Foreground agents capture events and progressively read memory. Each authenticated user owns sessions, notes, and a linked knowledge wiki. The background Dream worker inspects evidence, stages and verifies changes, then atomically publishes a revision. PostgreSQL coordinates publication; blob storage and local or cloud models are interchangeable supporting components.</desc><defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10" fill="none" stroke="#6B5D4D" stroke-width="1.6"/></marker></defs><g font-family="Inter, Arial, sans-serif"><rect width="1200" height="1120" fill="#FAF3E7"/>
+<text x="60" y="62" font-size="36" fill="#2A1F14" text-anchor="start" font-weight="600">Trace2Mem architecture</text>
+<text x="60" y="94" font-size="18" fill="#6B5D4D" text-anchor="start" font-weight="400">Experience becomes cited memory. Future conversations read only what they need.</text>
+<text x="60" y="138" font-size="13" fill="#2A1F14" text-anchor="start" font-weight="700">01  FOREGROUND · DURING A CONVERSATION</text>
+<g class="recall">
+<rect x="60" y="165" width="220" height="85" rx="10" fill="#FFFCF6" stroke="#C9B58B"/>
+<text x="80" y="196" font-size="20" fill="#2A1F14" text-anchor="start" font-weight="600">User request</text>
+<text x="80" y="222" font-size="15" fill="#6B5D4D" text-anchor="start" font-weight="400">A new conversation</text>
+<rect x="430" y="165" width="330" height="85" rx="10" fill="#2A1F14" stroke="#C9B58B"/>
+<text x="450" y="196" font-size="20" fill="#FAF3E7" text-anchor="start" font-weight="600">Your agents</text>
+<text x="450" y="222" font-size="15" fill="#E8D9BD" text-anchor="start" font-weight="400">LangChain · custom harnesses</text>
+<rect x="910" y="165" width="230" height="85" rx="10" fill="#FFFCF6" stroke="#C9B58B"/>
+<text x="930" y="196" font-size="20" fill="#2A1F14" text-anchor="start" font-weight="600">Grounded answer</text>
+<text x="930" y="222" font-size="15" fill="#6B5D4D" text-anchor="start" font-weight="400">Citations back to evidence</text>
+<path d="M280 207 H430" fill="none" stroke="#6B5D4D" stroke-width="1.8"  marker-end="url(#a)" />
+<path d="M760 207 H910" fill="none" stroke="#6B5D4D" stroke-width="1.8"  marker-end="url(#a)" />
+<rect x="475" y="305" width="320" height="102" rx="10" fill="#FFFCF6" stroke="#C9B58B"/>
+<text x="495" y="336" font-size="20" fill="#2A1F14" text-anchor="start" font-weight="600">Memory access</text>
+<text x="495" y="362" font-size="15" fill="#6B5D4D" text-anchor="start" font-weight="400">MCP / HTTP / gRPC tools</text>
+<text x="495" y="384" font-size="15" fill="#6B5D4D" text-anchor="start" font-weight="400">Optional cited synthesis</text>
+<rect x="910" y="305" width="230" height="102" rx="10" fill="#FFFCF6" stroke="#C9B58B"/>
+<text x="930" y="336" font-size="20" fill="#2A1F14" text-anchor="start" font-weight="600">Local working set</text>
+<text x="930" y="362" font-size="15" fill="#6B5D4D" text-anchor="start" font-weight="400">Directory sync / FUSE</text>
+<text x="930" y="384" font-size="15" fill="#6B5D4D" text-anchor="start" font-weight="400">Optional · pinned revision</text>
+<path d="M635 250 V305" fill="none" stroke="#6B5D4D" stroke-width="1.8"  marker-end="url(#a)" />
+<text x="710" y="282" font-size="13" fill="#6B5D4D" text-anchor="middle" font-weight="400">request context</text>
+<path d="M795 355 H910" fill="none" stroke="#6B5D4D" stroke-width="1.8"  marker-end="url(#a)" marker-start="url(#a)"/>
+<text x="852" y="341" font-size="13" fill="#6B5D4D" text-anchor="middle" font-weight="400">sync / read</text>
+</g><g class="capture">
+<rect x="60" y="305" width="300" height="102" rx="10" fill="#FFFCF6" stroke="#C9B58B"/>
+<text x="80" y="336" font-size="20" fill="#2A1F14" text-anchor="start" font-weight="600">Capture adapter</text>
+<text x="80" y="362" font-size="15" fill="#6B5D4D" text-anchor="start" font-weight="400">Messages · tool calls · results</text>
+<text x="80" y="384" font-size="15" fill="#6B5D4D" text-anchor="start" font-weight="400">Live batches or saved JSONL</text>
+<path d="M480 250 V280 H210 V305" fill="none" stroke="#6B5D4D" stroke-width="1.8"  marker-end="url(#a)" />
+<text x="294" y="272" font-size="13" fill="#6B5D4D" text-anchor="middle" font-weight="400">record trajectory</text>
+</g>
+<text x="60" y="459" font-size="13" fill="#2A1F14" text-anchor="start" font-weight="700">02  DURABLE MEMORY · ONE PER AUTHENTICATED USER</text>
+<rect x="60" y="480" width="1080" height="240" rx="12" fill="#F5EDD6" stroke="#C9B58B"/>
+<text x="85" y="510" font-size="15" fill="#6B5D4D" text-anchor="start" font-weight="400">Published view: one revision across summaries, notes, and subject pages</text>
+<rect x="90" y="545" width="290" height="112" rx="10" fill="#FFFCF6" stroke="#C9B58B"/>
+<text x="110" y="576" font-size="20" fill="#2A1F14" text-anchor="start" font-weight="600">Sessions</text>
+<text x="110" y="602" font-size="15" fill="#6B5D4D" text-anchor="start" font-weight="400">Original events + summaries</text>
+<text x="110" y="624" font-size="15" fill="#6B5D4D" text-anchor="start" font-weight="400">Precise source evidence</text>
+<rect x="455" y="545" width="290" height="112" rx="10" fill="#FFFCF6" stroke="#C9B58B"/>
+<text x="475" y="576" font-size="20" fill="#2A1F14" text-anchor="start" font-weight="600">Notes</text>
+<text x="475" y="602" font-size="15" fill="#6B5D4D" text-anchor="start" font-weight="400">Distilled observations</text>
+<text x="475" y="624" font-size="15" fill="#6B5D4D" text-anchor="start" font-weight="400">Attribution · temporal status</text>
+<rect x="820" y="545" width="290" height="112" rx="10" fill="#FFFCF6" stroke="#C9B58B"/>
+<text x="840" y="576" font-size="20" fill="#2A1F14" text-anchor="start" font-weight="600">Knowledge wiki</text>
+<text x="840" y="602" font-size="15" fill="#6B5D4D" text-anchor="start" font-weight="400">Index + linked subject pages</text>
+<text x="840" y="624" font-size="15" fill="#6B5D4D" text-anchor="start" font-weight="400">Claim-level citations</text>
+<path d="M455 605 H380" fill="none" stroke="#6B5D4D" stroke-width="1.8"  marker-end="url(#a)" />
+<text x="416" y="588" font-size="13" fill="#6B5D4D" text-anchor="middle" font-weight="400">cite</text>
+<path d="M965 657 V676 H235 V657" fill="none" stroke="#6B5D4D" stroke-width="1.8"  marker-end="url(#a)" />
+<text x="600" y="672" font-size="13" fill="#6B5D4D" text-anchor="middle" font-weight="400">wiki claims cite original evidence</text>
+<text x="85" y="704" font-size="16" fill="#6B5D4D" text-anchor="start" font-weight="400">Subject links connect context. Source citations explain why a claim is believed.</text>
+<g class="capture">
+<path d="M210 407 V442 H30 V600 H90" fill="none" stroke="#6B5D4D" stroke-width="1.8"  marker-end="url(#a)" />
+<text x="64" y="434" font-size="13" fill="#6B5D4D" text-anchor="start" font-weight="400">Ingestion API → durable events</text>
+</g>
+<g class="recall">
+<path d="M635 480 V407" fill="none" stroke="#6B5D4D" stroke-width="1.8"  marker-end="url(#a)" marker-start="url(#a)"/>
+<text x="734" y="434" font-size="13" fill="#6B5D4D" text-anchor="middle" font-weight="400">index → read → evidence</text>
+<path d="M1025 480 V407" fill="none" stroke="#6B5D4D" stroke-width="1.8"  marker-end="url(#a)" marker-start="url(#a)"/>
+</g>
+<text x="60" y="775" font-size="13" fill="#2A1F14" text-anchor="start" font-weight="700">03  BACKGROUND DREAM · ASYNCHRONOUS</text>
+<text x="60" y="800" font-size="15" fill="#6B5D4D" text-anchor="start" font-weight="400">Automatic quiet period · daily schedule · manual request</text>
+<g class="dream">
+<rect x="90" y="848" width="290" height="115" rx="10" fill="#2A1F14" stroke="#C9B58B"/>
+<text x="110" y="879" font-size="20" fill="#FAF3E7" text-anchor="start" font-weight="600">Dream worker</text>
+<text x="110" y="905" font-size="15" fill="#E8D9BD" text-anchor="start" font-weight="400">Orient · summarize · investigate</text>
+<text x="110" y="927" font-size="15" fill="#E8D9BD" text-anchor="start" font-weight="400">Bounded memory + artifact tools</text>
+<rect x="455" y="848" width="290" height="115" rx="10" fill="#FFFCF6" stroke="#C9B58B"/>
+<text x="475" y="879" font-size="20" fill="#2A1F14" text-anchor="start" font-weight="600">Staged revision</text>
+<text x="475" y="905" font-size="15" fill="#6B5D4D" text-anchor="start" font-weight="400">Compose summaries, notes, pages</text>
+<text x="475" y="927" font-size="15" fill="#6B5D4D" text-anchor="start" font-weight="400">Explicit links + source citations</text>
+<rect x="820" y="848" width="290" height="115" rx="10" fill="#FFFCF6" stroke="#C9B58B"/>
+<text x="840" y="879" font-size="20" fill="#2A1F14" text-anchor="start" font-weight="600">Verify &amp; publish</text>
+<text x="840" y="905" font-size="15" fill="#6B5D4D" text-anchor="start" font-weight="400">Structural + semantic checks</text>
+<text x="840" y="927" font-size="15" fill="#6B5D4D" text-anchor="start" font-weight="400">Atomic revision or justified no-op</text>
+<path d="M380 900 H455" fill="none" stroke="#B9674B" stroke-width="1.8" stroke-dasharray="6 5" marker-end="url(#a)" />
+<path d="M745 900 H820" fill="none" stroke="#B9674B" stroke-width="1.8" stroke-dasharray="6 5" marker-end="url(#a)" />
+<path d="M235 720 V738 H30 V905 H90" fill="none" stroke="#B9674B" stroke-width="1.8" stroke-dasharray="6 5" marker-end="url(#a)" />
+<text x="255" y="832" font-size="13" fill="#6B5D4D" text-anchor="middle" font-weight="400">inspect new evidence + current memory</text>
+<path d="M1110 900 H1170 V740 H980 V720" fill="none" stroke="#B9674B" stroke-width="1.8" stroke-dasharray="6 5" marker-end="url(#a)" />
+<text x="970" y="832" font-size="13" fill="#6B5D4D" text-anchor="middle" font-weight="400">publish after checks</text>
+</g>
+<text x="60" y="995" font-size="15" fill="#6B5D4D" text-anchor="start" font-weight="400">Changes rejected by validation remain unpublished. Model verification is fallible.</text>
+<path d="M60 1020 H1140" stroke="#C9B58B"/>
+<text x="60" y="1050" font-size="17" fill="#2A1F14" text-anchor="start" font-weight="600">PostgreSQL</text>
+<text x="60" y="1074" font-size="14" fill="#6B5D4D" text-anchor="start" font-weight="400">Events · jobs · revisions · indexes</text>
+<text x="440" y="1050" font-size="17" fill="#2A1F14" text-anchor="start" font-weight="600">Interchangeable blob storage</text>
+<text x="440" y="1074" font-size="14" fill="#6B5D4D" text-anchor="start" font-weight="400">Uploaded source content &amp; artifacts</text>
+<text x="845" y="1050" font-size="17" fill="#2A1F14" text-anchor="start" font-weight="600">Your configured models</text>
+<text x="845" y="1074" font-size="14" fill="#6B5D4D" text-anchor="start" font-weight="400">Generation + embeddings · local / cloud</text>
+<text x="60" y="1104" font-size="12" fill="#6B5D4D" text-anchor="start" font-weight="400">Solid: access / capture / citations    ·    Dashed: background maintenance    ·    Inspired by Brain; Trace2Mem implementation</text>
+</g></svg>

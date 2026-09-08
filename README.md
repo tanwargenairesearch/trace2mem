@@ -10,14 +10,7 @@ Trace2Mem accepts those events, preserves the originals, and maintains session s
 
 ## How it works
 
-```mermaid
-flowchart LR
-  Agent[Your agent] -->|trajectory events| API[Trace2Mem API]
-  API --> Store[PostgreSQL + blob storage]
-  Store --> Dream[Background Dream worker]
-  Dream --> Wiki[Sessions · notes · knowledge wiki]
-  Wiki -->|MCP · API · files| Agent
-```
+![Trace2Mem: foreground agents, three-layer durable memory, and background Dream maintenance](docs/assets/architecture.svg)
 
 Capture and retrieval are separate integrations. An adapter sends events during a conversation or imports them later. Dream investigates accumulated evidence, stages an update, verifies it, and publishes a revision. Your agent retrieves from that revision; new events become available after compilation. Connecting MCP alone does not capture conversations or insert initial context.
 

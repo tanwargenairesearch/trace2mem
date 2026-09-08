@@ -2,15 +2,30 @@
 
 The provider-independent domain is in `internal/domain`; storage, Dream, transport, and model implementations depend inward on it. PostgreSQL is the publication coordinator. Blob storage holds uploaded sources. The server and worker share migrations and storage but run independently.
 
-```mermaid
-flowchart LR
-  Agents[User agents] -->|events| Service[Trace2Mem API]
-  Service --> Storage[PostgreSQL + blob storage]
-  Storage <--> Dream[Dream worker]
-  Dream --> Wiki[Published memory wiki]
-  Wiki --> Access[MCP · API · files]
-  Access --> Agents
-```
+![Trace2Mem: foreground agents, three-layer durable memory, and background Dream maintenance](assets/architecture.svg)
+
+## Reading the diagram
+
+Read it in three horizontal bands, following the same foreground / durable memory / background distinction used in [Brain Figure 2](https://www.perplexity.ai/hub/blog/brain-agentic-memory-as-a-knowledge-wiki). This is an original diagram of Trace2Mem's implementation, not a reproduction of Brain's system.
+
+1. **Foreground:** a user agent records experience through an adapter and progressively retrieves memory through tools or an optional local working set. Requests and returned content use the same authenticated API. Capture is a separate integration from MCP retrieval.
+2. **Durable memory:** each user owns original session evidence, distilled notes, and linked subject pages. Published summaries, notes, and wiki pages share a revision. Ingested raw evidence can be available before compilation; ingestion does not publish generated memory. Notes and wiki claims cite original source events directly. Subject links provide related context.
+3. **Background:** Dream inspects new evidence and existing memory, stages a coherent update, verifies it, and publishes atomically. A justified no-op advances the processed watermark without changing content. Failed verification leaves changes unpublished; semantic judgment can still be wrong.
+
+Solid arrows show foreground access/capture and citation direction; dashed arrows show background maintenance. The local working set is optional, read-only, and pinned to one revision; refreshing requires a new snapshot or mount. Search is available between index reading and evidence inspection whenever the index does not identify the needed path. Forgetting suppression still applies to server-side evidence access.
+
+PostgreSQL, interchangeable blob storage, and independently configured generation/embedding models support these flows. The lower row names dependencies, not additional pipeline stages. Git is not the publication coordinator. External connector investigation and Dream subagents are deferred and therefore absent from this diagram.
+
+[Download SVG](assets/architecture.svg) · [Download PNG](assets/architecture.png)
+
+| Diagram component | Implementation reference |
+|---|---|
+| Capture and scoped ingestion | [Ingestion handlers](../internal/server/ingestion.go), [LangChain adapter](../integrations/langchain/README.md) |
+| MCP / API memory access | [Memory handlers](../internal/server/memory.go), [MCP tools](../internal/server/mcp.go) |
+| Pinned local working set | [Filesystem cache](../filesystem/cache.go), [FUSE](../filesystem/fuse.go) |
+| Per-user memory and scheduling | [Ownership](../internal/store/user_memory.go), [Scheduling](../internal/store/scheduling.go) |
+| Dream, staging, verification | [Dream engine](../internal/dream/dream.go), [Composition](../internal/dream/compose.go) |
+| Publication and no-op | [Store](../internal/store/store.go), [No-op transaction](../internal/store/noop.go) |
 
 ## Durable event flow
 
