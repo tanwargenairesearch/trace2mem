@@ -28,3 +28,28 @@ func TestFactScoringRequiresAttachedSupportingEvidence(t *testing.T) {
 		t.Fatal("empty-match rubric accepted")
 	}
 }
+
+func TestDecisionContextAndNegationRubric(t *testing.T) {
+	c := evalCase{Query: "approval", Split: "heldout", Facts: []expectedFact{{ID: "v1", AnswerPattern: "v1 is approved", EvidencePattern: "Approve v1", Citations: []string{"e1"}, StatusPattern: "current", AttributionPattern: "user", ForbidNegation: true}}}
+	if err := validateCases([]evalCase{c}); err != nil {
+		t.Fatal(err)
+	}
+	for _, tc := range []struct {
+		answer string
+		pass   bool
+	}{{"current user decision: v1 is approved [cite:e1]", true}, {"It is not true that the current user decision v1 is approved [cite:e1]", false}, {"historical assistant recap: v1 is approved [cite:e1]", false}} {
+		_, _, pass := scoreFacts(c, tc.answer, map[string]string{"e1": "Approve v1"})
+		if pass != tc.pass {
+			t.Fatal(tc.answer, pass)
+		}
+	}
+}
+
+func TestEvaluationCounterbalancesOrder(t *testing.T) {
+	for c := 0; c < 4; c++ {
+		a, b := conditionOrder(c, 0), conditionOrder(c, 1)
+		if a[0] == b[0] || a[0] == a[1] {
+			t.Fatal(a, b)
+		}
+	}
+}

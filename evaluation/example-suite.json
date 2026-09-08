@@ -1,0 +1,18 @@
+{
+  "model": "REPLACE_WITH_PINNED_AGENT_MODEL",
+  "max_tokens": 16000,
+  "cases": [{
+    "id": "harbor-release-decision",
+    "history_id": "harbor",
+    "revision": "REPLACE_WITH_IMPORTED_HISTORY_REVISION",
+    "split": "development",
+    "input": "Produce a JSON release decision artifact with launch_date, raw_retention_days, consumer_count, decision_status, and decision_authority. Use current approved requirements. Mark unknown values null.",
+    "expected": {
+      "launch_date": "2026-12-01",
+      "raw_retention_days": 7,
+      "consumer_count": 9,
+      "decision_status": "approved",
+      "decision_authority": "user"
+    }
+  }]
+}

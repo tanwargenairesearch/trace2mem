@@ -16,4 +16,6 @@ Each slice receives focused tests and the production/design/principles review be
 - [x] Coherent corrections — cross-subject and same-batch supersession, dangling/cycle and cumulative-budget checks; database race tests and three-lens review passed.
 - [x] Progressive retrieval — metadata/path-specific reads, revision-only search setup, bounded SQL keyword candidates, index/read/source tools; large UTF-8 page and suppression tests passed; three-lens review cleared.
 - [x] Dream investigation and verification — cursor/byte pagination, subject reads, bounded adjacent-subject evidence, required per-passage judgments. Tests verify schema, pagination and rejection gates; real-model semantic accuracy is still unproven. Three-lens review cleared.
-- [ ] Evaluation
+- [x] Evaluation plumbing — repeated counterbalanced service pairs, resolved-source recall, optional status/attribution/negation rubrics, and external-agent process benchmark with typed artifact checks, bounded execution, private atomic reports and failure codes. Focused tests and three-lens review passed. Real matched agent trials remain unperformed.
+
+Full-stack acceptance follows the slice commits. Database-only package tests cover storage/engine handlers; tests requiring an active worker must run in Docker with server and worker present.

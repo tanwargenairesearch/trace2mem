@@ -9,14 +9,19 @@ import (
 )
 
 type expectedFact struct {
-	ID                string   `json:"id"`
-	AnswerPattern     string   `json:"answer_pattern"`
-	EvidencePattern   string   `json:"evidence_pattern"`
-	Citations         []string `json:"citations"`
-	ForbiddenPatterns []string `json:"forbidden_patterns,omitempty"`
+	StatusPattern      string   `json:"status_pattern,omitempty"`
+	AttributionPattern string   `json:"attribution_pattern,omitempty"`
+	ForbidNegation     bool     `json:"forbid_negation,omitempty"`
+	ID                 string   `json:"id"`
+	AnswerPattern      string   `json:"answer_pattern"`
+	EvidencePattern    string   `json:"evidence_pattern"`
+	Citations          []string `json:"citations"`
+	ForbiddenPatterns  []string `json:"forbidden_patterns,omitempty"`
 }
 
 type factScore struct {
+	ContextMatches   bool   `json:"status_and_attribution_match"`
+	NegationDetected bool   `json:"negation_detected"`
 	ID               string `json:"id"`
 	AnswerMatches    bool   `json:"answer_matches"`
 	EvidenceMatches  bool   `json:"evidence_matches"`
@@ -46,7 +51,14 @@ func validateCases(cases []evalCase) error {
 				}
 				ids[id] = true
 			}
-			for _, pattern := range append([]string{f.AnswerPattern, f.EvidencePattern}, f.ForbiddenPatterns...) {
+			patterns := append([]string{f.AnswerPattern, f.EvidencePattern}, f.ForbiddenPatterns...)
+			if f.StatusPattern != "" {
+				patterns = append(patterns, f.StatusPattern)
+			}
+			if f.AttributionPattern != "" {
+				patterns = append(patterns, f.AttributionPattern)
+			}
+			for _, pattern := range patterns {
 				if pattern == "" || len(pattern) > 1024 {
 					return errors.New("fact patterns must contain 1–1024 bytes")
 				}
@@ -86,12 +98,24 @@ func scoreFacts(c evalCase, answer string, evidence map[string]string) ([]factSc
 			for _, line := range strings.Split(answer, "\n") {
 				if ar.MatchString(line) && strings.Contains(line, marker) {
 					x.CitationAttached = true
+					contextOK := true
+					for _, pattern := range []string{f.StatusPattern, f.AttributionPattern} {
+						if pattern != "" && !regexp.MustCompile(pattern).MatchString(line) {
+							contextOK = false
+						}
+					}
+					negated := f.ForbidNegation && negationPattern.MatchString(line)
+					x.NegationDetected = x.NegationDetected || negated
+					x.ContextMatches = x.ContextMatches || (contextOK && !negated)
 				}
 			}
 		}
-		x.Passed = x.AnswerMatches && x.EvidenceMatches && x.CitationAttached && !x.ForbiddenMatch
+		x.Passed = x.AnswerMatches && x.EvidenceMatches && x.CitationAttached && x.ContextMatches && !x.NegationDetected && !x.ForbiddenMatch
 		all = all && x.Passed
 		scores = append(scores, x)
 	}
 	return scores, float64(len(recalled)) / float64(len(expected)), all
 }
+
+// Opt-in conservative English lexical filter; structured task rubrics remain preferable.
+var negationPattern = regexp.MustCompile(`(?i)\b(not|never|no longer|false|incorrect)\b`)

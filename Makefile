@@ -47,3 +47,7 @@ test-release:
 
 vuln:
 	$(GO) run golang.org/x/vuln/cmd/govulncheck@v1.1.4 ./...
+
+# Deterministic external-agent orchestration and artifact-scoring checks.
+test-agent-benchmark:
+	python3 -m unittest discover -s evaluation -v

@@ -28,18 +28,20 @@ type evaluationTrace struct {
 	SemanticStatuses []string     `json:"semantic_statuses"`
 }
 type evalResult struct {
-	Error      string          `json:"error,omitempty"`
-	Query      string          `json:"query"`
-	Split      string          `json:"split"`
-	Wiki       bool            `json:"wiki"`
-	Correct    bool            `json:"correct"`
-	Facts      []factScore     `json:"facts"`
-	Recall     float64         `json:"answer_citation_recall"`
-	LatencyMS  int64           `json:"latency_ms"`
-	Answer     string          `json:"answer"`
-	Generation domain.Usage    `json:"generation_usage"`
-	Embedding  domain.Usage    `json:"embedding_usage"`
-	Trace      evaluationTrace `json:"trace"`
+	Repeat         int             `json:"repeat"`
+	EvidenceRecall float64         `json:"retrieved_evidence_recall"`
+	Error          string          `json:"error,omitempty"`
+	Query          string          `json:"query"`
+	Split          string          `json:"split"`
+	Wiki           bool            `json:"wiki"`
+	Correct        bool            `json:"correct"`
+	Facts          []factScore     `json:"facts"`
+	Recall         float64         `json:"answer_citation_recall"`
+	LatencyMS      int64           `json:"latency_ms"`
+	Answer         string          `json:"answer"`
+	Generation     domain.Usage    `json:"generation_usage"`
+	Embedding      domain.Usage    `json:"embedding_usage"`
+	Trace          evaluationTrace `json:"trace"`
 }
 type evaluationPrices struct {
 	GenerationInput  float64 `json:"generation_input_per_million_usd"`
@@ -52,6 +54,7 @@ func (p evaluationPrices) cost(generation, embedding domain.Usage) float64 {
 }
 
 type evalReport struct {
+	Repeats               int                 `json:"repeats"`
 	Optimization          *optimizationReport `json:"optimization,omitempty"`
 	Prices                *evaluationPrices   `json:"operator_prices,omitempty"`
 	RetrievalCostUSD      *float64            `json:"retrieval_cost_usd"`
@@ -81,8 +84,15 @@ type optimizationReport struct {
 }
 type retrievalPromptKey struct{}
 
-func (s *Server) runEvaluation(ctx context.Context, p domain.Principal, sp string, cases []evalCase, prices *evaluationPrices) (evalReport, error) {
+func (s *Server) runEvaluation(ctx context.Context, p domain.Principal, sp string, cases []evalCase, prices *evaluationPrices, repeats int) (evalReport, error) {
 	var out evalReport
+	if repeats == 0 {
+		repeats = 1
+	}
+	if repeats < 1 || repeats > 5 {
+		return out, errors.New("repeats must be between 1 and 5")
+	}
+	out.Repeats = repeats
 	out.Prices = prices
 	if prices != nil && (prices.GenerationInput < 0 || prices.GenerationOutput < 0 || prices.EmbeddingInput < 0) {
 		return out, errors.New("prices cannot be negative")
@@ -148,42 +158,44 @@ func (s *Server) runEvaluation(ctx context.Context, p domain.Principal, sp strin
 			}
 		}
 	}
-	for _, c := range cases {
-		for _, wiki := range []bool{true, false} {
-			measured, usage := dream.WithUsage(ctx)
-			trace := evaluationTrace{}
-			measured = context.WithValue(measured, evaluationTraceKey{}, &trace)
-			start := time.Now()
-			res, err := s.GetContext(measured, connect.NewRequest(&trace2memv1.GetContextRequest{Query: c.Query, WithoutWiki: !wiki, Revision: v.Revision}))
-			var answer, failure string
-			if err != nil {
-				if ctx.Err() != nil {
-					return out, ctx.Err()
+	for repeat := 0; repeat < repeats; repeat++ {
+		for caseIndex, c := range cases {
+			for _, wiki := range conditionOrder(caseIndex, repeat) {
+				measured, usage := dream.WithUsage(ctx)
+				trace := evaluationTrace{}
+				measured = context.WithValue(measured, evaluationTraceKey{}, &trace)
+				start := time.Now()
+				res, err := s.GetContext(measured, connect.NewRequest(&trace2memv1.GetContextRequest{Query: c.Query, WithoutWiki: !wiki, Revision: v.Revision}))
+				var answer, failure string
+				if err != nil {
+					if ctx.Err() != nil {
+						return out, ctx.Err()
+					}
+					failure = err.Error()
+				} else {
+					answer = res.Msg.Synthesis
 				}
-				failure = err.Error()
-			} else {
-				answer = res.Msg.Synthesis
-			}
-			var generation int64
-			if err := s.Store.DB.QueryRow(ctx, "SELECT generation FROM spaces WHERE tenant=$1 AND id=$2", p.Tenant, sp).Scan(&generation); err != nil {
-				return out, err
-			}
-			if generation != out.Generation || (res != nil && res.Msg.Revision != v.Revision) {
-				return out, domain.ErrConflict
-			}
-			facts, recall, correct := scoreFacts(c, answer, out.Evidence)
-			gen, embed := usage.Snapshot()
-			out.Tokens += gen.Total() + embed.Total()
-			if prices != nil {
-				*out.RetrievalCostUSD += prices.cost(gen, embed)
-			}
-			out.Results = append(out.Results, evalResult{Error: failure, Query: c.Query, Split: c.Split, Wiki: wiki, Correct: correct && failure == "", Facts: facts, Recall: recall, LatencyMS: time.Since(start).Milliseconds(), Answer: answer, Generation: gen, Embedding: embed, Trace: trace})
-			b, err := json.Marshal(out)
-			if err != nil {
-				return out, err
-			}
-			if len(b) > 16<<20 {
-				return out, errors.New("evaluation report exceeds 16 MiB; split the cases")
+				var generation int64
+				if err := s.Store.DB.QueryRow(ctx, "SELECT generation FROM spaces WHERE tenant=$1 AND id=$2", p.Tenant, sp).Scan(&generation); err != nil {
+					return out, err
+				}
+				if generation != out.Generation || (res != nil && res.Msg.Revision != v.Revision) {
+					return out, domain.ErrConflict
+				}
+				facts, recall, correct := scoreFacts(c, answer, out.Evidence)
+				gen, embed := usage.Snapshot()
+				out.Tokens += gen.Total() + embed.Total()
+				if prices != nil {
+					*out.RetrievalCostUSD += prices.cost(gen, embed)
+				}
+				out.Results = append(out.Results, evalResult{Repeat: repeat + 1, EvidenceRecall: retrievedEvidenceRecall(c, trace), Error: failure, Query: c.Query, Split: c.Split, Wiki: wiki, Correct: correct && failure == "", Facts: facts, Recall: recall, LatencyMS: time.Since(start).Milliseconds(), Answer: answer, Generation: gen, Embedding: embed, Trace: trace})
+				b, err := json.Marshal(out)
+				if err != nil {
+					return out, err
+				}
+				if len(b) > 16<<20 {
+					return out, errors.New("evaluation report exceeds 16 MiB; split the cases")
+				}
 			}
 		}
 	}
@@ -195,10 +207,15 @@ func (s *Server) evaluate(w http.ResponseWriter, r *http.Request, p domain.Princ
 		return
 	}
 	var a struct {
-		Cases  []evalCase        `json:"cases"`
-		Prices *evaluationPrices `json:"prices,omitempty"`
+		Repeats int               `json:"repeats,omitempty"`
+		Cases   []evalCase        `json:"cases"`
+		Prices  *evaluationPrices `json:"prices,omitempty"`
 	}
 	if !decode(w, r, &a) {
+		return
+	}
+	if a.Repeats < 0 || a.Repeats > 5 {
+		http.Error(w, "repeats must be between 1 and 5 (or omitted)", 400)
 		return
 	}
 	if err := validateCases(a.Cases); err != nil {
@@ -207,7 +224,7 @@ func (s *Server) evaluate(w http.ResponseWriter, r *http.Request, p domain.Princ
 	}
 	ctx, cancel := context.WithTimeout(r.Context(), 5*time.Minute)
 	defer cancel()
-	report, e := s.runEvaluation(ctx, p, sp, a.Cases, a.Prices)
+	report, e := s.runEvaluation(ctx, p, sp, a.Cases, a.Prices, a.Repeats)
 	if e != nil {
 		failure(w, e)
 		return
@@ -362,7 +379,7 @@ func (s *Server) candidates(w http.ResponseWriter, r *http.Request, p domain.Pri
 		http.Error(w, "empty candidate", 422)
 		return
 	}
-	report, e := s.runEvaluation(context.WithValue(ctx, retrievalPromptKey{}, reply.Text), p, sp, heldout, baseline.Prices)
+	report, e := s.runEvaluation(context.WithValue(ctx, retrievalPromptKey{}, reply.Text), p, sp, heldout, baseline.Prices, baseline.Repeats)
 	if e != nil {
 		failure(w, e)
 		return
@@ -399,4 +416,39 @@ func (s *Server) candidates(w http.ResponseWriter, r *http.Request, p domain.Pri
 		return
 	}
 	respond(w, map[string]any{"id": id, "prompt": reply.Text, "heldout_report": report, "baseline_id": a.EvaluationID, "promoted": false})
+}
+
+func conditionOrder(caseIndex, repeat int) []bool {
+	if (caseIndex+repeat)%2 == 0 {
+		return []bool{true, false}
+	}
+	return []bool{false, true}
+}
+func retrievedEvidenceRecall(c evalCase, trace evaluationTrace) float64 {
+	expected := map[string]bool{}
+	for _, f := range c.Facts {
+		for _, id := range f.Citations {
+			expected[id] = true
+		}
+	}
+	read := map[string]bool{}
+	for _, turn := range trace.Turns {
+		if turn.Result == nil || turn.Result.Name != "memory_evidence" {
+			continue
+		}
+		var result trace2memv1.GetEvidenceResponse
+		if protojson.Unmarshal([]byte(turn.Result.Text), &result) == nil && result.Event != nil {
+			read[result.Event.EventId] = true
+		}
+	}
+	matched := 0
+	for id := range expected {
+		if read[id] {
+			matched++
+		}
+	}
+	if len(expected) == 0 {
+		return 0
+	}
+	return float64(matched) / float64(len(expected))
 }

@@ -75,3 +75,11 @@ These three iterations are a small reproducible baseline, not a statistically ro
 ## Next evaluation scope
 
 The [outcome measurement plan](OUTCOMES.md) separates external-agent integration gains from the wiki-only ablation, with matched baselines, task-level checks, and complete cost accounting. It is proposed work; its trial counts and metrics are not additional measured results.
+
+## Implemented repeated comparisons
+
+`POST /api/evaluate` accepts optional `repeats` (1–5; omission means one). Order alternates by case and repeat instead of always executing wiki first. Reports include repeat numbers and `retrieved_evidence_recall`, which counts expected IDs actually returned by successful source-resolution tools, separately from citation IDs printed in the answer. The route retains its five-minute whole-run deadline; split expensive repeated suites into smaller requests.
+
+Expected facts additionally support `status_pattern` and `attribution_pattern`, required on the same answer line as a supporting citation when supplied. Optional `forbid_negation:true` conservatively rejects English negation words on that assertion line. This can reject correct sentences containing unrelated negation; use precise case-specific rubrics and structured task artifacts. These are lexical controls, not a semantic correctness guarantee.
+
+The [external-agent runner](../evaluation/README.md) implements three-condition process orchestration and exact structured-artifact checks. Its tests are deterministic. Real matched external-agent outcomes, independent semantic judgments and statistically supported deltas remain unmeasured.

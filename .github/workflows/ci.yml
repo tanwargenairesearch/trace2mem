@@ -12,6 +12,7 @@ jobs:
           go-version: '1.26.6'
       - run: go test -race ./...
       - run: go vet ./...
+      - run: python3 -m unittest discover -s evaluation -v
       - name: LangChain adapter
         run: |
           python3 -m venv /tmp/trace2mem-python
