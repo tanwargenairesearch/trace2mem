@@ -14,6 +14,6 @@ Each slice receives focused tests and the production/design/principles review be
 
 - [x] Capture and cancellation — reused-envelope and cancellation race tests passed; all three review lenses cleared.
 - [x] Coherent corrections — cross-subject and same-batch supersession, dangling/cycle and cumulative-budget checks; database race tests and three-lens review passed.
-- [ ] Progressive retrieval
+- [x] Progressive retrieval — metadata/path-specific reads, revision-only search setup, bounded SQL keyword candidates, index/read/source tools; large UTF-8 page and suppression tests passed; three-lens review cleared.
 - [ ] Dream investigation and verification
 - [ ] Evaluation

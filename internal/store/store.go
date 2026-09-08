@@ -425,6 +425,20 @@ func (s *Store) Publish(ctx context.Context, l domain.Lease, pages []domain.Page
 	return id, tx.Commit(ctx)
 }
 func (s *Store) Snapshot(ctx context.Context, t, sp, revision string) (domain.Snapshot, error) {
+	return s.ReadView(ctx, t, sp, revision, "", false)
+}
+
+// ReadView preserves revision/suppression checks while selecting metadata or one path.
+func (s *Store) ReadView(ctx context.Context, t, sp, revision, path string, metadata bool) (domain.Snapshot, error) {
+	return s.readView(ctx, t, sp, revision, path, metadata, true)
+}
+
+// Revision resolves publication and suppression without loading a manifest.
+func (s *Store) Revision(ctx context.Context, t, sp, revision string) (domain.Snapshot, error) {
+	return s.readView(ctx, t, sp, revision, "", true, false)
+}
+
+func (s *Store) readView(ctx context.Context, t, sp, revision, path string, metadata, includePages bool) (domain.Snapshot, error) {
 	out := domain.Snapshot{Pages: []domain.Page{}}
 	tx, e := s.DB.BeginTx(ctx, pgx.TxOptions{IsoLevel: pgx.RepeatableRead, AccessMode: pgx.ReadOnly})
 	if e != nil {
@@ -449,14 +463,17 @@ func (s *Store) Snapshot(ctx context.Context, t, sp, revision string) (domain.Sn
 			return out, e
 		}
 	}
-	rows, e := tx.Query(ctx, "SELECT path,content,hash,citations FROM pages WHERE tenant=$1 AND space=$2 AND revision=$3 ORDER BY path", t, sp, out.Revision)
+	if !includePages {
+		return out, tx.Commit(ctx)
+	}
+	rows, e := tx.Query(ctx, "SELECT path,CASE WHEN $5 THEN '' ELSE content END,hash,CASE WHEN $5 THEN ARRAY[]::text[] ELSE citations END,octet_length(content) FROM pages WHERE tenant=$1 AND space=$2 AND revision=$3 AND ($4='' OR path=$4) ORDER BY path", t, sp, out.Revision, path, metadata)
 	if e != nil {
 		return out, e
 	}
 	defer rows.Close()
 	for rows.Next() {
 		var p domain.Page
-		if e = rows.Scan(&p.Path, &p.Content, &p.Hash, &p.Citations); e != nil {
+		if e = rows.Scan(&p.Path, &p.Content, &p.Hash, &p.Citations, &p.Size); e != nil {
 			return out, e
 		}
 		out.Pages = append(out.Pages, p)

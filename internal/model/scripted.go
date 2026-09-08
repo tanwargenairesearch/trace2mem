@@ -134,15 +134,76 @@ func (Scripted) Generate(ctx context.Context, t []Turn, tools []Tool) (Reply, er
 		r.Calls = []Call{{"verify", "verify", json.RawMessage(`{"supported":true,"reason":"scripted fixture verification"}`)}}
 		return r, nil
 	}
-	if has("search") {
-		if len(t) < 3 {
-			r.Calls = []Call{{"search", "search", json.RawMessage(`{"query":"","limit":8}`)}}
+	if has("memory_index") {
+		var last *ToolResult
+		for _, turn := range t {
+			if turn.Result != nil {
+				last = turn.Result
+			}
+		}
+		if last == nil {
+			r.Calls = []Call{{ID: "index", Name: "memory_index", Arguments: json.RawMessage(`{}`)}}
 			return r, nil
 		}
-		if t[len(t)-1].Result != nil {
-			r.Text = t[len(t)-1].Result.Text
-		} else {
-			r.Text = t[len(t)-1].Text
+		if last.Name == "memory_index" {
+			r.Calls = []Call{{ID: "search", Name: "search", Arguments: json.RawMessage(`{"query":"","limit":8}`)}}
+			return r, nil
+		}
+		if last.Name == "search" {
+			var result struct {
+				Hits []struct {
+					Path string `json:"path"`
+				} `json:"hits"`
+			}
+			if err := json.Unmarshal([]byte(last.Text), &result); err != nil {
+				return Reply{}, err
+			}
+			for i, hit := range result.Hits {
+				args, _ := json.Marshal(map[string]any{"path": hit.Path, "offset": 0})
+				r.Calls = append(r.Calls, Call{ID: fmt.Sprintf("read-%d", i), Name: "memory_read", Arguments: args})
+			}
+			return r, nil
+		}
+		if last.Name == "memory_read" {
+			seen := map[string]bool{}
+			for _, turn := range t {
+				if turn.Result == nil || turn.Result.Name != "memory_read" {
+					continue
+				}
+				var result struct {
+					Citations []string `json:"citations"`
+				}
+				if err := json.Unmarshal([]byte(turn.Result.Text), &result); err != nil {
+					return Reply{}, err
+				}
+				for _, id := range result.Citations {
+					if !seen[id] && len(r.Calls) < 16 {
+						seen[id] = true
+						args, _ := json.Marshal(map[string]string{"event_id": id})
+						r.Calls = append(r.Calls, Call{ID: "evidence-" + id, Name: "memory_evidence", Arguments: args})
+					}
+				}
+			}
+			return r, nil
+		}
+		for _, turn := range t {
+			if turn.Result != nil && turn.Result.Name == "memory_evidence" {
+				var evidence struct {
+					Event struct {
+						Message struct {
+							Text string `json:"text"`
+						} `json:"message"`
+						ToolResult struct {
+							Text string `json:"text"`
+						} `json:"toolResult"`
+					} `json:"event"`
+					Citation string `json:"citation"`
+				}
+				if err := json.Unmarshal([]byte(turn.Result.Text), &evidence); err != nil {
+					return Reply{}, err
+				}
+				r.Text += evidence.Event.Message.Text + evidence.Event.ToolResult.Text + " " + evidence.Citation + "\n"
+			}
 		}
 		return r, nil
 	}

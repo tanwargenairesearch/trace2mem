@@ -38,6 +38,7 @@ type Record struct {
 	Sequence int64           `json:"sequence"`
 }
 type Page struct {
+	Size      int64     `json:"size,omitempty"`
 	Path      string    `json:"path"`
 	Content   string    `json:"content"`
 	Citations []string  `json:"citations"`
