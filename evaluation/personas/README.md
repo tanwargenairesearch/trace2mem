@@ -26,7 +26,7 @@ Report exact task success and per-field correctness, broken down by family and s
 - [x] Author reproducible histories and source-linked question/answer keys.
 - [x] Dataset/protocol validation and three-lens review: source alternatives corrected, cumulative input bounded, and failed compilation jobs terminalized with fencing. Twelve Python checks and the database failure-isolation race test passed.
 - [x] Real-model compilation of four isolated user memories. The failed first Nadia attempt and successful schema-repair retry are both retained. The other three published on their initial attempt.
-- [ ] Development baseline, RCA, candidate comparison and frozen selection.
+- [x] Development baseline, RCA, candidate comparison and frozen selection. The controlled candidate passed 21/32 memory-condition tasks versus 14/32 for optional tools; see [decision and limitations](frozen/DEVELOPMENT_DECISION.md).
 - [ ] Held-out evaluation, charts and reproducible report.
 - [x] Report generator three-lens review: verify frozen manifests and file hashes, copy only listed memory files, and suppress precise token deltas for missing or unresolved usage. Focused tests and verification against all four real snapshots passed.
 - [x] Repository Go race suite passed after the verifier schema repair.
@@ -58,3 +58,26 @@ python3 evaluation/persona_evaluation.py --stage heldout \
 Preparation verifies each source envelope matches the authored history and freezes suite, binary, dataset and manifest hashes. Review/commit the prepared suites before inference. Development writes candidate RCA summaries and `selection.json`; held-out execution recomputes the selection rule and verifies the underlying development report hashes. Reports and selection are private by default.
 
 Interrupted runs can be continued by repeating the same stage. Complete reports are reused. Partial reports remain immutable; missing trials continue in a numbered file. A call that was in flight at interruption becomes a failed trial with unknown usage, and is not silently reissued. Its latency is excluded from medians and counted separately as incomplete. Unknown or unresolved usage cannot win a cost tie. Changed suites, binary, configuration or memory manifests invalidate continuation.
+
+
+For a new live compilation, start a dedicated local PostgreSQL instance (with vector support) and use a fresh output path. For example, after supplying your own explicit model YAML and environment credentials:
+
+```sh
+export TRACE2MEM_LIVE_CONFIG="$PWD/.local/models.yaml"
+export TRACE2MEM_LIVE_DATABASE='postgres://postgres:local-test-only@127.0.0.1:56569/trace2mem?sslmode=disable'
+export TRACE2MEM_PERSONA_INPUT="$PWD/evaluation/personas"
+export TRACE2MEM_LIVE_REPORT_DIR="$PWD/.local/persona-run/snapshots"
+go test ./tests/live -run '^TestPersonaCompilation$' -count=1 -timeout=30m
+```
+
+The DSN is an example for an isolated test database, not the development application's database. The fixture runs migrations itself and retains per-persona diagnostics. A failure is part of the experiment: retain its directory and usage before any explicitly recorded retry. Recompilation creates different revisions; use `prepare` to create a new freeze rather than reusing the recorded experiment's hashes.
+
+The report renderer expects an experiment directory containing `evaluation/`, the selected snapshots under `corpus/`, and compilation attempts under `snapshots/` and optionally `repair/`. It verifies the frozen memory before copying it and excludes unlisted sidecar files. To render completed recorded results (requires Matplotlib):
+
+```sh
+python3 evaluation/persona_report.py \
+  --experiment /absolute/path/to/persona-run \
+  --output /absolute/path/to/new-report-directory
+```
+
+The controlled action protocol is implemented in the demonstration agent, not imposed on every Trace2Mem API/MCP client. An integrating harness remains responsible for its own tool-use, evidence-reading and output contract. Comparing these candidates tests that harness behavior as well as the memory it consumes.

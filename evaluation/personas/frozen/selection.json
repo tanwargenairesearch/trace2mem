@@ -1,0 +1,28 @@
+{
+  "selected": "controlled",
+  "protocol": "controlled_v1",
+  "scores": {
+    "optional": {
+      "successes": 14,
+      "errors": 8,
+      "tokens": 155730,
+      "missing_usage": 0
+    },
+    "controlled": {
+      "successes": 21,
+      "errors": 9,
+      "tokens": 525496,
+      "missing_usage": 3
+    }
+  },
+  "development_reports": {
+    "optional": {
+      "file": "optional-development.json",
+      "sha256": "b0b2bf39a0800c657793cb456088783d934d833e747d041c8e6c77910b7eaed8"
+    },
+    "controlled": {
+      "file": "controlled-development.json",
+      "sha256": "2ed454cdd2b24b174b626218370b9f9dd8778da4006ca902df73193cedaeb954"
+    }
+  }
+}

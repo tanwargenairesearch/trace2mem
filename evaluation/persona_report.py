@@ -105,7 +105,7 @@ def render(experiment,out):
            'Four authored synthetic users, six conversations and eight questions each. Two users were used for development; the other two were evaluated only after candidate selection. The same task templates are shared across users, so this is held-out persona evaluation within a narrow distribution, not broad generalization or a reproduction of Brain\'s proprietary benchmark.','',
            '![Development and held-out comparison](comparison.png)','',
            '## Development hill-climb','',
-           'Candidate A uses optional memory tools. Candidate B requires a structured action and a successful memory read before answering in file-memory conditions; cited sources must be resolved. Both use matched generation settings and the same finalization protocol for their full-history baseline. The gold answers and questions were frozen before model calls.','',
+           'Candidate A uses optional memory tools. Candidate B requires a structured action and a successful memory read before answering in file-memory conditions; cited sources must be resolved. Generation settings are matched. Within each candidate, its full-history baseline uses that candidate\'s finalization protocol. The gold answers and questions were frozen before foreground inference. The protocol hypothesis follows the earlier Harbor failure analysis; this development run tests and selects it.','',
            '| Candidate | Full-history tasks | Notes/session tasks | Wiki tasks | Notes/wiki execution errors | Notes/wiki tokens |','|---|---:|---:|---:|---:|---:|']
     for name in ('optional','controlled'):
         m=summaries[name]
@@ -118,7 +118,7 @@ def render(experiment,out):
             m=summaries[name][condition]
             errors=', '.join(f'{code}: {n}' for code,n in m['errors'].items()) or 'none'
             lines.append(f"- {name} / {LABELS[condition]}: {m['no_file_read_trials']}/{m['attempts']} trials without a successful file read; execution failures: {errors}.")
-    lines += ['', 'The earlier failed compilation on the development persona Nadia put prose into an evidence-ID field. The schema was constrained to known source IDs and retried without weakening publication checks. Both attempts are retained below. This protocol defect was diagnosed from development data.','',
+    lines += ['', 'The strict JSON scorer rejects prose preambles and malformed artifacts even when they contain correct facts. Exact-task success measures the requested machine-readable contract, not a blanket judgment of semantic knowledge. The controlled candidate changes both tool-use and finalization, so their individual causal contributions are not isolated.', '', 'All supplied compilation attempts, including failures and repairs, are retained below. Compilation failures are separate from foreground task scores; a publishable revision is required before the comparison starts.','',
               '## Held-out results','',
               '| Condition | Tasks correct | Fields correct | Gold-source coverage¹ | Gold-citation agreement² | Median latency³ | Foreground tokens |',
               '|---|---:|---:|---:|---:|---:|---:|']
