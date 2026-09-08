@@ -38,5 +38,20 @@ Do not overwrite an existing report. The saved report contains full synthetic so
 - [x] Freeze tasks and expected fields before live calls.
 - [x] Implement directory agent with baseline/condition isolation and hash validation tests.
 - [x] Production/design/principles review: fixed hidden retries, missing usage, configuration drift, failure classification and source-ledger gaps; moved direct Python test entry point after all test definitions.
-- [ ] Execute 36 live trials and retain failures.
-- [ ] Generate per-condition/task tables and delta chart; document limits and commit.
+- [x] Execute 36 live trials and retain failures: full history 11/12, notes/sessions 3/12, wiki 0/12.
+- [x] Generate per-condition/task tables and delta chart; document limits. Results/report review recorded with delivery.
+
+
+## Recorded pilot
+
+[Results, chart and traces](../../reports/2026-09-08-harbor-comparison/README.md) show a negative result: Kimi frequently did not invoke memory tools. The full-history baseline outperformed both file-memory conditions. This is an agent integration failure to investigate, not a positive memory-quality claim. Lower token usage with failed tasks is not a cost benefit. Questions, gold fields and model configuration were committed at `72680c2` before trials; no favorable rerun replaces them.
+
+To regenerate the report in a new directory (requires matplotlib):
+
+```sh
+MPLCONFIGDIR=/tmp/trace2mem-matplotlib python3 evaluation/report_agent_benchmark.py \
+  --input "$PWD/.local/harbor-comparison.json" \
+  --output "$PWD/.local/harbor-comparison-rendered"
+```
+
+This historical renderer accepts only the recorded report or its shared redacted copy, so its fixed qualitative commentary cannot be applied to unrelated reruns. Its summary function can be reused for new reports. The renderer verifies the complete 36-trial matrix, retains failed field checks in the denominator, separates missing/estimated usage, and redacts opaque provider continuation handles. Exact source report hashes are retained. Tests use no paid models.

@@ -1,0 +1,44 @@
+{
+  "existing_memory": {
+    "attempts": 12,
+    "successes": 11,
+    "checks": 56,
+    "passed_checks": 55,
+    "errors": 0,
+    "no_tool_call_trials": 12,
+    "median_latency_seconds": 2.7965,
+    "input_tokens": 105292,
+    "output_tokens": 1486,
+    "estimated_trials": 0,
+    "unresolved_trials": 0,
+    "missing_usage_trials": 0
+  },
+  "notes_sessions": {
+    "attempts": 12,
+    "successes": 3,
+    "checks": 56,
+    "passed_checks": 21,
+    "errors": 4,
+    "no_tool_call_trials": 5,
+    "median_latency_seconds": 5.512,
+    "input_tokens": 88386,
+    "output_tokens": 4894,
+    "estimated_trials": 0,
+    "unresolved_trials": 0,
+    "missing_usage_trials": 0
+  },
+  "trace2mem": {
+    "attempts": 12,
+    "successes": 0,
+    "checks": 56,
+    "passed_checks": 3,
+    "errors": 3,
+    "no_tool_call_trials": 10,
+    "median_latency_seconds": 1.9505,
+    "input_tokens": 38035,
+    "output_tokens": 2361,
+    "estimated_trials": 0,
+    "unresolved_trials": 0,
+    "missing_usage_trials": 0
+  }
+}

@@ -36,7 +36,7 @@ The [richer Kimi project-agent exercise](../reports/2026-09-08-harbor/README.md)
 
 Five reviewed implementation slices now preserve reused SDK event envelopes, cancel blocked cache waits, validate cross-subject corrections, provide progressive index/search/read/evidence tools, and paginate Dream investigation. Publication requires complete per-passage support, attribution and temporal judgments, with bounded neighboring subject evidence. Judgment remains fallible: the Harbor real-model historical error has not been replayed against this change.
 
-Evaluation supports repeated counterbalanced pairs and resolved-source recall. The [external-agent benchmark](../evaluation/README.md) adds three matched conditions, explicit artifact expectations, bounded subprocess execution and failure records. No new live trials or quality/cost improvement measurements were performed.
+Evaluation supports repeated counterbalanced pairs and resolved-source recall. The [external-agent benchmark](../evaluation/README.md) adds three matched conditions, explicit artifact expectations, bounded subprocess execution and failure records. The subsequent [Harbor directory-agent pilot](../reports/2026-09-08-harbor-comparison/README.md) performed 36 live trials over the older export and exposed tool-use failures: full history 11/12 tasks, notes/sessions 3/12, wiki 0/12. No quality or cost advantage was demonstrated; the new Dream verifier was not exercised by that pilot.
 
 Fresh-checkout Docker integration/Dream and Linux FUSE acceptance passed at `11df64e`. Go vet, ordinary race tests, focused database race tests and five Python benchmark tests passed. These checks establish implementation behavior, not semantic quality or cloud readiness.
 

@@ -2,7 +2,7 @@
 
 This runner compares a trusted external agent under three conditions: its **existing memory**, Trace2Mem **notes + sessions**, and **full Trace2Mem**. It runs a fresh process for each trial, rotates condition order, withholds expected answers, checks exact structured artifact fields, and preserves failures in the denominator. Python 3.10+ on Linux/macOS; no model SDK is required by the runner.
 
-This is implemented experiment plumbing. Its deterministic tests do not demonstrate real memory-quality gains. The earlier Kimi demonstration has not been rerun under this protocol.
+The [Harbor directory-agent pilot](harbor/README.md) now runs this protocol over the earlier frozen export. Its 36 live trials exposed poor tool-use reliability and no memory benefit; they do not measure new compilation or held-out generalization. Deterministic runner tests alone establish no quality gains.
 
 ## Agent adapter contract
 
@@ -35,7 +35,7 @@ A result has this shape:
 }
 ```
 
-`artifact` and `model` are required. The two Trace2Mem conditions also require the exact `revision`; existing memory may omit it. Other fields are retained as adapter-reported evidence. Include actual tool calls/results, provider request IDs, errors/retries, and usage to make a real result auditable. Zero usage in this schema example is a placeholder, not measured consumption. The runner does not calculate semantic citation support or total monetary cost automatically.
+`artifact` and `model` are required. The two Trace2Mem conditions also require the exact `revision`; existing memory may omit it. An optional stable lowercase `error` code marks an adapter execution failure; its result and usage are retained without artifact scoring. An optional suite `agent_config_sha256` is passed to the adapter and checked in its response; the adapter must verify the fingerprint before calling its provider. Other fields are retained as adapter-reported evidence. Include actual tool calls/results, provider request IDs, errors/retries, and usage to make a real result auditable. Zero usage in this schema example is a placeholder, not measured consumption. The runner does not calculate semantic citation support or total monetary cost automatically.
 
 ## Run
 

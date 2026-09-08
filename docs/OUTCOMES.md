@@ -15,6 +15,12 @@ Trace2Mem's intended benefit is that an agent can complete later work using rele
 
 The last comparison covers four question/revision pairs, one sample each, and includes estimated embedding tokens. It is not a general overhead estimate. Source artifacts and limitations are in [Evaluation](EVALUATION.md) and the [Harbor report](../reports/2026-09-08-harbor/README.md). Compilation cost is additional. Harbor usage excludes original planning generation and earlier failed attempts, so do not publish it as total experiment cost.
 
+## Latest memory-dependent task pilot
+
+The [36-trial Harbor comparison](../reports/2026-09-08-harbor-comparison/README.md) used a custom Kimi agent and the existing pinned directory export. Exact-task success was **11/12 for full original history, 3/12 for notes/sessions, and 0/12 for full Trace2Mem**. The wiki agent made no memory-tool call in 10/12 trials. This demonstrates an integration reliability gap; it cannot establish the value of the wiki after successful evidence retrieval. Lower tokens or latency for failed work are not savings.
+
+The six tasks and gold fields were frozen before calls. They cover configuration, temporal/authority history, operations, owners, unknowns and a single-fact control. All use one known synthetic two-session history and two repeats. No new Dream compilation or held-out generalization was measured.
+
 ## Measure two different questions
 
 **Integration delta:** same external agent, model, tools, tasks and foreground budget, using its existing memory mechanism versus Trace2Mem. Specify the existing mechanism precisely: fresh conversation, rolling summary, full history within a fixed context limit, or an existing retrieval system. Do not silently choose a weak baseline.
@@ -73,4 +79,4 @@ Present one before/after task side by side: identical fresh-agent request, basel
 
 Lead with measured task success/currentness and total cost per successful task once results exist. Until then, say: “Trace2Mem compiled a synthetic multi-session project history and enabled a fresh Kimi session to retrieve corrected requirements through cited memory. Broader agent-quality and cost gains remain unproven.” This describes today's evidence without borrowing Brain's published gains or implying support for every harness.
 
-Implementation entry points: the [external-agent benchmark runner](../evaluation/README.md) and repeated `/api/evaluate` pairs described in [Evaluation](EVALUATION.md). These runners are available; the broader live experiments proposed above have not been performed.
+Implementation entry points: the [external-agent benchmark runner](../evaluation/README.md) and repeated `/api/evaluate` pairs described in [Evaluation](EVALUATION.md). The small Harbor directory-agent pilot has run; the broader independent-history and multi-harness experiments proposed above remain unperformed.

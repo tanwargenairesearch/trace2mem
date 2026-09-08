@@ -82,4 +82,11 @@ The [outcome measurement plan](OUTCOMES.md) separates external-agent integration
 
 Expected facts additionally support `status_pattern` and `attribution_pattern`, required on the same answer line as a supporting citation when supplied. Optional `forbid_negation:true` conservatively rejects English negation words on that assertion line. This can reject correct sentences containing unrelated negation; use precise case-specific rubrics and structured task artifacts. These are lexical controls, not a semantic correctness guarantee.
 
-The [external-agent runner](../evaluation/README.md) implements three-condition process orchestration and exact structured-artifact checks. Its tests are deterministic. Real matched external-agent outcomes, independent semantic judgments and statistically supported deltas remain unmeasured.
+The [external-agent runner](../evaluation/README.md) implements three-condition process orchestration and exact structured-artifact checks. Its tests are deterministic. The small live Harbor pilot below now records matched directory-agent outcomes. Independent-history generalization, semantic citation judgments and a positive quality/cost benefit remain unestablished.
+
+
+## Memory-dependent agent pilot — 2026-09-08
+
+The [Harbor comparison report](../reports/2026-09-08-harbor-comparison/README.md) adds six structured tasks × three memory conditions × two repeats. The full-history baseline passed 11/12 tasks, notes/sessions 3/12, and full wiki 0/12. Expected fields and configuration were committed before calls. In 10/12 wiki trials the agent did not invoke a memory tool; malformed outputs and one conservative-budget failure also occurred. This is an unfavorable consuming-agent result, not a claim that the wiki's content is worse when retrieved. No positive quality/cost delta is established.
+
+The 240,454 reported foreground tokens cover all 36 trials; compilation of the reused snapshot is additional historical work. No new embedding or Dream calls occurred. The report includes tables, a chart, artifacts, traces and specific scoring/accounting limits. The [protocol](../evaluation/harbor/README.md) uses an explicit Kimi model and hash-verified directory snapshot, not live service search, and is a development pilot over one known history. New independent histories and a reliable retrieval/finalization protocol are needed before generalizing.
