@@ -1,0 +1,702 @@
+{
+  "version": 1,
+  "synthetic": true,
+  "cases": [
+    {
+      "id": "nadia-preferences",
+      "history_id": "nadia",
+      "split": "development",
+      "family": "preferences",
+      "input": "What format, visual style, and language should you use for my next briefing?\nReturn the answer as a JSON object with these fields/types: {\"format\": \"string\", \"style\": \"string\", \"language\": \"string\"}. Use ISO dates. Include citations mapping every answer field to original event IDs. For a stated reason, copy the reason clause from the original evidence verbatim. Use null when the answer is unknown.",
+      "expected": {
+        "format": "PDF",
+        "style": "light background",
+        "language": "English"
+      },
+      "gold_sources": {
+        "format": [
+          "nadia-001"
+        ],
+        "style": [
+          "nadia-001"
+        ],
+        "language": [
+          "nadia-001"
+        ]
+      }
+    },
+    {
+      "id": "nadia-current-date",
+      "history_id": "nadia",
+      "split": "development",
+      "family": "currentness",
+      "input": "When is my meeting with Cedar Lab now?\nReturn the answer as a JSON object with these fields/types: {\"date\": \"string\"}. Use ISO dates. Include citations mapping every answer field to original event IDs. For a stated reason, copy the reason clause from the original evidence verbatim. Use null when the answer is unknown.",
+      "expected": {
+        "date": "2026-10-14"
+      },
+      "gold_sources": {
+        "date": [
+          "nadia-010"
+        ]
+      }
+    },
+    {
+      "id": "nadia-date-change",
+      "history_id": "nadia",
+      "split": "development",
+      "family": "temporal",
+      "input": "How did the date for Cedar Lab change, and why?\nReturn the answer as a JSON object with these fields/types: {\"previous_date\": \"string\", \"current_date\": \"string\", \"reason\": \"string\"}. Use ISO dates. Include citations mapping every answer field to original event IDs. For a stated reason, copy the reason clause from the original evidence verbatim. Use null when the answer is unknown.",
+      "expected": {
+        "previous_date": "2026-10-12",
+        "current_date": "2026-10-14",
+        "reason": "the host laboratory moved its accessibility workshop"
+      },
+      "gold_sources": {
+        "previous_date": [
+          "nadia-004",
+          "nadia-010"
+        ],
+        "current_date": [
+          "nadia-010"
+        ],
+        "reason": [
+          "nadia-010"
+        ]
+      }
+    },
+    {
+      "id": "nadia-organizations",
+      "history_id": "nadia",
+      "split": "development",
+      "family": "cross_session",
+      "input": "Which organizations am I confirmed to meet, and in which cities?\nReturn the answer as a JSON object with these fields/types: {\"first_organization\": \"string\", \"first_city\": \"string\", \"second_organization\": \"string\", \"second_city\": \"string\"}. Use ISO dates. Include citations mapping every answer field to original event IDs. For a stated reason, copy the reason clause from the original evidence verbatim. Use null when the answer is unknown.",
+      "expected": {
+        "first_organization": "Cedar Lab",
+        "first_city": "Kyoto",
+        "second_organization": "Maple Mobility",
+        "second_city": "Sendai"
+      },
+      "gold_sources": {
+        "first_organization": [
+          "nadia-004",
+          "nadia-010"
+        ],
+        "first_city": [
+          "nadia-004",
+          "nadia-010"
+        ],
+        "second_organization": [
+          "nadia-007"
+        ],
+        "second_city": [
+          "nadia-007"
+        ]
+      }
+    },
+    {
+      "id": "nadia-proposal-status",
+      "history_id": "nadia",
+      "split": "development",
+      "family": "authority",
+      "input": "Is the proposed Osaka visit confirmed, and who introduced the suggestion?\nReturn the answer as a JSON object with these fields/types: {\"confirmed\": \"boolean\", \"suggested_by\": \"string\"}. Use ISO dates. Include citations mapping every answer field to original event IDs. For a stated reason, copy the reason clause from the original evidence verbatim. Use null when the answer is unknown.",
+      "expected": {
+        "confirmed": false,
+        "suggested_by": "assistant"
+      },
+      "gold_sources": {
+        "confirmed": [
+          "nadia-006",
+          "nadia-015"
+        ],
+        "suggested_by": [
+          "nadia-005",
+          "nadia-014"
+        ]
+      }
+    },
+    {
+      "id": "nadia-briefing",
+      "history_id": "nadia",
+      "split": "development",
+      "family": "cross_session",
+      "input": "Prepare the key details for my first-visit briefing using my preferences.\nReturn the answer as a JSON object with these fields/types: {\"organization\": \"string\", \"date\": \"string\", \"coordinator\": \"string\", \"format\": \"string\"}. Use ISO dates. Include citations mapping every answer field to original event IDs. For a stated reason, copy the reason clause from the original evidence verbatim. Use null when the answer is unknown.",
+      "expected": {
+        "organization": "Cedar Lab",
+        "date": "2026-10-14",
+        "coordinator": "Inez",
+        "format": "PDF"
+      },
+      "gold_sources": {
+        "organization": [
+          "nadia-004",
+          "nadia-010"
+        ],
+        "date": [
+          "nadia-010"
+        ],
+        "coordinator": [
+          "nadia-008"
+        ],
+        "format": [
+          "nadia-001"
+        ]
+      }
+    },
+    {
+      "id": "nadia-hotel",
+      "history_id": "nadia",
+      "split": "development",
+      "family": "unknown",
+      "input": "Which hotel have I booked for the first visit?\nReturn the answer as a JSON object with these fields/types: {\"hotel\": \"string or null\", \"booked\": \"boolean\"}. Use ISO dates. Include citations mapping every answer field to original event IDs. For a stated reason, copy the reason clause from the original evidence verbatim. Use null when the answer is unknown.",
+      "expected": {
+        "hotel": null,
+        "booked": false
+      },
+      "gold_sources": {
+        "hotel": [
+          "nadia-016"
+        ],
+        "booked": [
+          "nadia-016"
+        ]
+      }
+    },
+    {
+      "id": "nadia-coordinator",
+      "history_id": "nadia",
+      "split": "development",
+      "family": "single_fact",
+      "input": "Who is coordinating my visit to Cedar Lab?\nReturn the answer as a JSON object with these fields/types: {\"coordinator\": \"string\"}. Use ISO dates. Include citations mapping every answer field to original event IDs. For a stated reason, copy the reason clause from the original evidence verbatim. Use null when the answer is unknown.",
+      "expected": {
+        "coordinator": "Inez"
+      },
+      "gold_sources": {
+        "coordinator": [
+          "nadia-008"
+        ]
+      }
+    },
+    {
+      "id": "marco-preferences",
+      "history_id": "marco",
+      "split": "development",
+      "family": "preferences",
+      "input": "What format, visual style, and language should you use for my next briefing?\nReturn the answer as a JSON object with these fields/types: {\"format\": \"string\", \"style\": \"string\", \"language\": \"string\"}. Use ISO dates. Include citations mapping every answer field to original event IDs. For a stated reason, copy the reason clause from the original evidence verbatim. Use null when the answer is unknown.",
+      "expected": {
+        "format": "Markdown",
+        "style": "plain tables",
+        "language": "Italian"
+      },
+      "gold_sources": {
+        "format": [
+          "marco-001"
+        ],
+        "style": [
+          "marco-001"
+        ],
+        "language": [
+          "marco-001"
+        ]
+      }
+    },
+    {
+      "id": "marco-current-date",
+      "history_id": "marco",
+      "split": "development",
+      "family": "currentness",
+      "input": "When is my meeting with Harbor Energy now?\nReturn the answer as a JSON object with these fields/types: {\"date\": \"string\"}. Use ISO dates. Include citations mapping every answer field to original event IDs. For a stated reason, copy the reason clause from the original evidence verbatim. Use null when the answer is unknown.",
+      "expected": {
+        "date": "2026-11-06"
+      },
+      "gold_sources": {
+        "date": [
+          "marco-010"
+        ]
+      }
+    },
+    {
+      "id": "marco-date-change",
+      "history_id": "marco",
+      "split": "development",
+      "family": "temporal",
+      "input": "How did the date for Harbor Energy change, and why?\nReturn the answer as a JSON object with these fields/types: {\"previous_date\": \"string\", \"current_date\": \"string\", \"reason\": \"string\"}. Use ISO dates. Include citations mapping every answer field to original event IDs. For a stated reason, copy the reason clause from the original evidence verbatim. Use null when the answer is unknown.",
+      "expected": {
+        "previous_date": "2026-11-03",
+        "current_date": "2026-11-06",
+        "reason": "the site engineer is unavailable on the original date"
+      },
+      "gold_sources": {
+        "previous_date": [
+          "marco-004",
+          "marco-010"
+        ],
+        "current_date": [
+          "marco-010"
+        ],
+        "reason": [
+          "marco-010"
+        ]
+      }
+    },
+    {
+      "id": "marco-organizations",
+      "history_id": "marco",
+      "split": "development",
+      "family": "cross_session",
+      "input": "Which organizations am I confirmed to meet, and in which cities?\nReturn the answer as a JSON object with these fields/types: {\"first_organization\": \"string\", \"first_city\": \"string\", \"second_organization\": \"string\", \"second_city\": \"string\"}. Use ISO dates. Include citations mapping every answer field to original event IDs. For a stated reason, copy the reason clause from the original evidence verbatim. Use null when the answer is unknown.",
+      "expected": {
+        "first_organization": "Harbor Energy",
+        "first_city": "Bristol",
+        "second_organization": "Willow Housing",
+        "second_city": "Bath"
+      },
+      "gold_sources": {
+        "first_organization": [
+          "marco-004",
+          "marco-010"
+        ],
+        "first_city": [
+          "marco-004",
+          "marco-010"
+        ],
+        "second_organization": [
+          "marco-007"
+        ],
+        "second_city": [
+          "marco-007"
+        ]
+      }
+    },
+    {
+      "id": "marco-proposal-status",
+      "history_id": "marco",
+      "split": "development",
+      "family": "authority",
+      "input": "Is the proposed Cardiff visit confirmed, and who introduced the suggestion?\nReturn the answer as a JSON object with these fields/types: {\"confirmed\": \"boolean\", \"suggested_by\": \"string\"}. Use ISO dates. Include citations mapping every answer field to original event IDs. For a stated reason, copy the reason clause from the original evidence verbatim. Use null when the answer is unknown.",
+      "expected": {
+        "confirmed": false,
+        "suggested_by": "assistant"
+      },
+      "gold_sources": {
+        "confirmed": [
+          "marco-006",
+          "marco-015"
+        ],
+        "suggested_by": [
+          "marco-005",
+          "marco-014"
+        ]
+      }
+    },
+    {
+      "id": "marco-briefing",
+      "history_id": "marco",
+      "split": "development",
+      "family": "cross_session",
+      "input": "Prepare the key details for my first-visit briefing using my preferences.\nReturn the answer as a JSON object with these fields/types: {\"organization\": \"string\", \"date\": \"string\", \"coordinator\": \"string\", \"format\": \"string\"}. Use ISO dates. Include citations mapping every answer field to original event IDs. For a stated reason, copy the reason clause from the original evidence verbatim. Use null when the answer is unknown.",
+      "expected": {
+        "organization": "Harbor Energy",
+        "date": "2026-11-06",
+        "coordinator": "Dev",
+        "format": "Markdown"
+      },
+      "gold_sources": {
+        "organization": [
+          "marco-004",
+          "marco-010"
+        ],
+        "date": [
+          "marco-010"
+        ],
+        "coordinator": [
+          "marco-008"
+        ],
+        "format": [
+          "marco-001"
+        ]
+      }
+    },
+    {
+      "id": "marco-hotel",
+      "history_id": "marco",
+      "split": "development",
+      "family": "unknown",
+      "input": "Which hotel have I booked for the first visit?\nReturn the answer as a JSON object with these fields/types: {\"hotel\": \"string or null\", \"booked\": \"boolean\"}. Use ISO dates. Include citations mapping every answer field to original event IDs. For a stated reason, copy the reason clause from the original evidence verbatim. Use null when the answer is unknown.",
+      "expected": {
+        "hotel": null,
+        "booked": false
+      },
+      "gold_sources": {
+        "hotel": [
+          "marco-016"
+        ],
+        "booked": [
+          "marco-016"
+        ]
+      }
+    },
+    {
+      "id": "marco-coordinator",
+      "history_id": "marco",
+      "split": "development",
+      "family": "single_fact",
+      "input": "Who is coordinating my visit to Harbor Energy?\nReturn the answer as a JSON object with these fields/types: {\"coordinator\": \"string\"}. Use ISO dates. Include citations mapping every answer field to original event IDs. For a stated reason, copy the reason clause from the original evidence verbatim. Use null when the answer is unknown.",
+      "expected": {
+        "coordinator": "Dev"
+      },
+      "gold_sources": {
+        "coordinator": [
+          "marco-008"
+        ]
+      }
+    },
+    {
+      "id": "leena-preferences",
+      "history_id": "leena",
+      "split": "heldout",
+      "family": "preferences",
+      "input": "What format, visual style, and language should you use for my next briefing?\nReturn the answer as a JSON object with these fields/types: {\"format\": \"string\", \"style\": \"string\", \"language\": \"string\"}. Use ISO dates. Include citations mapping every answer field to original event IDs. For a stated reason, copy the reason clause from the original evidence verbatim. Use null when the answer is unknown.",
+      "expected": {
+        "format": "DOCX",
+        "style": "high contrast",
+        "language": "Finnish"
+      },
+      "gold_sources": {
+        "format": [
+          "leena-001"
+        ],
+        "style": [
+          "leena-001"
+        ],
+        "language": [
+          "leena-001"
+        ]
+      }
+    },
+    {
+      "id": "leena-current-date",
+      "history_id": "leena",
+      "split": "heldout",
+      "family": "currentness",
+      "input": "When is my meeting with Birch Museum now?\nReturn the answer as a JSON object with these fields/types: {\"date\": \"string\"}. Use ISO dates. Include citations mapping every answer field to original event IDs. For a stated reason, copy the reason clause from the original evidence verbatim. Use null when the answer is unknown.",
+      "expected": {
+        "date": "2027-02-11"
+      },
+      "gold_sources": {
+        "date": [
+          "leena-010"
+        ]
+      }
+    },
+    {
+      "id": "leena-date-change",
+      "history_id": "leena",
+      "split": "heldout",
+      "family": "temporal",
+      "input": "How did the date for Birch Museum change, and why?\nReturn the answer as a JSON object with these fields/types: {\"previous_date\": \"string\", \"current_date\": \"string\", \"reason\": \"string\"}. Use ISO dates. Include citations mapping every answer field to original event IDs. For a stated reason, copy the reason clause from the original evidence verbatim. Use null when the answer is unknown.",
+      "expected": {
+        "previous_date": "2027-02-09",
+        "current_date": "2027-02-11",
+        "reason": "the archive moved its conservation demonstration"
+      },
+      "gold_sources": {
+        "previous_date": [
+          "leena-004",
+          "leena-010"
+        ],
+        "current_date": [
+          "leena-010"
+        ],
+        "reason": [
+          "leena-010"
+        ]
+      }
+    },
+    {
+      "id": "leena-organizations",
+      "history_id": "leena",
+      "split": "heldout",
+      "family": "cross_session",
+      "input": "Which organizations am I confirmed to meet, and in which cities?\nReturn the answer as a JSON object with these fields/types: {\"first_organization\": \"string\", \"first_city\": \"string\", \"second_organization\": \"string\", \"second_city\": \"string\"}. Use ISO dates. Include citations mapping every answer field to original event IDs. For a stated reason, copy the reason clause from the original evidence verbatim. Use null when the answer is unknown.",
+      "expected": {
+        "first_organization": "Birch Museum",
+        "first_city": "Turku",
+        "second_organization": "Amber Archive",
+        "second_city": "Tampere"
+      },
+      "gold_sources": {
+        "first_organization": [
+          "leena-004",
+          "leena-010"
+        ],
+        "first_city": [
+          "leena-004",
+          "leena-010"
+        ],
+        "second_organization": [
+          "leena-007"
+        ],
+        "second_city": [
+          "leena-007"
+        ]
+      }
+    },
+    {
+      "id": "leena-proposal-status",
+      "history_id": "leena",
+      "split": "heldout",
+      "family": "authority",
+      "input": "Is the proposed Oulu visit confirmed, and who introduced the suggestion?\nReturn the answer as a JSON object with these fields/types: {\"confirmed\": \"boolean\", \"suggested_by\": \"string\"}. Use ISO dates. Include citations mapping every answer field to original event IDs. For a stated reason, copy the reason clause from the original evidence verbatim. Use null when the answer is unknown.",
+      "expected": {
+        "confirmed": false,
+        "suggested_by": "assistant"
+      },
+      "gold_sources": {
+        "confirmed": [
+          "leena-006",
+          "leena-015"
+        ],
+        "suggested_by": [
+          "leena-005",
+          "leena-014"
+        ]
+      }
+    },
+    {
+      "id": "leena-briefing",
+      "history_id": "leena",
+      "split": "heldout",
+      "family": "cross_session",
+      "input": "Prepare the key details for my first-visit briefing using my preferences.\nReturn the answer as a JSON object with these fields/types: {\"organization\": \"string\", \"date\": \"string\", \"coordinator\": \"string\", \"format\": \"string\"}. Use ISO dates. Include citations mapping every answer field to original event IDs. For a stated reason, copy the reason clause from the original evidence verbatim. Use null when the answer is unknown.",
+      "expected": {
+        "organization": "Birch Museum",
+        "date": "2027-02-11",
+        "coordinator": "Nora",
+        "format": "DOCX"
+      },
+      "gold_sources": {
+        "organization": [
+          "leena-004",
+          "leena-010"
+        ],
+        "date": [
+          "leena-010"
+        ],
+        "coordinator": [
+          "leena-008"
+        ],
+        "format": [
+          "leena-001"
+        ]
+      }
+    },
+    {
+      "id": "leena-hotel",
+      "history_id": "leena",
+      "split": "heldout",
+      "family": "unknown",
+      "input": "Which hotel have I booked for the first visit?\nReturn the answer as a JSON object with these fields/types: {\"hotel\": \"string or null\", \"booked\": \"boolean\"}. Use ISO dates. Include citations mapping every answer field to original event IDs. For a stated reason, copy the reason clause from the original evidence verbatim. Use null when the answer is unknown.",
+      "expected": {
+        "hotel": null,
+        "booked": false
+      },
+      "gold_sources": {
+        "hotel": [
+          "leena-016"
+        ],
+        "booked": [
+          "leena-016"
+        ]
+      }
+    },
+    {
+      "id": "leena-coordinator",
+      "history_id": "leena",
+      "split": "heldout",
+      "family": "single_fact",
+      "input": "Who is coordinating my visit to Birch Museum?\nReturn the answer as a JSON object with these fields/types: {\"coordinator\": \"string\"}. Use ISO dates. Include citations mapping every answer field to original event IDs. For a stated reason, copy the reason clause from the original evidence verbatim. Use null when the answer is unknown.",
+      "expected": {
+        "coordinator": "Nora"
+      },
+      "gold_sources": {
+        "coordinator": [
+          "leena-008"
+        ]
+      }
+    },
+    {
+      "id": "owen-preferences",
+      "history_id": "owen",
+      "split": "heldout",
+      "family": "preferences",
+      "input": "What format, visual style, and language should you use for my next briefing?\nReturn the answer as a JSON object with these fields/types: {\"format\": \"string\", \"style\": \"string\", \"language\": \"string\"}. Use ISO dates. Include citations mapping every answer field to original event IDs. For a stated reason, copy the reason clause from the original evidence verbatim. Use null when the answer is unknown.",
+      "expected": {
+        "format": "HTML",
+        "style": "large text",
+        "language": "Irish"
+      },
+      "gold_sources": {
+        "format": [
+          "owen-001"
+        ],
+        "style": [
+          "owen-001"
+        ],
+        "language": [
+          "owen-001"
+        ]
+      }
+    },
+    {
+      "id": "owen-current-date",
+      "history_id": "owen",
+      "split": "heldout",
+      "family": "currentness",
+      "input": "When is my meeting with Reed Rescue now?\nReturn the answer as a JSON object with these fields/types: {\"date\": \"string\"}. Use ISO dates. Include citations mapping every answer field to original event IDs. For a stated reason, copy the reason clause from the original evidence verbatim. Use null when the answer is unknown.",
+      "expected": {
+        "date": "2027-03-20"
+      },
+      "gold_sources": {
+        "date": [
+          "owen-010"
+        ]
+      }
+    },
+    {
+      "id": "owen-date-change",
+      "history_id": "owen",
+      "split": "heldout",
+      "family": "temporal",
+      "input": "How did the date for Reed Rescue change, and why?\nReturn the answer as a JSON object with these fields/types: {\"previous_date\": \"string\", \"current_date\": \"string\", \"reason\": \"string\"}. Use ISO dates. Include citations mapping every answer field to original event IDs. For a stated reason, copy the reason clause from the original evidence verbatim. Use null when the answer is unknown.",
+      "expected": {
+        "previous_date": "2027-03-17",
+        "current_date": "2027-03-20",
+        "reason": "the venue is closed for maintenance on the original date"
+      },
+      "gold_sources": {
+        "previous_date": [
+          "owen-004",
+          "owen-010"
+        ],
+        "current_date": [
+          "owen-010"
+        ],
+        "reason": [
+          "owen-010"
+        ]
+      }
+    },
+    {
+      "id": "owen-organizations",
+      "history_id": "owen",
+      "split": "heldout",
+      "family": "cross_session",
+      "input": "Which organizations am I confirmed to meet, and in which cities?\nReturn the answer as a JSON object with these fields/types: {\"first_organization\": \"string\", \"first_city\": \"string\", \"second_organization\": \"string\", \"second_city\": \"string\"}. Use ISO dates. Include citations mapping every answer field to original event IDs. For a stated reason, copy the reason clause from the original evidence verbatim. Use null when the answer is unknown.",
+      "expected": {
+        "first_organization": "Reed Rescue",
+        "first_city": "Galway",
+        "second_organization": "Beacon Volunteers",
+        "second_city": "Cork"
+      },
+      "gold_sources": {
+        "first_organization": [
+          "owen-004",
+          "owen-010"
+        ],
+        "first_city": [
+          "owen-004",
+          "owen-010"
+        ],
+        "second_organization": [
+          "owen-007"
+        ],
+        "second_city": [
+          "owen-007"
+        ]
+      }
+    },
+    {
+      "id": "owen-proposal-status",
+      "history_id": "owen",
+      "split": "heldout",
+      "family": "authority",
+      "input": "Is the proposed Limerick visit confirmed, and who introduced the suggestion?\nReturn the answer as a JSON object with these fields/types: {\"confirmed\": \"boolean\", \"suggested_by\": \"string\"}. Use ISO dates. Include citations mapping every answer field to original event IDs. For a stated reason, copy the reason clause from the original evidence verbatim. Use null when the answer is unknown.",
+      "expected": {
+        "confirmed": false,
+        "suggested_by": "assistant"
+      },
+      "gold_sources": {
+        "confirmed": [
+          "owen-006",
+          "owen-015"
+        ],
+        "suggested_by": [
+          "owen-005",
+          "owen-014"
+        ]
+      }
+    },
+    {
+      "id": "owen-briefing",
+      "history_id": "owen",
+      "split": "heldout",
+      "family": "cross_session",
+      "input": "Prepare the key details for my first-visit briefing using my preferences.\nReturn the answer as a JSON object with these fields/types: {\"organization\": \"string\", \"date\": \"string\", \"coordinator\": \"string\", \"format\": \"string\"}. Use ISO dates. Include citations mapping every answer field to original event IDs. For a stated reason, copy the reason clause from the original evidence verbatim. Use null when the answer is unknown.",
+      "expected": {
+        "organization": "Reed Rescue",
+        "date": "2027-03-20",
+        "coordinator": "Asha",
+        "format": "HTML"
+      },
+      "gold_sources": {
+        "organization": [
+          "owen-004",
+          "owen-010"
+        ],
+        "date": [
+          "owen-010"
+        ],
+        "coordinator": [
+          "owen-008"
+        ],
+        "format": [
+          "owen-001"
+        ]
+      }
+    },
+    {
+      "id": "owen-hotel",
+      "history_id": "owen",
+      "split": "heldout",
+      "family": "unknown",
+      "input": "Which hotel have I booked for the first visit?\nReturn the answer as a JSON object with these fields/types: {\"hotel\": \"string or null\", \"booked\": \"boolean\"}. Use ISO dates. Include citations mapping every answer field to original event IDs. For a stated reason, copy the reason clause from the original evidence verbatim. Use null when the answer is unknown.",
+      "expected": {
+        "hotel": null,
+        "booked": false
+      },
+      "gold_sources": {
+        "hotel": [
+          "owen-016"
+        ],
+        "booked": [
+          "owen-016"
+        ]
+      }
+    },
+    {
+      "id": "owen-coordinator",
+      "history_id": "owen",
+      "split": "heldout",
+      "family": "single_fact",
+      "input": "Who is coordinating my visit to Reed Rescue?\nReturn the answer as a JSON object with these fields/types: {\"coordinator\": \"string\"}. Use ISO dates. Include citations mapping every answer field to original event IDs. For a stated reason, copy the reason clause from the original evidence verbatim. Use null when the answer is unknown.",
+      "expected": {
+        "coordinator": "Asha"
+      },
+      "gold_sources": {
+        "coordinator": [
+          "owen-008"
+        ]
+      }
+    }
+  ]
+}
