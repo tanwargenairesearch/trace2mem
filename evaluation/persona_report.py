@@ -6,7 +6,8 @@ import json
 from pathlib import Path, PurePosixPath
 import re
 
-from persona_evaluation import metrics, choose
+from persona_evaluation import choose
+from persona_verify import verify
 
 LABELS={'existing_memory':'Full history','notes_sessions':'Notes + sessions','trace2mem':'Full wiki'}
 
@@ -73,12 +74,12 @@ def render(experiment,out):
     for path in heldout_paths:
         if path.exists():
             candidate=json.loads(path.read_text())
-            if 'summary' in candidate:heldout=candidate;break
+            if 'summary' in candidate:heldout=candidate;heldout_file=path.name;break
     if heldout is None:raise ValueError('held-out evaluation incomplete')
     selected_suite=json.loads((evaluation/f'{winner}-heldout-suite.json').read_text())
     if heldout['suite']!=selected_suite:raise ValueError('heldout did not use selected suite')
     reports['heldout']=heldout
-    summaries={name:metrics(report) for name,report in reports.items()}
+    summaries={name:verify(report) for name,report in reports.items()}
     out.mkdir(parents=True)
     # Share all checkpoints, not just favorable final results; redact opaque continuation handles.
     (out/'evaluation').mkdir()
@@ -163,6 +164,7 @@ def render(experiment,out):
               'The comparison uses the real Dream-generated wiki and a consuming agent over hash-verified directory snapshots. Search is bounded keyword matching, not live API or embedding retrieval. Six conversations are compiled together in one initial run per persona; this does not measure incremental publication freshness. Full history fits comfortably in context and is deliberately a strong baseline. Deployment, public hosting and native macOS FUSE are outside this evaluation.','',
               '## Reproduce and inspect','',
               '- [Dataset and pre-registered protocol](../../evaluation/personas/README.md)',
+              f'- [Offline artifact-score verifier](../../evaluation/persona_verify.py) — run with `--report evaluation/{heldout_file}` from this report directory; no model calls.',
               '- [Frozen suite/binary/manifest hashes](../../evaluation/personas/frozen/freeze.json)',
               '- [Candidate selection](evaluation/selection.json)',
               '- [All metrics and compilation accounting](summary.json)',

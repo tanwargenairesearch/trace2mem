@@ -81,3 +81,15 @@ python3 evaluation/persona_report.py \
 ```
 
 The controlled action protocol is implemented in the demonstration agent, not imposed on every Trace2Mem API/MCP client. An integrating harness remains responsible for its own tool-use, evidence-reading and output contract. Comparing these candidates tests that harness behavior as well as the memory it consumes.
+
+The controlled policy requires original evidence reads, even when a wiki page already cites that evidence. This intentionally measures verified-source answering and adds tool/context overhead to both memory conditions. It does not measure a faster policy that answers directly from trusted published pages.
+
+
+After downloading a published report, recompute its exact artifact checks and aggregate metrics without any provider access:
+
+```sh
+python3 evaluation/persona_verify.py \
+  --report reports/2026-09-08-persona-evaluation/evaluation/heldout.json
+```
+
+Use the completed continuation filename if a run was interrupted. This verifies saved answers against the expected fields recorded in that report and checks the aggregate totals; it does not independently verify provider billing, semantic support, or inference execution. Original private record hashes are retained separately because redacting provider handles changes file bytes.
