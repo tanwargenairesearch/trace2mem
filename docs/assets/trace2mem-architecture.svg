@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="1152pt" height="720pt" viewBox="0 0 1152 720" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-09-08T21:36:49.533073</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 720 
+L 1152 720 
+L 1152 0 
+L 0 0 
+z
+" style="fill: #faf3e7"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 56.88 273.6 
+L 335.52 273.6 
+Q 347.04 273.6 347.04 262.08 
+L 347.04 183.6 
+Q 347.04 172.08 335.52 172.08 
+L 56.88 172.08 
+Q 45.36 172.08 45.36 183.6 
+L 45.36 262.08 
+Q 45.36 273.6 56.88 273.6 
+z
+" clip-path="url(#p7cdfbf56e5)" style="fill: #fffdf7; stroke: #e8d9bd; stroke-width: 1.3; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 402.48 273.6 
+L 717.12 273.6 
+Q 728.64 273.6 728.64 262.08 
+L 728.64 183.6 
+Q 728.64 172.08 717.12 172.08 
+L 402.48 172.08 
+Q 390.96 172.08 390.96 183.6 
+L 390.96 262.08 
+Q 390.96 273.6 402.48 273.6 
+z
+" clip-path="url(#p7cdfbf56e5)" style="fill: #fffdf7; stroke: #e8d9bd; stroke-width: 1.3; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 784.08 273.6 
+L 1095.12 273.6 
+Q 1106.64 273.6 1106.64 262.08 
+L 1106.64 183.6 
+Q 1106.64 172.08 1095.12 172.08 
+L 784.08 172.08 
+Q 772.56 172.08 772.56 183.6 
+L 772.56 262.08 
+Q 772.56 273.6 784.08 273.6 
+z
+" clip-path="url(#p7cdfbf56e5)" style="fill: #fffdf7; stroke: #e8d9bd; stroke-width: 1.3; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 349.759028 221.76 
+Q 368.998855 221.76 386.673435 221.76 
+" clip-path="url(#p7cdfbf56e5)" style="fill: none; stroke: #6b5d4d; stroke-width: 1.4; stroke-linecap: round"/>
+    <path d="M 380.673435 218.76 
+L 386.673435 221.76 
+L 380.673435 224.76 
+z
+" clip-path="url(#p7cdfbf56e5)" style="fill: #6b5d4d; stroke: #6b5d4d; stroke-width: 1.4; stroke-linecap: round"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 731.359028 221.76 
+Q 750.598855 221.76 768.273435 221.76 
+" clip-path="url(#p7cdfbf56e5)" style="fill: none; stroke: #6b5d4d; stroke-width: 1.4; stroke-linecap: round"/>
+    <path d="M 762.273435 218.76 
+L 768.273435 221.76 
+L 762.273435 224.76 
+z
+" clip-path="url(#p7cdfbf56e5)" style="fill: #6b5d4d; stroke: #6b5d4d; stroke-width: 1.4; stroke-linecap: round"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 56.88 433.44 
+L 335.52 433.44 
+Q 347.04 433.44 347.04 421.92 
+L 347.04 339.84 
+Q 347.04 328.32 335.52 328.32 
+L 56.88 328.32 
+Q 45.36 328.32 45.36 339.84 
+L 45.36 421.92 
+Q 45.36 433.44 56.88 433.44 
+z
+" clip-path="url(#p7cdfbf56e5)" style="fill: #fffdf7; stroke: #e8d9bd; stroke-width: 1.3; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 402.48 433.44 
+L 717.12 433.44 
+Q 728.64 433.44 728.64 421.92 
+L 728.64 339.84 
+Q 728.64 328.32 717.12 328.32 
+L 402.48 328.32 
+Q 390.96 328.32 390.96 339.84 
+L 390.96 421.92 
+Q 390.96 433.44 402.48 433.44 
+z
+" clip-path="url(#p7cdfbf56e5)" style="fill: #fffdf7; stroke: #e8d9bd; stroke-width: 1.3; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 784.08 433.44 
+L 1095.12 433.44 
+Q 1106.64 433.44 1106.64 421.92 
+L 1106.64 339.84 
+Q 1106.64 328.32 1095.12 328.32 
+L 784.08 328.32 
+Q 772.56 328.32 772.56 339.84 
+L 772.56 421.92 
+Q 772.56 433.44 784.08 433.44 
+z
+" clip-path="url(#p7cdfbf56e5)" style="fill: #fffdf7; stroke: #e8d9bd; stroke-width: 1.3; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 195.84 315.200391 
+Q 195.84 320.39969 195.84 324.033741 
+" clip-path="url(#p7cdfbf56e5)" style="fill: none; stroke: #6b5d4d; stroke-width: 1.4; stroke-linecap: round"/>
+    <path d="M 198.84 318.033741 
+L 195.84 324.033741 
+L 192.84 318.033741 
+z
+" clip-path="url(#p7cdfbf56e5)" style="fill: #6b5d4d; stroke: #6b5d4d; stroke-width: 1.4; stroke-linecap: round"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 939.6 325.600049 
+Q 939.6 300.960023 939.6 277.885245 
+" clip-path="url(#p7cdfbf56e5)" style="fill: none; stroke: #6b5d4d; stroke-width: 1.4; stroke-linecap: round"/>
+    <path d="M 936.6 283.885245 
+L 939.6 277.885245 
+L 942.6 283.885245 
+z
+" clip-path="url(#p7cdfbf56e5)" style="fill: #6b5d4d; stroke: #6b5d4d; stroke-width: 1.4; stroke-linecap: round"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 56.88 586.8 
+L 1095.12 586.8 
+Q 1106.64 586.8 1106.64 575.28 
+L 1106.64 516.24 
+Q 1106.64 504.72 1095.12 504.72 
+L 56.88 504.72 
+Q 45.36 504.72 45.36 516.24 
+L 45.36 575.28 
+Q 45.36 586.8 56.88 586.8 
+z
+" clip-path="url(#p7cdfbf56e5)" style="fill: #fffdf7; stroke: #e8d9bd; stroke-width: 1.3; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 68.4 436.163906 
+Q 68.4 468.720373 68.4 499.711593 
+" clip-path="url(#p7cdfbf56e5)" style="fill: none; stroke-dasharray: 5.18,2.24; stroke-dashoffset: 0; stroke: #6b5d4d; stroke-width: 1.4; stroke-linecap: round"/>
+    <path d="M 71.4 493.711593 
+L 68.4 499.711593 
+L 65.4 493.711593 
+z
+" clip-path="url(#p7cdfbf56e5)" style="fill: #6b5d4d; stroke-dasharray: 5.18,2.24; stroke-dashoffset: 0; stroke: #6b5d4d; stroke-width: 1.4; stroke-linecap: round"/>
+   </g>
+   <g id="patch_14">
+    <path d="M 1076.4 501.276094 
+Q 1076.4 468.719627 1076.4 437.728407 
+" clip-path="url(#p7cdfbf56e5)" style="fill: none; stroke-dasharray: 5.18,2.24; stroke-dashoffset: 0; stroke: #6b5d4d; stroke-width: 1.4; stroke-linecap: round"/>
+    <path d="M 1073.4 443.728407 
+L 1076.4 437.728407 
+L 1079.4 443.728407 
+z
+" clip-path="url(#p7cdfbf56e5)" style="fill: #6b5d4d; stroke-dasharray: 5.18,2.24; stroke-dashoffset: 0; stroke: #6b5d4d; stroke-width: 1.4; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_1">
+    <path d="M 61.2 256.32 
+L 61.2 189.36 
+" clip-path="url(#p7cdfbf56e5)" style="fill: none; stroke: #cc785c; stroke-width: 4; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_2">
+    <path d="M 406.8 256.32 
+L 406.8 189.36 
+" clip-path="url(#p7cdfbf56e5)" style="fill: none; stroke: #c97b23; stroke-width: 4; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_3">
+    <path d="M 788.4 256.32 
+L 788.4 189.36 
+" clip-path="url(#p7cdfbf56e5)" style="fill: none; stroke: #788b38; stroke-width: 4; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_4">
+    <path d="M 61.2 416.16 
+L 61.2 345.6 
+" clip-path="url(#p7cdfbf56e5)" style="fill: none; stroke: #cc785c; stroke-width: 4; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_5">
+    <path d="M 406.8 416.16 
+L 406.8 345.6 
+" clip-path="url(#p7cdfbf56e5)" style="fill: none; stroke: #c97b23; stroke-width: 4; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_6">
+    <path d="M 788.4 416.16 
+L 788.4 345.6 
+" clip-path="url(#p7cdfbf56e5)" style="fill: none; stroke: #788b38; stroke-width: 4; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_7">
+    <path d="M 559.44 274.32 
+L 559.44 313.2 
+L 195.84 313.2 
+" clip-path="url(#p7cdfbf56e5)" style="fill: none; stroke: #6b5d4d; stroke-width: 1.4; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_8">
+    <path d="M 61.2 569.52 
+L 61.2 522 
+" clip-path="url(#p7cdfbf56e5)" style="fill: none; stroke: #cc785c; stroke-width: 4; stroke-linecap: round"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #cc785c" x="46.8" y="38.598281" transform="rotate(-0 46.8 38.598281)">TRACE2MEM  /  SYSTEM ARCHITECTURE</text>
+   </g>
+   <g id="text_2">
+    <text style="font-weight: 700; font-size: 27px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #2a1f14" x="46.8" y="83.155781" transform="rotate(-0 46.8 83.155781)">Experience becomes memory. Memory informs action.</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #6b5d4d" x="46.8" y="115.037812" transform="rotate(-0 46.8 115.037812)">One logical memory per authenticated user, shared by that user’s agents.</text>
+   </g>
+   <g id="text_4">
+    <text style="font-weight: 700; font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #c97b23" x="46.8" y="153.758438" transform="rotate(-0 46.8 153.758438)">01   DURING THE CONVERSATION</text>
+   </g>
+   <g id="text_5">
+    <text style="font-weight: 700; font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #2a1f14" x="75.6" y="201.360469" transform="rotate(-0 75.6 201.360469)">Your agent</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #6b5d4d" transform="translate(75.6 229.398281)">LangChain or a custom harness</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #6b5d4d" transform="translate(75.6 244.223359)">Capture live events or import saved JSONL</text>
+   </g>
+   <g id="text_7">
+    <text style="font-weight: 700; font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #2a1f14" x="421.2" y="201.477656" transform="rotate(-0 421.2 201.477656)">Trace2Mem server</text>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #6b5d4d" transform="translate(421.2 229.398281)">Authenticated ingestion + retrieval</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #6b5d4d" transform="translate(421.2 244.223359)">HTTP / gRPC · MCP tools</text>
+   </g>
+   <g id="text_9">
+    <text style="font-weight: 700; font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #2a1f14" x="802.8" y="201.477656" transform="rotate(-0 802.8 201.477656)">Progressive memory access</text>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #6b5d4d" transform="translate(802.8 229.398281)">Index → search → pages → evidence</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #6b5d4d" transform="translate(802.8 244.223359)">Optional pinned directory / Linux FUSE</text>
+   </g>
+   <g id="text_11">
+    <text style="font-weight: 700; font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #c97b23" x="46.8" y="305.678437" transform="rotate(-0 46.8 305.678437)">02   DURABLE MEMORY</text>
+   </g>
+   <g id="text_12">
+    <text style="font-weight: 700; font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #2a1f14" x="75.6" y="357.717656" transform="rotate(-0 75.6 357.717656)">Sessions</text>
+   </g>
+   <g id="text_13">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #6b5d4d" transform="translate(75.6 385.638281)">Original events + precise evidence</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #6b5d4d" transform="translate(75.6 400.463359)">Model-authored session summaries</text>
+   </g>
+   <g id="text_14">
+    <text style="font-weight: 700; font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #2a1f14" x="421.2" y="357.717656" transform="rotate(-0 421.2 357.717656)">Notes</text>
+   </g>
+   <g id="text_15">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #6b5d4d" transform="translate(421.2 385.638281)">Distilled Markdown observations</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #6b5d4d" transform="translate(421.2 400.463359)">Citations, corrections, temporal status</text>
+   </g>
+   <g id="text_16">
+    <text style="font-weight: 700; font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #2a1f14" x="802.8" y="357.717656" transform="rotate(-0 802.8 357.717656)">Knowledge wiki</text>
+   </g>
+   <g id="text_17">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #6b5d4d" transform="translate(802.8 385.638281)">Synthesized subject pages + links</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #6b5d4d" transform="translate(802.8 400.463359)">Compact index + revision changelog</text>
+   </g>
+   <g id="text_18">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #6b5d4d" x="406.8" y="296.278594" transform="rotate(-0 406.8 296.278594)">durable capture</text>
+   </g>
+   <g id="text_19">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #6b5d4d" x="952.56" y="296.278594" transform="rotate(-0 952.56 296.278594)">published reads</text>
+   </g>
+   <g id="text_20">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #6b5d4d" x="406.8" y="454.718437" transform="rotate(-0 406.8 454.718437)">Notes and wiki claims cite source events; subject links provide context.</text>
+   </g>
+   <g id="text_21">
+    <text style="font-weight: 700; font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #c97b23" x="97.2" y="486.398438" transform="rotate(-0 97.2 486.398438)">03   BACKGROUND MAINTENANCE · DREAM WORKER</text>
+   </g>
+   <g id="text_22">
+    <text style="font-weight: 700; font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #2a1f14" x="75.6" y="534.117656" transform="rotate(-0 75.6 534.117656)">Orient → Summarize → Investigate → Compose → Verify → Publish</text>
+   </g>
+   <g id="text_23">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #6b5d4d" x="75.6" y="562.038281" transform="rotate(-0 75.6 562.038281)">Inspects and updates all three layers · bounded tools · verified, atomic publication · justified no-op</text>
+   </g>
+   <g id="text_24">
+    <text style="font-weight: 700; font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #2a1f14" x="61.2" y="622.464375" transform="rotate(-0 61.2 622.464375)">PostgreSQL</text>
+   </g>
+   <g id="text_25">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #6b5d4d" x="61.2" y="643.358438" transform="rotate(-0 61.2 643.358438)">Events · jobs · revision coordination</text>
+   </g>
+   <g id="text_26">
+    <text style="font-weight: 700; font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #2a1f14" x="432" y="622.558125" transform="rotate(-0 432 622.558125)">Interchangeable blob storage</text>
+   </g>
+   <g id="text_27">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #6b5d4d" x="432" y="643.358438" transform="rotate(-0 432 643.358438)">Uploaded sources and artifacts</text>
+   </g>
+   <g id="text_28">
+    <text style="font-weight: 700; font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #2a1f14" x="810" y="622.558125" transform="rotate(-0 810 622.558125)">Configured models</text>
+   </g>
+   <g id="text_29">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #6b5d4d" x="810" y="643.358438" transform="rotate(-0 810 643.358438)">Independent generation + embeddings</text>
+   </g>
+   <g id="text_30">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #6b5d4d" x="46.8" y="685.118438" transform="rotate(-0 46.8 685.118438)">Capture is separate from MCP retrieval. Dashed arrows: background maintenance. Local files pin one revision.</text>
+   </g>
+   <g id="text_31">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #6b5d4d" x="46.8" y="705.958594" transform="rotate(-0 46.8 705.958594)">Inspired by Brain by Perplexity · Implementation: docs/ARCHITECTURE.md · github.com/tanwargenairesearch/trace2mem</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p7cdfbf56e5">
+   <rect x="0" y="0" width="1152" height="720"/>
+  </clipPath>
+ </defs>
+</svg>

@@ -1,6 +1,6 @@
 # Trace2Mem
 
-**Persistent, cited memory for your agents, across conversations.** Trace2Mem is a self-hosted Go service inspired by Brain, licensed under Apache-2.0.
+**Persistent, cited memory for your agents, across conversations.** Trace2Mem is a self-hosted Go service inspired by [Brain by Perplexity](https://www.perplexity.ai/hub/blog/brain-agentic-memory-as-a-knowledge-wiki), licensed under Apache-2.0.
 
 ## Why it exists
 
@@ -10,7 +10,7 @@ Trace2Mem accepts those events, preserves the originals, and maintains session s
 
 ## How it works
 
-![Trace2Mem: foreground agents, three-layer durable memory, and background Dream maintenance](docs/assets/architecture.svg)
+![Trace2Mem: foreground agents, three-layer durable memory, and background Dream maintenance](docs/assets/trace2mem-architecture.svg)
 
 Capture and retrieval are separate integrations. An adapter sends events during a conversation or imports them later. Dream investigates accumulated evidence, stages an update, verifies it, and publishes a revision. Your agent retrieves from that revision; new events become available after compilation. Connecting MCP alone does not capture conversations or insert initial context.
 
@@ -29,6 +29,12 @@ Use Trace2Mem when you control your agent's event capture and want self-hosted, 
 **Status:** locally validated MVP. The latest [192-trial user-history pilot](reports/2026-09-08-persona-evaluation/README.md) improved the consuming agent on development tasks; held-out wiki/notes/history scores were 27/32, 26/32 and 23/32. The [failure audit](reports/2026-09-08-persona-evaluation/RCA.md) finds execution and exact-format differences, not demonstrated semantic gains.
 
 Earlier [negative results](reports/2026-09-08-harbor-comparison/README.md) and the [historical-interpretation error](reports/2026-09-08-harbor/README.md) remain documented. See [implemented guarantees and limitations](docs/IMPLEMENTATION.md); no Brain-equivalent quality, speed, or cost claim is made.
+
+## Measured effectiveness
+
+![Held-out task success, foreground tokens, and latency across three conditions](docs/assets/trace2mem-performance.svg)
+
+The wiki gained 12.5 percentage points in exact-task success over full history, with 37.0% more foreground tokens. Compared with notes plus sessions, it used 24.7% fewer tokens and solved one additional trial. These are narrow pilot observations; execution and formatting contributed to the score differences. [Methodology and complete results](reports/2026-09-08-persona-evaluation/README.md) · [Download the visuals](docs/VISUALS.md).
 
 ## Local Docker
 

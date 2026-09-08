@@ -2,7 +2,7 @@
 
 The provider-independent domain is in `internal/domain`; storage, Dream, transport, and model implementations depend inward on it. PostgreSQL is the publication coordinator. Blob storage holds uploaded sources. The server and worker share migrations and storage but run independently.
 
-![Trace2Mem: foreground agents, three-layer durable memory, and background Dream maintenance](assets/architecture.svg)
+![Trace2Mem: foreground agents, three-layer durable memory, and background Dream maintenance](assets/trace2mem-architecture.svg)
 
 ## Reading the diagram
 
@@ -12,11 +12,11 @@ Read it in three horizontal bands, following the same foreground / durable memor
 2. **Durable memory:** each user owns original session evidence, distilled notes, and linked subject pages. Published summaries, notes, and wiki pages share a revision. Ingested raw evidence can be available before compilation; ingestion does not publish generated memory. Notes and wiki claims cite original source events directly. Subject links provide related context.
 3. **Background:** Dream inspects new evidence and existing memory, stages a coherent update, verifies it, and publishes atomically. A justified no-op advances the processed watermark without changing content. Failed verification leaves changes unpublished; semantic judgment can still be wrong.
 
-Solid arrows show foreground access/capture and citation direction; dashed arrows show background maintenance. The local working set is optional, read-only, and pinned to one revision; refreshing requires a new snapshot or mount. Search is available between index reading and evidence inspection whenever the index does not identify the needed path. Forgetting suppression still applies to server-side evidence access.
+Solid arrows show foreground access and capture; dashed arrows show background maintenance. Notes and wiki claims cite source events directly; these citation edges are omitted for readability. The local working set is optional, read-only, and pinned to one revision; refreshing requires a new snapshot or mount. Search is available between index reading and evidence inspection whenever the index does not identify the needed path. Forgetting suppression still applies to server-side evidence access.
 
 PostgreSQL, interchangeable blob storage, and independently configured generation/embedding models support these flows. The lower row names dependencies, not additional pipeline stages. Git is not the publication coordinator. External connector investigation and Dream subagents are deferred and therefore absent from this diagram.
 
-[Download SVG](assets/architecture.svg) · [Download PNG](assets/architecture.png)
+[Download SVG](assets/trace2mem-architecture.svg) · [Download PNG](assets/trace2mem-architecture.png)
 
 | Diagram component | Implementation reference |
 |---|---|
