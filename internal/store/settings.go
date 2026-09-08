@@ -52,16 +52,16 @@ func (s *Store) SetConfig(ctx context.Context, t, sp string, c domain.ModelConfi
 	if revision != "" && old.EmbeddingIdentity() != c.EmbeddingIdentity() {
 		_, e = tx.Exec(ctx, "UPDATE spaces SET pending_model=$3,pending_credential=$4,generation=generation+1 WHERE tenant=$1 AND id=$2", t, sp, b, key)
 		if e == nil {
-			e = Schedule(ctx, tx, t, sp)
+			var watermark int64
+			e = tx.QueryRow(ctx, "SELECT watermark FROM spaces WHERE tenant=$1 AND id=$2", t, sp).Scan(&watermark)
+			if e == nil {
+				e = scheduleTarget(ctx, tx, t, sp, watermark)
+			}
 		}
 	} else {
 		_, e = tx.Exec(ctx, "UPDATE spaces SET model=$3,credential=$4,pending_model=NULL,pending_credential=NULL,generation=generation+1 WHERE tenant=$1 AND id=$2", t, sp, b, key)
 		if e == nil {
-			var pending bool
-			e = tx.QueryRow(ctx, "SELECT EXISTS(SELECT 1 FROM events WHERE tenant=$1 AND space=$2 AND ordinal>(SELECT watermark FROM spaces WHERE tenant=$1 AND id=$2))", t, sp).Scan(&pending)
-			if e == nil && pending {
-				e = Schedule(ctx, tx, t, sp)
-			}
+			_, e = tx.Exec(ctx, "UPDATE jobs SET status='pending',available_at=now(),attempts=0,error='' WHERE tenant=$1 AND space=$2 AND status IN ('blocked','failed')", t, sp)
 		}
 	}
 	if e != nil {

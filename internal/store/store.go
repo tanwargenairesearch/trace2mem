@@ -152,8 +152,19 @@ func (s *Store) Owner(ctx context.Context, p domain.Principal, memory string) er
 	return nil
 }
 func Schedule(ctx context.Context, tx pgx.Tx, tenant, space string) error {
-	_, e := tx.Exec(ctx, `INSERT INTO jobs(tenant,space) VALUES($1,$2) ON CONFLICT(tenant,space) DO UPDATE SET requested=true,status=CASE WHEN jobs.status='running' THEN 'running' ELSE 'pending' END,available_at=now(),error=''`, tenant, space)
-	return e
+	var target int64
+	if err := tx.QueryRow(ctx, "SELECT GREATEST(watermark,COALESCE((SELECT max(ordinal) FROM events WHERE tenant=$1 AND space=$2),0)) FROM spaces WHERE tenant=$1 AND id=$2 FOR UPDATE", tenant, space).Scan(&target); err != nil {
+		return err
+	}
+	if err := scheduleTarget(ctx, tx, tenant, space, target); err != nil {
+		return err
+	}
+	_, err := tx.Exec(ctx, "DELETE FROM compilation_requests WHERE tenant=$1 AND memory=$2", tenant, space)
+	return err
+}
+func scheduleTarget(ctx context.Context, tx pgx.Tx, t, m string, target int64) error {
+	_, err := tx.Exec(ctx, `INSERT INTO jobs(tenant,space,target_watermark) VALUES($1,$2,$3) ON CONFLICT(tenant,space) DO UPDATE SET target_watermark=GREATEST(jobs.target_watermark,EXCLUDED.target_watermark),requested=true,status=CASE WHEN jobs.status='running' THEN 'running' ELSE 'pending' END,available_at=now(),attempts=CASE WHEN jobs.status='running' THEN jobs.attempts ELSE 0 END,error=''`, t, m, target)
+	return err
 }
 func (s *Store) Schedule(ctx context.Context, t, sp string) error {
 	tx, e := s.DB.Begin(ctx)
@@ -168,12 +179,13 @@ func (s *Store) Schedule(ctx context.Context, t, sp string) error {
 }
 
 type InputEvent struct {
+	Closed            bool
 	ID, Session, Hash string
 	JSON              []byte
 	Occurred          time.Time
 }
 
-func (s *Store) Append(ctx context.Context, t, sp string, events []InputEvent) (accepted, duplicates, watermark int64, err error) {
+func (s *Store) Append(ctx context.Context, t, sp string, events []InputEvent) (accepted, duplicates, watermark int64, scheduled bool, err error) {
 	tx, e := s.DB.Begin(ctx)
 	if e != nil {
 		err = e
@@ -225,15 +237,35 @@ func (s *Store) Append(ctx context.Context, t, sp string, events []InputEvent) (
 		return
 	}
 	if accepted > 0 {
-		if e = Schedule(ctx, tx, t, sp); e != nil {
+		var mode string
+		if e = tx.QueryRow(ctx, "SELECT compilation_mode FROM spaces WHERE tenant=$1 AND id=$2", t, sp).Scan(&mode); e != nil {
 			err = e
 			return
+		}
+		scheduled = mode != "manual"
+		if e = queueCompilation(ctx, tx, t, sp, watermark); e != nil {
+			err = e
+			return
+		}
+		for _, event := range events {
+			if event.Closed {
+				if mode == "automatic" {
+					if e = Schedule(ctx, tx, t, sp); e != nil {
+						err = e
+						return
+					}
+				}
+				break
+			}
 		}
 	}
 	err = tx.Commit(ctx)
 	return
 }
 func (s *Store) Claim(ctx context.Context) (*domain.Lease, error) {
+	if err := s.promoteDue(ctx); err != nil {
+		return nil, err
+	}
 	if err := s.blockUnconfigured(ctx); err != nil {
 		return nil, err
 	}
@@ -250,7 +282,7 @@ func (s *Store) Claim(ctx context.Context) (*domain.Lease, error) {
 	if e != nil {
 		return nil, e
 	}
-	e = tx.QueryRow(ctx, `SELECT revision,generation,pending_model IS NOT NULL,CASE WHEN pending_model IS NOT NULL THEN watermark ELSE (SELECT COALESCE(max(ordinal),s.watermark) FROM (SELECT ordinal,sum(COALESCE(octet_length(payload::text),0)) OVER(ORDER BY ordinal) AS bytes FROM events WHERE tenant=$1 AND space=$2 AND ordinal>s.watermark ORDER BY ordinal LIMIT 128) batch WHERE bytes<=262144) END FROM spaces s WHERE tenant=$1 AND id=$2`, l.Tenant, l.Space).Scan(&l.Parent, &l.Epoch, &l.Reindex, &l.Watermark)
+	e = tx.QueryRow(ctx, `SELECT revision,generation,pending_model IS NOT NULL,CASE WHEN pending_model IS NOT NULL THEN watermark ELSE (SELECT COALESCE(max(ordinal),s.watermark) FROM (SELECT ordinal,sum(COALESCE(octet_length(payload::text),0)) OVER(ORDER BY ordinal) AS bytes FROM events WHERE tenant=$1 AND space=$2 AND ordinal>s.watermark AND ordinal<=(SELECT target_watermark FROM jobs WHERE tenant=$1 AND space=$2) ORDER BY ordinal LIMIT 128) batch WHERE bytes<=262144) END FROM spaces s WHERE tenant=$1 AND id=$2`, l.Tenant, l.Space).Scan(&l.Parent, &l.Epoch, &l.Reindex, &l.Watermark)
 	if e != nil {
 		return nil, e
 	}
@@ -386,7 +418,7 @@ func (s *Store) Publish(ctx context.Context, l domain.Lease, pages []domain.Page
 	if e != nil {
 		return "", e
 	}
-	_, e = tx.Exec(ctx, "UPDATE jobs SET status=CASE WHEN requested OR EXISTS(SELECT 1 FROM events WHERE tenant=$1 AND space=$2 AND ordinal>$3) THEN 'pending' ELSE 'done' END,lease_until=NULL,attempts=0,error='' WHERE tenant=$1 AND space=$2", l.Tenant, l.Space, l.Watermark)
+	e = finishCompilation(ctx, tx, l)
 	if e != nil {
 		return "", e
 	}

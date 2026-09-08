@@ -30,7 +30,7 @@ message Event {
   }
 }
 message AppendEventsRequest { reserved 1; reserved "space_id"; repeated Event events = 2; }
-message AppendEventsResponse { int64 accepted = 1; int64 duplicates = 2; int64 watermark = 3; }
+message AppendEventsResponse { int64 accepted = 1; int64 duplicates = 2; int64 watermark = 3; bool scheduled = 4; }
 message GetIngestionStatusRequest { reserved 1; reserved "space_id"; }
 message GetIngestionStatusResponse { int64 accepted = 1; int64 pending = 2; int64 compiled = 3; string revision = 4; string job_status = 5; string last_error = 6; }
 message UploadArtifactRequest { reserved 1; reserved "space_id"; string media_type = 2; bytes content = 3; }

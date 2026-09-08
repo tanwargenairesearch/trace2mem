@@ -70,4 +70,11 @@ This pre-release API removes spaces, memberships, `space_id`, and `--space`. Upg
 
 Agent credentials belong to one user. Scopes are `read`, `ingest`, and `manage`; token creation requires `manage` and cannot grant scopes the issuer lacks. Verified OIDC identities include issuer and subject. The local bootstrap token owns only its local user memory. See the in-app `/guide` for capture and retrieval instructions.
 
-The complete Brain-alignment redesign is underway. Dream summaries and explicit relationship proposals are implemented with deterministic tests. Scheduling modes remain pending. The [LangChain adapter](integrations/langchain/README.md) has passed callback, durability, and Docker integration checks; consult [implementation status](docs/IMPLEMENTATION.md).
+The complete Brain-alignment redesign is underway. Dream summaries and explicit relationship proposals are implemented with deterministic tests. Automatic, daily and manual scheduling are available in Settings or `trace2mem schedule`. The [LangChain adapter](integrations/langchain/README.md) has passed callback, durability, and Docker integration checks; consult [implementation status](docs/IMPLEMENTATION.md).
+
+Automatic compilation waits for 60 seconds without new events, with a five-minute maximum delay; closing a session requests immediate compilation. Daily mode defaults to 02:00 UTC and coalesces missed runs after downtime. Manual mode accepts events until an explicit `trace2mem compile`. Changing the schedule does not cancel already approved work. Missing models block compilation while preserving accepted evidence.
+
+```sh
+bin/trace2mem schedule --mode daily --at 02:00 --timezone Europe/London
+bin/trace2mem schedule
+```

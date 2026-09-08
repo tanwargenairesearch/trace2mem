@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"github.com/trace2mem/trace2mem/internal/domain"
 	"github.com/trace2mem/trace2mem/internal/model"
+	"github.com/trace2mem/trace2mem/internal/store"
 	"net/http"
 	"strings"
 	"time"
@@ -51,6 +52,30 @@ func (s *Server) management(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	switch route {
+	case "schedule":
+		if r.Method == "POST" {
+			var c store.CompilationSchedule
+			if !decode(w, r, &c) {
+				return
+			}
+			if err := c.NormalizeAndValidate(); err != nil {
+				http.Error(w, err.Error(), 400)
+				return
+			}
+			if err := s.Store.SetSchedule(ctx, p.Tenant, sp, c); err != nil {
+				failure(w, err)
+				return
+			}
+		} else if r.Method != "GET" {
+			http.Error(w, "GET or POST required", 405)
+			return
+		}
+		c, err := s.Store.GetSchedule(ctx, p.Tenant, sp)
+		if err != nil {
+			failure(w, err)
+			return
+		}
+		respond(w, c)
 	case "model-status":
 		if r.Method != "GET" {
 			http.Error(w, "GET required", 405)

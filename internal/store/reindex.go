@@ -56,7 +56,7 @@ func (s *Store) PublishReindex(ctx context.Context, l domain.Lease, identity str
 	if err != nil {
 		return err
 	}
-	_, err = tx.Exec(ctx, "UPDATE jobs SET status=CASE WHEN requested OR EXISTS(SELECT 1 FROM events WHERE tenant=$1 AND space=$2 AND ordinal>$3) THEN 'pending' ELSE 'done' END,lease_until=NULL,attempts=0,error='' WHERE tenant=$1 AND space=$2", l.Tenant, l.Space, l.Watermark)
+	err = finishCompilation(ctx, tx, l)
 	if err != nil {
 		return err
 	}

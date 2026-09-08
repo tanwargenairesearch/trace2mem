@@ -40,8 +40,11 @@ func TestDeletionFencesProposalsAndPublication(t *testing.T) {
 	if e != nil {
 		t.Fatal(e)
 	}
-	_, _, _, e = s.Append(ctx, tenant, sp, []store.InputEvent{{ID: "e1", Session: "s1", Hash: "hash", JSON: []byte(`{"message":{"text":"secret"}}`), Occurred: time.Now()}})
+	_, _, _, _, e = s.Append(ctx, tenant, sp, []store.InputEvent{{ID: "e1", Session: "s1", Hash: "hash", JSON: []byte(`{"message":{"text":"secret"}}`), Occurred: time.Now()}})
 	if e != nil {
+		t.Fatal(e)
+	}
+	if e = s.Schedule(ctx, tenant, sp); e != nil {
 		t.Fatal(e)
 	}
 	l := &domain.Lease{Tenant: tenant, Space: sp}
@@ -165,7 +168,10 @@ func TestIncrementalHistoryBeyondPromptLimit(t *testing.T) {
 		raw := fmt.Sprintf(`{"eventId":"e%03d","sessionId":"s1","occurredAt":"2026-09-07T12:00:00Z","actor":{"role":"user"},"source":{"id":"fixture"},"message":{"text":%q}}`, i, ev.GetMessage().Text)
 		events = append(events, store.InputEvent{ID: ev.EventId, Session: "s1", Hash: domain.Hash([]byte(raw)), JSON: []byte(raw), Occurred: time.Now()})
 	}
-	if _, _, _, e = s.Append(ctx, tenant, sp, events); e != nil {
+	if _, _, _, _, e = s.Append(ctx, tenant, sp, events); e != nil {
+		t.Fatal(e)
+	}
+	if e = s.Schedule(ctx, tenant, sp); e != nil {
 		t.Fatal(e)
 	}
 	ticker := time.NewTicker(250 * time.Millisecond)

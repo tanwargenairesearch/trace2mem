@@ -654,6 +654,7 @@ type AppendEventsResponse struct {
 	Accepted      int64                  `protobuf:"varint,1,opt,name=accepted,proto3" json:"accepted,omitempty"`
 	Duplicates    int64                  `protobuf:"varint,2,opt,name=duplicates,proto3" json:"duplicates,omitempty"`
 	Watermark     int64                  `protobuf:"varint,3,opt,name=watermark,proto3" json:"watermark,omitempty"`
+	Scheduled     bool                   `protobuf:"varint,4,opt,name=scheduled,proto3" json:"scheduled,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -707,6 +708,13 @@ func (x *AppendEventsResponse) GetWatermark() int64 {
 		return x.Watermark
 	}
 	return 0
+}
+
+func (x *AppendEventsResponse) GetScheduled() bool {
+	if x != nil {
+		return x.Scheduled
+	}
+	return false
 }
 
 type GetIngestionStatusRequest struct {
@@ -1858,13 +1866,14 @@ const file_trace2mem_v1_trace2mem_proto_rawDesc = "" +
 	"\apayloadB\v\n" +
 	"\t_sequence\"R\n" +
 	"\x13AppendEventsRequest\x12+\n" +
-	"\x06events\x18\x02 \x03(\v2\x13.trace2mem.v1.EventR\x06eventsJ\x04\b\x01\x10\x02R\bspace_id\"p\n" +
+	"\x06events\x18\x02 \x03(\v2\x13.trace2mem.v1.EventR\x06eventsJ\x04\b\x01\x10\x02R\bspace_id\"\x8e\x01\n" +
 	"\x14AppendEventsResponse\x12\x1a\n" +
 	"\baccepted\x18\x01 \x01(\x03R\baccepted\x12\x1e\n" +
 	"\n" +
 	"duplicates\x18\x02 \x01(\x03R\n" +
 	"duplicates\x12\x1c\n" +
-	"\twatermark\x18\x03 \x01(\x03R\twatermark\"+\n" +
+	"\twatermark\x18\x03 \x01(\x03R\twatermark\x12\x1c\n" +
+	"\tscheduled\x18\x04 \x01(\bR\tscheduled\"+\n" +
 	"\x19GetIngestionStatusRequestJ\x04\b\x01\x10\x02R\bspace_id\"\xc8\x01\n" +
 	"\x1aGetIngestionStatusResponse\x12\x1a\n" +
 	"\baccepted\x18\x01 \x01(\x03R\baccepted\x12\x18\n" +

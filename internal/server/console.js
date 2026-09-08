@@ -8,7 +8,8 @@ let askReady=false;
 async function refresh(){await refreshReadiness()}
 async function refreshReadiness(){
  askReady=false;$('ask').disabled=true;
- const [status,models]=await Promise.all([rpc('IngestionService','GetIngestionStatus',{}),management('model-status')]);
+ const [status,models,schedule]=await Promise.all([rpc('IngestionService','GetIngestionStatus',{}),management('model-status'),management('schedule')]);
+ $('next-run').textContent=schedule.next_run?'Next queued compilation: '+new Date(schedule.next_run).toLocaleString():'No future compilation queued.';
  show('status',status);
  askReady=!!(models.generation_configured&&models.embedding_configured&&status.revision);
  $('ask').disabled=!askReady;
@@ -31,7 +32,7 @@ action('configure',async()=>{
 action('import',async()=>{const f=$('file').files[0];if(!f)throw Error('Select a JSONL file');const lines=(await f.text()).split('\n').filter(x=>x.trim());for(let i=0;i<lines.length;i+=64){await rpc('IngestionService','AppendEvents',{events:lines.slice(i,i+64).map(JSON.parse)})}await refresh()});
 action('compile',async()=>show('status',await management('compile',{})));action('forget',async()=>{if(confirm('Forget this source and rebuild derived memory?')){show('status',await management('forget',{event_id:$('forget-id').value}))}});
 action('search',async()=>show('result',await rpc('MemoryService','Search',{query:$('query').value})));action('index',async()=>show('result',await rpc('MemoryService','ReadFile',{path:'knowledge/index.md'})));action('evidence',async()=>show('result',await rpc('MemoryService','GetEvidence',{eventId:$('evidence-id').value})));action('export',async()=>{const v=await management('export');const url=URL.createObjectURL(new Blob([JSON.stringify(v,null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='trace2mem-'+v.revision+'.json';a.click();URL.revokeObjectURL(url)});
-action('revisions',async()=>show('admin-result',await management('revisions')));action('usage',async()=>show('admin-result',await management('usage')));action('token',async()=>show('admin-result',await api('/api/tokens',{scopes:['read']})));
+action('revisions',async()=>show('admin-result',await management('revisions')));action('usage',async()=>show('admin-result',await management('usage')));action('token',async()=>show('token-result',await api('/api/tokens',{scopes:$('token-scopes').value.split(',')})));
 action('evaluate',async()=>show('eval-result',await management('evaluate',{cases:JSON.parse($('cases').value)})));action('candidate',async()=>show('eval-result',await management('candidates',{evaluation_id:$('evaluation-id').value})));action('promote',async()=>{if(confirm('Promote this evaluated candidate for future compilations?'))show('eval-result',await management('candidates',{promote_id:$('candidate-id').value}))});refresh().catch(e=>{show('status',{error:e.message})});
 for(const button of document.querySelectorAll('[data-panel]')){button.addEventListener('click',()=>{for(const panel of document.querySelectorAll('.panel'))panel.classList.toggle('active',panel.id==='panel-'+button.dataset.panel);for(const nav of document.querySelectorAll('[data-panel]'))nav.classList.toggle('active',nav===button);$('view-title').textContent=button.querySelector('span').textContent})}
 action('ask',async()=>{if(!askReady)throw Error('Configure models and publish memory before asking.');const v=await rpc('MemoryService','GetContext',{query:$('query').value});$('result').textContent=v.synthesis||'No supported answer found in this memory.'});
@@ -53,3 +54,9 @@ function modelFields(role){
 $('provider').addEventListener('change',()=>modelFields('generation'));
 $('embedding-provider').addEventListener('change',()=>modelFields('embedding'));
 $('model-form').addEventListener('submit',e=>{e.preventDefault();$('configure').click()});
+
+$('mcp-endpoint').textContent=location.origin+'/mcp';
+function scheduleFields(){const daily=$('schedule-mode').value==='daily';$('daily-schedule').hidden=!daily;$('daily-schedule').disabled=!daily}
+$('schedule-mode').onchange=scheduleFields;
+management('schedule').then(c=>{$('schedule-mode').value=c.mode;$('schedule-time').value=c.time;$('schedule-zone').value=c.timezone;scheduleFields()}).catch(e=>show('status',{error:e.message}));
+action('save-schedule',async()=>{if(!$('schedule-form').reportValidity())return;await management('schedule',{mode:$('schedule-mode').value,time:$('schedule-time').value,timezone:$('schedule-zone').value});await refresh();$('notice').textContent='Compilation schedule saved.';$('notice').style.display='block'});

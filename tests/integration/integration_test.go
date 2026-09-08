@@ -85,6 +85,9 @@ func TestMemoryLifecycle(t *testing.T) {
 	e1.GetMessage().Text = "Launch: September"
 	wait := func(old string) string {
 		t.Helper()
+		if _, err := c.Ingestion.RequestCompilation(ctx, connect.NewRequest(&trace2memv1.RequestCompilationRequest{})); err != nil {
+			t.Fatal(err)
+		}
 		ticker := time.NewTicker(250 * time.Millisecond)
 		defer ticker.Stop()
 		for {

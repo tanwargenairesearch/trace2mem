@@ -16,7 +16,7 @@ func TestUnconfiguredMemoryResumesAfterConfiguration(t *testing.T) {
 	if err := s.EnsureMemory(ctx, p); err != nil {
 		t.Fatal(err)
 	}
-	_, _, _, err := s.Append(ctx, p.Tenant, p.MemoryID(), []store.InputEvent{{ID: "e1", Session: "s1", Hash: "h", Occurred: time.Now(), JSON: []byte(`{"eventId":"e1","sessionId":"s1","occurredAt":"2026-09-07T12:00:00Z","actor":{"role":"user"},"source":{"id":"test"},"message":{"text":"Project: Go"}}`)}})
+	_, _, _, _, err := s.Append(ctx, p.Tenant, p.MemoryID(), []store.InputEvent{{ID: "e1", Session: "s1", Hash: "h", Occurred: time.Now(), JSON: []byte(`{"eventId":"e1","sessionId":"s1","occurredAt":"2026-09-07T12:00:00Z","actor":{"role":"user"},"source":{"id":"test"},"message":{"text":"Project: Go"}}`)}})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -41,6 +41,9 @@ func TestUnconfiguredMemoryResumesAfterConfiguration(t *testing.T) {
 			case <-time.After(100 * time.Millisecond):
 			}
 		}
+	}
+	if err = s.Schedule(ctx, p.Tenant, p.MemoryID()); err != nil {
+		t.Fatal(err)
 	}
 	wait("blocked")
 	config := domain.ModelConfig{Provider: "scripted", Model: "fixture", EmbeddingProvider: "scripted", EmbeddingModel: "fixture", MaxSteps: 12, MaxTokens: 32000, DailyTokens: 100000000}

@@ -47,7 +47,7 @@ func (s *Store) PublishNoop(ctx context.Context, l domain.Lease, reason string, 
 	if _, err = tx.Exec(ctx, "UPDATE spaces SET watermark=$3 WHERE tenant=$1 AND id=$2", l.Tenant, l.Space, l.Watermark); err != nil {
 		return err
 	}
-	if _, err = tx.Exec(ctx, "UPDATE jobs SET status=CASE WHEN requested OR EXISTS(SELECT 1 FROM events WHERE tenant=$1 AND space=$2 AND ordinal>$3) THEN 'pending' ELSE 'done' END,lease_until=NULL,attempts=0,error='' WHERE tenant=$1 AND space=$2", l.Tenant, l.Space, l.Watermark); err != nil {
+	if err = finishCompilation(ctx, tx, l); err != nil {
 		return err
 	}
 	return tx.Commit(ctx)

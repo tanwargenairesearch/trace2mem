@@ -4,9 +4,9 @@ This tracks the accepted redesign. It is not a completion claim.
 
 - Ownership/API: implemented; Go tests, race checks, Protobuf lint, Docker ownership/lifecycle checks, and Chrome model-readiness/guide checks passed. Linux Docker FUSE reads, recursive search, and write rejection passed. All ownership review findings resolved.
 - Dream: implemented model-authored summaries and subject syntheses, readable Markdown notes with stable provenance metadata, explicit/preserved relationships, bounded orientation, semantic verification, and fenced no-op. Deterministic Docker scenarios passed; real-model quality remains unmeasured.
-- Scheduling: missing-model blocking/resumption implemented and tested. Automatic/daily/manual timing modes remain pending.
+- Scheduling: durable automatic/daily/manual modes, missing-model blocking, credential recovery, and pinned approved ranges implemented. Automatic mode uses 60 seconds quiet and a five-minute cap; daily scheduling coalesces catch-up work and handles DST.
 - LangChain: capture hooks, bounded durable spool, context helper, JSONL import, and a two-conversation example implemented. Five callback/durability tests passed. Live and saved-JSONL flows passed against Docker; a second LangChain conversation receives initial context and invokes retrieval.
-- Console: per-user navigation/model readiness/guide implemented; final navigation and connections/settings remain.
+- Console: per-user navigation, model readiness, guide, Connections tokens and Settings scheduling implemented; desktop/mobile Chrome controls verified.
 - Evaluation: pending fact-based metrics, pinned ablations and opt-in real-model report.
 - Operations: pending final Terraform, fresh-checkout and release checks.
 
@@ -33,3 +33,7 @@ Composition is bounded to 2 MiB input and provider request envelopes to 3 MiB; s
 ## LangChain review tracking
 
 Review findings fixed: serialize close with capture transactions; cap consecutive delivery failures; retain sanitized exception categories; demonstrate a distinct second conversation with index and retrieval tool; replace stale forthcoming documentation with locked installation/test commands. All three re-review lenses reported zero findings. Five adapter tests and Docker live/offline demonstrations passed.
+
+## Scheduling and console review tracking
+
+Production: credential replacement previously left failed jobs stranded, and CloseSession reported scheduling even in manual mode. Both fixed with Docker regressions; resumed jobs retain their approved watermark. Principles: queued request watermark now determines the promoted target, and schedule normalization is explicit. Design: no findings. All three re-review lenses report zero findings. Go race tests, Protobuf lint, Docker timing/catch-up/manual-range tests, and Chrome navigation/schedule controls passed on 2026-09-08.

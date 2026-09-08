@@ -15,8 +15,11 @@ func TestNoopAdvancesOnlyProcessedWatermark(t *testing.T) {
 	if err := s.EnsureMemory(ctx, p); err != nil {
 		t.Fatal(err)
 	}
-	_, _, watermark, err := s.Append(ctx, p.Tenant, p.MemoryID(), []store.InputEvent{{ID: "lifecycle", Session: "s1", Hash: "h", JSON: []byte(`{"sessionLifecycle":{"state":"started"}}`), Occurred: time.Now()}})
+	_, _, watermark, _, err := s.Append(ctx, p.Tenant, p.MemoryID(), []store.InputEvent{{ID: "lifecycle", Session: "s1", Hash: "h", JSON: []byte(`{"sessionLifecycle":{"state":"started"}}`), Occurred: time.Now()}})
 	if err != nil {
+		t.Fatal(err)
+	}
+	if err = s.Schedule(ctx, p.Tenant, p.MemoryID()); err != nil {
 		t.Fatal(err)
 	}
 	l := domain.Lease{Tenant: p.Tenant, Space: p.MemoryID(), Watermark: watermark}

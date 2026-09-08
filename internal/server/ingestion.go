@@ -83,13 +83,13 @@ func (s *Server) AppendEvents(ctx context.Context, r *connect.Request[trace2memv
 		if e != nil {
 			return nil, rpcerr(e)
 		}
-		events = append(events, store.InputEvent{ID: v.EventId, Session: v.SessionId, Hash: domain.Hash(canonical), JSON: canonical, Occurred: v.OccurredAt.AsTime()})
+		events = append(events, store.InputEvent{Closed: v.GetSessionLifecycle().GetState() == "closed", ID: v.EventId, Session: v.SessionId, Hash: domain.Hash(canonical), JSON: canonical, Occurred: v.OccurredAt.AsTime()})
 	}
-	a, d, w, e := s.Store.Append(ctx, p.Tenant, principal(ctx).MemoryID(), events)
+	a, d, w, scheduled, e := s.Store.Append(ctx, p.Tenant, principal(ctx).MemoryID(), events)
 	if e != nil {
 		return nil, rpcerr(e)
 	}
-	return connect.NewResponse(&trace2memv1.AppendEventsResponse{Accepted: a, Duplicates: d, Watermark: w}), nil
+	return connect.NewResponse(&trace2memv1.AppendEventsResponse{Accepted: a, Duplicates: d, Watermark: w, Scheduled: scheduled}), nil
 }
 func (s *Server) GetIngestionStatus(ctx context.Context, r *connect.Request[trace2memv1.GetIngestionStatusRequest]) (*connect.Response[trace2memv1.GetIngestionStatusResponse], error) {
 	p := principal(ctx)
@@ -143,6 +143,9 @@ func (s *Server) CloseSession(ctx context.Context, r *connect.Request[trace2memv
 		return nil, connect.NewError(connect.CodeInvalidArgument, errors.New("invalid session ID"))
 	}
 	ev := &trace2memv1.Event{EventId: "close-" + store.ID(), SessionId: r.Msg.SessionId, OccurredAt: timestamppb.New(time.Now()), Actor: &trace2memv1.Actor{Role: "system"}, Source: &trace2memv1.Source{Id: "trace2mem-api", Format: "trace2mem.v1"}, Payload: &trace2memv1.Event_SessionLifecycle{SessionLifecycle: &trace2memv1.SessionLifecycle{State: "closed"}}}
-	_, e := s.AppendEvents(ctx, connect.NewRequest(&trace2memv1.AppendEventsRequest{Events: []*trace2memv1.Event{ev}}))
-	return connect.NewResponse(&trace2memv1.CloseSessionResponse{Scheduled: e == nil}), e
+	result, e := s.AppendEvents(ctx, connect.NewRequest(&trace2memv1.AppendEventsRequest{Events: []*trace2memv1.Event{ev}}))
+	if e != nil {
+		return nil, e
+	}
+	return connect.NewResponse(&trace2memv1.CloseSessionResponse{Scheduled: result.Msg.Scheduled}), nil
 }

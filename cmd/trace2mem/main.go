@@ -41,7 +41,7 @@ func main() {
 }
 func run() error {
 	if len(os.Args) < 2 {
-		return errors.New("usage: trace2mem setup|configure|doctor|import|status|compile|search|context|sync|mount|export|forget [flags]")
+		return errors.New("usage: trace2mem setup|configure|schedule|doctor|import|status|compile|search|context|sync|mount|export|forget [flags]")
 	}
 	command := os.Args[1]
 	flags := flag.NewFlagSet(command, flag.ContinueOnError)
@@ -53,6 +53,9 @@ func run() error {
 	cache := flags.String("cache", filepath.Join(os.TempDir(), "trace2mem-cache"), "local cache directory")
 	query := flags.String("query", "", "retrieval query")
 	event := flags.String("event", "", "event ID")
+	mode := flags.String("mode", "", "compilation mode: automatic, daily or manual")
+	at := flags.String("at", "02:00", "daily compilation time (HH:MM)")
+	zone := flags.String("timezone", "UTC", "daily compilation IANA timezone")
 	max := flags.Int64("cache-bytes", 256<<20, "cache byte budget")
 	git := flags.Bool("git", false, "initialize a Git repository for an exported snapshot")
 	if e := flags.Parse(os.Args[2:]); e != nil {
@@ -130,6 +133,16 @@ func run() error {
 		}
 		defer f.Close()
 		return c.Import(ctx, sdk.JSONL{Reader: f})
+	case "schedule":
+		var body any
+		if *mode != "" {
+			body = map[string]string{"mode": *mode, "time": *at, "timezone": *zone}
+		}
+		v, e := manage("schedule", body)
+		if e != nil {
+			return e
+		}
+		return output(v)
 	case "status":
 		r, e := c.Ingestion.GetIngestionStatus(ctx, connect.NewRequest(&trace2memv1.GetIngestionStatusRequest{}))
 		if e != nil {
