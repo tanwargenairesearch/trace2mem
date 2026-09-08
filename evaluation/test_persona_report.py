@@ -10,7 +10,7 @@ from persona_report import copy_corpus, token_delta
 class ReportEvidenceTests(unittest.TestCase):
     def fixture(self, root, path='notes/fact.md'):
         source=root/'source';folder=source/'persona';folder.mkdir(parents=True)
-        file=folder/'notes/fact.md';file.parent.mkdir();file.write_bytes(b'fact')
+        file=folder/'memory/notes/fact.md';file.parent.mkdir(parents=True);file.write_bytes(b'fact')
         entry={'path':path,'size':4,'sha256':hashlib.sha256(b'fact').hexdigest()}
         manifest=json.dumps({'files':[entry]}).encode()
         (folder/'manifest.json').write_bytes(manifest)
@@ -22,11 +22,11 @@ class ReportEvidenceTests(unittest.TestCase):
             root=Path(tmp);source,frozen=self.fixture(root)
             (source/'persona/.env').write_text('private sidecar')
             copy_corpus(source,root/'out',frozen)
-            self.assertEqual((root/'out/persona/notes/fact.md').read_bytes(),b'fact')
+            self.assertEqual((root/'out/persona/memory/notes/fact.md').read_bytes(),b'fact')
             self.assertFalse((root/'out/persona/.env').exists())
 
     def test_rejects_changed_manifest_or_content(self):
-        for name in ('manifest.json','notes/fact.md'):
+        for name in ('manifest.json','memory/notes/fact.md'):
             with self.subTest(name=name),tempfile.TemporaryDirectory() as tmp:
                 root=Path(tmp);source,frozen=self.fixture(root)
                 with (source/'persona'/name).open('ab') as f:f.write(b' ')

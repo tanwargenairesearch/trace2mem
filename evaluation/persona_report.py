@@ -30,8 +30,8 @@ def copy_corpus(source,target,frozen):
             path=PurePosixPath(entry['path'])
             if path.is_absolute() or '..' in path.parts or str(path)!=entry['path'] or str(path) in ('','.', 'manifest.json') or str(path) in files:
                 raise ValueError('unsafe or duplicate manifest path')
-            file=folder/str(path)
-            if not file.resolve().is_relative_to(folder.resolve()):raise ValueError('manifest file escapes snapshot')
+            file=folder/'memory'/str(path)
+            if not file.resolve().is_relative_to((folder/'memory').resolve()):raise ValueError('manifest file escapes snapshot')
             content=file.read_bytes()
             if len(content)!=int(entry['size']) or hashlib.sha256(content).hexdigest()!=entry['sha256']:
                 raise ValueError('snapshot content changed')
@@ -39,7 +39,7 @@ def copy_corpus(source,target,frozen):
         destination=target/persona;destination.mkdir(parents=True)
         (destination/'manifest.json').write_bytes(manifest)
         for path,content in files.items():
-            file=destination/path;file.parent.mkdir(parents=True,exist_ok=True);file.write_bytes(content)
+            file=destination/'memory'/path;file.parent.mkdir(parents=True,exist_ok=True);file.write_bytes(content)
 
 
 def token_delta(wiki,base):

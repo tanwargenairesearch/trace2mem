@@ -25,9 +25,11 @@ Report exact task success and per-field correctness, broken down by family and s
 
 - [x] Author reproducible histories and source-linked question/answer keys.
 - [x] Dataset/protocol validation and three-lens review: source alternatives corrected, cumulative input bounded, and failed compilation jobs terminalized with fencing. Twelve Python checks and the database failure-isolation race test passed.
-- [ ] Real-model compilation of isolated user memories.
+- [x] Real-model compilation of four isolated user memories. The failed first Nadia attempt and successful schema-repair retry are both retained. The other three published on their initial attempt.
 - [ ] Development baseline, RCA, candidate comparison and frozen selection.
 - [ ] Held-out evaluation, charts and reproducible report.
+- [x] Report generator three-lens review: verify frozen manifests and file hashes, copy only listed memory files, and suppress precise token deltas for missing or unresolved usage. Focused tests and verification against all four real snapshots passed.
+- [x] Repository Go race suite passed after the verifier schema repair.
 
 ## Compilation RCA recorded before evaluation
 
