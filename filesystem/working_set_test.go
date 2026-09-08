@@ -12,9 +12,9 @@ import (
 	"sync/atomic"
 	"testing"
 
-	v1 "github.com/mohit-lendmind/trace2mem/gen/trace2mem/v1"
-	"github.com/mohit-lendmind/trace2mem/internal/domain"
-	"github.com/mohit-lendmind/trace2mem/sdk"
+	v1 "github.com/tanwargenairesearch/trace2mem/gen/trace2mem/v1"
+	"github.com/tanwargenairesearch/trace2mem/internal/domain"
+	"github.com/tanwargenairesearch/trace2mem/sdk"
 	"google.golang.org/protobuf/proto"
 	"io"
 )

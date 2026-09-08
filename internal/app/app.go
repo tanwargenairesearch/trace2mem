@@ -5,9 +5,9 @@ import (
 	"cloud.google.com/go/storage"
 	"context"
 	"errors"
-	"github.com/mohit-lendmind/trace2mem/internal/blob"
-	"github.com/mohit-lendmind/trace2mem/internal/config"
-	"github.com/mohit-lendmind/trace2mem/internal/store"
+	"github.com/tanwargenairesearch/trace2mem/internal/blob"
+	"github.com/tanwargenairesearch/trace2mem/internal/config"
+	"github.com/tanwargenairesearch/trace2mem/internal/store"
 	"os"
 	"strings"
 )

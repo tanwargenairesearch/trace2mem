@@ -6,7 +6,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/mohit-lendmind/trace2mem/internal/domain"
+	"github.com/tanwargenairesearch/trace2mem/internal/domain"
 	"golang.org/x/oauth2/google"
 	"io"
 	"net/http"

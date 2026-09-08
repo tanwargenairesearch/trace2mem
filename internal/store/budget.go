@@ -3,7 +3,7 @@ package store
 import (
 	"context"
 	"errors"
-	"github.com/mohit-lendmind/trace2mem/internal/domain"
+	"github.com/tanwargenairesearch/trace2mem/internal/domain"
 )
 
 var ErrBudget = errors.New("daily provider token budget exhausted")

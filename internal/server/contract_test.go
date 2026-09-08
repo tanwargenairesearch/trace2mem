@@ -3,7 +3,7 @@ package server
 import (
 	"connectrpc.com/connect"
 	"context"
-	v1 "github.com/mohit-lendmind/trace2mem/gen/trace2mem/v1"
+	v1 "github.com/tanwargenairesearch/trace2mem/gen/trace2mem/v1"
 	"google.golang.org/protobuf/encoding/protowire"
 	"testing"
 )

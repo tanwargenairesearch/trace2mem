@@ -1,7 +1,7 @@
 package server
 
 import (
-	trace2memv1 "github.com/mohit-lendmind/trace2mem/gen/trace2mem/v1"
+	trace2memv1 "github.com/tanwargenairesearch/trace2mem/gen/trace2mem/v1"
 	"google.golang.org/protobuf/types/known/timestamppb"
 	"testing"
 )

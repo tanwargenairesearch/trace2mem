@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"github.com/jackc/pgx/v5"
-	"github.com/mohit-lendmind/trace2mem/internal/domain"
+	"github.com/tanwargenairesearch/trace2mem/internal/domain"
 )
 
 func (e *Engine) orientation(ctx context.Context, l domain.Lease) (string, error) {

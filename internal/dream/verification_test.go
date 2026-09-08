@@ -8,9 +8,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/mohit-lendmind/trace2mem/internal/domain"
-	"github.com/mohit-lendmind/trace2mem/internal/model"
-	"github.com/mohit-lendmind/trace2mem/internal/store"
+	"github.com/tanwargenairesearch/trace2mem/internal/domain"
+	"github.com/tanwargenairesearch/trace2mem/internal/model"
+	"github.com/tanwargenairesearch/trace2mem/internal/store"
 )
 
 func TestWikiJudgmentRequiresEveryPassageAndTemporalSupport(t *testing.T) {

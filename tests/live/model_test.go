@@ -2,9 +2,9 @@ package live
 
 import (
 	"context"
-	"github.com/mohit-lendmind/trace2mem/internal/config"
-	"github.com/mohit-lendmind/trace2mem/internal/domain"
-	"github.com/mohit-lendmind/trace2mem/internal/model"
+	"github.com/tanwargenairesearch/trace2mem/internal/config"
+	"github.com/tanwargenairesearch/trace2mem/internal/domain"
+	"github.com/tanwargenairesearch/trace2mem/internal/model"
 	"os"
 	"testing"
 	"time"

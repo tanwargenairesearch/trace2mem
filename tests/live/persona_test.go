@@ -14,14 +14,14 @@ import (
 	"time"
 
 	"connectrpc.com/connect"
-	v1 "github.com/mohit-lendmind/trace2mem/gen/trace2mem/v1"
-	"github.com/mohit-lendmind/trace2mem/internal/blob"
-	"github.com/mohit-lendmind/trace2mem/internal/config"
-	"github.com/mohit-lendmind/trace2mem/internal/domain"
-	"github.com/mohit-lendmind/trace2mem/internal/dream"
-	"github.com/mohit-lendmind/trace2mem/internal/server"
-	"github.com/mohit-lendmind/trace2mem/internal/store"
-	"github.com/mohit-lendmind/trace2mem/sdk"
+	v1 "github.com/tanwargenairesearch/trace2mem/gen/trace2mem/v1"
+	"github.com/tanwargenairesearch/trace2mem/internal/blob"
+	"github.com/tanwargenairesearch/trace2mem/internal/config"
+	"github.com/tanwargenairesearch/trace2mem/internal/domain"
+	"github.com/tanwargenairesearch/trace2mem/internal/dream"
+	"github.com/tanwargenairesearch/trace2mem/internal/server"
+	"github.com/tanwargenairesearch/trace2mem/internal/store"
+	"github.com/tanwargenairesearch/trace2mem/sdk"
 	"google.golang.org/protobuf/encoding/protojson"
 )
 

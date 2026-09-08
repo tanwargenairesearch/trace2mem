@@ -3,8 +3,8 @@ package main
 import (
 	"context"
 	"errors"
-	"github.com/mohit-lendmind/trace2mem/internal/app"
-	"github.com/mohit-lendmind/trace2mem/internal/dream"
+	"github.com/tanwargenairesearch/trace2mem/internal/app"
+	"github.com/tanwargenairesearch/trace2mem/internal/dream"
 	"log/slog"
 	"os"
 	"os/signal"

@@ -1985,7 +1985,7 @@ const file_trace2mem_v1_trace2mem_proto_rawDesc = "" +
 	"\x06Search\x12\x1b.trace2mem.v1.SearchRequest\x1a\x1c.trace2mem.v1.SearchResponse\x12R\n" +
 	"\vGetEvidence\x12 .trace2mem.v1.GetEvidenceRequest\x1a!.trace2mem.v1.GetEvidenceResponse\x12O\n" +
 	"\n" +
-	"GetContext\x12\x1f.trace2mem.v1.GetContextRequest\x1a .trace2mem.v1.GetContextResponseBBZ@github.com/mohit-lendmind/trace2mem/gen/trace2mem/v1;trace2memv1b\x06proto3"
+	"GetContext\x12\x1f.trace2mem.v1.GetContextRequest\x1a .trace2mem.v1.GetContextResponseBGZEgithub.com/tanwargenairesearch/trace2mem/gen/trace2mem/v1;trace2memv1b\x06proto3"
 
 var (
 	file_trace2mem_v1_trace2mem_proto_rawDescOnce sync.Once

@@ -3,8 +3,8 @@ package dream
 import (
 	"context"
 	"encoding/json"
-	"github.com/mohit-lendmind/trace2mem/internal/domain"
-	"github.com/mohit-lendmind/trace2mem/internal/store"
+	"github.com/tanwargenairesearch/trace2mem/internal/domain"
+	"github.com/tanwargenairesearch/trace2mem/internal/store"
 	"os"
 	"testing"
 )

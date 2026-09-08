@@ -34,7 +34,7 @@ Evaluation runs matched wiki/without-wiki cases, records revision/configuration/
 
 ## Rename from Brain to Trace2Mem
 
-This pre-release rename changes the Protobuf namespace to `trace2mem.v1`, Go imports to `github.com/mohit-lendmind/trace2mem`, CLI to `trace2mem`, configuration prefix to `TRACE2MEM_`, and browser cookie name. Regenerate clients and update environment variables; sign in again with the existing token.
+This pre-release rename changes the Protobuf namespace to `trace2mem.v1`, Go imports to `github.com/tanwargenairesearch/trace2mem`, CLI to `trace2mem`, configuration prefix to `TRACE2MEM_`, and browser cookie name. Regenerate clients and update environment variables; sign in again with the existing token.
 
 The per-user redesign preserves the old `brain_*` volumes as rollback data and uses fresh `trace2mem_user_*` development volumes. The previous private environment is backed up in ignored `.local/before-per-user.env`. Fresh installs use default Trace2Mem volume names. Do not delete old volumes or merge test histories automatically.
 

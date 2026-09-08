@@ -3,7 +3,7 @@ package model
 import (
 	"context"
 	"encoding/json"
-	"github.com/mohit-lendmind/trace2mem/internal/domain"
+	"github.com/tanwargenairesearch/trace2mem/internal/domain"
 	"net/http"
 	"net/http/httptest"
 	"testing"
