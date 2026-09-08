@@ -1,0 +1,16 @@
+{
+  "agent_sha256": "b126a91945dd2b5818d443124f70ed6d64adee022ded4316362ec259eda5f840",
+  "dataset_sha256": "92dc7ed6f2ebbb9103308f703b6e09bf3f7784593adc57cd2e69887f6b9edfab",
+  "manifest_sha256": {
+    "nadia": "490e0da3004e2fb9adc4a1b1928fb5d11eec189ab7272878af819dc50279cd3f",
+    "marco": "6ea612756143a2b1aa50402b0ee6cbc441341329488c1424398949909a0b631a",
+    "leena": "01cacb88d14a317b6b151b3a15862c43e7e78d10ec6036fa135f30e8f03f558a",
+    "owen": "58686200dd264c377d59a19feb861b892cb528c0548abe8c47db520d13e9a7a5"
+  },
+  "suite_sha256": {
+    "optional-development-suite.json": "0841e5b7d0ee1cd381ebb2de218f5d76a343bbc0970aee0d10c33204ba25e70b",
+    "optional-heldout-suite.json": "11c36bc1d563d169386629c958cedecd4999f9c55ec86e3d36a018722ad18ba4",
+    "controlled-heldout-suite.json": "86a9d7bd3f900d5c090202c25c0e70f53c24b5189415dfd0d5f96078f6f75956",
+    "controlled-development-suite.json": "63889f911884e5ebeed7ee90cb5377dcdac7ef7075e414334334b73e1475f71d"
+  }
+}
