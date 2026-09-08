@@ -3,7 +3,7 @@ package blob
 import (
 	"context"
 	"errors"
-	"github.com/trace2mem/trace2mem/internal/domain"
+	"github.com/mohit-lendmind/trace2mem/internal/domain"
 	"os"
 	"path/filepath"
 )

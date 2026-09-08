@@ -4,7 +4,7 @@ import (
 	"context"
 	"sync"
 
-	"github.com/trace2mem/trace2mem/internal/domain"
+	"github.com/mohit-lendmind/trace2mem/internal/domain"
 )
 
 type usageKey struct{}

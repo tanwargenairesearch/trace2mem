@@ -13,8 +13,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/trace2mem/trace2mem/internal/domain"
-	"github.com/trace2mem/trace2mem/internal/model"
+	"github.com/mohit-lendmind/trace2mem/internal/domain"
+	"github.com/mohit-lendmind/trace2mem/internal/model"
 )
 
 func TestConditionIsolation(t *testing.T) {

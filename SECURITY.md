@@ -1,6 +1,6 @@
 # Security reporting
 
-Do not use public issues for credentials, personal trajectories, or exploitable vulnerabilities. Use GitHub's private vulnerability reporting when enabled on the published repository; otherwise contact its maintainer privately before sending sensitive details. A public security contact must be configured before the first release.
+Do not use public issues for credentials, personal trajectories, or exploitable vulnerabilities. Report vulnerabilities through [GitHub private vulnerability reporting](https://github.com/mohit-lendmind/trace2mem/security/advisories/new). This channel is enabled for the public repository.
 
 Include the affected commit, deployment mode, impact, and a minimal synthetic reproduction. Never include a live bearer token or provider key. There is no supported stable release or guaranteed response SLA yet.
 

@@ -8,8 +8,8 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/trace2mem/trace2mem/internal/domain"
-	"github.com/trace2mem/trace2mem/internal/model"
+	"github.com/mohit-lendmind/trace2mem/internal/domain"
+	"github.com/mohit-lendmind/trace2mem/internal/model"
 )
 
 type reviewUnit struct {

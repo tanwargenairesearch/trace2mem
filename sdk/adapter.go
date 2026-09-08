@@ -5,7 +5,7 @@ import (
 	"bufio"
 	"context"
 	"fmt"
-	trace2memv1 "github.com/trace2mem/trace2mem/gen/trace2mem/v1"
+	trace2memv1 "github.com/mohit-lendmind/trace2mem/gen/trace2mem/v1"
 	"google.golang.org/protobuf/encoding/protojson"
 	"io"
 )

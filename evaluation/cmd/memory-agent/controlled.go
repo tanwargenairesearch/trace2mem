@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"strings"
 
-	"github.com/trace2mem/trace2mem/internal/model"
+	"github.com/mohit-lendmind/trace2mem/internal/model"
 )
 
 func controlledTool() model.Tool {

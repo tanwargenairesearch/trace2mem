@@ -4,7 +4,7 @@ import (
 	"context"
 	"errors"
 	"github.com/jackc/pgx/v5"
-	"github.com/trace2mem/trace2mem/internal/domain"
+	"github.com/mohit-lendmind/trace2mem/internal/domain"
 	"time"
 	_ "time/tzdata"
 )

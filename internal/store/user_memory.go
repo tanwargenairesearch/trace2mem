@@ -2,7 +2,7 @@ package store
 
 import (
 	"context"
-	"github.com/trace2mem/trace2mem/internal/domain"
+	"github.com/mohit-lendmind/trace2mem/internal/domain"
 )
 
 // EnsureMemory provisions the single memory owned by an authenticated identity.

@@ -2,7 +2,7 @@ package server
 
 import (
 	"encoding/base64"
-	"github.com/trace2mem/trace2mem/internal/config"
+	"github.com/mohit-lendmind/trace2mem/internal/config"
 	"net/http"
 	"net/http/httptest"
 	"strings"

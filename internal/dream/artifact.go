@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/trace2mem/trace2mem/internal/domain"
+	"github.com/mohit-lendmind/trace2mem/internal/domain"
 	"unicode/utf8"
 )
 

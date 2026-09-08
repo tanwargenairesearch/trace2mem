@@ -86,7 +86,7 @@ make terraform-check
 
 The deterministic provider requires `TRACE2MEM_ALLOW_SCRIPTED=true` and is a fixture, not an inference model. Real model tests are opt-in (`tests/live`) and require explicit generation and embedding models, endpoints, credentials, and budgets. They do not run in ordinary unit tests.
 
-Read [architecture](docs/ARCHITECTURE.md), [operations](docs/OPERATIONS.md), and [implementation/validation status](docs/IMPLEMENTATION.md). The Go module namespace `github.com/trace2mem/trace2mem` is a placeholder until a public repository owner is selected.
+Read [architecture](docs/ARCHITECTURE.md), [operations](docs/OPERATIONS.md), and [implementation/validation status](docs/IMPLEMENTATION.md). The Go module is `github.com/mohit-lendmind/trace2mem`.
 
 For a capability check using the same YAML: `TRACE2MEM_LIVE_CONFIG=/absolute/path/models.yaml make test-model`. This makes real provider calls; use your intended account and budget. Docker startup does not select or download a real model.
 

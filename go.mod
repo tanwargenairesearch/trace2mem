@@ -1,4 +1,4 @@
-module github.com/trace2mem/trace2mem
+module github.com/mohit-lendmind/trace2mem
 
 go 1.26.6
 

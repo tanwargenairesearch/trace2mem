@@ -3,7 +3,7 @@ package dream
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/trace2mem/trace2mem/internal/domain"
+	"github.com/mohit-lendmind/trace2mem/internal/domain"
 	"strings"
 )
 

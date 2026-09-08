@@ -1,7 +1,7 @@
 package dream
 
 import (
-	"github.com/trace2mem/trace2mem/internal/domain"
+	"github.com/mohit-lendmind/trace2mem/internal/domain"
 	"testing"
 )
 

@@ -5,7 +5,7 @@ import (
 	"context"
 	"encoding/json"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
-	trace2memv1 "github.com/trace2mem/trace2mem/gen/trace2mem/v1"
+	trace2memv1 "github.com/mohit-lendmind/trace2mem/gen/trace2mem/v1"
 	"net/http"
 )
 
