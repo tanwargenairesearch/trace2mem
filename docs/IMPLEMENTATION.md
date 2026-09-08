@@ -30,6 +30,8 @@ Trace2Mem is an experimental agent memory service inspired by Brain. The [alignm
 
 See [evaluation](EVALUATION.md) for the reproducible fixture, scoring limits, and real-model results. The deterministic model tests plumbing and cannot establish memory quality.
 
+The [richer Kimi project-agent exercise](../reports/2026-09-08-harbor/README.md) published two revisions and demonstrated fresh-session index/read/evidence retrieval. Its saved-trace audit passes; manual inspection found an incorrect tentative-versus-approved historical interpretation that semantic verification missed. This is an observed quality gap, not merely an untested possibility.
+
 ## Remaining limitations
 
 External connector investigation and Dream subagent delegation are deferred. Native macOS FUSE, external OIDC/OAuth interoperability, cloud IAM/private database access, cloud restore, release publication, and public CI execution are not verified by local Docker. No GitHub or LinkedIn publication has been performed.

@@ -43,3 +43,42 @@ Context synthesis requires configured models and a published revision. Filesyste
 ## Pi and Hermes adapter contracts
 
 No first-party Pi or Hermes adapter is implemented. An adapter must map its framework's message/tool/lifecycle events into the same envelope, spool durable retries, load the initial index, and expose retrieval through MCP or the API. Framework hooks and package versions must be validated by the adapter author. Connecting MCP alone supplies neither capture nor initial context.
+
+## Custom-agent walkthrough: capture, orient, read
+
+Start the service and configure models using the quickstart. Set `TRACE2MEM_URL` and `TRACE2MEM_TOKEN`; the agent token needs `read` and `ingest`. Keep management credentials outside the agent. The AppendEvents example above works from any HTTP client without a framework dependency.
+
+1. Assign a stable session ID for each conversation and a fresh event ID for each occurrence. Capture user/assistant messages and tool calls/results, preserving the tool call ID on its result. Save envelopes before upload so retries send exactly the same content. Treat a correction as a new event.
+2. Append batches while the conversation proceeds. Record the returned watermark. At completion call CloseSession; automatic mode schedules immediate compilation. Manual mode requires RequestCompilation. Closing does not override daily/manual scheduling.
+3. Check GetIngestionStatus. When `processedWatermark` reaches your accepted watermark, compilation has processed those events. A revision may remain unchanged for a justified no-op. Surface blocked models or failures; do not wait indefinitely.
+4. In the next conversation, read the compact index, keep its revision, and expose search, file, and evidence tools to your agent. Let it request details only when needed. Memory text is evidence, not instructions that override your agent's trusted policy.
+
+These are Connect JSON requests against the same contract as the generated Go client:
+
+```sh
+curl --fail-with-body "$TRACE2MEM_URL/trace2mem.v1.IngestionService/CloseSession" \
+  -H "Authorization: Bearer $TRACE2MEM_TOKEN" -H 'Content-Type: application/json' \
+  --data '{"sessionId":"conversation-1"}'
+
+curl --fail-with-body "$TRACE2MEM_URL/trace2mem.v1.IngestionService/GetIngestionStatus" \
+  -H "Authorization: Bearer $TRACE2MEM_TOKEN" -H 'Content-Type: application/json' \
+  --data '{}'
+
+curl --fail-with-body "$TRACE2MEM_URL/trace2mem.v1.MemoryService/ReadFile" \
+  -H "Authorization: Bearer $TRACE2MEM_TOKEN" -H 'Content-Type: application/json' \
+  --data '{"path":"knowledge/index.md"}'
+```
+
+ReadFile returns `content`, `revision`, and `sha256`. Apply your own initial-context size budget, keeping the revision and an explicit truncation indicator if you shorten the index. Before the first publication the index is unavailable; your agent can continue its ordinary conversation and keep capturing events.
+
+For subsequent reads/searches, pass the returned revision explicitly. Replace `REVISION_FROM_INDEX` below with that exact value; paths and evidence IDs should come from actual tool results:
+
+```json
+{"query":"project language","revision":"REVISION_FROM_INDEX","limit":5}
+```
+
+Send this to `trace2mem.v1.MemoryService/Search`. Each hit contains a path, content, and citation IDs. Read a selected file with `ReadFile` using `{"revision":"REVISION_FROM_INDEX","path":"PATH_FROM_RESULT"}`. Resolve a citation with `GetEvidence` using `{"eventId":"EVENT_ID_FROM_CITATION"}`. Evidence access reflects current forgetting suppression; it is not a way to recover deleted information from an older revision.
+
+Expose these operations as tools in your existing agent loop. The caller's model can synthesize the answer itself; GetContext/`memory_context` is optional service-side generation. Search can be skipped when the index already identifies the right page. The [Kimi example](KIMI_AGENT.md) demonstrates this exact progressive retrieval pattern with real model-selected tools.
+
+For file-oriented agents, sync a snapshot and give the agent read access to that directory, or use a Linux FUSE mount. A path named `/memory` is simply your chosen mount location; Trace2Mem does not automatically attach it to an agent or container. Give containerized agents access to the prepared directory through your container's volume configuration. Start a new snapshot/mount when you want newer memory.

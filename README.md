@@ -1,8 +1,39 @@
 # Trace2Mem
 
-An experimental, self-hosted Go agent memory service inspired by Brain. It maintains one memory per authenticated user. It turns agent events into cited notes and a Markdown knowledge wiki. Apache-2.0. This repository is an implementation under validation, not a production release or a claim of memory-quality gains. A small real-model [evaluation](docs/EVALUATION.md) passed in both wiki-enabled and wiki-disabled conditions; it did not establish an advantage.
+**Persistent, cited memory for your agents, across conversations.** Trace2Mem is an experimental, self-hosted Go service inspired by Brain, licensed under Apache-2.0.
 
-Start with the [Docker quickstart](docs/QUICKSTART.md), [agent integration guide](docs/INTEGRATION.md), [live Kimi tool-agent exercise](docs/KIMI_AGENT.md), [Brain alignment](docs/BRAIN_ALIGNMENT.md), and [validation status](docs/IMPLEMENTATION.md).
+## Why it exists
+
+A new agent conversation often starts without the decisions, preferences, corrections, and tool observations from earlier conversations. Sending the entire history again consumes context and makes it harder to find what is current and why it is believed.
+
+Trace2Mem accepts those events, preserves the originals, and maintains session summaries, observations, and a linked Markdown knowledge wiki. Your agent starts with a small index and reads relevant pages and evidence as needed. One authenticated user has one memory shared across their agents.
+
+## How it works
+
+```mermaid
+flowchart LR
+  Agent[Your agent] -->|trajectory events| API[Trace2Mem API]
+  API --> Store[PostgreSQL + blob storage]
+  Store --> Dream[Background Dream worker]
+  Dream --> Wiki[Sessions · notes · knowledge wiki]
+  Wiki -->|MCP · API · files| Agent
+```
+
+Capture and retrieval are separate integrations. An adapter sends events during a conversation or imports them later. Dream investigates accumulated evidence, stages an update, verifies it, and publishes a revision. Your agent retrieves from that revision; new events become available after compilation. Connecting MCP alone does not capture conversations or insert initial context.
+
+## Choose your starting point
+
+| You want to… | Start here |
+|---|---|
+| Run the service and configure models | [Docker quickstart](docs/QUICKSTART.md) |
+| Connect a custom agent in any language | [Capture and retrieval walkthrough](docs/INTEGRATION.md) |
+| Capture LangChain conversations | [Python reference integration](integrations/langchain/README.md) |
+| See a real model learn and recall | [Kimi exercise](docs/KIMI_AGENT.md) and [recorded results](reports/2026-09-08-harbor/README.md) |
+| Understand the design or contribute | [Architecture](docs/ARCHITECTURE.md), [contributing](CONTRIBUTING.md), and [documentation index](docs/README.md) |
+
+Use Trace2Mem when you control your agent's event capture and want self-hosted, inspectable memory. It does not replace your agent harness. Pi/Hermes adapters are not yet implemented; the framework-neutral API is available. Linux FUSE is optional—MCP, HTTP, and ordinary directories also work.
+
+**Status:** locally validated experimental MVP, not a production release. A small [paired evaluation](docs/EVALUATION.md) did not establish an advantage over the baseline. The richer Kimi exercise recalled corrected requirements but exposed a historical interpretation error. See [implemented guarantees and limitations](docs/IMPLEMENTATION.md); no Brain-equivalent quality, speed, or cost claim is made.
 
 ## Local Docker
 
