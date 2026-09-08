@@ -1,0 +1,28 @@
+{
+  "event": {
+    "eventId": "nadia-003",
+    "sessionId": "nadia-session-1",
+    "occurredAt": "2026-09-01T12:00:03Z",
+    "sequence": "3",
+    "actor": {
+      "role": "user",
+      "agentId": "synthetic-history-author"
+    },
+    "source": {
+      "id": "persona-nadia-v1",
+      "format": "authored-synthetic",
+      "version": "1"
+    },
+    "message": {
+      "text": "Unrelated: I enjoyed a documentary about ocean currents yesterday. That does not change this project's scope."
+    }
+  },
+  "excerpt": {
+    "id": "nadia-003",
+    "session": "nadia-session-1",
+    "role": "user",
+    "text": "Unrelated: I enjoyed a documentary about ocean currents yesterday. That does not change this project's scope.",
+    "occurred": "2026-09-01T12:00:03Z",
+    "sequence": 3
+  }
+}

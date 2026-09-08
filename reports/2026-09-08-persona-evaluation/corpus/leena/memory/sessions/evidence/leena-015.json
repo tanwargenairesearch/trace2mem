@@ -1,0 +1,28 @@
+{
+  "event": {
+    "eventId": "leena-015",
+    "sessionId": "leena-session-5",
+    "occurredAt": "2026-09-05T12:00:15Z",
+    "sequence": "15",
+    "actor": {
+      "role": "user",
+      "agentId": "synthetic-history-author"
+    },
+    "source": {
+      "id": "persona-leena-v1",
+      "format": "authored-synthetic",
+      "version": "1"
+    },
+    "message": {
+      "text": "No, keep the document preferences I originally gave. I have not approved the Oulu addition."
+    }
+  },
+  "excerpt": {
+    "id": "leena-015",
+    "session": "leena-session-5",
+    "role": "user",
+    "text": "No, keep the document preferences I originally gave. I have not approved the Oulu addition.",
+    "occurred": "2026-09-05T12:00:15Z",
+    "sequence": 15
+  }
+}

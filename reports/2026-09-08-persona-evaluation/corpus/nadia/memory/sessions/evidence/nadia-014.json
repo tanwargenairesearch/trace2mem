@@ -1,0 +1,28 @@
+{
+  "event": {
+    "eventId": "nadia-014",
+    "sessionId": "nadia-session-5",
+    "occurredAt": "2026-09-05T12:00:14Z",
+    "sequence": "14",
+    "actor": {
+      "role": "assistant",
+      "agentId": "synthetic-history-author"
+    },
+    "source": {
+      "id": "persona-nadia-v1",
+      "format": "authored-synthetic",
+      "version": "1"
+    },
+    "message": {
+      "text": "I could switch the briefing to PNG and add Osaka; these are unapproved suggestions."
+    }
+  },
+  "excerpt": {
+    "id": "nadia-014",
+    "session": "nadia-session-5",
+    "role": "assistant",
+    "text": "I could switch the briefing to PNG and add Osaka; these are unapproved suggestions.",
+    "occurred": "2026-09-05T12:00:14Z",
+    "sequence": 14
+  }
+}

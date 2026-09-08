@@ -1,0 +1,28 @@
+{
+  "event": {
+    "eventId": "nadia-007",
+    "sessionId": "nadia-session-3",
+    "occurredAt": "2026-09-03T12:00:07Z",
+    "sequence": "7",
+    "actor": {
+      "role": "user",
+      "agentId": "synthetic-history-author"
+    },
+    "source": {
+      "id": "persona-nadia-v1",
+      "format": "authored-synthetic",
+      "version": "1"
+    },
+    "message": {
+      "text": "A second confirmed organization is Maple Mobility in Sendai. We have not agreed its date yet."
+    }
+  },
+  "excerpt": {
+    "id": "nadia-007",
+    "session": "nadia-session-3",
+    "role": "user",
+    "text": "A second confirmed organization is Maple Mobility in Sendai. We have not agreed its date yet.",
+    "occurred": "2026-09-03T12:00:07Z",
+    "sequence": 7
+  }
+}

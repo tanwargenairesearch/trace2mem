@@ -1,0 +1,28 @@
+{
+  "event": {
+    "eventId": "leena-001",
+    "sessionId": "leena-session-1",
+    "occurredAt": "2026-09-01T12:00:01Z",
+    "sequence": "1",
+    "actor": {
+      "role": "user",
+      "agentId": "synthetic-history-author"
+    },
+    "source": {
+      "id": "persona-leena-v1",
+      "format": "authored-synthetic",
+      "version": "1"
+    },
+    "message": {
+      "text": "I am organizing my museum conservation study. For materials you prepare for me, use DOCX, high contrast, and Finnish. Treat these as my default preferences."
+    }
+  },
+  "excerpt": {
+    "id": "leena-001",
+    "session": "leena-session-1",
+    "role": "user",
+    "text": "I am organizing my museum conservation study. For materials you prepare for me, use DOCX, high contrast, and Finnish. Treat these as my default preferences.",
+    "occurred": "2026-09-01T12:00:01Z",
+    "sequence": 1
+  }
+}

@@ -1,0 +1,600 @@
+{
+  "selection": {
+    "selected": "controlled",
+    "protocol": "controlled_v1",
+    "scores": {
+      "optional": {
+        "successes": 14,
+        "errors": 8,
+        "tokens": 155730,
+        "missing_usage": 0
+      },
+      "controlled": {
+        "successes": 21,
+        "errors": 9,
+        "tokens": 525496,
+        "missing_usage": 3
+      }
+    },
+    "development_reports": {
+      "optional": {
+        "file": "optional-development.json",
+        "sha256": "b0b2bf39a0800c657793cb456088783d934d833e747d041c8e6c77910b7eaed8"
+      },
+      "controlled": {
+        "file": "controlled-development.json",
+        "sha256": "2ed454cdd2b24b174b626218370b9f9dd8778da4006ca902df73193cedaeb954"
+      }
+    }
+  },
+  "metrics": {
+    "optional": {
+      "existing_memory": {
+        "attempts": 16,
+        "successes": 15,
+        "checks": 40,
+        "passed_checks": 38,
+        "errors": {},
+        "no_file_read_trials": null,
+        "gold_source_coverage": null,
+        "gold_citation_agreement": 1.0,
+        "accounted_tokens": 33916,
+        "missing_usage_trials": 0,
+        "unresolved_usage_trials": 0,
+        "median_latency_seconds": 3.019,
+        "incomplete_latency_trials": 0,
+        "families": {
+          "preferences": {
+            "attempts": 2,
+            "successes": 2
+          },
+          "currentness": {
+            "attempts": 2,
+            "successes": 2
+          },
+          "temporal": {
+            "attempts": 2,
+            "successes": 2
+          },
+          "cross_session": {
+            "attempts": 4,
+            "successes": 3
+          },
+          "authority": {
+            "attempts": 2,
+            "successes": 2
+          },
+          "unknown": {
+            "attempts": 2,
+            "successes": 2
+          },
+          "single_fact": {
+            "attempts": 2,
+            "successes": 2
+          }
+        }
+      },
+      "notes_sessions": {
+        "attempts": 16,
+        "successes": 5,
+        "checks": 40,
+        "passed_checks": 11,
+        "errors": {
+          "invalid_artifact": 5
+        },
+        "no_file_read_trials": 8,
+        "gold_source_coverage": 0.45,
+        "gold_citation_agreement": 0.175,
+        "accounted_tokens": 76954,
+        "missing_usage_trials": 0,
+        "unresolved_usage_trials": 0,
+        "median_latency_seconds": 8.2665,
+        "incomplete_latency_trials": 0,
+        "families": {
+          "preferences": {
+            "attempts": 2,
+            "successes": 0
+          },
+          "currentness": {
+            "attempts": 2,
+            "successes": 0
+          },
+          "temporal": {
+            "attempts": 2,
+            "successes": 0
+          },
+          "cross_session": {
+            "attempts": 4,
+            "successes": 1
+          },
+          "authority": {
+            "attempts": 2,
+            "successes": 1
+          },
+          "unknown": {
+            "attempts": 2,
+            "successes": 2
+          },
+          "single_fact": {
+            "attempts": 2,
+            "successes": 1
+          }
+        }
+      },
+      "trace2mem": {
+        "attempts": 16,
+        "successes": 9,
+        "checks": 40,
+        "passed_checks": 22,
+        "errors": {
+          "invalid_artifact": 3
+        },
+        "no_file_read_trials": 6,
+        "gold_source_coverage": 0.55,
+        "gold_citation_agreement": 0.45,
+        "accounted_tokens": 78776,
+        "missing_usage_trials": 0,
+        "unresolved_usage_trials": 0,
+        "median_latency_seconds": 11.3555,
+        "incomplete_latency_trials": 0,
+        "families": {
+          "preferences": {
+            "attempts": 2,
+            "successes": 0
+          },
+          "currentness": {
+            "attempts": 2,
+            "successes": 1
+          },
+          "temporal": {
+            "attempts": 2,
+            "successes": 2
+          },
+          "cross_session": {
+            "attempts": 4,
+            "successes": 2
+          },
+          "authority": {
+            "attempts": 2,
+            "successes": 1
+          },
+          "unknown": {
+            "attempts": 2,
+            "successes": 2
+          },
+          "single_fact": {
+            "attempts": 2,
+            "successes": 1
+          }
+        }
+      }
+    },
+    "controlled": {
+      "existing_memory": {
+        "attempts": 16,
+        "successes": 13,
+        "checks": 40,
+        "passed_checks": 30,
+        "errors": {
+          "provider_failure": 2
+        },
+        "no_file_read_trials": null,
+        "gold_source_coverage": null,
+        "gold_citation_agreement": 0.8,
+        "accounted_tokens": 95941,
+        "missing_usage_trials": 0,
+        "unresolved_usage_trials": 1,
+        "median_latency_seconds": 12.845,
+        "incomplete_latency_trials": 0,
+        "families": {
+          "preferences": {
+            "attempts": 2,
+            "successes": 2
+          },
+          "currentness": {
+            "attempts": 2,
+            "successes": 2
+          },
+          "temporal": {
+            "attempts": 2,
+            "successes": 2
+          },
+          "cross_session": {
+            "attempts": 4,
+            "successes": 1
+          },
+          "authority": {
+            "attempts": 2,
+            "successes": 2
+          },
+          "unknown": {
+            "attempts": 2,
+            "successes": 2
+          },
+          "single_fact": {
+            "attempts": 2,
+            "successes": 2
+          }
+        }
+      },
+      "notes_sessions": {
+        "attempts": 16,
+        "successes": 10,
+        "checks": 40,
+        "passed_checks": 19,
+        "errors": {
+          "step_budget": 1,
+          "provider_failure": 5
+        },
+        "no_file_read_trials": 1,
+        "gold_source_coverage": 0.7,
+        "gold_citation_agreement": 0.475,
+        "accounted_tokens": 277463,
+        "missing_usage_trials": 0,
+        "unresolved_usage_trials": 3,
+        "median_latency_seconds": 35.015,
+        "incomplete_latency_trials": 0,
+        "families": {
+          "preferences": {
+            "attempts": 2,
+            "successes": 1
+          },
+          "currentness": {
+            "attempts": 2,
+            "successes": 2
+          },
+          "temporal": {
+            "attempts": 2,
+            "successes": 2
+          },
+          "cross_session": {
+            "attempts": 4,
+            "successes": 0
+          },
+          "authority": {
+            "attempts": 2,
+            "successes": 1
+          },
+          "unknown": {
+            "attempts": 2,
+            "successes": 2
+          },
+          "single_fact": {
+            "attempts": 2,
+            "successes": 2
+          }
+        }
+      },
+      "trace2mem": {
+        "attempts": 16,
+        "successes": 11,
+        "checks": 40,
+        "passed_checks": 29,
+        "errors": {
+          "step_budget": 2,
+          "provider_failure": 1
+        },
+        "no_file_read_trials": 1,
+        "gold_source_coverage": 0.95,
+        "gold_citation_agreement": 0.775,
+        "accounted_tokens": 248033,
+        "missing_usage_trials": 0,
+        "unresolved_usage_trials": 0,
+        "median_latency_seconds": 21.4015,
+        "incomplete_latency_trials": 0,
+        "families": {
+          "preferences": {
+            "attempts": 2,
+            "successes": 1
+          },
+          "currentness": {
+            "attempts": 2,
+            "successes": 2
+          },
+          "temporal": {
+            "attempts": 2,
+            "successes": 1
+          },
+          "cross_session": {
+            "attempts": 4,
+            "successes": 2
+          },
+          "authority": {
+            "attempts": 2,
+            "successes": 2
+          },
+          "unknown": {
+            "attempts": 2,
+            "successes": 1
+          },
+          "single_fact": {
+            "attempts": 2,
+            "successes": 2
+          }
+        }
+      }
+    },
+    "heldout": {
+      "existing_memory": {
+        "attempts": 32,
+        "successes": 23,
+        "checks": 80,
+        "passed_checks": 60,
+        "errors": {
+          "provider_failure": 5,
+          "step_budget": 1
+        },
+        "no_file_read_trials": null,
+        "gold_source_coverage": null,
+        "gold_citation_agreement": 0.8125,
+        "accounted_tokens": 277483,
+        "missing_usage_trials": 0,
+        "unresolved_usage_trials": 0,
+        "median_latency_seconds": 17.847,
+        "incomplete_latency_trials": 0,
+        "families": {
+          "preferences": {
+            "attempts": 4,
+            "successes": 3
+          },
+          "currentness": {
+            "attempts": 4,
+            "successes": 3
+          },
+          "temporal": {
+            "attempts": 4,
+            "successes": 4
+          },
+          "cross_session": {
+            "attempts": 8,
+            "successes": 3
+          },
+          "authority": {
+            "attempts": 4,
+            "successes": 3
+          },
+          "unknown": {
+            "attempts": 4,
+            "successes": 4
+          },
+          "single_fact": {
+            "attempts": 4,
+            "successes": 3
+          }
+        }
+      },
+      "notes_sessions": {
+        "attempts": 32,
+        "successes": 26,
+        "checks": 80,
+        "passed_checks": 65,
+        "errors": {
+          "provider_failure": 2,
+          "step_budget": 1,
+          "token_budget": 2
+        },
+        "no_file_read_trials": 2,
+        "gold_source_coverage": 0.95,
+        "gold_citation_agreement": 0.8125,
+        "accounted_tokens": 504726,
+        "missing_usage_trials": 0,
+        "unresolved_usage_trials": 0,
+        "median_latency_seconds": 19.834,
+        "incomplete_latency_trials": 0,
+        "families": {
+          "preferences": {
+            "attempts": 4,
+            "successes": 3
+          },
+          "currentness": {
+            "attempts": 4,
+            "successes": 4
+          },
+          "temporal": {
+            "attempts": 4,
+            "successes": 3
+          },
+          "cross_session": {
+            "attempts": 8,
+            "successes": 6
+          },
+          "authority": {
+            "attempts": 4,
+            "successes": 4
+          },
+          "unknown": {
+            "attempts": 4,
+            "successes": 3
+          },
+          "single_fact": {
+            "attempts": 4,
+            "successes": 3
+          }
+        }
+      },
+      "trace2mem": {
+        "attempts": 32,
+        "successes": 27,
+        "checks": 80,
+        "passed_checks": 67,
+        "errors": {
+          "provider_failure": 3,
+          "step_budget": 1
+        },
+        "no_file_read_trials": 2,
+        "gold_source_coverage": 0.875,
+        "gold_citation_agreement": 0.85,
+        "accounted_tokens": 380018,
+        "missing_usage_trials": 0,
+        "unresolved_usage_trials": 0,
+        "median_latency_seconds": 14.9555,
+        "incomplete_latency_trials": 0,
+        "families": {
+          "preferences": {
+            "attempts": 4,
+            "successes": 4
+          },
+          "currentness": {
+            "attempts": 4,
+            "successes": 4
+          },
+          "temporal": {
+            "attempts": 4,
+            "successes": 3
+          },
+          "cross_session": {
+            "attempts": 8,
+            "successes": 6
+          },
+          "authority": {
+            "attempts": 4,
+            "successes": 3
+          },
+          "unknown": {
+            "attempts": 4,
+            "successes": 3
+          },
+          "single_fact": {
+            "attempts": 4,
+            "successes": 4
+          }
+        }
+      }
+    }
+  },
+  "compilation": [
+    {
+      "daily_tokens": 500000,
+      "elapsed_ms": 274613,
+      "embedding_model": "gemini-embedding-001",
+      "history_id": "leena",
+      "maintenance_prompt": "Maintain concise user memory across all supplied sessions: preferences, confirmed plans, changes, ownership, unapproved suggestions and explicit unknowns. Propose at most 14 concise observations. Preserve original actor attribution, temporal status and exact source citations. Raw conversations remain accessible.",
+      "max_steps": 12,
+      "max_tokens": 96000,
+      "model": "moonshotai/kimi-k3",
+      "published": true,
+      "revision": "febb098e63b486f2476ed22394381cc6",
+      "usage": [
+        {
+          "estimated": true,
+          "operation": "compilation/embedding",
+          "input_tokens": 69796,
+          "output_tokens": 0
+        },
+        {
+          "estimated": false,
+          "operation": "compilation/generation",
+          "input_tokens": 25111,
+          "output_tokens": 11092
+        }
+      ],
+      "watermark": 54,
+      "attempt": "snapshots"
+    },
+    {
+      "daily_tokens": 500000,
+      "elapsed_ms": 254861,
+      "embedding_model": "gemini-embedding-001",
+      "history_id": "marco",
+      "maintenance_prompt": "Maintain concise user memory across all supplied sessions: preferences, confirmed plans, changes, ownership, unapproved suggestions and explicit unknowns. Propose at most 14 concise observations. Preserve original actor attribution, temporal status and exact source citations. Raw conversations remain accessible.",
+      "max_steps": 12,
+      "max_tokens": 96000,
+      "model": "moonshotai/kimi-k3",
+      "published": true,
+      "revision": "22e5cd484db4706806c4e890544c5135",
+      "usage": [
+        {
+          "estimated": true,
+          "operation": "compilation/embedding",
+          "input_tokens": 62148,
+          "output_tokens": 0
+        },
+        {
+          "estimated": false,
+          "operation": "compilation/generation",
+          "input_tokens": 19198,
+          "output_tokens": 7569
+        }
+      ],
+      "watermark": 36,
+      "attempt": "snapshots"
+    },
+    {
+      "daily_tokens": 500000,
+      "elapsed_ms": 184255,
+      "embedding_model": "gemini-embedding-001",
+      "error": "verification cites unavailable source",
+      "history_id": "nadia",
+      "maintenance_prompt": "Maintain concise user memory across all supplied sessions: preferences, confirmed plans, changes, ownership, unapproved suggestions and explicit unknowns. Propose at most 14 concise observations. Preserve original actor attribution, temporal status and exact source citations. Raw conversations remain accessible.",
+      "max_steps": 12,
+      "max_tokens": 96000,
+      "model": "moonshotai/kimi-k3",
+      "published": false,
+      "usage": [
+        {
+          "estimated": false,
+          "operation": "compilation/generation",
+          "input_tokens": 19283,
+          "output_tokens": 8787
+        }
+      ],
+      "attempt": "snapshots"
+    },
+    {
+      "daily_tokens": 500000,
+      "elapsed_ms": 300140,
+      "embedding_model": "gemini-embedding-001",
+      "history_id": "owen",
+      "maintenance_prompt": "Maintain concise user memory across all supplied sessions: preferences, confirmed plans, changes, ownership, unapproved suggestions and explicit unknowns. Propose at most 14 concise observations. Preserve original actor attribution, temporal status and exact source citations. Raw conversations remain accessible.",
+      "max_steps": 12,
+      "max_tokens": 96000,
+      "model": "moonshotai/kimi-k3",
+      "published": true,
+      "revision": "dc4ad89c23d47277ebed839223df9d4f",
+      "usage": [
+        {
+          "estimated": true,
+          "operation": "compilation/embedding",
+          "input_tokens": 64028,
+          "output_tokens": 0
+        },
+        {
+          "estimated": false,
+          "operation": "compilation/generation",
+          "input_tokens": 23011,
+          "output_tokens": 10399
+        }
+      ],
+      "watermark": 72,
+      "attempt": "snapshots"
+    },
+    {
+      "daily_tokens": 500000,
+      "elapsed_ms": 201663,
+      "embedding_model": "gemini-embedding-001",
+      "history_id": "nadia",
+      "maintenance_prompt": "Maintain concise user memory across all supplied sessions: preferences, confirmed plans, changes, ownership, unapproved suggestions and explicit unknowns. Propose at most 14 concise observations. Preserve original actor attribution, temporal status and exact source citations. Raw conversations remain accessible.",
+      "max_steps": 12,
+      "max_tokens": 96000,
+      "model": "moonshotai/kimi-k3",
+      "published": true,
+      "revision": "0f03c39fb5e4133975dd7e79dc7967c7",
+      "usage": [
+        {
+          "estimated": true,
+          "operation": "compilation/embedding",
+          "input_tokens": 56167,
+          "output_tokens": 0
+        },
+        {
+          "estimated": false,
+          "operation": "compilation/generation",
+          "input_tokens": 19365,
+          "output_tokens": 6562
+        }
+      ],
+      "watermark": 18,
+      "attempt": "repair"
+    }
+  ]
+}

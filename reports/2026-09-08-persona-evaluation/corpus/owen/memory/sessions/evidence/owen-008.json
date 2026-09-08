@@ -1,0 +1,28 @@
+{
+  "event": {
+    "eventId": "owen-008",
+    "sessionId": "owen-session-3",
+    "occurredAt": "2026-09-03T12:00:08Z",
+    "sequence": "8",
+    "actor": {
+      "role": "user",
+      "agentId": "synthetic-history-author"
+    },
+    "source": {
+      "id": "persona-owen-v1",
+      "format": "authored-synthetic",
+      "version": "1"
+    },
+    "message": {
+      "text": "Asha owns coordinating the first visit; I will coordinate the second visit myself."
+    }
+  },
+  "excerpt": {
+    "id": "owen-008",
+    "session": "owen-session-3",
+    "role": "user",
+    "text": "Asha owns coordinating the first visit; I will coordinate the second visit myself.",
+    "occurred": "2026-09-03T12:00:08Z",
+    "sequence": 8
+  }
+}

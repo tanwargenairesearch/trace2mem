@@ -1,0 +1,20 @@
+{
+  "daily_tokens": 500000,
+  "elapsed_ms": 184255,
+  "embedding_model": "gemini-embedding-001",
+  "error": "verification cites unavailable source",
+  "history_id": "nadia",
+  "maintenance_prompt": "Maintain concise user memory across all supplied sessions: preferences, confirmed plans, changes, ownership, unapproved suggestions and explicit unknowns. Propose at most 14 concise observations. Preserve original actor attribution, temporal status and exact source citations. Raw conversations remain accessible.",
+  "max_steps": 12,
+  "max_tokens": 96000,
+  "model": "moonshotai/kimi-k3",
+  "published": false,
+  "usage": [
+    {
+      "estimated": false,
+      "operation": "compilation/generation",
+      "input_tokens": 19283,
+      "output_tokens": 8787
+    }
+  ]
+}

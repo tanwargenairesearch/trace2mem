@@ -1,0 +1,28 @@
+{
+  "event": {
+    "eventId": "owen-001",
+    "sessionId": "owen-session-1",
+    "occurredAt": "2026-09-01T12:00:01Z",
+    "sequence": "1",
+    "actor": {
+      "role": "user",
+      "agentId": "synthetic-history-author"
+    },
+    "source": {
+      "id": "persona-owen-v1",
+      "format": "authored-synthetic",
+      "version": "1"
+    },
+    "message": {
+      "text": "I am organizing my volunteer training tour. For materials you prepare for me, use HTML, large text, and Irish. Treat these as my default preferences."
+    }
+  },
+  "excerpt": {
+    "id": "owen-001",
+    "session": "owen-session-1",
+    "role": "user",
+    "text": "I am organizing my volunteer training tour. For materials you prepare for me, use HTML, large text, and Irish. Treat these as my default preferences.",
+    "occurred": "2026-09-01T12:00:01Z",
+    "sequence": 1
+  }
+}

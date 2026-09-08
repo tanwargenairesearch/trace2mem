@@ -1,0 +1,28 @@
+{
+  "event": {
+    "eventId": "leena-011",
+    "sessionId": "leena-session-4",
+    "occurredAt": "2026-09-04T12:00:11Z",
+    "sequence": "11",
+    "actor": {
+      "role": "assistant",
+      "agentId": "synthetic-history-author"
+    },
+    "source": {
+      "id": "persona-leena-v1",
+      "format": "authored-synthetic",
+      "version": "1"
+    },
+    "message": {
+      "text": "Historical recap only: the first visit used to be on 2027-02-09. That is not the current date."
+    }
+  },
+  "excerpt": {
+    "id": "leena-011",
+    "session": "leena-session-4",
+    "role": "assistant",
+    "text": "Historical recap only: the first visit used to be on 2027-02-09. That is not the current date.",
+    "occurred": "2026-09-04T12:00:11Z",
+    "sequence": 11
+  }
+}

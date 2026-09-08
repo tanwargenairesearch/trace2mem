@@ -74,7 +74,7 @@ These three iterations are a small reproducible baseline, not a statistically ro
 
 ## Next evaluation scope
 
-The [outcome measurement plan](OUTCOMES.md) separates external-agent integration gains from the wiki-only ablation, with matched baselines, task-level checks, and complete cost accounting. It is proposed work; its trial counts and metrics are not additional measured results.
+The [outcome measurement plan](OUTCOMES.md) separates external-agent integration gains from the wiki-only ablation, with matched baselines, task-level checks, and complete cost accounting. The broader deliverable/long-history/multi-harness experiments remain proposed work. The narrower completed user-history pilot is recorded below.
 
 ## Implemented repeated comparisons
 
@@ -82,7 +82,7 @@ The [outcome measurement plan](OUTCOMES.md) separates external-agent integration
 
 Expected facts additionally support `status_pattern` and `attribution_pattern`, required on the same answer line as a supporting citation when supplied. Optional `forbid_negation:true` conservatively rejects English negation words on that assertion line. This can reject correct sentences containing unrelated negation; use precise case-specific rubrics and structured task artifacts. These are lexical controls, not a semantic correctness guarantee.
 
-The [external-agent runner](../evaluation/README.md) implements three-condition process orchestration and exact structured-artifact checks. Its tests are deterministic. The small live Harbor pilot below now records matched directory-agent outcomes. Independent-history generalization, semantic citation judgments and a positive quality/cost benefit remain unestablished.
+The [external-agent runner](../evaluation/README.md) implements three-condition process orchestration and exact structured-artifact checks. Its tests are deterministic. The small live Harbor pilot below now records matched directory-agent outcomes. Broad generalization and independently assessed semantic/cost gains remain unestablished; the subsequent persona pilot below records a narrow positive task-score comparison.
 
 
 ## Memory-dependent agent pilot — 2026-09-08
@@ -90,3 +90,20 @@ The [external-agent runner](../evaluation/README.md) implements three-condition 
 The [Harbor comparison report](../reports/2026-09-08-harbor-comparison/README.md) adds six structured tasks × three memory conditions × two repeats. The full-history baseline passed 11/12 tasks, notes/sessions 3/12, and full wiki 0/12. Expected fields and configuration were committed before calls. In 10/12 wiki trials the agent did not invoke a memory tool; malformed outputs and one conservative-budget failure also occurred. This is an unfavorable consuming-agent result, not a claim that the wiki's content is worse when retrieved. No positive quality/cost delta is established.
 
 The 240,454 reported foreground tokens cover all 36 trials; compilation of the reused snapshot is additional historical work. No new embedding or Dream calls occurred. The report includes tables, a chart, artifacts, traces and specific scoring/accounting limits. The [protocol](../evaluation/harbor/README.md) uses an explicit Kimi model and hash-verified directory snapshot, not live service search, and is a development pilot over one known history. New independent histories and a reliable retrieval/finalization protocol are needed before generalizing.
+
+
+## User-history dataset and RCA hill-climb — 2026-09-08
+
+The [dataset](../evaluation/personas/README.md) has four authored synthetic users, six conversations and 18 message events per user, and eight questions per user. Real Kimi/Vertex Dream compilation produced all four memories; the failed initial Nadia attempt and schema-repair retry are retained. This compiles the six conversations as one batch, not an incremental freshness test.
+
+Two development candidates completed 48 trials each. Requiring explicit actions, memory reads and structured answer submission improved combined notes/wiki task success from 14/32 to 21/32. Selection was committed before the selected candidate ran 96 held-out trials over two other users.
+
+| Held-out condition | Exact tasks | Foreground tokens | Median latency |
+|---|---:|---:|---:|
+| Full history | 23/32 | 277,483 | 17.85 s |
+| Notes + sessions | 26/32 | 504,726 | 19.83 s |
+| Full wiki | 27/32 | 380,018 | 14.96 s |
+
+Full wiki was +3.1 percentage points and used 24.7% fewer foreground tokens than notes/sessions; versus full history it was +12.5 points and used 37% more tokens. The one-task wiki/notes gap corresponds to one fewer execution failure. All five non-execution failures across conditions were punctuation or additional-detail mismatches. Exact-value task scores are separate from gold-citation agreement; no semantic improvement or monetary saving is established.
+
+All 192 foreground trials accounted for 1,973,310 tokens, plus 402,516 compilation tokens including estimated embeddings and the failed attempt. The shared-template pilot has only two held-out personas, no independent semantic judge and no second harness. The [report and chart](../reports/2026-09-08-persona-evaluation/README.md), [RCA](../reports/2026-09-08-persona-evaluation/RCA.md), frozen suites, generated memories and shared traces retain the complete evidence. `evaluation/persona_verify.py` recomputes artifact scores and metrics offline; it does not prove inference execution or billing.

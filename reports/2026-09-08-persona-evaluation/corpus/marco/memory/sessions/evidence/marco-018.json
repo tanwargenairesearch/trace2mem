@@ -1,0 +1,28 @@
+{
+  "event": {
+    "eventId": "marco-018",
+    "sessionId": "marco-session-6",
+    "occurredAt": "2026-09-06T12:00:18Z",
+    "sequence": "18",
+    "actor": {
+      "role": "assistant",
+      "agentId": "synthetic-history-author"
+    },
+    "source": {
+      "id": "persona-marco-v1",
+      "format": "authored-synthetic",
+      "version": "1"
+    },
+    "message": {
+      "text": "I understand: maintain current decisions and say when details have not been established."
+    }
+  },
+  "excerpt": {
+    "id": "marco-018",
+    "session": "marco-session-6",
+    "role": "assistant",
+    "text": "I understand: maintain current decisions and say when details have not been established.",
+    "occurred": "2026-09-06T12:00:18Z",
+    "sequence": 18
+  }
+}

@@ -15,11 +15,17 @@ Trace2Mem's intended benefit is that an agent can complete later work using rele
 
 The last comparison covers four question/revision pairs, one sample each, and includes estimated embedding tokens. It is not a general overhead estimate. Source artifacts and limitations are in [Evaluation](EVALUATION.md) and the [Harbor report](../reports/2026-09-08-harbor/README.md). Compilation cost is additional. Harbor usage excludes original planning generation and earlier failed attempts, so do not publish it as total experiment cost.
 
-## Latest memory-dependent task pilot
+## Earlier Harbor task pilot
 
 The [36-trial Harbor comparison](../reports/2026-09-08-harbor-comparison/README.md) used a custom Kimi agent and the existing pinned directory export. Exact-task success was **11/12 for full original history, 3/12 for notes/sessions, and 0/12 for full Trace2Mem**. The wiki agent made no memory-tool call in 10/12 trials. This demonstrates an integration reliability gap; it cannot establish the value of the wiki after successful evidence retrieval. Lower tokens or latency for failed work are not savings.
 
 The six tasks and gold fields were frozen before calls. They cover configuration, temporal/authority history, operations, owners, unknowns and a single-fact control. All use one known synthetic two-session history and two repeats. No new Dream compilation or held-out generalization was measured.
+
+## Latest user-history hill-climb
+
+The [192-trial persona experiment](../reports/2026-09-08-persona-evaluation/README.md) tested four synthetic users with six conversations each. A development protocol change improved memory-condition exact-task success from 14/32 to 21/32 before selection was frozen. Held-out results were **23/32 full history, 26/32 notes/sessions, and 27/32 wiki**. The wiki used 24.7% fewer foreground tokens than notes/sessions, but 37% more than full history; compilation is additional.
+
+The wiki/notes advantage is one fewer execution failure. Non-execution misses were punctuation or extra-detail differences under exact checks. This is a modest observed reliability comparison, not demonstrated semantic-quality improvement, broad generalization or monetary savings. See the [failure audit](../reports/2026-09-08-persona-evaluation/RCA.md). Task scores and citation agreement are separate metrics.
 
 ## Measure two different questions
 
@@ -44,7 +50,7 @@ Use fictional independent users with overlapping project names to exercise isola
 
 Include actual deliverables: generate a config file validated against required values, update a Go fixture with deterministic acceptance tests, and produce a launch checklist with scored decision constraints. Evaluate substantive task completion, not only fact questions. Use safe fixture tools with identical outputs across conditions.
 
-A budgeted pilot could use four histories × eight tasks × three conditions × two repeats = 192 foreground trials, plus compilation. This is a proposed experiment, not performed work or a guarantee of statistical power. Use a small pilot to estimate variance/cost, then choose held-out sample size. Freeze prompts and scorer before the held-out run; use entirely new histories/personas, not merely new questions against a development history. Never tune on held-out results. Repeat on a second harness before generalizing beyond the first tested integration.
+A budgeted pilot could use four histories × eight tasks × three conditions × two repeats = 192 foreground trials, plus compilation. This richer deliverable experiment remains proposed. The completed persona question pilot also used 192 foreground trials, allocated as 96 development and 96 held-out trials; it did not execute these broader tasks. Neither count guarantees statistical power. Use a small pilot to estimate variance/cost, then choose held-out sample size. Freeze prompts and scorer before the held-out run; use entirely new histories/personas, not merely new questions against a development history. Never tune on held-out results. Repeat on a second harness before generalizing beyond the first tested integration.
 
 Counterbalance condition order, use fresh agent contexts and isolated caches, record provider/model settings, and define warm versus cold runs. Freeze the task's memory revision. Evaluate online freshness separately using controlled event timing. Keep failures/timeouts in the denominator; distinguish infrastructure errors from incorrect answers. Human or optional model judges should be blind to the condition; publish their rubric and disagreement, separate from executable checks.
 
@@ -77,6 +83,6 @@ Count each provider request once—service counters and nested tool counters may
 
 Present one before/after task side by side: identical fresh-agent request, baseline artifact, Trace2Mem artifact, acceptance-check results, and the exact memory sources responsible for the difference. Show a later correction changing the result, plus an unapproved proposal that the agent correctly refuses to call a decision. Include the trace, revision diff, model/configuration, reproduction command, and a failure example.
 
-Lead with measured task success/currentness and total cost per successful task once results exist. Until then, say: “Trace2Mem compiled a synthetic multi-session project history and enabled a fresh Kimi session to retrieve corrected requirements through cited memory. Broader agent-quality and cost gains remain unproven.” This describes today's evidence without borrowing Brain's published gains or implying support for every harness.
+For the older unpaired demonstration, the defensible description remains: “Trace2Mem compiled a synthetic multi-session project history and enabled a fresh Kimi session to retrieve corrected requirements through cited memory. Broader agent-quality and cost gains remain unproven.” This describes today's evidence without borrowing Brain's published gains or implying support for every harness.
 
-Implementation entry points: the [external-agent benchmark runner](../evaluation/README.md) and repeated `/api/evaluate` pairs described in [Evaluation](EVALUATION.md). The small Harbor directory-agent pilot has run; the broader independent-history and multi-harness experiments proposed above remain unperformed.
+Implementation entry points: the [external-agent benchmark runner](../evaluation/README.md) and repeated `/api/evaluate` pairs described in [Evaluation](EVALUATION.md). The Harbor and persona pilots have run. Longer histories, substantive deliverables, a second harness and independent semantic assessments remain future experiments.

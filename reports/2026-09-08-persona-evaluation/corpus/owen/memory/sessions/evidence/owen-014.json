@@ -1,0 +1,28 @@
+{
+  "event": {
+    "eventId": "owen-014",
+    "sessionId": "owen-session-5",
+    "occurredAt": "2026-09-05T12:00:14Z",
+    "sequence": "14",
+    "actor": {
+      "role": "assistant",
+      "agentId": "synthetic-history-author"
+    },
+    "source": {
+      "id": "persona-owen-v1",
+      "format": "authored-synthetic",
+      "version": "1"
+    },
+    "message": {
+      "text": "I could switch the briefing to PNG and add Limerick; these are unapproved suggestions."
+    }
+  },
+  "excerpt": {
+    "id": "owen-014",
+    "session": "owen-session-5",
+    "role": "assistant",
+    "text": "I could switch the briefing to PNG and add Limerick; these are unapproved suggestions.",
+    "occurred": "2026-09-05T12:00:14Z",
+    "sequence": 14
+  }
+}

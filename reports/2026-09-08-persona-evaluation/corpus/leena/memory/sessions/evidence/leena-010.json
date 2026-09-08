@@ -1,0 +1,28 @@
+{
+  "event": {
+    "eventId": "leena-010",
+    "sessionId": "leena-session-4",
+    "occurredAt": "2026-09-04T12:00:10Z",
+    "sequence": "10",
+    "actor": {
+      "role": "user",
+      "agentId": "synthetic-history-author"
+    },
+    "source": {
+      "id": "persona-leena-v1",
+      "format": "authored-synthetic",
+      "version": "1"
+    },
+    "message": {
+      "text": "Correction to the first visit: Birch Museum in Turku is now on 2027-02-11, replacing 2027-02-09. Reason: the archive moved its conservation demonstration. The organization and coordinator have not changed."
+    }
+  },
+  "excerpt": {
+    "id": "leena-010",
+    "session": "leena-session-4",
+    "role": "user",
+    "text": "Correction to the first visit: Birch Museum in Turku is now on 2027-02-11, replacing 2027-02-09. Reason: the archive moved its conservation demonstration. The organization and coordinator have not changed.",
+    "occurred": "2026-09-04T12:00:10Z",
+    "sequence": 10
+  }
+}

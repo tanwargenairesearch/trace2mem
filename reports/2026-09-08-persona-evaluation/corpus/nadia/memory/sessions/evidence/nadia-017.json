@@ -1,0 +1,28 @@
+{
+  "event": {
+    "eventId": "nadia-017",
+    "sessionId": "nadia-session-6",
+    "occurredAt": "2026-09-06T12:00:17Z",
+    "sequence": "17",
+    "actor": {
+      "role": "user",
+      "agentId": "synthetic-history-author"
+    },
+    "source": {
+      "id": "persona-nadia-v1",
+      "format": "authored-synthetic",
+      "version": "1"
+    },
+    "message": {
+      "text": "Prepare future answers from my confirmed plan and explicitly distinguish old dates and unapproved suggestions."
+    }
+  },
+  "excerpt": {
+    "id": "nadia-017",
+    "session": "nadia-session-6",
+    "role": "user",
+    "text": "Prepare future answers from my confirmed plan and explicitly distinguish old dates and unapproved suggestions.",
+    "occurred": "2026-09-06T12:00:17Z",
+    "sequence": 17
+  }
+}

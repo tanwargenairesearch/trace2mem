@@ -1,0 +1,28 @@
+{
+  "event": {
+    "eventId": "marco-006",
+    "sessionId": "marco-session-2",
+    "occurredAt": "2026-09-02T12:00:06Z",
+    "sequence": "6",
+    "actor": {
+      "role": "user",
+      "agentId": "synthetic-history-author"
+    },
+    "source": {
+      "id": "persona-marco-v1",
+      "format": "authored-synthetic",
+      "version": "1"
+    },
+    "message": {
+      "text": "Please do not book any extra cities. Keep suggestions separate from confirmed appointments."
+    }
+  },
+  "excerpt": {
+    "id": "marco-006",
+    "session": "marco-session-2",
+    "role": "user",
+    "text": "Please do not book any extra cities. Keep suggestions separate from confirmed appointments.",
+    "occurred": "2026-09-02T12:00:06Z",
+    "sequence": 6
+  }
+}

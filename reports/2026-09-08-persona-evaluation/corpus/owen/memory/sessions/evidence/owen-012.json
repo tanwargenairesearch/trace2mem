@@ -1,0 +1,28 @@
+{
+  "event": {
+    "eventId": "owen-012",
+    "sessionId": "owen-session-4",
+    "occurredAt": "2026-09-04T12:00:12Z",
+    "sequence": "12",
+    "actor": {
+      "role": "user",
+      "agentId": "synthetic-history-author"
+    },
+    "source": {
+      "id": "persona-owen-v1",
+      "format": "authored-synthetic",
+      "version": "1"
+    },
+    "message": {
+      "text": "Unrelated: compare two ways to organize a bookshelf. This is not a request to change travel preferences."
+    }
+  },
+  "excerpt": {
+    "id": "owen-012",
+    "session": "owen-session-4",
+    "role": "user",
+    "text": "Unrelated: compare two ways to organize a bookshelf. This is not a request to change travel preferences.",
+    "occurred": "2026-09-04T12:00:12Z",
+    "sequence": 12
+  }
+}

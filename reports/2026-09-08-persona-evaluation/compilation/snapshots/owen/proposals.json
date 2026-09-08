@@ -1,0 +1,959 @@
+[
+  {
+    "status": "validated",
+    "content": {
+      "sessions/owen-session-1/summary.md": {
+        "hash": "",
+        "path": "sessions/owen-session-1/summary.md",
+        "content": "# owen-session-1\n\nThe user opened by setting default presentation preferences for any materials prepared for them: HTML format, large text, and Irish language [cite:owen-001]. The assistant acknowledged it would retain these preferences for future work [cite:owen-002]. The user also mentioned enjoying a documentary about ocean currents, explicitly noting this did not change the project's scope [cite:owen-003].\n",
+        "citations": [
+          "owen-001",
+          "owen-002",
+          "owen-003"
+        ]
+      },
+      "sessions/owen-session-2/summary.md": {
+        "hash": "",
+        "path": "sessions/owen-session-2/summary.md",
+        "content": "# owen-session-2\n\nThe user confirmed the first approved appointment of the volunteer training tour: meeting Reed Rescue in Galway on 2027-03-17 [cite:owen-004]. The assistant floated a possible additional visit to Limerick, explicitly framing it as only its own suggestion, not a booking or user decision [cite:owen-005]. The user instructed that no extra cities be booked and that suggestions be kept separate from confirmed appointments [cite:owen-006].\n",
+        "citations": [
+          "owen-004",
+          "owen-005",
+          "owen-006"
+        ]
+      },
+      "sessions/owen-session-3/summary.md": {
+        "hash": "",
+        "path": "sessions/owen-session-3/summary.md",
+        "content": "# owen-session-3\n\nThe user confirmed a second organization for the tour: Beacon Volunteers in Cork, while noting that no date had been agreed for it yet [cite:owen-007]. The user also assigned coordination ownership: Asha owns coordinating the first visit, and the user will coordinate the second visit themselves [cite:owen-008]. The assistant summarized that the plan now had two confirmed organizations, with dates and owners as separate facts [cite:owen-009].\n",
+        "citations": [
+          "owen-007",
+          "owen-008",
+          "owen-009"
+        ]
+      },
+      "sessions/owen-session-4/summary.md": {
+        "hash": "",
+        "path": "sessions/owen-session-4/summary.md",
+        "content": "# owen-session-4\n\nThe user issued a correction to the first visit: Reed Rescue in Galway moved from 2027-03-17 to 2027-03-20 because the venue is closed for maintenance on the original date; the organization and coordinator were unchanged [cite:owen-010]. The assistant gave a historical recap only, noting 2027-03-17 was the old date and not the current one [cite:owen-011]. The user also made an unrelated request to compare two ways to organize a bookshelf, stating it was not a request to change travel preferences [cite:owen-012].\n",
+        "citations": [
+          "owen-010",
+          "owen-011",
+          "owen-012"
+        ]
+      },
+      "sessions/owen-session-5/summary.md": {
+        "hash": "",
+        "path": "sessions/owen-session-5/summary.md",
+        "content": "# owen-session-5\n\nThe user requested a briefing showing the confirmed organizations, the current first-visit date, and its coordinator, using their existing document preferences [cite:owen-013]. The assistant proposed switching the briefing to PNG and adding Limerick, labeling these as unapproved suggestions [cite:owen-014]. The user rejected both, instructing that the original document preferences be kept and confirming the Limerick addition was not approved [cite:owen-015].\n",
+        "citations": [
+          "owen-013",
+          "owen-014",
+          "owen-015"
+        ]
+      },
+      "sessions/owen-session-6/summary.md": {
+        "hash": "",
+        "path": "sessions/owen-session-6/summary.md",
+        "content": "# owen-session-6\n\nThe user clarified that no hotel has been selected or booked and instructed that none should be inferred from the meeting location [cite:owen-016]. The user also directed that future answers be prepared from their confirmed plan, explicitly distinguishing old dates and unapproved suggestions [cite:owen-017]. The assistant acknowledged understanding: maintain current decisions and state when details have not been established [cite:owen-018].\n",
+        "citations": [
+          "owen-016",
+          "owen-017",
+          "owen-018"
+        ]
+      },
+      "knowledge/subjects/hotel-status-f2114fdc.md": {
+        "hash": "",
+        "path": "knowledge/subjects/hotel-status-f2114fdc.md",
+        "content": "# Hotel status\n\nNo hotel has been selected or booked for the tour, and the user explicitly instructed that no hotel should be inferred from the meeting location [cite:owen-016].\n\n- [[knowledge/subjects/first-visit--reed-rescue--galway-661ef8d0.md]]",
+        "citations": [
+          "owen-016"
+        ]
+      },
+      "knowledge/subjects/briefing-content-request-81babc3a.md": {
+        "hash": "",
+        "path": "knowledge/subjects/briefing-content-request-81babc3a.md",
+        "content": "# Briefing content request\n\nThe user requested a briefing showing the confirmed organizations, the current first-visit date, and its coordinator, using the user's existing document preferences [cite:owen-013]. In practice this means presenting Reed Rescue (Galway) and Beacon Volunteers (Cork) [cite:owen-004][cite:owen-007], the current first-visit date of 2027-03-20 [cite:owen-010], and Asha as first-visit coordinator [cite:owen-008], in HTML with large text in Irish [cite:owen-001], without the rejected PNG switch or Limerick addition [cite:owen-014][cite:owen-015].\n\n- [[knowledge/subjects/document-materials-preferences-728c7048.md]]\n- [[knowledge/subjects/first-visit--reed-rescue--galway-661ef8d0.md]]\n- [[knowledge/subjects/second-visit--beacon-volunteers--cork-4cae9f56.md]]\n- [[knowledge/subjects/visit-coordination-ownership-f0f6a99d.md]]\n- [[knowledge/subjects/unapproved-suggestion--png-briefing-format-6ecddf9a.md]]",
+        "citations": [
+          "owen-013",
+          "owen-004",
+          "owen-007",
+          "owen-010",
+          "owen-008",
+          "owen-001",
+          "owen-014",
+          "owen-015"
+        ]
+      },
+      "knowledge/subjects/answer-preparation-guidance-2040dd2f.md": {
+        "hash": "",
+        "path": "knowledge/subjects/answer-preparation-guidance-2040dd2f.md",
+        "content": "# Answer preparation guidance\n\nThe user directed that future answers be prepared from their confirmed plan, explicitly distinguishing old dates and unapproved suggestions [cite:owen-017]. The assistant acknowledged this, committing to maintain current decisions and to state when details have not been established [cite:owen-018]. This guidance reinforces the user's earlier rule separating suggestions from confirmations [cite:owen-006] and the instruction not to infer unstated details such as a hotel [cite:owen-016].\n\n- [[knowledge/subjects/user-rule--no-extra-cities--separate-suggestions-from-confirmati-2490bac4.md]]\n- [[knowledge/subjects/document-materials-preferences-728c7048.md]]\n- [[knowledge/subjects/hotel-status-f2114fdc.md]]",
+        "citations": [
+          "owen-017",
+          "owen-018",
+          "owen-006",
+          "owen-016"
+        ]
+      },
+      "knowledge/subjects/visit-coordination-ownership-f0f6a99d.md": {
+        "hash": "",
+        "path": "knowledge/subjects/visit-coordination-ownership-f0f6a99d.md",
+        "content": "# Visit coordination ownership\n\nCoordination of the two confirmed visits is split: Asha owns coordinating the first visit (Reed Rescue, Galway), and the user will coordinate the second visit (Beacon Volunteers, Cork) themselves [cite:owen-008]. The coordinator of the first visit was unaffected by the later date correction [cite:owen-010] and was among the items the user asked to appear in the briefing [cite:owen-013].\n\n- [[knowledge/subjects/first-visit--reed-rescue--galway-661ef8d0.md]]\n- [[knowledge/subjects/second-visit--beacon-volunteers--cork-4cae9f56.md]]\n- [[knowledge/subjects/briefing-content-request-81babc3a.md]]",
+        "citations": [
+          "owen-008",
+          "owen-010",
+          "owen-013"
+        ]
+      },
+      "knowledge/subjects/document-materials-preferences-728c7048.md": {
+        "hash": "",
+        "path": "knowledge/subjects/document-materials-preferences-728c7048.md",
+        "content": "# Document/materials preferences\n\nThe user's standing default preferences for any prepared materials are HTML format, large text, and Irish language, established at the start of the planning work [cite:owen-001]. The assistant acknowledged retaining these preferences [cite:owen-002]. When the assistant later proposed switching a briefing to PNG, the user explicitly rejected the change and reaffirmed the original preferences [cite:owen-014][cite:owen-015]. These preferences remain current and were to be applied to the requested briefing [cite:owen-013].\n\n- [[knowledge/subjects/answer-preparation-guidance-2040dd2f.md]]\n- [[knowledge/subjects/briefing-content-request-81babc3a.md]]\n- [[knowledge/subjects/unapproved-suggestion--png-briefing-format-6ecddf9a.md]]",
+        "citations": [
+          "owen-001",
+          "owen-002",
+          "owen-014",
+          "owen-015",
+          "owen-013"
+        ]
+      },
+      "knowledge/subjects/first-visit--reed-rescue--galway-661ef8d0.md": {
+        "hash": "",
+        "path": "knowledge/subjects/first-visit--reed-rescue--galway-661ef8d0.md",
+        "content": "# First visit: Reed Rescue, Galway\n\nThe first confirmed, approved appointment of the volunteer training tour is a meeting with Reed Rescue in Galway [cite:owen-004]. It was originally set for 2027-03-17 [cite:owen-004] but the user corrected it to 2027-03-20 because the venue is closed for maintenance on the original date; the organization and coordinator were unchanged [cite:owen-010]. The current date is therefore 2027-03-20, and the 2027-03-17 date is historical only [cite:owen-011]. Coordination of this visit is owned by Asha [cite:owen-008]. No hotel has been selected or booked in connection with the meeting location [cite:owen-016].\n\n- [[knowledge/subjects/first-visit-original-date--historical-370bc3e3.md]]\n- [[knowledge/subjects/second-visit--beacon-volunteers--cork-4cae9f56.md]]\n- [[knowledge/subjects/visit-coordination-ownership-f0f6a99d.md]]\n- [[knowledge/subjects/hotel-status-f2114fdc.md]]",
+        "citations": [
+          "owen-004",
+          "owen-004",
+          "owen-010",
+          "owen-011",
+          "owen-008",
+          "owen-016"
+        ]
+      },
+      "knowledge/subjects/first-visit-original-date--historical-370bc3e3.md": {
+        "hash": "",
+        "path": "knowledge/subjects/first-visit-original-date--historical-370bc3e3.md",
+        "content": "# First visit original date (historical)\n\nThe Reed Rescue visit in Galway was originally scheduled for 2027-03-17 [cite:owen-004]. The user later corrected the date to 2027-03-20 due to venue maintenance closure on the original date [cite:owen-010]. The 2027-03-17 date is superseded and retained only as historical context, as the assistant noted when recapping that it is not the current date [cite:owen-011].\n\n- [[knowledge/subjects/first-visit--reed-rescue--galway-661ef8d0.md]]",
+        "citations": [
+          "owen-004",
+          "owen-010",
+          "owen-011"
+        ]
+      },
+      "knowledge/subjects/second-visit--beacon-volunteers--cork-4cae9f56.md": {
+        "hash": "",
+        "path": "knowledge/subjects/second-visit--beacon-volunteers--cork-4cae9f56.md",
+        "content": "# Second visit: Beacon Volunteers, Cork\n\nThe second confirmed organization on the tour is Beacon Volunteers in Cork [cite:owen-007]. No date has been agreed for this visit yet [cite:owen-007]. The user will coordinate this visit themselves, in contrast to the first visit, which Asha coordinates [cite:owen-008].\n\n- [[knowledge/subjects/first-visit--reed-rescue--galway-661ef8d0.md]]\n- [[knowledge/subjects/visit-coordination-ownership-f0f6a99d.md]]",
+        "citations": [
+          "owen-007",
+          "owen-007",
+          "owen-008"
+        ]
+      },
+      "knowledge/subjects/unapproved-suggestion--limerick-visit-246c60c9.md": {
+        "hash": "",
+        "path": "knowledge/subjects/unapproved-suggestion--limerick-visit-246c60c9.md",
+        "content": "# Unapproved suggestion: Limerick visit\n\nThe assistant suggested a possible additional visit to Limerick, explicitly framing it as only its own suggestion, not a booking or user decision [cite:owen-005]. The user responded that no extra cities should be booked [cite:owen-006] and later reaffirmed that the Limerick addition has not been approved when the assistant raised it again alongside a proposed PNG briefing format [cite:owen-014][cite:owen-015]. This remains an unapproved assistant suggestion, not part of the confirmed plan.\n\n- [[knowledge/subjects/user-rule--no-extra-cities--separate-suggestions-from-confirmati-2490bac4.md]]\n- [[knowledge/subjects/unapproved-suggestion--png-briefing-format-6ecddf9a.md]]",
+        "citations": [
+          "owen-005",
+          "owen-006",
+          "owen-014",
+          "owen-015"
+        ]
+      },
+      "knowledge/subjects/unapproved-suggestion--png-briefing-format-6ecddf9a.md": {
+        "hash": "",
+        "path": "knowledge/subjects/unapproved-suggestion--png-briefing-format-6ecddf9a.md",
+        "content": "# Unapproved suggestion: PNG briefing format\n\nDuring preparation of the briefing, the assistant proposed switching the output to PNG and adding Limerick, labeling both as unapproved suggestions [cite:owen-014]. The user rejected the proposal, instructing that the original document preferences (HTML, large text, Irish) be kept and confirming Limerick was not approved [cite:owen-015]. The PNG format remains an unapproved assistant suggestion.\n\n- [[knowledge/subjects/document-materials-preferences-728c7048.md]]\n- [[knowledge/subjects/unapproved-suggestion--limerick-visit-246c60c9.md]]\n- [[knowledge/subjects/briefing-content-request-81babc3a.md]]",
+        "citations": [
+          "owen-014",
+          "owen-015"
+        ]
+      },
+      "knowledge/subjects/user-rule--no-extra-cities--separate-suggestions-from-confirmati-2490bac4.md": {
+        "hash": "",
+        "path": "knowledge/subjects/user-rule--no-extra-cities--separate-suggestions-from-confirmati-2490bac4.md",
+        "content": "# User rule: no extra cities, separate suggestions from confirmations\n\nThe user instructed that no extra cities be booked and that suggestions be kept separate from confirmed appointments [cite:owen-006]. This rule was issued in response to the assistant's Limerick suggestion [cite:owen-005] and aligns with the user's later directive that future answers distinguish unapproved suggestions from the confirmed plan [cite:owen-017].\n\n- [[knowledge/subjects/unapproved-suggestion--limerick-visit-246c60c9.md]]\n- [[knowledge/subjects/answer-preparation-guidance-2040dd2f.md]]",
+        "citations": [
+          "owen-006",
+          "owen-005",
+          "owen-017"
+        ]
+      }
+    },
+    "verification": {
+      "reason": "Every review unit was checked against the primary evidence (owen-001 through owen-018). All factual claims \u2014 the original 2027-03-17 date and its user-issued correction to 2027-03-20, the split coordination ownership, the rejected PNG/Limerick suggestions remaining unapproved, the no-extra-cities rule, the no-hotel instruction, and the answer-preparation guidance \u2014 are directly supported by the cited turns and are consistent with all observations and neighboring pages. User directives (owen-004, owen-010, owen-015, owen-016, owen-017) are treated as establishing decisions; later assistant recaps (owen-011, owen-018) are correctly characterized as acknowledgments and were not used to upgrade suggestions into approvals. Headings and link units are nonfactual structural elements consistent with their targets. No contradictions, unsupported assertions, or misattributions were found; significant observations (documentary, bookshelf, hotel, PNG rejection) are all represented where relevant.",
+      "reviews": [
+        {
+          "id": "knowledge/subjects/answer-preparation-guidance-2040dd2f.md:1",
+          "reason": "Heading only; nonfactual structural element consistent with the page content about the user's answer-preparation directive.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/answer-preparation-guidance-2040dd2f.md:3",
+          "reason": "Each clause is directly supported: owen-017 is the user's directive to prepare future answers from the confirmed plan and to distinguish old dates and unapproved suggestions; owen-018 is the assistant's acknowledgment committing to maintain current decisions and flag unestablished details; owen-006 is the earlier user rule separating suggestions from confirmations; owen-016 is the instruction not to infer a hotel. The characterization of owen-018 as an acknowledgment (not a new decision) is correct, and the user's own statements remain the authority.",
+          "sources": [
+            "owen-017",
+            "owen-018",
+            "owen-006",
+            "owen-016"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/answer-preparation-guidance-2040dd2f.md:5",
+          "reason": "Nonfactual link to the user-rule subject page, which exists and is topically related to the answer-preparation guidance.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/answer-preparation-guidance-2040dd2f.md:6",
+          "reason": "Nonfactual link to the document-materials-preferences page; target exists and relationship is plausible.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/answer-preparation-guidance-2040dd2f.md:7",
+          "reason": "Nonfactual link to the hotel-status page; target exists and the 'state when details have not been established' theme relates to the no-hotel instruction.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/briefing-content-request-81babc3a.md:1",
+          "reason": "Heading only; nonfactual and consistent with the page content.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/briefing-content-request-81babc3a.md:3",
+          "reason": "owen-013 supports the briefing request (confirmed organizations, current first-visit date, coordinator, existing document preferences). The 'in practice' expansion is fully grounded: owen-004 (Reed Rescue, Galway), owen-007 (Beacon Volunteers, Cork), owen-010 (current first-visit date 2027-03-20 superseding 2027-03-17), owen-008 (Asha as first-visit coordinator), owen-001 (HTML, large text, Irish), and owen-014/owen-015 (PNG switch and Limerick addition proposed by the assistant and rejected by the user). The user's rejection in owen-015 is a direct decision statement, so 'rejected'/'without' is accurate.",
+          "sources": [
+            "owen-013",
+            "owen-004",
+            "owen-007",
+            "owen-010",
+            "owen-008",
+            "owen-001",
+            "owen-014",
+            "owen-015"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/briefing-content-request-81babc3a.md:5",
+          "reason": "Nonfactual link to document-materials-preferences; target exists and is directly relevant to the briefing's format requirements.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/briefing-content-request-81babc3a.md:6",
+          "reason": "Nonfactual link to the first-visit subject page; target exists and is part of the requested briefing content.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/briefing-content-request-81babc3a.md:7",
+          "reason": "Nonfactual link to the second-visit subject page; target exists and is part of the requested briefing content.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/briefing-content-request-81babc3a.md:8",
+          "reason": "Nonfactual link to visit-coordination-ownership; target exists and coordinator display was explicitly requested in owen-013.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/briefing-content-request-81babc3a.md:9",
+          "reason": "Nonfactual link to the PNG unapproved-suggestion page; target exists and the briefing explicitly excludes that rejected suggestion.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/document-materials-preferences-728c7048.md:1",
+          "reason": "Heading only; nonfactual and consistent with the page content.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/document-materials-preferences-728c7048.md:3",
+          "reason": "owen-001 establishes HTML/large-text/Irish as default preferences at the start of planning; owen-002 is the assistant's acknowledgment of retaining them; owen-014 records the assistant's PNG proposal; owen-015 is the user's explicit rejection and reaffirmation of the original preferences; owen-013 shows the preferences were to be applied to the requested briefing. 'Standing' and 'remain current' are accurate because the user's owen-015 rejection postdates the PNG proposal and no later evidence changes the preferences.",
+          "sources": [
+            "owen-001",
+            "owen-002",
+            "owen-014",
+            "owen-015",
+            "owen-013"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/document-materials-preferences-728c7048.md:5",
+          "reason": "Nonfactual link to answer-preparation-guidance; target exists and is topically related (guidance on preparing answers/materials).",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/document-materials-preferences-728c7048.md:6",
+          "reason": "Nonfactual link to briefing-content-request; target exists and the preferences were to be applied to that briefing.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/document-materials-preferences-728c7048.md:7",
+          "reason": "Nonfactual link to the PNG unapproved-suggestion page; target exists and the PNG proposal directly concerned these preferences.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/first-visit--reed-rescue--galway-661ef8d0.md:1",
+          "reason": "Heading only; nonfactual and matches the visit described in owen-004/owen-010.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/first-visit--reed-rescue--galway-661ef8d0.md:3",
+          "reason": "All clauses verified: owen-004 confirms the approved Reed Rescue Galway meeting originally on 2027-03-17; owen-010 is the user's explicit correction to 2027-03-20 due to venue maintenance closure, with organization and coordinator unchanged; owen-011 is the assistant's historical recap confirming 2027-03-17 is not current; owen-008 assigns coordination to Asha; owen-016 states no hotel selected/booked and none to be inferred from the meeting location. The supersession is correctly recorded as a user decision (owen-010), and the assistant recap (owen-011) is used only as corroboration of historical status, not as authority.",
+          "sources": [
+            "owen-004",
+            "owen-010",
+            "owen-011",
+            "owen-008",
+            "owen-016"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/first-visit--reed-rescue--galway-661ef8d0.md:5",
+          "reason": "Nonfactual link to the historical-original-date page; target exists and is directly related.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/first-visit--reed-rescue--galway-661ef8d0.md:6",
+          "reason": "Nonfactual link to the second-visit page; target exists and is the other confirmed visit on the tour.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/first-visit--reed-rescue--galway-661ef8d0.md:7",
+          "reason": "Nonfactual link to visit-coordination-ownership; target exists and this visit's coordination (Asha) is discussed there.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/first-visit--reed-rescue--galway-661ef8d0.md:8",
+          "reason": "Nonfactual link to hotel-status; target exists and the no-hotel instruction concerned the meeting location of this visit.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/first-visit-original-date--historical-370bc3e3.md:1",
+          "reason": "Heading only; nonfactual and accurately labels the superseded date as historical.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/first-visit-original-date--historical-370bc3e3.md:3",
+          "reason": "owen-004 establishes the original 2027-03-17 scheduling; owen-010 is the user's correction to 2027-03-20 citing venue maintenance closure; owen-011 is the assistant's recap that 2027-03-17 is not the current date. The page correctly treats 2027-03-17 as superseded per the user's explicit replacement in owen-010, consistent with the superseded-status observation.",
+          "sources": [
+            "owen-004",
+            "owen-010",
+            "owen-011"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/first-visit-original-date--historical-370bc3e3.md:5",
+          "reason": "Nonfactual link back to the current first-visit page; target exists and the relationship is correct.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/hotel-status-f2114fdc.md:1",
+          "reason": "Heading only; nonfactual and consistent with the page content.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/hotel-status-f2114fdc.md:3",
+          "reason": "Directly supported by owen-016: the user stated no hotel has been selected or booked and instructed that none be inferred from the meeting location. Matches the hotel-status observation exactly.",
+          "sources": [
+            "owen-016"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/hotel-status-f2114fdc.md:5",
+          "reason": "Nonfactual link to the first-visit page; target exists and the hotel instruction concerned the meeting location.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/second-visit--beacon-volunteers--cork-4cae9f56.md:1",
+          "reason": "Heading only; nonfactual and matches owen-007.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/second-visit--beacon-volunteers--cork-4cae9f56.md:3",
+          "reason": "owen-007 confirms Beacon Volunteers in Cork as the second confirmed organization with no date agreed yet; owen-008 states the user will coordinate the second visit themselves while Asha coordinates the first. The contrast clause is an accurate restatement of owen-008. No evidence anywhere assigns a date to this visit, so 'no date agreed yet' remains temporally valid.",
+          "sources": [
+            "owen-007",
+            "owen-008"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/second-visit--beacon-volunteers--cork-4cae9f56.md:5",
+          "reason": "Nonfactual link to the first-visit page; target exists and is the counterpart visit.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/second-visit--beacon-volunteers--cork-4cae9f56.md:6",
+          "reason": "Nonfactual link to visit-coordination-ownership; target exists and covers this visit's coordination.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/unapproved-suggestion--limerick-visit-246c60c9.md:1",
+          "reason": "Heading only; nonfactual and accurately labels Limerick as an unapproved suggestion, consistent with owen-005/owen-015.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/unapproved-suggestion--limerick-visit-246c60c9.md:3",
+          "reason": "owen-005 is the assistant's Limerick suggestion explicitly framed as only its own suggestion, not a booking or user decision; owen-006 is the user's response that no extra cities be booked; owen-014 records the assistant raising Limerick again alongside the PNG proposal; owen-015 is the user's explicit statement that the Limerick addition has not been approved. The conclusion that it remains an unapproved assistant suggestion is correct \u2014 the user's owen-015 statement is a direct decision and no later approval exists.",
+          "sources": [
+            "owen-005",
+            "owen-006",
+            "owen-014",
+            "owen-015"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/unapproved-suggestion--limerick-visit-246c60c9.md:5",
+          "reason": "Nonfactual link to the user-rule page; target exists and the rule was issued in response to this suggestion.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/unapproved-suggestion--limerick-visit-246c60c9.md:6",
+          "reason": "Nonfactual link to the PNG-suggestion page; target exists and both suggestions were raised together in owen-014.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/unapproved-suggestion--png-briefing-format-6ecddf9a.md:1",
+          "reason": "Heading only; nonfactual and accurately labels the PNG format as an unapproved suggestion.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/unapproved-suggestion--png-briefing-format-6ecddf9a.md:3",
+          "reason": "owen-014 supports that the assistant proposed switching the briefing to PNG and adding Limerick, self-labeled as unapproved suggestions; owen-015 supports the user's rejection, instruction to keep the original preferences (HTML, large text, Irish per owen-001), and confirmation that Limerick was not approved. The concluding status ('remains an unapproved assistant suggestion') is correct; the assistant's proposal was never elevated to a user decision.",
+          "sources": [
+            "owen-014",
+            "owen-015",
+            "owen-001"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/unapproved-suggestion--png-briefing-format-6ecddf9a.md:5",
+          "reason": "Nonfactual link to document-materials-preferences; target exists and the PNG proposal concerned those preferences.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/unapproved-suggestion--png-briefing-format-6ecddf9a.md:6",
+          "reason": "Nonfactual link to the Limerick-suggestion page; target exists and both were proposed together in owen-014.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/unapproved-suggestion--png-briefing-format-6ecddf9a.md:7",
+          "reason": "Nonfactual link to briefing-content-request; target exists and the PNG proposal was made during briefing preparation.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/user-rule--no-extra-cities--separate-suggestions-from-confirmati-2490bac4.md:1",
+          "reason": "Heading only; nonfactual and consistent with the rule stated in owen-006.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/user-rule--no-extra-cities--separate-suggestions-from-confirmati-2490bac4.md:3",
+          "reason": "owen-006 directly states the user's rule (no extra cities booked; suggestions kept separate from confirmed appointments). The temporal context is correct: owen-006 (sequence 6) immediately follows the assistant's Limerick suggestion owen-005 (sequence 5) in the same session. The alignment with owen-017 (later directive to distinguish unapproved suggestions from the confirmed plan) is accurate; owen-017 is the user's own later statement, so no recency-as-authority issue arises.",
+          "sources": [
+            "owen-006",
+            "owen-005",
+            "owen-017"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/user-rule--no-extra-cities--separate-suggestions-from-confirmati-2490bac4.md:5",
+          "reason": "Nonfactual link to the Limerick-suggestion page; target exists and the rule responds to that suggestion.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/user-rule--no-extra-cities--separate-suggestions-from-confirmati-2490bac4.md:6",
+          "reason": "Nonfactual link to answer-preparation-guidance; target exists and the later guidance reinforces this rule.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/visit-coordination-ownership-f0f6a99d.md:1",
+          "reason": "Heading only; nonfactual and consistent with the page content.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/visit-coordination-ownership-f0f6a99d.md:3",
+          "reason": "owen-008 directly supports the split: Asha owns coordinating the first visit and the user will coordinate the second themselves; the parenthetical identifications (Reed Rescue/Galway, Beacon Volunteers/Cork) match owen-004 and owen-007. owen-010 explicitly states the coordinator was unchanged by the date correction. owen-013 supports that the coordinator was among the items requested for the briefing. All temporally consistent.",
+          "sources": [
+            "owen-008",
+            "owen-010",
+            "owen-013",
+            "owen-004",
+            "owen-007"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/visit-coordination-ownership-f0f6a99d.md:5",
+          "reason": "Nonfactual link to the first-visit page; target exists and Asha coordinates that visit.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/visit-coordination-ownership-f0f6a99d.md:6",
+          "reason": "Nonfactual link to the second-visit page; target exists and the user coordinates that visit.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/visit-coordination-ownership-f0f6a99d.md:7",
+          "reason": "Nonfactual link to briefing-content-request; target exists and the briefing was to show the coordinator.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "sessions/owen-session-1/summary.md:1",
+          "reason": "Heading only; nonfactual session label.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "sessions/owen-session-1/summary.md:3",
+          "reason": "Accurately summarizes session 1: owen-001 (user sets HTML/large-text/Irish defaults), owen-002 (assistant acknowledgment of retaining preferences), owen-003 (user's documentary remark explicitly noted as not changing project scope). All three turns of the session are covered; nothing omitted or distorted.",
+          "sources": [
+            "owen-001",
+            "owen-002",
+            "owen-003"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "sessions/owen-session-2/summary.md:1",
+          "reason": "Heading only; nonfactual session label.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "sessions/owen-session-2/summary.md:3",
+          "reason": "Accurately summarizes session 2: owen-004 (user confirms Reed Rescue Galway on 2027-03-17 as approved \u2014 correct for this session's point in time, later superseded in session 4), owen-005 (assistant's Limerick suggestion framed as only its own suggestion), owen-006 (user's no-extra-cities / separate-suggestions rule). The summary preserves the attribution of the suggestion to the assistant and the confirmation to the user.",
+          "sources": [
+            "owen-004",
+            "owen-005",
+            "owen-006"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "sessions/owen-session-3/summary.md:1",
+          "reason": "Heading only; nonfactual session label.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "sessions/owen-session-3/summary.md:3",
+          "reason": "Accurately summarizes session 3: owen-007 (Beacon Volunteers Cork confirmed, no date agreed), owen-008 (Asha coordinates first visit; user coordinates second), owen-009 (assistant recap that the plan has two confirmed organizations with dates and owners as separate facts). The assistant recap is correctly attributed to the assistant and does not create user intent.",
+          "sources": [
+            "owen-007",
+            "owen-008",
+            "owen-009"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "sessions/owen-session-4/summary.md:1",
+          "reason": "Heading only; nonfactual session label.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "sessions/owen-session-4/summary.md:3",
+          "reason": "Accurately summarizes session 4: owen-010 (user's correction of the first visit from 2027-03-17 to 2027-03-20 due to venue maintenance closure, organization and coordinator unchanged), owen-011 (assistant's historical-only recap that 2027-03-17 is not current), owen-012 (unrelated bookshelf request, not a travel-preference change). Correction authority is properly attributed to the user.",
+          "sources": [
+            "owen-010",
+            "owen-011",
+            "owen-012"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "sessions/owen-session-5/summary.md:1",
+          "reason": "Heading only; nonfactual session label.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "sessions/owen-session-5/summary.md:3",
+          "reason": "Accurately summarizes session 5: owen-013 (briefing request with existing document preferences), owen-014 (assistant's PNG + Limerick proposal labeled unapproved), owen-015 (user rejects both, keeps original preferences, Limerick not approved). Attribution of proposal to assistant and rejection to user is correct.",
+          "sources": [
+            "owen-013",
+            "owen-014",
+            "owen-015"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "sessions/owen-session-6/summary.md:1",
+          "reason": "Heading only; nonfactual session label.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "sessions/owen-session-6/summary.md:3",
+          "reason": "Accurately summarizes session 6: owen-016 (no hotel selected/booked; do not infer one from meeting location), owen-017 (user directive to prepare future answers from the confirmed plan, distinguishing old dates and unapproved suggestions), owen-018 (assistant acknowledgment to maintain current decisions and state when details are unestablished). Roles and content match the evidence exactly.",
+          "sources": [
+            "owen-016",
+            "owen-017",
+            "owen-018"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        }
+      ],
+      "supported": true
+    }
+  },
+  {
+    "status": "validated",
+    "content": [
+      {
+        "id": "e94b93e8208f72123cd60a19402a52b34eb8aa98ac330f6e9e6d2da30e972aa8",
+        "text": "User's default preferences for prepared materials: HTML format, large text, and Irish language. User later reaffirmed keeping these original preferences and rejected switching to PNG.",
+        "origin": "user",
+        "status": "current",
+        "subject": "Document/materials preferences",
+        "citations": [
+          "owen-001",
+          "owen-015"
+        ]
+      },
+      {
+        "id": "109aae76fed9c40b6b46d04d4af0524d6a8cd9c448aed00c4ec2bdd724468547",
+        "text": "Confirmed approved appointment: user will meet Reed Rescue in Galway on 2027-03-20. This date replaces the original 2027-03-17 because the venue is closed for maintenance on the original date. Organization and coordinator unchanged.",
+        "origin": "user",
+        "status": "current",
+        "subject": "First visit: Reed Rescue, Galway",
+        "citations": [
+          "owen-004",
+          "owen-010"
+        ]
+      },
+      {
+        "id": "e20378e46d0064b703047dd70b83962c3d9885d80a9e326e2750fc089ecb4a57",
+        "text": "The first visit (Reed Rescue, Galway) was originally scheduled for 2027-03-17; this date is superseded and no longer current.",
+        "origin": "user",
+        "status": "superseded",
+        "subject": "First visit original date (historical)",
+        "citations": [
+          "owen-004",
+          "owen-010"
+        ]
+      },
+      {
+        "id": "332002a36217fb27a22ebb55a149c2545903a9cb09b08f452842142a96fc6f15",
+        "text": "Second confirmed organization is Beacon Volunteers in Cork; no date has been agreed yet.",
+        "origin": "user",
+        "status": "current",
+        "subject": "Second visit: Beacon Volunteers, Cork",
+        "citations": [
+          "owen-007"
+        ]
+      },
+      {
+        "id": "c64194e5ed40060535b4e26c7ac6c5c322f6f0728ccebf42220e183da7d3a324",
+        "text": "Asha owns coordinating the first visit; the user will coordinate the second visit themselves.",
+        "origin": "user",
+        "status": "current",
+        "subject": "Visit coordination ownership",
+        "citations": [
+          "owen-008"
+        ]
+      },
+      {
+        "id": "b8746b156676cba08a4bf2c160e81f5ede93eca39cc2b94dbc18f0d38db48ca8",
+        "text": "Assistant suggested adding a Limerick visit; this was only an assistant suggestion, not a booking or user decision. User explicitly said not to book extra cities and has not approved the Limerick addition.",
+        "origin": "assistant",
+        "status": "disputed",
+        "subject": "Unapproved suggestion: Limerick visit",
+        "citations": [
+          "owen-005"
+        ]
+      },
+      {
+        "id": "e0c987dee20bda52a22272b74664357e9ca7537c258492a944f6608d5ded36e8",
+        "text": "User instructed: do not book any extra cities; keep suggestions separate from confirmed appointments.",
+        "origin": "user",
+        "status": "current",
+        "subject": "User rule: no extra cities, separate suggestions from confirmations",
+        "citations": [
+          "owen-006"
+        ]
+      },
+      {
+        "id": "282d2bfc85da7d231741412816f9c260d3972d4cf3afc6ce1bb771b9e856b4dd",
+        "text": "Assistant suggested switching the briefing to PNG and adding Limerick; user rejected this and kept the original document preferences.",
+        "origin": "assistant",
+        "status": "disputed",
+        "subject": "Unapproved suggestion: PNG briefing format",
+        "citations": [
+          "owen-014"
+        ]
+      },
+      {
+        "id": "6b72854ec3b41d520e700f3815db3119d9b4d688bf907fdde2a3ac5a87fe8836",
+        "text": "No hotel has been selected or booked; user instructed not to infer one from the meeting location.",
+        "origin": "user",
+        "status": "current",
+        "subject": "Hotel status",
+        "citations": [
+          "owen-016"
+        ]
+      },
+      {
+        "id": "3abc5cd5eca3daa0cd483f436bb65a583b1d16fad273e3d8e31524936c4dd8d5",
+        "text": "For the briefing, user asked to show the confirmed organizations, the current first-visit date, and its coordinator, using the user's existing document preferences.",
+        "origin": "user",
+        "status": "current",
+        "subject": "Briefing content request",
+        "citations": [
+          "owen-013"
+        ]
+      },
+      {
+        "id": "ab9889a646dda671c388376bf80eb7d9aa6be2ef07e54a6a6b5173bb2eff8e08",
+        "text": "User asked that future answers be prepared from their confirmed plan, explicitly distinguishing old dates and unapproved suggestions.",
+        "origin": "user",
+        "status": "current",
+        "subject": "Answer preparation guidance",
+        "citations": [
+          "owen-017"
+        ]
+      }
+    ],
+    "verification": {
+      "reason": "All observations verified against cited sources:\n\n1. **Document preferences** (owen-001, owen-015): owen-001 states \"use HTML, large text, and Irish. Treat these as my default preferences.\" owen-015 reaffirms \"keep the document preferences I originally gave.\" \u2713 Supported.\n\n2. **First visit Reed Rescue** (owen-004, owen-010): owen-004 confirms original appointment on 2027-03-17; owen-010 corrects to 2027-03-20 with reason \"venue is closed for maintenance\" and states \"organization and coordinator have not changed.\" \u2713 Supported.\n\n3. **First visit original date** (owen-004, owen-010): owen-004 shows original date 2027-03-17; owen-010 explicitly states this is \"replacing 2027-03-17.\" Status \"superseded\" is accurate. \u2713 Supported.\n\n4. **Second visit Beacon Volunteers** (owen-007): States \"Beacon Volunteers in Cork. We have not agreed its date yet.\" \u2713 Supported.\n\n5. **Visit coordination** (owen-008): States \"Asha owns coordinating the first visit; I will coordinate the second visit myself.\" \u2713 Supported.\n\n6. **Limerick suggestion** (owen-005): Origin correctly marked \"assistant\" - owen-005 is assistant saying \"A possible addition would be a visit to Limerick. This is only my suggestion, not a booking or your decision.\" owen-006 and owen-015 confirm user rejection. Status \"disputed\" is appropriate. \u2713 Supported.\n\n7. **No extra cities rule** (owen-006): States \"do not book any extra cities. Keep suggestions separate from confirmed appointments.\" \u2713 Supported.\n\n8. **PNG suggestion** (owen-014): Origin correctly \"assistant\" - owen-014 is assistant suggesting \"switch the briefing to PNG and add Limerick.\" owen-015 shows user rejection. Status \"disputed\" appropriate. \u2713 Supported.\n\n9. **Hotel status** (owen-016): States \"No hotel has been selected or booked. Do not infer one from the meeting location.\" \u2713 Supported.\n\n10. **Briefing content** (owen-013): States \"show the confirmed organizations, the current first-visit date, and its coordinator. Use my existing document preferences.\" \u2713 Supported.\n\n11. **Answer preparation guidance** (owen-017): States \"Prepare future answers from my confirmed plan and explicitly distinguish old dates and unapproved suggestions.\" \u2713 Supported.\n\nAll observations accurately reflect their cited evidence with correct origin attribution (user vs assistant), appropriate temporal status (current/superseded/disputed), and no contradictions or unsupported claims.",
+      "supported": true
+    }
+  }
+]

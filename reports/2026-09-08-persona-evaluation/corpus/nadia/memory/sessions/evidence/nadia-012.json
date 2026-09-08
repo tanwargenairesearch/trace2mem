@@ -1,0 +1,28 @@
+{
+  "event": {
+    "eventId": "nadia-012",
+    "sessionId": "nadia-session-4",
+    "occurredAt": "2026-09-04T12:00:12Z",
+    "sequence": "12",
+    "actor": {
+      "role": "user",
+      "agentId": "synthetic-history-author"
+    },
+    "source": {
+      "id": "persona-nadia-v1",
+      "format": "authored-synthetic",
+      "version": "1"
+    },
+    "message": {
+      "text": "Unrelated: compare two ways to organize a bookshelf. This is not a request to change travel preferences."
+    }
+  },
+  "excerpt": {
+    "id": "nadia-012",
+    "session": "nadia-session-4",
+    "role": "user",
+    "text": "Unrelated: compare two ways to organize a bookshelf. This is not a request to change travel preferences.",
+    "occurred": "2026-09-04T12:00:12Z",
+    "sequence": 12
+  }
+}

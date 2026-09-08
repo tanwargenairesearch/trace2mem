@@ -1,0 +1,861 @@
+[
+  {
+    "status": "validated",
+    "content": {
+      "sessions/marco-session-1/summary.md": {
+        "hash": "",
+        "path": "sessions/marco-session-1/summary.md",
+        "content": "# marco-session-1\n\nThe user stated they are organizing a community energy project and set default presentation preferences for prepared materials: Markdown, plain tables, and Italian [cite:marco-001]. The assistant acknowledged it would retain these preferences [cite:marco-002]. The user also mentioned enjoying a documentary about ocean currents, explicitly noting this does not change the project's scope [cite:marco-003].\n",
+        "citations": [
+          "marco-001",
+          "marco-002",
+          "marco-003"
+        ]
+      },
+      "sessions/marco-session-2/summary.md": {
+        "hash": "",
+        "path": "sessions/marco-session-2/summary.md",
+        "content": "# marco-session-2\n\nThe user confirmed an approved first visit: meeting Harbor Energy in Bristol on 2026-11-03 [cite:marco-004]. The assistant proposed a possible additional Cardiff visit, explicitly framing it as only its own suggestion, not a booking or user decision [cite:marco-005]. The user instructed that no extra cities be booked and that suggestions be kept separate from confirmed appointments [cite:marco-006].\n",
+        "citations": [
+          "marco-004",
+          "marco-005",
+          "marco-006"
+        ]
+      },
+      "sessions/marco-session-3/summary.md": {
+        "hash": "",
+        "path": "sessions/marco-session-3/summary.md",
+        "content": "# marco-session-3\n\nThe user confirmed a second organization, Willow Housing in Bath, while stating its date has not yet been agreed [cite:marco-007]. The user assigned coordination ownership: Dev coordinates the first visit, and the user will coordinate the second visit themselves [cite:marco-008]. The assistant summarized that the travel plan had two confirmed organizations, with dates and owners as separate facts [cite:marco-009].\n",
+        "citations": [
+          "marco-007",
+          "marco-008",
+          "marco-009"
+        ]
+      },
+      "sessions/marco-session-4/summary.md": {
+        "hash": "",
+        "path": "sessions/marco-session-4/summary.md",
+        "content": "# marco-session-4\n\nThe user issued a correction: the Harbor Energy visit in Bristol moved to 2026-11-06, replacing 2026-11-03, because the site engineer is unavailable on the original date; the organization and coordinator were unchanged [cite:marco-010]. The assistant provided a historical recap only, noting 2026-11-03 was the former date and is not current [cite:marco-011]. The user also made an unrelated request to compare two ways to organize a bookshelf, explicitly not a change to travel preferences [cite:marco-012].\n",
+        "citations": [
+          "marco-010",
+          "marco-011",
+          "marco-012"
+        ]
+      },
+      "sessions/marco-session-5/summary.md": {
+        "hash": "",
+        "path": "sessions/marco-session-5/summary.md",
+        "content": "# marco-session-5\n\nThe user requested a briefing showing the confirmed organizations, the current first-visit date, and its coordinator, using their existing document preferences [cite:marco-013]. The assistant floated switching the briefing to PNG and adding Cardiff, labeling these as unapproved suggestions [cite:marco-014]. The user rejected this, reaffirming the original document preferences and stating the Cardiff addition is not approved [cite:marco-015].\n",
+        "citations": [
+          "marco-013",
+          "marco-014",
+          "marco-015"
+        ]
+      },
+      "sessions/marco-session-6/summary.md": {
+        "hash": "",
+        "path": "sessions/marco-session-6/summary.md",
+        "content": "# marco-session-6\n\nThe user stated that no hotel has been selected or booked and instructed not to infer one from the meeting location [cite:marco-016]. The user further instructed that future answers be prepared from the confirmed plan, explicitly distinguishing old dates and unapproved suggestions [cite:marco-017]. The assistant acknowledged understanding: maintain current decisions and flag details that have not been established [cite:marco-018].\n",
+        "citations": [
+          "marco-016",
+          "marco-017",
+          "marco-018"
+        ]
+      },
+      "knowledge/subjects/hotel-arrangements-686ac31c.md": {
+        "hash": "",
+        "path": "knowledge/subjects/hotel-arrangements-686ac31c.md",
+        "content": "# Hotel arrangements\n\nNo hotel has been selected or booked, and the user instructed not to infer one from the meeting location; this is an explicit unknown [cite:marco-016].\n\n- [[knowledge/subjects/first-visit--harbor-energy--bristol-44c49157.md]]",
+        "citations": [
+          "marco-016"
+        ]
+      },
+      "knowledge/subjects/cardiff-visit-suggestion-81c9b806.md": {
+        "hash": "",
+        "path": "knowledge/subjects/cardiff-visit-suggestion-81c9b806.md",
+        "content": "# Cardiff visit suggestion\n\nThe assistant suggested a possible additional visit to Cardiff, explicitly framing it as only its own suggestion, not a booking or user decision [cite:marco-005]. The user instructed that no extra cities be booked and that suggestions be kept separate from confirmed appointments [cite:marco-006]. The assistant later raised adding Cardiff again for the briefing as an unapproved suggestion [cite:marco-014], and the user explicitly stated they have not approved the Cardiff addition [cite:marco-015]. Cardiff remains an unapproved assistant suggestion, not part of the confirmed plan.\n\n- [[knowledge/subjects/handling-of-suggestions-vs-confirmed-appointments-e0d8c622.md]]\n- [[knowledge/subjects/briefing-format-suggestions-364e14dd.md]]",
+        "citations": [
+          "marco-005",
+          "marco-006",
+          "marco-014",
+          "marco-015"
+        ]
+      },
+      "knowledge/subjects/briefing-format-suggestions-364e14dd.md": {
+        "hash": "",
+        "path": "knowledge/subjects/briefing-format-suggestions-364e14dd.md",
+        "content": "# Briefing format suggestions\n\nThe assistant suggested switching the briefing to PNG format and adding Cardiff, explicitly labeling both as unapproved suggestions [cite:marco-014]. The user rejected this, reaffirming the original document preferences and stating the Cardiff addition is not approved [cite:marco-015]. These remain unapproved assistant suggestions only.\n\n- [[knowledge/subjects/document-presentation-preferences-e1e9b8a4.md]]\n- [[knowledge/subjects/cardiff-visit-suggestion-81c9b806.md]]",
+        "citations": [
+          "marco-014",
+          "marco-015"
+        ]
+      },
+      "knowledge/subjects/visit-coordination-ownership-f0f6a99d.md": {
+        "hash": "",
+        "path": "knowledge/subjects/visit-coordination-ownership-f0f6a99d.md",
+        "content": "# Visit coordination ownership\n\nDev owns coordinating the first visit (Harbor Energy), and the user will coordinate the second visit (Willow Housing) themselves [cite:marco-008]. The date correction for the first visit did not change its coordinator [cite:marco-010].\n\n- [[knowledge/subjects/first-visit--harbor-energy--bristol-44c49157.md]]\n- [[knowledge/subjects/second-visit--willow-housing--bath-72f75a18.md]]",
+        "citations": [
+          "marco-008",
+          "marco-010"
+        ]
+      },
+      "knowledge/subjects/briefing-content-requirements-30fcceb3.md": {
+        "hash": "",
+        "path": "knowledge/subjects/briefing-content-requirements-30fcceb3.md",
+        "content": "# Briefing content requirements\n\nFor the briefing, the user requested that it show the confirmed organizations, the current first-visit date, and its coordinator, using the user's existing document preferences [cite:marco-013]. The user rejected an assistant proposal to switch the briefing to PNG and add Cardiff, reaffirming the original preferences [cite:marco-015].\n\n- [[knowledge/subjects/document-presentation-preferences-e1e9b8a4.md]]\n- [[knowledge/subjects/first-visit--harbor-energy--bristol-44c49157.md]]\n- [[knowledge/subjects/second-visit--willow-housing--bath-72f75a18.md]]",
+        "citations": [
+          "marco-013",
+          "marco-015"
+        ]
+      },
+      "knowledge/subjects/answer-preparation-instruction-6d48d1ed.md": {
+        "hash": "",
+        "path": "knowledge/subjects/answer-preparation-instruction-6d48d1ed.md",
+        "content": "# Answer preparation instruction\n\nThe user instructed that future answers be prepared from the confirmed plan and explicitly distinguish old dates and unapproved suggestions [cite:marco-017]. The assistant acknowledged understanding: maintain current decisions and say when details have not been established [cite:marco-018].\n\n- [[knowledge/subjects/handling-of-suggestions-vs-confirmed-appointments-e0d8c622.md]]",
+        "citations": [
+          "marco-017",
+          "marco-018"
+        ]
+      },
+      "knowledge/subjects/community-energy-project-scope-4ba7177a.md": {
+        "hash": "",
+        "path": "knowledge/subjects/community-energy-project-scope-4ba7177a.md",
+        "content": "# Community energy project scope\n\nThe user is organizing a community energy project [cite:marco-001]. The user mentioned enjoying a documentary about ocean currents but explicitly stated this does not change the project's scope [cite:marco-003].\n",
+        "citations": [
+          "marco-001",
+          "marco-003"
+        ]
+      },
+      "knowledge/subjects/document-presentation-preferences-e1e9b8a4.md": {
+        "hash": "",
+        "path": "knowledge/subjects/document-presentation-preferences-e1e9b8a4.md",
+        "content": "# Document presentation preferences\n\nThe user's standing default preferences for prepared materials are Markdown format, plain tables, and Italian language [cite:marco-001]. The assistant acknowledged retaining these preferences [cite:marco-002]. The user later reaffirmed keeping the original document preferences when the assistant proposed switching a briefing to PNG [cite:marco-015]. These preferences remain current and were referenced for the briefing request [cite:marco-013].\n\n- [[knowledge/subjects/briefing-content-requirements-30fcceb3.md]]\n- [[knowledge/subjects/briefing-format-suggestions-364e14dd.md]]",
+        "citations": [
+          "marco-001",
+          "marco-002",
+          "marco-015",
+          "marco-013"
+        ]
+      },
+      "knowledge/subjects/second-visit--willow-housing--bath-72f75a18.md": {
+        "hash": "",
+        "path": "knowledge/subjects/second-visit--willow-housing--bath-72f75a18.md",
+        "content": "# Second visit: Willow Housing, Bath\n\nWillow Housing in Bath is the second confirmed organization in the travel plan [cite:marco-007]. Its date has not yet been agreed; this is an explicit unknown [cite:marco-007]. The assistant noted the plan had two confirmed organizations, with dates and owners as separate facts [cite:marco-009].\n\n- [[knowledge/subjects/visit-coordination-ownership-f0f6a99d.md]]",
+        "citations": [
+          "marco-007",
+          "marco-007",
+          "marco-009"
+        ]
+      },
+      "knowledge/subjects/first-visit--harbor-energy--bristol-44c49157.md": {
+        "hash": "",
+        "path": "knowledge/subjects/first-visit--harbor-energy--bristol-44c49157.md",
+        "content": "# First visit: Harbor Energy, Bristol\n\nThe first visit is a confirmed, approved appointment with Harbor Energy in Bristol, currently scheduled for 2026-11-06 [cite:marco-010]. It was originally confirmed for 2026-11-03 [cite:marco-004], but the user corrected the date to 2026-11-06 because the site engineer is unavailable on the original date; this supersedes the earlier date, which the assistant noted is historical only and not current [cite:marco-011]. The organization and coordinator were unchanged by the date correction [cite:marco-010]. Dev owns coordinating this first visit [cite:marco-008]. No hotel has been selected or booked in connection with the meeting location [cite:marco-016].\n\n- [[knowledge/subjects/visit-coordination-ownership-f0f6a99d.md]]\n- [[knowledge/subjects/cardiff-visit-suggestion-81c9b806.md]]\n- [[knowledge/subjects/hotel-arrangements-686ac31c.md]]",
+        "citations": [
+          "marco-010",
+          "marco-004",
+          "marco-011",
+          "marco-010",
+          "marco-008",
+          "marco-016"
+        ]
+      },
+      "knowledge/subjects/handling-of-suggestions-vs-confirmed-appointments-e0d8c622.md": {
+        "hash": "",
+        "path": "knowledge/subjects/handling-of-suggestions-vs-confirmed-appointments-e0d8c622.md",
+        "content": "# Handling of suggestions vs confirmed appointments\n\nThe user instructed that no extra cities be booked and that suggestions be kept separate from confirmed appointments [cite:marco-006]. The user later reinforced this by asking that future answers explicitly distinguish old dates and unapproved suggestions from the confirmed plan [cite:marco-017].\n\n- [[knowledge/subjects/cardiff-visit-suggestion-81c9b806.md]]\n- [[knowledge/subjects/answer-preparation-instruction-6d48d1ed.md]]",
+        "citations": [
+          "marco-006",
+          "marco-017"
+        ]
+      }
+    },
+    "verification": {
+      "reason": "All review units verified against the cited evidence. Every factual assertion is directly supported by the cited user/assistant messages, attributions are correct (user decisions vs assistant suggestions/recaps), and temporal relationships are accurate (2026-11-03 correctly marked superseded by 2026-11-06 per marco-010; Cardiff consistently treated as an unapproved assistant suggestion per marco-005/014/015; hotel and second-visit date correctly treated as explicit unknowns per marco-016 and marco-007). Headings and link units are nonfactual and pass with empty source lists. No contradictions, missing significant observations, or inconsistent relationships were found; no conflicting sources exist.",
+      "reviews": [
+        {
+          "id": "knowledge/subjects/answer-preparation-instruction-6d48d1ed.md:1",
+          "reason": "Nonfactual heading; requires no sources.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/answer-preparation-instruction-6d48d1ed.md:3",
+          "reason": "marco-017 (user) directly supports the instruction to prepare future answers from the confirmed plan and distinguish old dates and unapproved suggestions. marco-018 (assistant) directly supports the acknowledgment to maintain current decisions and say when details have not been established. Attribution of instruction to user and acknowledgment to assistant is correct.",
+          "sources": [
+            "marco-017",
+            "marco-018"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/answer-preparation-instruction-6d48d1ed.md:5",
+          "reason": "Nonfactual link to a related subject page.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/briefing-content-requirements-30fcceb3.md:1",
+          "reason": "Nonfactual heading; requires no sources.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/briefing-content-requirements-30fcceb3.md:3",
+          "reason": "marco-013 (user) directly supports the briefing content request (confirmed organizations, current first-visit date, coordinator, existing document preferences). marco-015 (user) supports rejection of the PNG/Cardiff proposal and reaffirmation of original preferences; the assistant proposal itself is evidenced by marco-014, which is consistent and not conflicting.",
+          "sources": [
+            "marco-013",
+            "marco-015",
+            "marco-014"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/briefing-content-requirements-30fcceb3.md:5",
+          "reason": "Nonfactual link to a related subject page.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/briefing-content-requirements-30fcceb3.md:6",
+          "reason": "Nonfactual link to a related subject page.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/briefing-content-requirements-30fcceb3.md:7",
+          "reason": "Nonfactual link to a related subject page.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/briefing-format-suggestions-364e14dd.md:1",
+          "reason": "Nonfactual heading; requires no sources.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/briefing-format-suggestions-364e14dd.md:3",
+          "reason": "marco-014 (assistant) directly supports the PNG/Cardiff suggestion labeled as unapproved. marco-015 (user) supports the rejection, reaffirmation of original document preferences, and statement that Cardiff is not approved. The closing sentence that these remain unapproved assistant suggestions only follows from marco-014 and marco-015; attribution of suggestion to assistant and rejection to user is correct.",
+          "sources": [
+            "marco-014",
+            "marco-015"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/briefing-format-suggestions-364e14dd.md:5",
+          "reason": "Nonfactual link to a related subject page.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/briefing-format-suggestions-364e14dd.md:6",
+          "reason": "Nonfactual link to a related subject page.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/cardiff-visit-suggestion-81c9b806.md:1",
+          "reason": "Nonfactual heading; requires no sources.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/cardiff-visit-suggestion-81c9b806.md:3",
+          "reason": "marco-005 supports the assistant's initial Cardiff suggestion framed as not a booking or user decision. marco-006 supports the user's instruction not to book extra cities and to keep suggestions separate. marco-014 supports the later unapproved suggestion to add Cardiff to the briefing. marco-015 supports the user's explicit non-approval of Cardiff. The concluding status (unapproved assistant suggestion, not part of confirmed plan) follows from these; no evidence shows any user approval of Cardiff.",
+          "sources": [
+            "marco-005",
+            "marco-006",
+            "marco-014",
+            "marco-015"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/cardiff-visit-suggestion-81c9b806.md:5",
+          "reason": "Nonfactual link to a related subject page.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/cardiff-visit-suggestion-81c9b806.md:6",
+          "reason": "Nonfactual link to a related subject page.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/community-energy-project-scope-4ba7177a.md:1",
+          "reason": "Nonfactual heading; requires no sources.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/community-energy-project-scope-4ba7177a.md:3",
+          "reason": "marco-001 supports that the user is organizing a community energy project. marco-003 supports the documentary remark and the explicit statement that it does not change the project's scope.",
+          "sources": [
+            "marco-001",
+            "marco-003"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/document-presentation-preferences-e1e9b8a4.md:1",
+          "reason": "Nonfactual heading; requires no sources.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/document-presentation-preferences-e1e9b8a4.md:3",
+          "reason": "marco-001 supports the standing default preferences (Markdown, plain tables, Italian). marco-002 supports the assistant's acknowledgment of retaining them. marco-015 supports the later reaffirmation when PNG was proposed (proposal evidenced by marco-014). marco-013 supports that the preferences were referenced for the briefing request. The claim that preferences remain current is consistent with the user's reaffirmation in marco-015 and no later change.",
+          "sources": [
+            "marco-001",
+            "marco-002",
+            "marco-015",
+            "marco-013",
+            "marco-014"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/document-presentation-preferences-e1e9b8a4.md:5",
+          "reason": "Nonfactual link to a related subject page.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/document-presentation-preferences-e1e9b8a4.md:6",
+          "reason": "Nonfactual link to a related subject page.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/first-visit--harbor-energy--bristol-44c49157.md:1",
+          "reason": "Nonfactual heading; requires no sources.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/first-visit--harbor-energy--bristol-44c49157.md:3",
+          "reason": "marco-010 supports the current date 2026-11-06, the reason (site engineer unavailable on the original date), and that organization and coordinator were unchanged. marco-004 supports the original confirmed date 2026-11-03 as an approved appointment. marco-011 supports that the earlier date is historical only and not current. marco-008 supports Dev owning coordination of the first visit. marco-016 supports that no hotel has been selected or booked in connection with the meeting location. Supersession of 2026-11-03 by 2026-11-06 is correctly represented; no conflicting evidence exists.",
+          "sources": [
+            "marco-010",
+            "marco-004",
+            "marco-011",
+            "marco-008",
+            "marco-016"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/first-visit--harbor-energy--bristol-44c49157.md:5",
+          "reason": "Nonfactual link to a related subject page.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/first-visit--harbor-energy--bristol-44c49157.md:6",
+          "reason": "Nonfactual link to a related subject page.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/first-visit--harbor-energy--bristol-44c49157.md:7",
+          "reason": "Nonfactual link to a related subject page.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/handling-of-suggestions-vs-confirmed-appointments-e0d8c622.md:1",
+          "reason": "Nonfactual heading; requires no sources.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/handling-of-suggestions-vs-confirmed-appointments-e0d8c622.md:3",
+          "reason": "marco-006 supports the user's instruction not to book extra cities and to keep suggestions separate from confirmed appointments. marco-017 supports the later reinforcement to distinguish old dates and unapproved suggestions from the confirmed plan. Both are user statements; attribution is correct.",
+          "sources": [
+            "marco-006",
+            "marco-017"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/handling-of-suggestions-vs-confirmed-appointments-e0d8c622.md:5",
+          "reason": "Nonfactual link to a related subject page.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/handling-of-suggestions-vs-confirmed-appointments-e0d8c622.md:6",
+          "reason": "Nonfactual link to a related subject page.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/hotel-arrangements-686ac31c.md:1",
+          "reason": "Nonfactual heading; requires no sources.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/hotel-arrangements-686ac31c.md:3",
+          "reason": "marco-016 (user) directly supports that no hotel has been selected or booked and the instruction not to infer one from the meeting location; characterizing this as an explicit unknown is consistent with the user's statement.",
+          "sources": [
+            "marco-016"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/hotel-arrangements-686ac31c.md:5",
+          "reason": "Nonfactual link to a related subject page.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/second-visit--willow-housing--bath-72f75a18.md:1",
+          "reason": "Nonfactual heading; requires no sources.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/second-visit--willow-housing--bath-72f75a18.md:3",
+          "reason": "marco-007 supports Willow Housing in Bath as the second confirmed organization and that its date has not yet been agreed (explicit unknown). marco-009 supports the assistant's note that the plan had two confirmed organizations with dates and owners as separate facts. Attribution of the confirmation to the user and the summary to the assistant is correct.",
+          "sources": [
+            "marco-007",
+            "marco-009"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/second-visit--willow-housing--bath-72f75a18.md:5",
+          "reason": "Nonfactual link to a related subject page.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/visit-coordination-ownership-f0f6a99d.md:1",
+          "reason": "Nonfactual heading; requires no sources.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/visit-coordination-ownership-f0f6a99d.md:3",
+          "reason": "marco-008 supports Dev owning coordination of the first visit and the user coordinating the second visit themselves. marco-010 supports that the date correction did not change the coordinator. Both are user statements; attribution is correct.",
+          "sources": [
+            "marco-008",
+            "marco-010"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/visit-coordination-ownership-f0f6a99d.md:5",
+          "reason": "Nonfactual link to a related subject page.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/visit-coordination-ownership-f0f6a99d.md:6",
+          "reason": "Nonfactual link to a related subject page.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "sessions/marco-session-1/summary.md:1",
+          "reason": "Nonfactual heading; requires no sources.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "sessions/marco-session-1/summary.md:3",
+          "reason": "marco-001 supports the community energy project statement and default preferences (Markdown, plain tables, Italian). marco-002 supports the assistant's acknowledgment. marco-003 supports the documentary remark and that it does not change project scope. All events belong to marco-session-1 per the evidence records.",
+          "sources": [
+            "marco-001",
+            "marco-002",
+            "marco-003"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "sessions/marco-session-2/summary.md:1",
+          "reason": "Nonfactual heading; requires no sources.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "sessions/marco-session-2/summary.md:3",
+          "reason": "marco-004 supports the confirmed approved first visit on 2026-11-03 (accurate as a session-time record; later superseded per marco-010, which does not contradict the session summary's historical framing). marco-005 supports the assistant's Cardiff suggestion framed as not a booking or user decision. marco-006 supports the user's instruction on extra cities and separation of suggestions.",
+          "sources": [
+            "marco-004",
+            "marco-005",
+            "marco-006"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "sessions/marco-session-3/summary.md:1",
+          "reason": "Nonfactual heading; requires no sources.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "sessions/marco-session-3/summary.md:3",
+          "reason": "marco-007 supports the confirmation of Willow Housing in Bath with no agreed date. marco-008 supports the coordination ownership assignment. marco-009 supports the assistant's summary of two confirmed organizations with dates and owners as separate facts. Attribution of facts to user and summary to assistant is correct.",
+          "sources": [
+            "marco-007",
+            "marco-008",
+            "marco-009"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "sessions/marco-session-4/summary.md:1",
+          "reason": "Nonfactual heading; requires no sources.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "sessions/marco-session-4/summary.md:3",
+          "reason": "marco-010 supports the correction to 2026-11-06 replacing 2026-11-03, the site engineer reason, and unchanged organization and coordinator. marco-011 supports the historical recap that 2026-11-03 is the former date and not current. marco-012 supports the unrelated bookshelf request explicitly not changing travel preferences. Attribution is correct.",
+          "sources": [
+            "marco-010",
+            "marco-011",
+            "marco-012"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "sessions/marco-session-5/summary.md:1",
+          "reason": "Nonfactual heading; requires no sources.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "sessions/marco-session-5/summary.md:3",
+          "reason": "marco-013 supports the briefing request. marco-014 supports the assistant's PNG/Cardiff suggestions labeled unapproved. marco-015 supports the user's rejection, reaffirmation of original document preferences, and statement that Cardiff is not approved. Attribution of suggestion to assistant and rejection to user is correct.",
+          "sources": [
+            "marco-013",
+            "marco-014",
+            "marco-015"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "sessions/marco-session-6/summary.md:1",
+          "reason": "Nonfactual heading; requires no sources.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "sessions/marco-session-6/summary.md:3",
+          "reason": "marco-016 supports the hotel statement and instruction not to infer one from the meeting location. marco-017 supports the instruction to prepare future answers from the confirmed plan distinguishing old dates and unapproved suggestions. marco-018 supports the assistant's acknowledgment to maintain current decisions and flag unestablished details. Attribution is correct.",
+          "sources": [
+            "marco-016",
+            "marco-017",
+            "marco-018"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        }
+      ],
+      "supported": true
+    }
+  },
+  {
+    "status": "validated",
+    "content": [
+      {
+        "id": "8294fe27c9fc391dd4ce3597073a56081a21c54203c2ed29e110d7bc531e974b",
+        "text": "User's default preferences for prepared materials: Markdown format, plain tables, and Italian language.",
+        "origin": "user",
+        "status": "current",
+        "subject": "Document presentation preferences",
+        "citations": [
+          "marco-001"
+        ]
+      },
+      {
+        "id": "f9c5a73b656c0315ce123481e118f1fd0f438b86666dcb09afe143b1b44c39c4",
+        "text": "User enjoyed a documentary about ocean currents; user explicitly stated this does not change the community energy project's scope.",
+        "origin": "user",
+        "status": "current",
+        "subject": "Community energy project scope",
+        "citations": [
+          "marco-003"
+        ]
+      },
+      {
+        "id": "86e85b9feec2de8d013ff6c27c6706fd384efc8e2017a3e62ecacfbfea46218a",
+        "text": "Confirmed approved appointment: Harbor Energy in Bristol on 2026-11-06. Reason for change from original date: the site engineer is unavailable on the original date. Organization and coordinator unchanged.",
+        "origin": "user",
+        "status": "current",
+        "subject": "First visit: Harbor Energy, Bristol",
+        "citations": [
+          "marco-010"
+        ]
+      },
+      {
+        "id": "6a6eedf7335a3ffbce87bf03c2319fd41d4529f4efc54d130914448aa64818c3",
+        "text": "Originally confirmed first visit date: Harbor Energy in Bristol on 2026-11-03 (approved appointment).",
+        "origin": "user",
+        "status": "superseded",
+        "subject": "First visit: Harbor Energy, Bristol",
+        "citations": [
+          "marco-004"
+        ]
+      },
+      {
+        "id": "e6df1814b501619aa47482ff89a12f065519a408cc70a80cff74e1b60f71494b",
+        "text": "Assistant suggested a possible additional visit to Cardiff; explicitly only an assistant suggestion, not a booking or user decision.",
+        "origin": "assistant",
+        "status": "current",
+        "subject": "Cardiff visit suggestion",
+        "citations": [
+          "marco-005"
+        ]
+      },
+      {
+        "id": "fc15d188a6bbe0f02a5742b5b34c0a4fcd984656222e3c40239dbd0afa825a2b",
+        "text": "User instructed: do not book any extra cities; keep suggestions separate from confirmed appointments.",
+        "origin": "user",
+        "status": "current",
+        "subject": "Handling of suggestions vs confirmed appointments",
+        "citations": [
+          "marco-006"
+        ]
+      },
+      {
+        "id": "07887f7f06749a3e484d5e83f7b9ebcc5bcc8bff15a90afa4ac221444218b6c9",
+        "text": "User explicitly stated they have not approved the Cardiff addition and reaffirmed keeping the original document preferences.",
+        "origin": "user",
+        "status": "current",
+        "subject": "Cardiff visit suggestion",
+        "citations": [
+          "marco-015"
+        ]
+      },
+      {
+        "id": "93e25c743ed0d64ce2ddfd977ef2a4db05568fade73dd162cf44ec1d8ac3dea5",
+        "text": "Second confirmed organization: Willow Housing in Bath. Date not yet agreed (explicit unknown).",
+        "origin": "user",
+        "status": "current",
+        "subject": "Second visit: Willow Housing, Bath",
+        "citations": [
+          "marco-007"
+        ]
+      },
+      {
+        "id": "07a5134a55770330f21821751e6e0eb1c8be710863bc9ddec983516b169b4c1c",
+        "text": "Dev owns coordinating the first visit (Harbor Energy); the user will coordinate the second visit (Willow Housing) themselves.",
+        "origin": "user",
+        "status": "current",
+        "subject": "Visit coordination ownership",
+        "citations": [
+          "marco-008"
+        ]
+      },
+      {
+        "id": "814f573ab9904e176d8aca6d963616cf24e873004e1bea05151db4baf4bc3cb6",
+        "text": "Assistant suggested switching the briefing to PNG and adding Cardiff; explicitly unapproved suggestions.",
+        "origin": "assistant",
+        "status": "current",
+        "subject": "Briefing format suggestions",
+        "citations": [
+          "marco-014"
+        ]
+      },
+      {
+        "id": "ab5d179931de1d17ce65b6372fa2d3ab417100b28910bde1b7ab96f9a17c289a",
+        "text": "No hotel has been selected or booked; user instructed not to infer one from the meeting location (explicit unknown).",
+        "origin": "user",
+        "status": "current",
+        "subject": "Hotel arrangements",
+        "citations": [
+          "marco-016"
+        ]
+      },
+      {
+        "id": "7ec3b1364f74d695a32effc36040ad34c2acf0385f19a9ee4ef042813e4b1331",
+        "text": "User instructed: prepare future answers from the confirmed plan and explicitly distinguish old dates and unapproved suggestions.",
+        "origin": "user",
+        "status": "current",
+        "subject": "Answer preparation instruction",
+        "citations": [
+          "marco-017"
+        ]
+      },
+      {
+        "id": "2ac73635fb222fed8e4344689f69d1472ab30f8078338043d0eaa0d078b0b1f3",
+        "text": "For the briefing, user requested: show the confirmed organizations, the current first-visit date, and its coordinator, using the user's existing document preferences.",
+        "origin": "user",
+        "status": "current",
+        "subject": "Briefing content requirements",
+        "citations": [
+          "marco-013"
+        ]
+      }
+    ],
+    "verification": {
+      "reason": "All observations verified: (1) Document preferences match marco-001 exactly (Markdown, plain tables, Italian). (2) Documentary/scope statement matches marco-003. (3) Current first visit date 2026-11-06 with reason and unchanged org/coordinator matches marco-010. (4) Original date 2026-11-03 correctly marked superseded per marco-004 and marco-010. (5) Cardiff suggestion correctly attributed to assistant as suggestion only per marco-005. (6) User instruction on suggestions vs confirmed matches marco-006. (7) User non-approval of Cardiff and reaffirmed preferences matches marco-015. (8) Willow Housing Bath confirmed, date not agreed matches marco-007. (9) Dev coordinates first visit, user coordinates second matches marco-008. (10) Assistant PNG/Cardiff suggestion marked unapproved matches marco-014. (11) No hotel selected/booked matches marco-016. (12) Instruction to distinguish old dates and unapproved suggestions matches marco-017. (13) Briefing content requirements match marco-013. Origins, statuses (current/superseded), and citations are all accurate.",
+      "supported": true
+    }
+  }
+]

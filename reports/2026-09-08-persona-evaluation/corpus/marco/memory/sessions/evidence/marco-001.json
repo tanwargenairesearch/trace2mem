@@ -1,0 +1,28 @@
+{
+  "event": {
+    "eventId": "marco-001",
+    "sessionId": "marco-session-1",
+    "occurredAt": "2026-09-01T12:00:01Z",
+    "sequence": "1",
+    "actor": {
+      "role": "user",
+      "agentId": "synthetic-history-author"
+    },
+    "source": {
+      "id": "persona-marco-v1",
+      "format": "authored-synthetic",
+      "version": "1"
+    },
+    "message": {
+      "text": "I am organizing my community energy project. For materials you prepare for me, use Markdown, plain tables, and Italian. Treat these as my default preferences."
+    }
+  },
+  "excerpt": {
+    "id": "marco-001",
+    "session": "marco-session-1",
+    "role": "user",
+    "text": "I am organizing my community energy project. For materials you prepare for me, use Markdown, plain tables, and Italian. Treat these as my default preferences.",
+    "occurred": "2026-09-01T12:00:01Z",
+    "sequence": 1
+  }
+}

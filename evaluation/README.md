@@ -56,3 +56,8 @@ python3 -m unittest discover -s evaluation -v
 ```
 
 Tests cover condition rotation, hidden gold answers, retained failures, wrong revision/status, sanitized protocol error codes, subprocess invocation, timeouts and output bounds. They use a scripted fixture, not an inference model. See [the outcome plan](../docs/OUTCOMES.md) for independent histories, task success/currentness, source support, uncertainty intervals and amortized compilation costs. Do not publish an “agent delta” until your actual adapter is verified and the paired model trials are run.
+
+
+## Recorded persona hill-climb
+
+The [user-history dataset](personas/README.md) and [192-trial report](../reports/2026-09-08-persona-evaluation/README.md) add real Dream snapshots, development-only candidate selection, held-out runs, source-read accounting and complete failure records. Use `python3 evaluation/persona_verify.py --report /path/to/shared-report.json` to recompute saved artifact scores and metrics without model access. Read the [RCA](../reports/2026-09-08-persona-evaluation/RCA.md) before interpreting the small positive wiki comparison as semantic-quality gains.

@@ -1,0 +1,28 @@
+{
+  "event": {
+    "eventId": "leena-009",
+    "sessionId": "leena-session-3",
+    "occurredAt": "2026-09-03T12:00:09Z",
+    "sequence": "9",
+    "actor": {
+      "role": "assistant",
+      "agentId": "synthetic-history-author"
+    },
+    "source": {
+      "id": "persona-leena-v1",
+      "format": "authored-synthetic",
+      "version": "1"
+    },
+    "message": {
+      "text": "The travel plan now has two confirmed organizations. Dates and owners remain separate facts."
+    }
+  },
+  "excerpt": {
+    "id": "leena-009",
+    "session": "leena-session-3",
+    "role": "assistant",
+    "text": "The travel plan now has two confirmed organizations. Dates and owners remain separate facts.",
+    "occurred": "2026-09-03T12:00:09Z",
+    "sequence": 9
+  }
+}

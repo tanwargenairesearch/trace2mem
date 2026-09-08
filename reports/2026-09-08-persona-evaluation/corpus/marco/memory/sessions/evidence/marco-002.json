@@ -1,0 +1,28 @@
+{
+  "event": {
+    "eventId": "marco-002",
+    "sessionId": "marco-session-1",
+    "occurredAt": "2026-09-01T12:00:02Z",
+    "sequence": "2",
+    "actor": {
+      "role": "assistant",
+      "agentId": "synthetic-history-author"
+    },
+    "source": {
+      "id": "persona-marco-v1",
+      "format": "authored-synthetic",
+      "version": "1"
+    },
+    "message": {
+      "text": "I will retain your presentation preferences for future work."
+    }
+  },
+  "excerpt": {
+    "id": "marco-002",
+    "session": "marco-session-1",
+    "role": "assistant",
+    "text": "I will retain your presentation preferences for future work.",
+    "occurred": "2026-09-01T12:00:02Z",
+    "sequence": 2
+  }
+}

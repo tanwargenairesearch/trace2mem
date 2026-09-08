@@ -1,0 +1,1093 @@
+[
+  {
+    "status": "validated",
+    "content": {
+      "sessions/leena-session-1/summary.md": {
+        "hash": "",
+        "path": "sessions/leena-session-1/summary.md",
+        "content": "# leena-session-1\n\nThe user opened a museum conservation study organization effort and set standing default preferences for any materials prepared for them: DOCX format, high contrast, and Finnish language [cite:leena-001]. The assistant acknowledged it would retain these presentation preferences for future work [cite:leena-002]. The user also mentioned enjoying a documentary about ocean currents, explicitly noting this did not change the project's scope [cite:leena-003].\n",
+        "citations": [
+          "leena-001",
+          "leena-002",
+          "leena-003"
+        ]
+      },
+      "sessions/leena-session-2/summary.md": {
+        "hash": "",
+        "path": "sessions/leena-session-2/summary.md",
+        "content": "# leena-session-2\n\nThe user confirmed a first visit: an approved appointment to meet Birch Museum in Turku on 2027-02-09 [cite:leena-004]. The assistant floated a possible additional visit to Oulu, explicitly framing it as only its own suggestion, not a booking or user decision [cite:leena-005]. The user instructed that no extra cities be booked and that suggestions be kept separate from confirmed appointments [cite:leena-006].\n",
+        "citations": [
+          "leena-004",
+          "leena-005",
+          "leena-006"
+        ]
+      },
+      "sessions/leena-session-3/summary.md": {
+        "hash": "",
+        "path": "sessions/leena-session-3/summary.md",
+        "content": "# leena-session-3\n\nThe user confirmed a second organization, Amber Archive in Tampere, while noting that no date had been agreed for it yet [cite:leena-007]. The user assigned coordination ownership: Nora owns coordinating the first visit, and the user will coordinate the second visit themselves [cite:leena-008]. The assistant summarized that the travel plan now had two confirmed organizations, with dates and owners as separate facts [cite:leena-009].\n",
+        "citations": [
+          "leena-007",
+          "leena-008",
+          "leena-009"
+        ]
+      },
+      "sessions/leena-session-4/summary.md": {
+        "hash": "",
+        "path": "sessions/leena-session-4/summary.md",
+        "content": "# leena-session-4\n\nThe user issued a correction to the first visit: Birch Museum in Turku moved from 2027-02-09 to 2027-02-11 because the archive moved its conservation demonstration; the organization and coordinator were unchanged [cite:leena-010]. The assistant gave a historical recap only, noting 2027-02-09 was the former date and not the current one [cite:leena-011]. The user also made an unrelated request to compare two ways to organize a bookshelf, stating it was not a request to change travel preferences [cite:leena-012].\n",
+        "citations": [
+          "leena-010",
+          "leena-011",
+          "leena-012"
+        ]
+      },
+      "sessions/leena-session-5/summary.md": {
+        "hash": "",
+        "path": "sessions/leena-session-5/summary.md",
+        "content": "# leena-session-5\n\nThe user requested a briefing showing the confirmed organizations, the current first-visit date, and its coordinator, using the user's existing document preferences [cite:leena-013]. The assistant proposed switching the briefing to PNG and adding Oulu, labeling both as unapproved suggestions [cite:leena-014]. The user rejected this, confirming the original document preferences should be kept and stating the Oulu addition had not been approved [cite:leena-015].\n",
+        "citations": [
+          "leena-013",
+          "leena-014",
+          "leena-015"
+        ]
+      },
+      "sessions/leena-session-6/summary.md": {
+        "hash": "",
+        "path": "sessions/leena-session-6/summary.md",
+        "content": "# leena-session-6\n\nThe user stated that no hotel has been selected or booked and instructed that no hotel should be inferred from the meeting location [cite:leena-016]. The user also gave a standing instruction to prepare future answers from the confirmed plan and to explicitly distinguish old dates and unapproved suggestions [cite:leena-017]. The assistant acknowledged understanding: maintain current decisions and say when details have not been established [cite:leena-018].\n",
+        "citations": [
+          "leena-016",
+          "leena-017",
+          "leena-018"
+        ]
+      },
+      "knowledge/subjects/first-visit-date---current-1df4c980.md": {
+        "hash": "",
+        "path": "knowledge/subjects/first-visit-date---current-1df4c980.md",
+        "content": "# First visit date \u2014 current\n\nThe current date for the first visit to Birch Museum in Turku is 2027-02-11 [cite:leena-010]. The user changed the date from the original 2027-02-09 because the archive moved its conservation demonstration; the organization and coordinator were not changed [cite:leena-010]. The user has asked that the current first-visit date be shown in briefings [cite:leena-013] and that old dates be explicitly distinguished from current ones in future answers [cite:leena-017].\n\n- [[knowledge/subjects/confirmed-first-visit---birch-museum-b25a327a.md]]\n- [[knowledge/subjects/first-visit-date---original-c9dba749.md]]",
+        "citations": [
+          "leena-010",
+          "leena-010",
+          "leena-013",
+          "leena-017"
+        ]
+      },
+      "knowledge/subjects/document-format-preferences-f641261e.md": {
+        "hash": "",
+        "path": "knowledge/subjects/document-format-preferences-f641261e.md",
+        "content": "# Document format preferences\n\nThe user's standing default preferences for prepared materials are DOCX format, high contrast, and Finnish language, set in the context of a museum conservation study [cite:leena-001]. The assistant acknowledged retaining these preferences [cite:leena-002]. When the assistant later floated switching a briefing to PNG, the user reaffirmed keeping the original document preferences [cite:leena-014][cite:leena-015]. These preferences remain current and were referenced by the user as applying to briefing preparation [cite:leena-013].\n\n- [[knowledge/subjects/briefing-content-requirements-30fcceb3.md]]\n- [[knowledge/subjects/rejection-of-png-oulu-changes-bfa25285.md]]",
+        "citations": [
+          "leena-001",
+          "leena-002",
+          "leena-014",
+          "leena-015",
+          "leena-013"
+        ]
+      },
+      "knowledge/subjects/first-visit-date---original-c9dba749.md": {
+        "hash": "",
+        "path": "knowledge/subjects/first-visit-date---original-c9dba749.md",
+        "content": "# First visit date \u2014 original\n\nThe first visit to Birch Museum in Turku was originally confirmed for 2027-02-09 [cite:leena-004]. This date is superseded: the user later corrected it to 2027-02-11 [cite:leena-010], and the assistant noted 2027-02-09 as a historical recap only, not the current date [cite:leena-011]. Per the user's standing instruction, this old date should be explicitly distinguished from the current plan when it comes up [cite:leena-017].\n\n- [[knowledge/subjects/first-visit-date---current-1df4c980.md]]\n- [[knowledge/subjects/confirmed-first-visit---birch-museum-b25a327a.md]]",
+        "citations": [
+          "leena-004",
+          "leena-010",
+          "leena-011",
+          "leena-017"
+        ]
+      },
+      "knowledge/subjects/no-extra-cities-instruction-e555b4c7.md": {
+        "hash": "",
+        "path": "knowledge/subjects/no-extra-cities-instruction-e555b4c7.md",
+        "content": "# No extra cities instruction\n\nThe user instructed that no extra cities be booked and that suggestions be kept separate from confirmed appointments [cite:leena-006]. This instruction followed an assistant suggestion of a possible Oulu visit, which the assistant itself framed as only a suggestion, not a booking or user decision [cite:leena-005]. The user later reiterated that the Oulu addition has not been approved [cite:leena-015].\n\n- [[knowledge/subjects/unapproved-suggestion---oulu-visit-cc76618a.md]]\n- [[knowledge/subjects/rejection-of-png-oulu-changes-bfa25285.md]]",
+        "citations": [
+          "leena-006",
+          "leena-005",
+          "leena-015"
+        ]
+      },
+      "knowledge/subjects/visit-coordination-ownership-f0f6a99d.md": {
+        "hash": "",
+        "path": "knowledge/subjects/visit-coordination-ownership-f0f6a99d.md",
+        "content": "# Visit coordination ownership\n\nNora owns coordinating the first visit (Birch Museum in Turku), and the user will coordinate the second visit (Amber Archive in Tampere) themselves [cite:leena-008]. The later date correction for the first visit explicitly left the coordinator unchanged [cite:leena-010]. The user asked that the first visit's coordinator be shown in the briefing [cite:leena-013].\n\n- [[knowledge/subjects/confirmed-first-visit---birch-museum-b25a327a.md]]\n- [[knowledge/subjects/confirmed-second-organization---amber-archive-8c1a47ea.md]]\n- [[knowledge/subjects/briefing-content-requirements-30fcceb3.md]]",
+        "citations": [
+          "leena-008",
+          "leena-010",
+          "leena-013"
+        ]
+      },
+      "knowledge/subjects/briefing-content-requirements-30fcceb3.md": {
+        "hash": "",
+        "path": "knowledge/subjects/briefing-content-requirements-30fcceb3.md",
+        "content": "# Briefing content requirements\n\nThe user requested a briefing that shows the confirmed organizations, the current first-visit date, and the first visit's coordinator, using the user's existing document preferences [cite:leena-013]. The confirmed organizations are Birch Museum in Turku [cite:leena-004] and Amber Archive in Tampere [cite:leena-007]; the current first-visit date is 2027-02-11 [cite:leena-010]; the first visit's coordinator is Nora [cite:leena-008]. The user rejected assistant proposals to switch the format to PNG or add Oulu to the briefing [cite:leena-014][cite:leena-015].\n\n- [[knowledge/subjects/document-format-preferences-f641261e.md]]\n- [[knowledge/subjects/confirmed-first-visit---birch-museum-b25a327a.md]]\n- [[knowledge/subjects/confirmed-second-organization---amber-archive-8c1a47ea.md]]\n- [[knowledge/subjects/visit-coordination-ownership-f0f6a99d.md]]",
+        "citations": [
+          "leena-013",
+          "leena-004",
+          "leena-007",
+          "leena-010",
+          "leena-008",
+          "leena-014",
+          "leena-015"
+        ]
+      },
+      "knowledge/subjects/rejection-of-png-oulu-changes-bfa25285.md": {
+        "hash": "",
+        "path": "knowledge/subjects/rejection-of-png-oulu-changes-bfa25285.md",
+        "content": "# Rejection of PNG/Oulu changes\n\nThe user explicitly rejected the assistant's proposed changes to the briefing: the original document preferences (DOCX, high contrast, Finnish) are kept, and the Oulu addition has not been approved [cite:leena-015]. This reaffirmed the standing preferences set earlier [cite:leena-001] and the earlier instruction not to add extra cities [cite:leena-006].\n\n- [[knowledge/subjects/document-format-preferences-f641261e.md]]\n- [[knowledge/subjects/unapproved-suggestion---png-format-and-oulu-in-briefing-9866d235.md]]\n- [[knowledge/subjects/unapproved-suggestion---oulu-visit-cc76618a.md]]",
+        "citations": [
+          "leena-015",
+          "leena-001",
+          "leena-006"
+        ]
+      },
+      "knowledge/subjects/hotel-status---explicit-unknown-7ff80c93.md": {
+        "hash": "",
+        "path": "knowledge/subjects/hotel-status---explicit-unknown-7ff80c93.md",
+        "content": "# Hotel status \u2014 explicit unknown\n\nNo hotel has been selected or booked for the trip, and the user instructed that no hotel should be inferred from the meeting location [cite:leena-016]. This is an explicit unknown: future answers should state that hotel details have not been established rather than assume them [cite:leena-016][cite:leena-017].\n\n- [[knowledge/subjects/standing-instruction---plan-accuracy-4ef04dfb.md]]",
+        "citations": [
+          "leena-016",
+          "leena-016",
+          "leena-017"
+        ]
+      },
+      "knowledge/subjects/unapproved-suggestion---oulu-visit-cc76618a.md": {
+        "hash": "",
+        "path": "knowledge/subjects/unapproved-suggestion---oulu-visit-cc76618a.md",
+        "content": "# Unapproved suggestion \u2014 Oulu visit\n\nThe assistant suggested a possible visit to Oulu, explicitly noting at the time that it was only its suggestion, not a booking or user decision [cite:leena-005]. The user responded by instructing that no extra cities be booked [cite:leena-006] and later stated explicitly that the Oulu addition has not been approved [cite:leena-015]. This remains an unapproved assistant suggestion and must not be treated as a user decision or plan item [cite:leena-017].\n\n- [[knowledge/subjects/no-extra-cities-instruction-e555b4c7.md]]\n- [[knowledge/subjects/unapproved-suggestion---png-format-and-oulu-in-briefing-9866d235.md]]\n- [[knowledge/subjects/rejection-of-png-oulu-changes-bfa25285.md]]",
+        "citations": [
+          "leena-005",
+          "leena-006",
+          "leena-015",
+          "leena-017"
+        ]
+      },
+      "knowledge/subjects/confirmed-first-visit---birch-museum-b25a327a.md": {
+        "hash": "",
+        "path": "knowledge/subjects/confirmed-first-visit---birch-museum-b25a327a.md",
+        "content": "# Confirmed first visit \u2014 Birch Museum\n\nThe user has a confirmed, approved appointment to meet Birch Museum in Turku as the first visit [cite:leena-004]. The visit was originally scheduled for 2027-02-09, but the user later corrected the date to 2027-02-11, stating the organization and coordinator were unchanged by the correction [cite:leena-010]. Coordination of this visit is owned by Nora [cite:leena-008].\n\n- [[knowledge/subjects/first-visit-date---current-1df4c980.md]]\n- [[knowledge/subjects/first-visit-date---original-c9dba749.md]]\n- [[knowledge/subjects/visit-coordination-ownership-f0f6a99d.md]]\n- [[knowledge/subjects/confirmed-second-organization---amber-archive-8c1a47ea.md]]",
+        "citations": [
+          "leena-004",
+          "leena-010",
+          "leena-008"
+        ]
+      },
+      "knowledge/subjects/standing-instruction---plan-accuracy-4ef04dfb.md": {
+        "hash": "",
+        "path": "knowledge/subjects/standing-instruction---plan-accuracy-4ef04dfb.md",
+        "content": "# Standing instruction \u2014 plan accuracy\n\nThe user instructed that future answers be prepared from the confirmed plan and explicitly distinguish old (superseded) dates and unapproved suggestions [cite:leena-017]. The assistant acknowledged it would maintain current decisions and state when details have not been established [cite:leena-018]. This instruction applies to items such as the superseded 2027-02-09 first-visit date [cite:leena-010][cite:leena-011], the unapproved Oulu suggestion [cite:leena-005][cite:leena-015], and unestablished details like hotels [cite:leena-016].\n\n- [[knowledge/subjects/no-extra-cities-instruction-e555b4c7.md]]\n- [[knowledge/subjects/hotel-status---explicit-unknown-7ff80c93.md]]\n- [[knowledge/subjects/first-visit-date---original-c9dba749.md]]",
+        "citations": [
+          "leena-017",
+          "leena-018",
+          "leena-010",
+          "leena-011",
+          "leena-005",
+          "leena-015",
+          "leena-016"
+        ]
+      },
+      "knowledge/subjects/confirmed-second-organization---amber-archive-8c1a47ea.md": {
+        "hash": "",
+        "path": "knowledge/subjects/confirmed-second-organization---amber-archive-8c1a47ea.md",
+        "content": "# Confirmed second organization \u2014 Amber Archive\n\nAmber Archive in Tampere is the second confirmed organization in the user's travel plan [cite:leena-007]. No date has been agreed for this visit yet [cite:leena-007]. The user will coordinate this second visit themselves [cite:leena-008].\n\n- [[knowledge/subjects/visit-coordination-ownership-f0f6a99d.md]]\n- [[knowledge/subjects/confirmed-first-visit---birch-museum-b25a327a.md]]",
+        "citations": [
+          "leena-007",
+          "leena-007",
+          "leena-008"
+        ]
+      },
+      "knowledge/subjects/unapproved-suggestion---png-format-and-oulu-in-briefing-9866d235.md": {
+        "hash": "",
+        "path": "knowledge/subjects/unapproved-suggestion---png-format-and-oulu-in-briefing-9866d235.md",
+        "content": "# Unapproved suggestion \u2014 PNG format and Oulu in briefing\n\nDuring briefing preparation, the assistant proposed switching the briefing to PNG format and adding Oulu, labeling both as unapproved suggestions [cite:leena-014]. The user rejected both: the original document preferences (DOCX, high contrast, Finnish) are to be kept, and the Oulu addition is not approved [cite:leena-015]. These remain assistant suggestions only, not user decisions [cite:leena-017].\n\n- [[knowledge/subjects/document-format-preferences-f641261e.md]]\n- [[knowledge/subjects/rejection-of-png-oulu-changes-bfa25285.md]]\n- [[knowledge/subjects/unapproved-suggestion---oulu-visit-cc76618a.md]]",
+        "citations": [
+          "leena-014",
+          "leena-015",
+          "leena-017"
+        ]
+      }
+    },
+    "verification": {
+      "reason": "All 75 review units verified against evidence leena-001 through leena-018. Factual assertions match the cited user statements; the superseded 2027-02-09 date is consistently distinguished from the current 2027-02-11 per leena-010/leena-017; assistant suggestions (Oulu, PNG) are correctly attributed to the assistant and marked unapproved; user rejections and standing instructions are accurately recorded. Headings and wikilinks are nonfactual and reviewed with empty source lists. No conflicts, fabrications, or attribution errors found.",
+      "reviews": [
+        {
+          "id": "knowledge/subjects/briefing-content-requirements-30fcceb3.md:1",
+          "reason": "Heading; nonfactual organizational label for the briefing requirements subject.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/briefing-content-requirements-30fcceb3.md:3",
+          "reason": "Briefing request content matches leena-013 verbatim in substance. Confirmed organizations (Birch Museum Turku, Amber Archive Tampere) match leena-004 and leena-007. Current date 2027-02-11 matches leena-010 (superseding 2027-02-09 in leena-004, correctly not used here). Coordinator Nora matches leena-008. PNG/Oulu proposals attributed to assistant (leena-014) and rejection to user (leena-015); attribution preserved correctly.",
+          "sources": [
+            "leena-013",
+            "leena-004",
+            "leena-007",
+            "leena-010",
+            "leena-008",
+            "leena-014",
+            "leena-015"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/briefing-content-requirements-30fcceb3.md:5",
+          "reason": "Wikilink; nonfactual. Target page exists in the staged wiki.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/briefing-content-requirements-30fcceb3.md:6",
+          "reason": "Wikilink; nonfactual. Target page exists in the staged wiki.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/briefing-content-requirements-30fcceb3.md:7",
+          "reason": "Wikilink; nonfactual. Target page exists in the staged wiki.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/briefing-content-requirements-30fcceb3.md:8",
+          "reason": "Wikilink; nonfactual. Target page exists in the staged wiki.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/confirmed-first-visit---birch-museum-b25a327a.md:1",
+          "reason": "Heading; nonfactual label consistent with page content.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/confirmed-first-visit---birch-museum-b25a327a.md:3",
+          "reason": "Confirmed approved Birch Museum Turku appointment matches leena-004. Original 2027-02-09 date and user correction to 2027-02-11 with unchanged organization/coordinator match leena-010; the correction is attributed to the user, not to the assistant recap leena-011. Nora as coordinator matches leena-008.",
+          "sources": [
+            "leena-004",
+            "leena-010",
+            "leena-008"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/confirmed-first-visit---birch-museum-b25a327a.md:5",
+          "reason": "Wikilink; nonfactual. Target exists.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/confirmed-first-visit---birch-museum-b25a327a.md:6",
+          "reason": "Wikilink; nonfactual. Target exists.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/confirmed-first-visit---birch-museum-b25a327a.md:7",
+          "reason": "Wikilink; nonfactual. Target exists.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/confirmed-first-visit---birch-museum-b25a327a.md:8",
+          "reason": "Wikilink; nonfactual. Target exists.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/confirmed-second-organization---amber-archive-8c1a47ea.md:1",
+          "reason": "Heading; nonfactual label consistent with content.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/confirmed-second-organization---amber-archive-8c1a47ea.md:3",
+          "reason": "Amber Archive in Tampere as second confirmed organization and absence of an agreed date both match leena-007 ('We have not agreed its date yet'). User self-coordinating the second visit matches leena-008.",
+          "sources": [
+            "leena-007",
+            "leena-008"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/confirmed-second-organization---amber-archive-8c1a47ea.md:5",
+          "reason": "Wikilink; nonfactual. Target exists.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/confirmed-second-organization---amber-archive-8c1a47ea.md:6",
+          "reason": "Wikilink; nonfactual. Target exists.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/document-format-preferences-f641261e.md:1",
+          "reason": "Heading; nonfactual label.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/document-format-preferences-f641261e.md:3",
+          "reason": "DOCX/high contrast/Finnish defaults in the museum conservation study context match leena-001. Assistant acknowledgment matches leena-002. Later PNG float correctly attributed to assistant (leena-014) and reaffirmation of original preferences to user (leena-015). User referencing existing preferences for briefing matches leena-013. No conflict; the PNG suggestion was never approved, so preferences remain current.",
+          "sources": [
+            "leena-001",
+            "leena-002",
+            "leena-014",
+            "leena-015",
+            "leena-013"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/document-format-preferences-f641261e.md:5",
+          "reason": "Wikilink; nonfactual. Target exists.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/document-format-preferences-f641261e.md:6",
+          "reason": "Wikilink; nonfactual. Target exists.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/first-visit-date---current-1df4c980.md:1",
+          "reason": "Heading; nonfactual label.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/first-visit-date---current-1df4c980.md:3",
+          "reason": "Current date 2027-02-11, original 2027-02-09, reason (archive moved conservation demonstration), and unchanged organization/coordinator all match leena-010. Request to show current date in briefings matches leena-013; instruction to distinguish old dates matches leena-017. User's correction (leena-010) is treated as authoritative over the assistant recap leena-011, consistent with the verification policy.",
+          "sources": [
+            "leena-010",
+            "leena-013",
+            "leena-017"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/first-visit-date---current-1df4c980.md:5",
+          "reason": "Wikilink; nonfactual. Target exists.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/first-visit-date---current-1df4c980.md:6",
+          "reason": "Wikilink; nonfactual. Target exists.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/first-visit-date---original-c9dba749.md:1",
+          "reason": "Heading; nonfactual label.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/first-visit-date---original-c9dba749.md:3",
+          "reason": "Original confirmed date 2027-02-09 matches leena-004. Supersession by user correction to 2027-02-11 matches leena-010. leena-011 is cited only for the assistant's historical-recap framing, not as authority for the date change itself, which remains grounded in the user's leena-010. Distinguishing old dates matches leena-017.",
+          "sources": [
+            "leena-004",
+            "leena-010",
+            "leena-011",
+            "leena-017"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/first-visit-date---original-c9dba749.md:5",
+          "reason": "Wikilink; nonfactual. Target exists.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/first-visit-date---original-c9dba749.md:6",
+          "reason": "Wikilink; nonfactual. Target exists.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/hotel-status---explicit-unknown-7ff80c93.md:1",
+          "reason": "Heading; nonfactual label.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/hotel-status---explicit-unknown-7ff80c93.md:3",
+          "reason": "No hotel selected/booked and prohibition on inferring hotel from meeting location match leena-016. The forward-looking guidance ('state details not established') is grounded in leena-016 plus the standing instruction leena-017 and the assistant acknowledgment leena-018 pattern; attribution to the user is correct.",
+          "sources": [
+            "leena-016",
+            "leena-017"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/hotel-status---explicit-unknown-7ff80c93.md:5",
+          "reason": "Wikilink; nonfactual. Target exists.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/no-extra-cities-instruction-e555b4c7.md:1",
+          "reason": "Heading; nonfactual label.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/no-extra-cities-instruction-e555b4c7.md:3",
+          "reason": "User instruction not to book extra cities and to keep suggestions separate matches leena-006. The preceding Oulu suggestion is correctly attributed to the assistant with its own 'only my suggestion' framing per leena-005. Reiteration that Oulu is not approved matches leena-015. Temporal sequence (leena-005 before leena-006) is consistent.",
+          "sources": [
+            "leena-006",
+            "leena-005",
+            "leena-015"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/no-extra-cities-instruction-e555b4c7.md:5",
+          "reason": "Wikilink; nonfactual. Target exists.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/no-extra-cities-instruction-e555b4c7.md:6",
+          "reason": "Wikilink; nonfactual. Target exists.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/rejection-of-png-oulu-changes-bfa25285.md:1",
+          "reason": "Heading; nonfactual label.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/rejection-of-png-oulu-changes-bfa25285.md:3",
+          "reason": "User rejection of proposed changes, keeping original document preferences, and non-approval of Oulu all match leena-015. Reaffirmation linkage to the earlier standing preferences (leena-001) and no-extra-cities instruction (leena-006) is accurate; DOCX/high contrast/Finnish enumerated in leena-001.",
+          "sources": [
+            "leena-015",
+            "leena-001",
+            "leena-006"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/rejection-of-png-oulu-changes-bfa25285.md:5",
+          "reason": "Wikilink; nonfactual. Target exists.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/rejection-of-png-oulu-changes-bfa25285.md:6",
+          "reason": "Wikilink; nonfactual. Target exists.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/rejection-of-png-oulu-changes-bfa25285.md:7",
+          "reason": "Wikilink; nonfactual. Target exists.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/standing-instruction---plan-accuracy-4ef04dfb.md:1",
+          "reason": "Heading; nonfactual label.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/standing-instruction---plan-accuracy-4ef04dfb.md:3",
+          "reason": "Standing instruction to prepare answers from the confirmed plan and distinguish old dates/unapproved suggestions matches leena-017. Assistant acknowledgment matches leena-018 and is correctly attributed to the assistant. Applicability examples are accurate: superseded 2027-02-09 (leena-010, recap leena-011), unapproved Oulu (leena-005, leena-015), unestablished hotels (leena-016).",
+          "sources": [
+            "leena-017",
+            "leena-018",
+            "leena-010",
+            "leena-011",
+            "leena-005",
+            "leena-015",
+            "leena-016"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/standing-instruction---plan-accuracy-4ef04dfb.md:5",
+          "reason": "Wikilink; nonfactual. Target exists.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/standing-instruction---plan-accuracy-4ef04dfb.md:6",
+          "reason": "Wikilink; nonfactual. Target exists.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/standing-instruction---plan-accuracy-4ef04dfb.md:7",
+          "reason": "Wikilink; nonfactual. Target exists.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/unapproved-suggestion---oulu-visit-cc76618a.md:1",
+          "reason": "Heading; nonfactual label.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/unapproved-suggestion---oulu-visit-cc76618a.md:3",
+          "reason": "Oulu suggestion correctly attributed to the assistant with its contemporaneous 'only my suggestion' framing per leena-005. User's no-extra-cities response matches leena-006; explicit non-approval matches leena-015. 'Must not be treated as a user decision' is grounded in leena-017's standing instruction combined with leena-005/leena-015. Attribution is never flipped to the user.",
+          "sources": [
+            "leena-005",
+            "leena-006",
+            "leena-015",
+            "leena-017"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/unapproved-suggestion---oulu-visit-cc76618a.md:5",
+          "reason": "Wikilink; nonfactual. Target exists.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/unapproved-suggestion---oulu-visit-cc76618a.md:6",
+          "reason": "Wikilink; nonfactual. Target exists.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/unapproved-suggestion---oulu-visit-cc76618a.md:7",
+          "reason": "Wikilink; nonfactual. Target exists.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/unapproved-suggestion---png-format-and-oulu-in-briefing-9866d235.md:1",
+          "reason": "Heading; nonfactual label.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/unapproved-suggestion---png-format-and-oulu-in-briefing-9866d235.md:3",
+          "reason": "Assistant's PNG + Oulu proposal during briefing preparation, self-labeled unapproved, matches leena-014. User rejection keeping DOCX/high contrast/Finnish and not approving Oulu matches leena-015 (preference details cross-checked against leena-001). 'Assistant suggestions only, not user decisions' aligns with leena-017. Attribution preserved.",
+          "sources": [
+            "leena-014",
+            "leena-015",
+            "leena-017",
+            "leena-001"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/unapproved-suggestion---png-format-and-oulu-in-briefing-9866d235.md:5",
+          "reason": "Wikilink; nonfactual. Target exists.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/unapproved-suggestion---png-format-and-oulu-in-briefing-9866d235.md:6",
+          "reason": "Wikilink; nonfactual. Target exists.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/unapproved-suggestion---png-format-and-oulu-in-briefing-9866d235.md:7",
+          "reason": "Wikilink; nonfactual. Target exists.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/visit-coordination-ownership-f0f6a99d.md:1",
+          "reason": "Heading; nonfactual label.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/visit-coordination-ownership-f0f6a99d.md:3",
+          "reason": "Nora coordinating first visit and user self-coordinating second visit match leena-008; the parenthetical organization-city pairs match leena-004 and leena-007. Coordinator unchanged by the date correction matches leena-010 ('The organization and coordinator have not changed'). Showing the first visit's coordinator in the briefing matches leena-013.",
+          "sources": [
+            "leena-008",
+            "leena-010",
+            "leena-013",
+            "leena-004",
+            "leena-007"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/visit-coordination-ownership-f0f6a99d.md:5",
+          "reason": "Wikilink; nonfactual. Target exists.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/visit-coordination-ownership-f0f6a99d.md:6",
+          "reason": "Wikilink; nonfactual. Target exists.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/visit-coordination-ownership-f0f6a99d.md:7",
+          "reason": "Wikilink; nonfactual. Target exists.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "sessions/leena-session-1/summary.md:1",
+          "reason": "Session heading; nonfactual label.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "sessions/leena-session-1/summary.md:3",
+          "reason": "Museum conservation study context and DOCX/high contrast/Finnish defaults match leena-001. Assistant acknowledgment matches leena-002 and is attributed to the assistant. Ocean-currents documentary aside with explicit no-scope-change note matches leena-003.",
+          "sources": [
+            "leena-001",
+            "leena-002",
+            "leena-003"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "sessions/leena-session-2/summary.md:1",
+          "reason": "Session heading; nonfactual label.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "sessions/leena-session-2/summary.md:3",
+          "reason": "Confirmed approved Birch Museum Turku appointment on 2027-02-09 matches leena-004 (correctly reported as the date at the time of this session; supersession is handled in later pages). Oulu float attributed to assistant with 'only my suggestion' framing per leena-005. User's no-extra-cities instruction matches leena-006.",
+          "sources": [
+            "leena-004",
+            "leena-005",
+            "leena-006"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "sessions/leena-session-3/summary.md:1",
+          "reason": "Session heading; nonfactual label.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "sessions/leena-session-3/summary.md:3",
+          "reason": "Amber Archive in Tampere as second confirmed organization with no agreed date matches leena-007. Coordination assignment (Nora first visit, user second) matches leena-008. Assistant summary of two confirmed organizations with dates/owners as separate facts matches leena-009 and is attributed to the assistant.",
+          "sources": [
+            "leena-007",
+            "leena-008",
+            "leena-009"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "sessions/leena-session-4/summary.md:1",
+          "reason": "Session heading; nonfactual label.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "sessions/leena-session-4/summary.md:3",
+          "reason": "User's correction moving the first visit from 2027-02-09 to 2027-02-11, the stated reason, and unchanged organization/coordinator match leena-010 and are attributed to the user. Assistant's historical-recap-only framing matches leena-011. Unrelated bookshelf request with no-travel-preference-change disclaimer matches leena-012.",
+          "sources": [
+            "leena-010",
+            "leena-011",
+            "leena-012"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "sessions/leena-session-5/summary.md:1",
+          "reason": "Session heading; nonfactual label.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "sessions/leena-session-5/summary.md:3",
+          "reason": "Briefing request (confirmed organizations, current first-visit date, coordinator, existing document preferences) matches leena-013. PNG/Oulu proposal attributed to assistant as unapproved suggestions per leena-014. User rejection keeping original preferences and noting Oulu not approved matches leena-015. Attribution correctly distinguishes assistant proposal from user decision.",
+          "sources": [
+            "leena-013",
+            "leena-014",
+            "leena-015"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "sessions/leena-session-6/summary.md:1",
+          "reason": "Session heading; nonfactual label.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "sessions/leena-session-6/summary.md:3",
+          "reason": "No hotel selected/booked and no inference from meeting location match leena-016. Standing instruction to prepare from confirmed plan and distinguish old dates/unapproved suggestions matches leena-017. Assistant acknowledgment matches leena-018 and is attributed to the assistant.",
+          "sources": [
+            "leena-016",
+            "leena-017",
+            "leena-018"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        }
+      ],
+      "supported": true
+    }
+  },
+  {
+    "status": "validated",
+    "content": [
+      {
+        "id": "bd751f6773b1b2adab20000e7794fbfad5b568ac4fd96200b40e9153b0ef60e0",
+        "text": "User's default preferences for prepared materials: DOCX format, high contrast, Finnish language. Set for the museum conservation study; reaffirmed in leena-015.",
+        "origin": "user",
+        "status": "current",
+        "subject": "Document format preferences",
+        "citations": [
+          "leena-001"
+        ]
+      },
+      {
+        "id": "1abc2b7f8029ee607bff72847dc3980003abeb4b8576a11b5c9cae8658c91b32",
+        "text": "Confirmed approved appointment: user will meet Birch Museum in Turku. Originally scheduled 2027-02-09; date later corrected (see superseded observation). Organization unchanged by later correction.",
+        "origin": "user",
+        "status": "current",
+        "subject": "Confirmed first visit \u2014 Birch Museum",
+        "citations": [
+          "leena-004"
+        ]
+      },
+      {
+        "id": "368e00dac77379b50ff84d0154c01f31e15ec3289a9c63d4d875244b70c2a20e",
+        "text": "Current date for the Birch Museum (Turku) first visit: 2027-02-11. Reason for change: the archive moved its conservation demonstration. Organization and coordinator unchanged.",
+        "origin": "user",
+        "status": "current",
+        "subject": "First visit date \u2014 current",
+        "citations": [
+          "leena-010"
+        ]
+      },
+      {
+        "id": "3ef12a194338b20b77c97fe2e9a434f808d6bc0d0598dc8604dc1f97c63772e8",
+        "text": "The first visit to Birch Museum in Turku was originally scheduled for 2027-02-09. This date was replaced by 2027-02-11 per user correction in leena-010.",
+        "origin": "user",
+        "status": "superseded",
+        "subject": "First visit date \u2014 original",
+        "citations": [
+          "leena-004",
+          "leena-010"
+        ]
+      },
+      {
+        "id": "50b7747e5a3ab28bdf8ec9c3b54d788ebe462bc981e8a3c7539f3d32fdc9452b",
+        "text": "Second confirmed organization: Amber Archive in Tampere. No date has been agreed yet.",
+        "origin": "user",
+        "status": "current",
+        "subject": "Confirmed second organization \u2014 Amber Archive",
+        "citations": [
+          "leena-007"
+        ]
+      },
+      {
+        "id": "48fabfb2e6d9823af7551eac79f1697be300e7975ce343b09a1ef1f07bc4cff3",
+        "text": "Nora owns coordinating the first visit (Birch Museum). The user will coordinate the second visit (Amber Archive) themselves.",
+        "origin": "user",
+        "status": "current",
+        "subject": "Visit coordination ownership",
+        "citations": [
+          "leena-008"
+        ]
+      },
+      {
+        "id": "f2548361ce33a32003680e1ad14127c4f25089651724ec79db3c304b50941e03",
+        "text": "User instructed: do not book any extra cities; keep suggestions separate from confirmed appointments.",
+        "origin": "user",
+        "status": "current",
+        "subject": "No extra cities instruction",
+        "citations": [
+          "leena-006"
+        ]
+      },
+      {
+        "id": "87b21dfffaaa77a32c8906fe7ce770e6d9cd986337dc4b537ae5a49ca95271a3",
+        "text": "Assistant suggested a possible visit to Oulu. This was only an assistant suggestion, never a booking or user decision; user later explicitly stated the Oulu addition is not approved (leena-015).",
+        "origin": "assistant",
+        "status": "current",
+        "subject": "Unapproved suggestion \u2014 Oulu visit",
+        "citations": [
+          "leena-005"
+        ]
+      },
+      {
+        "id": "87d07592b9198fc51f4a48af4363315e5fae0f863ac6afcfdaf3d673dcd573f8",
+        "text": "Assistant suggested switching the briefing to PNG and adding Oulu. Both are unapproved suggestions; user rejected them in leena-015.",
+        "origin": "assistant",
+        "status": "current",
+        "subject": "Unapproved suggestion \u2014 PNG format and Oulu in briefing",
+        "citations": [
+          "leena-014"
+        ]
+      },
+      {
+        "id": "37519ace5d16198f7b70efe35e7cd7296490015e863196ee972695ed1b85a3c4",
+        "text": "User confirmed keeping the original document preferences (DOCX, high contrast, Finnish) and stated the Oulu addition has not been approved.",
+        "origin": "user",
+        "status": "current",
+        "subject": "Rejection of PNG/Oulu changes",
+        "citations": [
+          "leena-015"
+        ]
+      },
+      {
+        "id": "4ce81f32006b2218aa03dffba7eee5eb40996f821dc6e88d56156122628e8cd6",
+        "text": "Briefing should show: the confirmed organizations (Birch Museum, Amber Archive), the current first-visit date, and its coordinator (Nora). Use the user's existing document preferences.",
+        "origin": "user",
+        "status": "current",
+        "subject": "Briefing content requirements",
+        "citations": [
+          "leena-013"
+        ]
+      },
+      {
+        "id": "ba8f65de277b048c2f58a442699b22c77afd6ef1a3ec59099f90f105663f13b8",
+        "text": "No hotel has been selected or booked. User instructed not to infer a hotel from the meeting location.",
+        "origin": "user",
+        "status": "current",
+        "subject": "Hotel status \u2014 explicit unknown",
+        "citations": [
+          "leena-016"
+        ]
+      },
+      {
+        "id": "51c6ded4f0e7d3526dfcea8136eb6d8074c87a6caf8b0ab4311366f71522c264",
+        "text": "User instructed: prepare future answers from the confirmed plan and explicitly distinguish old (superseded) dates and unapproved suggestions.",
+        "origin": "user",
+        "status": "current",
+        "subject": "Standing instruction \u2014 plan accuracy",
+        "citations": [
+          "leena-017"
+        ]
+      }
+    ],
+    "verification": {
+      "reason": "All 13 observations are accurately supported by their cited evidence. Document preferences (leena-001, reaffirmed leena-015), first visit details (leena-004), corrected date 2027-02-11 with reason (leena-010), superseded original date correctly marked, Amber Archive with no date (leena-007), coordination ownership (leena-008), no-extra-cities instruction (leena-006), both unapproved assistant suggestions correctly attributed to assistant origin (leena-005, leena-014) with user rejection (leena-015), briefing requirements (leena-013), hotel explicit unknown (leena-016), and standing instruction on plan accuracy (leena-017) all match. Statuses (current/superseded) are correct given leena-010's correction. No contradictions; assistant suggestions properly distinguished from user decisions; no inferences beyond evidence.",
+      "supported": true
+    }
+  }
+]

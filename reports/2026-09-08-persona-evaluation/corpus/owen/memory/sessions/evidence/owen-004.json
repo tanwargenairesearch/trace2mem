@@ -1,0 +1,28 @@
+{
+  "event": {
+    "eventId": "owen-004",
+    "sessionId": "owen-session-2",
+    "occurredAt": "2026-09-02T12:00:04Z",
+    "sequence": "4",
+    "actor": {
+      "role": "user",
+      "agentId": "synthetic-history-author"
+    },
+    "source": {
+      "id": "persona-owen-v1",
+      "format": "authored-synthetic",
+      "version": "1"
+    },
+    "message": {
+      "text": "Confirmed first visit: I will meet Reed Rescue in Galway on 2027-03-17. This is an approved appointment."
+    }
+  },
+  "excerpt": {
+    "id": "owen-004",
+    "session": "owen-session-2",
+    "role": "user",
+    "text": "Confirmed first visit: I will meet Reed Rescue in Galway on 2027-03-17. This is an approved appointment.",
+    "occurred": "2026-09-02T12:00:04Z",
+    "sequence": 4
+  }
+}

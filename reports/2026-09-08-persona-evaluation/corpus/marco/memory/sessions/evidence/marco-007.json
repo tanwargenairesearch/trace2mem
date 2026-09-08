@@ -1,0 +1,28 @@
+{
+  "event": {
+    "eventId": "marco-007",
+    "sessionId": "marco-session-3",
+    "occurredAt": "2026-09-03T12:00:07Z",
+    "sequence": "7",
+    "actor": {
+      "role": "user",
+      "agentId": "synthetic-history-author"
+    },
+    "source": {
+      "id": "persona-marco-v1",
+      "format": "authored-synthetic",
+      "version": "1"
+    },
+    "message": {
+      "text": "A second confirmed organization is Willow Housing in Bath. We have not agreed its date yet."
+    }
+  },
+  "excerpt": {
+    "id": "marco-007",
+    "session": "marco-session-3",
+    "role": "user",
+    "text": "A second confirmed organization is Willow Housing in Bath. We have not agreed its date yet.",
+    "occurred": "2026-09-03T12:00:07Z",
+    "sequence": 7
+  }
+}

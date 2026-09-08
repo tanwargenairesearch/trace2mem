@@ -40,6 +40,12 @@ Evaluation supports repeated counterbalanced pairs and resolved-source recall. T
 
 Fresh-checkout Docker integration/Dream and Linux FUSE acceptance passed at `11df64e`. Go vet, ordinary race tests, focused database race tests and five Python benchmark tests passed. These checks establish implementation behavior, not semantic quality or cloud readiness.
 
+## User-history evaluation — 2026-09-08
+
+A [four-persona dataset and bounded hill-climb](../reports/2026-09-08-persona-evaluation/README.md) now record 192 live Kimi foreground trials and all five Dream compilation attempts. The controlled demonstration-agent protocol improved development memory-task completion from 14/32 to 21/32. Held-out scores were history 23/32, notes/sessions 26/32, wiki 27/32. The wiki used fewer foreground tokens than notes/sessions but more than history. The [failure audit](../reports/2026-09-08-persona-evaluation/RCA.md) finds execution and exact-format differences; semantic-quality gains remain unproven.
+
+The production verifier now constrains evidence-ID fields to supplied IDs. The stricter consuming-agent action protocol is an example, not automatically imposed on every API/MCP client. Dataset validation, resumable checkpoints, frozen candidate selection, complete accounting and offline score verification are implemented. The normal application and historical reports were preserved.
+
 ## Remaining limitations
 
 External connector investigation and Dream subagent delegation are deferred. Native macOS FUSE, external OIDC/OAuth interoperability, cloud IAM/private database access, cloud restore, release publication, and public CI execution are not verified by local Docker. No GitHub or LinkedIn publication has been performed.

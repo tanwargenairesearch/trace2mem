@@ -1,0 +1,28 @@
+{
+  "event": {
+    "eventId": "owen-017",
+    "sessionId": "owen-session-6",
+    "occurredAt": "2026-09-06T12:00:17Z",
+    "sequence": "17",
+    "actor": {
+      "role": "user",
+      "agentId": "synthetic-history-author"
+    },
+    "source": {
+      "id": "persona-owen-v1",
+      "format": "authored-synthetic",
+      "version": "1"
+    },
+    "message": {
+      "text": "Prepare future answers from my confirmed plan and explicitly distinguish old dates and unapproved suggestions."
+    }
+  },
+  "excerpt": {
+    "id": "owen-017",
+    "session": "owen-session-6",
+    "role": "user",
+    "text": "Prepare future answers from my confirmed plan and explicitly distinguish old dates and unapproved suggestions.",
+    "occurred": "2026-09-06T12:00:17Z",
+    "sequence": 17
+  }
+}

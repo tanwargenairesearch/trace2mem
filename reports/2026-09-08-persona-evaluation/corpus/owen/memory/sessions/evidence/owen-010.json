@@ -1,0 +1,28 @@
+{
+  "event": {
+    "eventId": "owen-010",
+    "sessionId": "owen-session-4",
+    "occurredAt": "2026-09-04T12:00:10Z",
+    "sequence": "10",
+    "actor": {
+      "role": "user",
+      "agentId": "synthetic-history-author"
+    },
+    "source": {
+      "id": "persona-owen-v1",
+      "format": "authored-synthetic",
+      "version": "1"
+    },
+    "message": {
+      "text": "Correction to the first visit: Reed Rescue in Galway is now on 2027-03-20, replacing 2027-03-17. Reason: the venue is closed for maintenance on the original date. The organization and coordinator have not changed."
+    }
+  },
+  "excerpt": {
+    "id": "owen-010",
+    "session": "owen-session-4",
+    "role": "user",
+    "text": "Correction to the first visit: Reed Rescue in Galway is now on 2027-03-20, replacing 2027-03-17. Reason: the venue is closed for maintenance on the original date. The organization and coordinator have not changed.",
+    "occurred": "2026-09-04T12:00:10Z",
+    "sequence": 10
+  }
+}

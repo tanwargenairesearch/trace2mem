@@ -1,0 +1,28 @@
+{
+  "event": {
+    "eventId": "owen-013",
+    "sessionId": "owen-session-5",
+    "occurredAt": "2026-09-05T12:00:13Z",
+    "sequence": "13",
+    "actor": {
+      "role": "user",
+      "agentId": "synthetic-history-author"
+    },
+    "source": {
+      "id": "persona-owen-v1",
+      "format": "authored-synthetic",
+      "version": "1"
+    },
+    "message": {
+      "text": "For the briefing, show the confirmed organizations, the current first-visit date, and its coordinator. Use my existing document preferences."
+    }
+  },
+  "excerpt": {
+    "id": "owen-013",
+    "session": "owen-session-5",
+    "role": "user",
+    "text": "For the briefing, show the confirmed organizations, the current first-visit date, and its coordinator. Use my existing document preferences.",
+    "occurred": "2026-09-05T12:00:13Z",
+    "sequence": 13
+  }
+}

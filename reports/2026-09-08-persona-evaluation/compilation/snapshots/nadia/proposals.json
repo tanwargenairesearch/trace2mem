@@ -1,0 +1,740 @@
+[
+  {
+    "status": "rejected",
+    "content": {
+      "sessions/nadia-session-1/summary.md": {
+        "hash": "",
+        "path": "sessions/nadia-session-1/summary.md",
+        "content": "# nadia-session-1\n\nThe user opened an accessibility research trip planning effort and set standing defaults for any materials prepared for them: PDF format, a light background, and English, asking that these be treated as default preferences [cite:nadia-001]. The assistant acknowledged it would retain those presentation preferences for future work [cite:nadia-002]. The user also mentioned enjoying a documentary about ocean currents, explicitly noting it did not change the project's scope [cite:nadia-003].\n",
+        "citations": [
+          "nadia-001",
+          "nadia-002",
+          "nadia-003"
+        ]
+      },
+      "sessions/nadia-session-2/summary.md": {
+        "hash": "",
+        "path": "sessions/nadia-session-2/summary.md",
+        "content": "# nadia-session-2\n\nThe user confirmed the first visit of the trip: an approved appointment with Cedar Lab in Kyoto on 2026-10-12 [cite:nadia-004]. The assistant floated a possible additional visit to Osaka, framing it as only its own suggestion, not a booking or a user decision [cite:nadia-005]. The user instructed that no extra cities be booked and that suggestions be kept separate from confirmed appointments [cite:nadia-006].\n",
+        "citations": [
+          "nadia-004",
+          "nadia-005",
+          "nadia-006"
+        ]
+      },
+      "sessions/nadia-session-3/summary.md": {
+        "hash": "",
+        "path": "sessions/nadia-session-3/summary.md",
+        "content": "# nadia-session-3\n\nThe user confirmed a second organization for the trip: Maple Mobility in Sendai, while noting that no date had been agreed for it yet [cite:nadia-007]. The user also assigned coordination ownership: Inez owns coordinating the first visit, and the user will coordinate the second visit themselves [cite:nadia-008]. The assistant summarized that the travel plan now had two confirmed organizations, with dates and owners tracked as separate facts [cite:nadia-009].\n",
+        "citations": [
+          "nadia-007",
+          "nadia-008",
+          "nadia-009"
+        ]
+      },
+      "sessions/nadia-session-4/summary.md": {
+        "hash": "",
+        "path": "sessions/nadia-session-4/summary.md",
+        "content": "# nadia-session-4\n\nThe user issued a correction to the first visit: Cedar Lab in Kyoto moved from 2026-10-12 to 2026-10-14, replacing the earlier date, because the host laboratory moved its accessibility workshop; the organization and coordinator were unchanged [cite:nadia-010]. The assistant gave a historical recap only, noting the first visit used to be on 2026-10-12 and that this was not the current date [cite:nadia-011]. The user also made an unrelated request to compare two ways to organize a bookshelf, clarifying it was not a request to change travel preferences [cite:nadia-012].\n",
+        "citations": [
+          "nadia-010",
+          "nadia-011",
+          "nadia-012"
+        ]
+      },
+      "sessions/nadia-session-5/summary.md": {
+        "hash": "",
+        "path": "sessions/nadia-session-5/summary.md",
+        "content": "# nadia-session-5\n\nThe user requested a briefing showing the confirmed organizations, the current first-visit date, and its coordinator, using their existing document preferences [cite:nadia-013]. The assistant proposed switching the briefing to PNG and adding Osaka, labeling both as unapproved suggestions [cite:nadia-014]. The user rejected this, directing that the original document preferences be kept and stating that the Osaka addition had not been approved [cite:nadia-015].\n",
+        "citations": [
+          "nadia-013",
+          "nadia-014",
+          "nadia-015"
+        ]
+      },
+      "sessions/nadia-session-6/summary.md": {
+        "hash": "",
+        "path": "sessions/nadia-session-6/summary.md",
+        "content": "# nadia-session-6\n\nThe user stated that no hotel had been selected or booked and warned against inferring one from the meeting location [cite:nadia-016]. The user also instructed that future answers be prepared from the confirmed plan, explicitly distinguishing old dates and unapproved suggestions [cite:nadia-017]. The assistant acknowledged the instruction to maintain current decisions and to say when details have not been established [cite:nadia-018].\n",
+        "citations": [
+          "nadia-016",
+          "nadia-017",
+          "nadia-018"
+        ]
+      },
+      "knowledge/subjects/hotel-status-f2114fdc.md": {
+        "hash": "",
+        "path": "knowledge/subjects/hotel-status-f2114fdc.md",
+        "content": "# Hotel status\n\nNo hotel has been selected or booked for the trip, and the user has instructed that no hotel should be inferred from the meeting location [cite:nadia-016].\n\n- [[knowledge/subjects/first-visit---cedar-lab-57445d0e.md]]",
+        "citations": [
+          "nadia-016"
+        ]
+      },
+      "knowledge/subjects/document-preferences-15b3531a.md": {
+        "hash": "",
+        "path": "knowledge/subjects/document-preferences-15b3531a.md",
+        "content": "# Document preferences\n\nThe user's standing defaults for prepared materials are PDF format, a light background, and English, established as default preferences at the start of planning [cite:nadia-001]. When the assistant later proposed switching a briefing to PNG, the user rejected the change and asked to keep the original document preferences [cite:nadia-014][cite:nadia-015]. These preferences remain current and were reaffirmed for use in the briefing [cite:nadia-013].\n\n- [[knowledge/subjects/briefing-content-request-81babc3a.md]]\n- [[knowledge/subjects/assistant-unapproved-suggestions-4011ec61.md]]",
+        "citations": [
+          "nadia-001",
+          "nadia-014",
+          "nadia-015",
+          "nadia-013"
+        ]
+      },
+      "knowledge/subjects/first-visit---cedar-lab-57445d0e.md": {
+        "hash": "",
+        "path": "knowledge/subjects/first-visit---cedar-lab-57445d0e.md",
+        "content": "# First visit \u2014 Cedar Lab\n\nThe first visit is a confirmed, approved appointment with Cedar Lab in Kyoto [cite:nadia-004]. Its current date is 2026-10-14, which replaced the original date of 2026-10-12 because the host laboratory moved its accessibility workshop; the organization and coordinator were unchanged by this correction [cite:nadia-010]. The earlier date of 2026-10-12 is superseded and is not the current date [cite:nadia-010][cite:nadia-011]. Coordination of this visit is owned by Inez [cite:nadia-008]. No hotel has been selected or booked in connection with the meeting location [cite:nadia-016].\n\n- [[knowledge/subjects/visit-coordination-ownership-f0f6a99d.md]]\n- [[knowledge/subjects/second-visit---maple-mobility-846e714e.md]]\n- [[knowledge/subjects/hotel-status-f2114fdc.md]]",
+        "citations": [
+          "nadia-004",
+          "nadia-010",
+          "nadia-010",
+          "nadia-011",
+          "nadia-008",
+          "nadia-016"
+        ]
+      },
+      "knowledge/subjects/briefing-content-request-81babc3a.md": {
+        "hash": "",
+        "path": "knowledge/subjects/briefing-content-request-81babc3a.md",
+        "content": "# Briefing content request\n\nThe user requested a briefing that shows the confirmed organizations, the current first-visit date, and its coordinator, using the user's existing document preferences [cite:nadia-013]. In context, this means the two confirmed organizations (Cedar Lab in Kyoto and Maple Mobility in Sendai) [cite:nadia-004][cite:nadia-007], the current first-visit date of 2026-10-14 [cite:nadia-010], and coordinator Inez [cite:nadia-008], presented as a PDF with a light background in English [cite:nadia-001][cite:nadia-015].\n\n- [[knowledge/subjects/document-preferences-15b3531a.md]]\n- [[knowledge/subjects/first-visit---cedar-lab-57445d0e.md]]\n- [[knowledge/subjects/second-visit---maple-mobility-846e714e.md]]",
+        "citations": [
+          "nadia-013",
+          "nadia-004",
+          "nadia-007",
+          "nadia-010",
+          "nadia-008",
+          "nadia-001",
+          "nadia-015"
+        ]
+      },
+      "knowledge/subjects/scope-rule---no-extra-cities-dbd0256e.md": {
+        "hash": "",
+        "path": "knowledge/subjects/scope-rule---no-extra-cities-dbd0256e.md",
+        "content": "# Scope rule \u2014 no extra cities\n\nThe user has instructed that no extra cities be booked for the trip and that suggestions be kept separate from confirmed appointments [cite:nadia-006]. This rule was issued directly after an assistant suggestion to add Osaka [cite:nadia-005][cite:nadia-006] and remains the governing constraint on trip scope.\n\n- [[knowledge/subjects/osaka-addition---not-approved-8c3e60a4.md]]\n- [[knowledge/subjects/assistant-unapproved-suggestions-4011ec61.md]]",
+        "citations": [
+          "nadia-006",
+          "nadia-005",
+          "nadia-006"
+        ]
+      },
+      "knowledge/subjects/visit-coordination-ownership-f0f6a99d.md": {
+        "hash": "",
+        "path": "knowledge/subjects/visit-coordination-ownership-f0f6a99d.md",
+        "content": "# Visit coordination ownership\n\nCoordination ownership is split between the two confirmed visits: Inez owns coordinating the first visit (Cedar Lab), and the user will coordinate the second visit (Maple Mobility) themselves [cite:nadia-008]. The later date correction for the Cedar Lab visit explicitly left the coordinator unchanged [cite:nadia-010].\n\n- [[knowledge/subjects/first-visit---cedar-lab-57445d0e.md]]\n- [[knowledge/subjects/second-visit---maple-mobility-846e714e.md]]",
+        "citations": [
+          "nadia-008",
+          "nadia-010"
+        ]
+      },
+      "knowledge/subjects/osaka-addition---not-approved-8c3e60a4.md": {
+        "hash": "",
+        "path": "knowledge/subjects/osaka-addition---not-approved-8c3e60a4.md",
+        "content": "# Osaka addition \u2014 not approved\n\nAdding Osaka to the trip has only ever been an assistant suggestion, not a booking or user decision [cite:nadia-005]. The user has explicitly stated they have not approved the Osaka addition [cite:nadia-015], and separately instructed that no extra cities be booked [cite:nadia-006]. Osaka is therefore not part of the confirmed plan.\n\n- [[knowledge/subjects/scope-rule---no-extra-cities-dbd0256e.md]]\n- [[knowledge/subjects/assistant-unapproved-suggestions-4011ec61.md]]",
+        "citations": [
+          "nadia-005",
+          "nadia-015",
+          "nadia-006"
+        ]
+      },
+      "knowledge/subjects/second-visit---maple-mobility-846e714e.md": {
+        "hash": "",
+        "path": "knowledge/subjects/second-visit---maple-mobility-846e714e.md",
+        "content": "# Second visit \u2014 Maple Mobility\n\nThe second confirmed organization on the trip is Maple Mobility in Sendai [cite:nadia-007]. No date has been agreed for this visit yet [cite:nadia-007]. The user will coordinate this visit themselves, in contrast to the first visit, which Inez coordinates [cite:nadia-008].\n\n- [[knowledge/subjects/first-visit---cedar-lab-57445d0e.md]]\n- [[knowledge/subjects/visit-coordination-ownership-f0f6a99d.md]]",
+        "citations": [
+          "nadia-007",
+          "nadia-007",
+          "nadia-008"
+        ]
+      },
+      "knowledge/subjects/answer-preparation-instruction-04690d8b.md": {
+        "hash": "",
+        "path": "knowledge/subjects/answer-preparation-instruction-04690d8b.md",
+        "content": "# Answer-preparation instruction\n\nThe user instructed that future answers be prepared from the confirmed plan and explicitly distinguish old (superseded) dates and unapproved suggestions [cite:nadia-017]. The assistant acknowledged this, committing to maintain current decisions and to say when details have not been established [cite:nadia-018]. This applies, for example, to the superseded 2026-10-12 first-visit date [cite:nadia-010][cite:nadia-011] and to unapproved assistant suggestions such as Osaka and PNG [cite:nadia-005][cite:nadia-014].\n\n- [[knowledge/subjects/first-visit---cedar-lab-57445d0e.md]]\n- [[knowledge/subjects/assistant-unapproved-suggestions-4011ec61.md]]",
+        "citations": [
+          "nadia-017",
+          "nadia-018",
+          "nadia-010",
+          "nadia-011",
+          "nadia-005",
+          "nadia-014"
+        ]
+      },
+      "knowledge/subjects/assistant-unapproved-suggestions-4011ec61.md": {
+        "hash": "",
+        "path": "knowledge/subjects/assistant-unapproved-suggestions-4011ec61.md",
+        "content": "# Assistant unapproved suggestions\n\nThe assistant has made two suggestions that remain unapproved: (a) adding a visit to Osaka, which it framed at the time as only a suggestion, not a booking or user decision [cite:nadia-005], and (b) switching the briefing to PNG alongside adding Osaka, which it labeled as unapproved suggestions [cite:nadia-014]. The user rejected the PNG switch and confirmed Osaka is not approved [cite:nadia-015], and had earlier directed that suggestions be kept separate from confirmed appointments [cite:nadia-006]. These are assistant-originated ideas, not user facts.\n\n- [[knowledge/subjects/osaka-addition---not-approved-8c3e60a4.md]]\n- [[knowledge/subjects/scope-rule---no-extra-cities-dbd0256e.md]]\n- [[knowledge/subjects/document-preferences-15b3531a.md]]",
+        "citations": [
+          "nadia-005",
+          "nadia-014",
+          "nadia-015",
+          "nadia-006"
+        ]
+      }
+    },
+    "verification": {
+      "reason": "All 58 review units verified against the cited evidence items. Every factual passage is directly supported by the cited user or assistant statements, attributions are correct (user decisions from user statements, assistant suggestions/recaps from assistant statements), and temporal relationships are accurate (2026-10-12 correctly marked superseded by 2026-10-14 via nadia-010; nadia-011 correctly treated as a historical recap that does not undo the user's explicit correction). Observations are consistent with the pages; no significant observations are missing from the subject set (each observation maps to a corresponding page). Headings and links are nonfactual and reviewed with empty source lists. The only flaw found is a duplicated citation token in first-visit---cedar-lab-57445d0e.md (nadia-010 appears twice), which does not undermine any factual claim but is noted as a cosmetic conflict.",
+      "reviews": [
+        {
+          "id": "knowledge/subjects/answer-preparation-instruction-04690d8b.md:1",
+          "reason": "Heading only; nonfactual; no assertions to verify.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/answer-preparation-instruction-04690d8b.md:3",
+          "reason": "Each clause matches its citation: nadia-017 is the user's instruction to prepare answers from the confirmed plan and distinguish old dates and unapproved suggestions; nadia-018 is the assistant's acknowledgment to maintain current decisions and say when details are unestablished; nadia-010 explicitly states 2026-10-14 replaces 2026-10-12 and nadia-011 confirms 2026-10-12 is not current; nadia-005 (Osaka suggestion) and nadia-014 (PNG+Osaka, labeled unapproved) support the 'unapproved suggestions' example. nadia-011 is an assistant recap but is only used to confirm the historical status of the old date, consistent with the user's own correction in nadia-010, so it does not convert the correction into a tentative proposal.",
+          "sources": [
+            "nadia-017",
+            "nadia-018",
+            "nadia-010",
+            "nadia-011",
+            "nadia-005",
+            "nadia-014"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/answer-preparation-instruction-04690d8b.md:5",
+          "reason": "Nonfactual internal link; target page exists in the draft.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/answer-preparation-instruction-04690d8b.md:6",
+          "reason": "Nonfactual internal link; target page exists in the draft.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/assistant-unapproved-suggestions-4011ec61.md:1",
+          "reason": "Heading only; nonfactual.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/assistant-unapproved-suggestions-4011ec61.md:3",
+          "reason": "nadia-005 supports suggestion (a) framed as only a suggestion; nadia-014 supports suggestion (b) (PNG switch plus Osaka) labeled unapproved; nadia-015 supports the user's rejection of the PNG switch and confirmation that Osaka is not approved; nadia-006 supports the earlier directive to keep suggestions separate from confirmed appointments. The claim 'two suggestions' is accurate: the assistant made suggestion events at sequence 5 (Osaka) and 14 (PNG + Osaka reiteration); describing these as two suggestions (Osaka, PNG) is consistent with observation 65792e96. 'Assistant-originated ideas, not user facts' correctly attributes origin.",
+          "sources": [
+            "nadia-005",
+            "nadia-014",
+            "nadia-015",
+            "nadia-006"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/assistant-unapproved-suggestions-4011ec61.md:5",
+          "reason": "Nonfactual internal link; target exists.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/assistant-unapproved-suggestions-4011ec61.md:6",
+          "reason": "Nonfactual internal link; target exists.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/assistant-unapproved-suggestions-4011ec61.md:7",
+          "reason": "Nonfactual internal link; target exists.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/briefing-content-request-81babc3a.md:1",
+          "reason": "Heading only; nonfactual.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/briefing-content-request-81babc3a.md:3",
+          "reason": "nadia-013 supports the briefing request verbatim. The 'in context' expansion correctly resolves: two confirmed organizations = Cedar Lab in Kyoto (nadia-004) and Maple Mobility in Sendai (nadia-007); current first-visit date = 2026-10-14 (nadia-010, which superseded 2026-10-12); coordinator = Inez (nadia-008); document preferences = PDF, light background, English (nadia-001) reaffirmed in nadia-015. Temporal handling is correct: the current date is used, not the superseded one.",
+          "sources": [
+            "nadia-013",
+            "nadia-004",
+            "nadia-007",
+            "nadia-010",
+            "nadia-008",
+            "nadia-001",
+            "nadia-015"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/briefing-content-request-81babc3a.md:5",
+          "reason": "Nonfactual internal link; target exists.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/briefing-content-request-81babc3a.md:6",
+          "reason": "Nonfactual internal link; target exists.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/briefing-content-request-81babc3a.md:7",
+          "reason": "Nonfactual internal link; target exists.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/document-preferences-15b3531a.md:1",
+          "reason": "Heading only; nonfactual.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/document-preferences-15b3531a.md:3",
+          "reason": "nadia-001 establishes PDF/light background/English as default preferences. nadia-014 is the assistant's PNG proposal; nadia-015 is the user's rejection and request to keep original preferences. nadia-013 supports reaffirmation for the briefing. The sequence (preferences set first, PNG proposal later, rejection later) is temporally accurate.",
+          "sources": [
+            "nadia-001",
+            "nadia-014",
+            "nadia-015",
+            "nadia-013"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/document-preferences-15b3531a.md:5",
+          "reason": "Nonfactual internal link; target exists.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/document-preferences-15b3531a.md:6",
+          "reason": "Nonfactual internal link; target exists.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/first-visit---cedar-lab-57445d0e.md:1",
+          "reason": "Heading only; nonfactual.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/first-visit---cedar-lab-57445d0e.md:3",
+          "reason": "nadia-004 supports the confirmed approved appointment with Cedar Lab in Kyoto. nadia-010 supports the current date 2026-10-14 replacing 2026-10-12, the reason (host lab moved its accessibility workshop), and that organization and coordinator are unchanged. nadia-010 and nadia-011 support that 2026-10-12 is superseded and not current; nadia-011 is an assistant historical recap and is not treated as authority overriding the user's explicit correction. nadia-008 supports Inez as coordinator. nadia-016 supports that no hotel has been selected or booked. The passage's only flaw is the duplicated nadia-010 citation.",
+          "sources": [
+            "nadia-004",
+            "nadia-010",
+            "nadia-011",
+            "nadia-008",
+            "nadia-016"
+          ],
+          "conflicts": [
+            "Duplicate citation token: nadia-010 is cited twice within the passage (also reflected in the citations array); cosmetic, no factual impact."
+          ],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/first-visit---cedar-lab-57445d0e.md:5",
+          "reason": "Nonfactual internal link; target exists.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/first-visit---cedar-lab-57445d0e.md:6",
+          "reason": "Nonfactual internal link; target exists.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/first-visit---cedar-lab-57445d0e.md:7",
+          "reason": "Nonfactual internal link; target exists.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/hotel-status-f2114fdc.md:1",
+          "reason": "Heading only; nonfactual.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/hotel-status-f2114fdc.md:3",
+          "reason": "nadia-016 states verbatim that no hotel has been selected or booked and not to infer one from the meeting location. The phrase 'for the trip' is a fair contextual reading since the meeting location refers to the trip's meetings; matches observation 02a89817.",
+          "sources": [
+            "nadia-016"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/hotel-status-f2114fdc.md:5",
+          "reason": "Nonfactual internal link; target exists.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/osaka-addition---not-approved-8c3e60a4.md:1",
+          "reason": "Heading only; nonfactual.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/osaka-addition---not-approved-8c3e60a4.md:3",
+          "reason": "nadia-005 shows Osaka was only ever an assistant suggestion, explicitly 'not a booking or your decision.' nadia-015 is the user's explicit statement that they have not approved the Osaka addition. nadia-006 is the separate instruction not to book extra cities. The conclusion that Osaka is not part of the confirmed plan follows from the user's own statements (confirmed plan comprises Cedar Lab and Maple Mobility per nadia-004, nadia-007, nadia-009).",
+          "sources": [
+            "nadia-005",
+            "nadia-015",
+            "nadia-006"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/osaka-addition---not-approved-8c3e60a4.md:5",
+          "reason": "Nonfactual internal link; target exists.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/osaka-addition---not-approved-8c3e60a4.md:6",
+          "reason": "Nonfactual internal link; target exists.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/scope-rule---no-extra-cities-dbd0256e.md:1",
+          "reason": "Heading only; nonfactual.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/scope-rule---no-extra-cities-dbd0256e.md:3",
+          "reason": "nadia-006 is the user's instruction not to book extra cities and to keep suggestions separate from confirmed appointments. Sequence data confirms nadia-006 (sequence 6) immediately followed the assistant's Osaka suggestion nadia-005 (sequence 5), supporting 'issued directly after.' 'Remains the governing constraint' is consistent with no later user retraction; the user reaffirmed non-approval of Osaka in nadia-015.",
+          "sources": [
+            "nadia-006",
+            "nadia-005"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/scope-rule---no-extra-cities-dbd0256e.md:5",
+          "reason": "Nonfactual internal link; target exists.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/scope-rule---no-extra-cities-dbd0256e.md:6",
+          "reason": "Nonfactual internal link; target exists.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/second-visit---maple-mobility-846e714e.md:1",
+          "reason": "Heading only; nonfactual.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/second-visit---maple-mobility-846e714e.md:3",
+          "reason": "nadia-007 supports Maple Mobility in Sendai as the second confirmed organization with no agreed date. nadia-008 supports the user coordinating the second visit themselves and Inez owning the first visit's coordination; the contrast is drawn directly from the user's own statement. No later evidence changes either fact.",
+          "sources": [
+            "nadia-007",
+            "nadia-008"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/second-visit---maple-mobility-846e714e.md:5",
+          "reason": "Nonfactual internal link; target exists.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/second-visit---maple-mobility-846e714e.md:6",
+          "reason": "Nonfactual internal link; target exists.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/visit-coordination-ownership-f0f6a99d.md:1",
+          "reason": "Heading only; nonfactual.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/visit-coordination-ownership-f0f6a99d.md:3",
+          "reason": "nadia-008 is the user's direct assignment of coordination ownership (Inez for the first visit, the user for the second). nadia-010 explicitly states the coordinator has not changed after the date correction, supporting the second sentence. Parenthetical identifications (Cedar Lab, Maple Mobility) are consistent with nadia-004 and nadia-007.",
+          "sources": [
+            "nadia-008",
+            "nadia-010"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/visit-coordination-ownership-f0f6a99d.md:5",
+          "reason": "Nonfactual internal link; target exists.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "knowledge/subjects/visit-coordination-ownership-f0f6a99d.md:6",
+          "reason": "Nonfactual internal link; target exists.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "sessions/nadia-session-1/summary.md:1",
+          "reason": "Heading only; nonfactual.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "sessions/nadia-session-1/summary.md:3",
+          "reason": "nadia-001 supports the accessibility research trip context and the PDF/light background/English default preferences; nadia-002 supports the assistant's acknowledgment; nadia-003 supports the ocean-currents documentary remark and the user's explicit note that it did not change scope. Attribution to roles is correct.",
+          "sources": [
+            "nadia-001",
+            "nadia-002",
+            "nadia-003"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "sessions/nadia-session-2/summary.md:1",
+          "reason": "Heading only; nonfactual.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "sessions/nadia-session-2/summary.md:3",
+          "reason": "nadia-004 supports the confirmed, approved Cedar Lab Kyoto appointment on 2026-10-12 (accurate as of session 2; later supersession by nadia-010 does not make this historical summary incorrect). nadia-005 supports the assistant's Osaka suggestion framed as only a suggestion. nadia-006 supports the user's no-extra-cities and separation instruction. Role attribution is correct.",
+          "sources": [
+            "nadia-004",
+            "nadia-005",
+            "nadia-006"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "sessions/nadia-session-3/summary.md:1",
+          "reason": "Heading only; nonfactual.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "sessions/nadia-session-3/summary.md:3",
+          "reason": "nadia-007 supports Maple Mobility in Sendai as second confirmed organization with no agreed date; nadia-008 supports the coordination ownership assignment; nadia-009 supports the assistant's summary of two confirmed organizations with dates and owners as separate facts. Role attribution correct (user statements vs. assistant summary).",
+          "sources": [
+            "nadia-007",
+            "nadia-008",
+            "nadia-009"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "sessions/nadia-session-4/summary.md:1",
+          "reason": "Heading only; nonfactual.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "sessions/nadia-session-4/summary.md:3",
+          "reason": "nadia-010 supports the correction (2026-10-12 -> 2026-10-14, workshop-move reason, organization and coordinator unchanged). nadia-011 supports that the assistant's message was a historical recap only; the summary correctly frames it as a recap, not as a decision change. nadia-012 supports the unrelated bookshelf request and its clarification.",
+          "sources": [
+            "nadia-010",
+            "nadia-011",
+            "nadia-012"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "sessions/nadia-session-5/summary.md:1",
+          "reason": "Heading only; nonfactual.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "sessions/nadia-session-5/summary.md:3",
+          "reason": "nadia-013 supports the briefing request; nadia-014 supports the assistant proposing PNG plus Osaka labeled as unapproved suggestions; nadia-015 supports the user rejecting this, keeping original document preferences, and stating Osaka was not approved. The summary's 'user rejected this' accurately attributes the rejection to the user's own statement.",
+          "sources": [
+            "nadia-013",
+            "nadia-014",
+            "nadia-015"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "sessions/nadia-session-6/summary.md:1",
+          "reason": "Heading only; nonfactual.",
+          "sources": [],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        },
+        {
+          "id": "sessions/nadia-session-6/summary.md:3",
+          "reason": "nadia-016 supports the hotel statement; nadia-017 supports the answer-preparation instruction; nadia-018 supports the assistant's acknowledgment. All three citations match their session-6 evidence items verbatim in substance.",
+          "sources": [
+            "nadia-016",
+            "nadia-017",
+            "nadia-018"
+          ],
+          "conflicts": [],
+          "supported": true,
+          "temporal_valid": true,
+          "attribution_valid": true
+        }
+      ],
+      "supported": true
+    }
+  }
+]

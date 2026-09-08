@@ -1,0 +1,28 @@
+{
+  "event": {
+    "eventId": "nadia-010",
+    "sessionId": "nadia-session-4",
+    "occurredAt": "2026-09-04T12:00:10Z",
+    "sequence": "10",
+    "actor": {
+      "role": "user",
+      "agentId": "synthetic-history-author"
+    },
+    "source": {
+      "id": "persona-nadia-v1",
+      "format": "authored-synthetic",
+      "version": "1"
+    },
+    "message": {
+      "text": "Correction to the first visit: Cedar Lab in Kyoto is now on 2026-10-14, replacing 2026-10-12. Reason: the host laboratory moved its accessibility workshop. The organization and coordinator have not changed."
+    }
+  },
+  "excerpt": {
+    "id": "nadia-010",
+    "session": "nadia-session-4",
+    "role": "user",
+    "text": "Correction to the first visit: Cedar Lab in Kyoto is now on 2026-10-14, replacing 2026-10-12. Reason: the host laboratory moved its accessibility workshop. The organization and coordinator have not changed.",
+    "occurred": "2026-09-04T12:00:10Z",
+    "sequence": 10
+  }
+}

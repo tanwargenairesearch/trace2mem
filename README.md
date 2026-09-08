@@ -26,7 +26,9 @@ Capture and retrieval are separate integrations. An adapter sends events during 
 
 Use Trace2Mem when you control your agent's event capture and want self-hosted, inspectable memory. It does not replace your agent harness. Pi/Hermes adapters are not yet implemented; the framework-neutral API is available. Linux FUSE is optional—MCP, HTTP, and ordinary directories also work.
 
-**Status:** locally validated experimental MVP, not a production release. A small [paired evaluation](docs/EVALUATION.md) did not establish an advantage over the baseline. The richer Kimi exercise recalled corrected requirements but exposed a historical interpretation error. A subsequent [36-trial directory-agent pilot](reports/2026-09-08-harbor-comparison/README.md) performed worse than full-history prompting because memory tools were frequently unused; its negative results are preserved. See [implemented guarantees and limitations](docs/IMPLEMENTATION.md); no Brain-equivalent quality, speed, or cost claim is made.
+**Status:** locally validated experimental MVP. The latest [192-trial user-history pilot](reports/2026-09-08-persona-evaluation/README.md) improved the consuming agent on development tasks; held-out wiki/notes/history scores were 27/32, 26/32 and 23/32. The [failure audit](reports/2026-09-08-persona-evaluation/RCA.md) finds execution and exact-format differences, not demonstrated semantic gains.
+
+Earlier [negative results](reports/2026-09-08-harbor-comparison/README.md) and the [historical-interpretation error](reports/2026-09-08-harbor/README.md) remain documented. See [implemented guarantees and limitations](docs/IMPLEMENTATION.md); no Brain-equivalent quality, speed, or cost claim is made.
 
 ## Local Docker
 

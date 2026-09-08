@@ -1,0 +1,147 @@
+{
+  "existing_memory": {
+    "attempts": 32,
+    "successes": 23,
+    "checks": 80,
+    "passed_checks": 60,
+    "errors": {
+      "provider_failure": 5,
+      "step_budget": 1
+    },
+    "no_file_read_trials": null,
+    "gold_source_coverage": null,
+    "gold_citation_agreement": 0.8125,
+    "accounted_tokens": 277483,
+    "missing_usage_trials": 0,
+    "unresolved_usage_trials": 0,
+    "median_latency_seconds": 17.847,
+    "incomplete_latency_trials": 0,
+    "families": {
+      "preferences": {
+        "attempts": 4,
+        "successes": 3
+      },
+      "currentness": {
+        "attempts": 4,
+        "successes": 3
+      },
+      "temporal": {
+        "attempts": 4,
+        "successes": 4
+      },
+      "cross_session": {
+        "attempts": 8,
+        "successes": 3
+      },
+      "authority": {
+        "attempts": 4,
+        "successes": 3
+      },
+      "unknown": {
+        "attempts": 4,
+        "successes": 4
+      },
+      "single_fact": {
+        "attempts": 4,
+        "successes": 3
+      }
+    }
+  },
+  "notes_sessions": {
+    "attempts": 32,
+    "successes": 26,
+    "checks": 80,
+    "passed_checks": 65,
+    "errors": {
+      "provider_failure": 2,
+      "step_budget": 1,
+      "token_budget": 2
+    },
+    "no_file_read_trials": 2,
+    "gold_source_coverage": 0.95,
+    "gold_citation_agreement": 0.8125,
+    "accounted_tokens": 504726,
+    "missing_usage_trials": 0,
+    "unresolved_usage_trials": 0,
+    "median_latency_seconds": 19.834,
+    "incomplete_latency_trials": 0,
+    "families": {
+      "preferences": {
+        "attempts": 4,
+        "successes": 3
+      },
+      "currentness": {
+        "attempts": 4,
+        "successes": 4
+      },
+      "temporal": {
+        "attempts": 4,
+        "successes": 3
+      },
+      "cross_session": {
+        "attempts": 8,
+        "successes": 6
+      },
+      "authority": {
+        "attempts": 4,
+        "successes": 4
+      },
+      "unknown": {
+        "attempts": 4,
+        "successes": 3
+      },
+      "single_fact": {
+        "attempts": 4,
+        "successes": 3
+      }
+    }
+  },
+  "trace2mem": {
+    "attempts": 32,
+    "successes": 27,
+    "checks": 80,
+    "passed_checks": 67,
+    "errors": {
+      "provider_failure": 3,
+      "step_budget": 1
+    },
+    "no_file_read_trials": 2,
+    "gold_source_coverage": 0.875,
+    "gold_citation_agreement": 0.85,
+    "accounted_tokens": 380018,
+    "missing_usage_trials": 0,
+    "unresolved_usage_trials": 0,
+    "median_latency_seconds": 14.9555,
+    "incomplete_latency_trials": 0,
+    "families": {
+      "preferences": {
+        "attempts": 4,
+        "successes": 4
+      },
+      "currentness": {
+        "attempts": 4,
+        "successes": 4
+      },
+      "temporal": {
+        "attempts": 4,
+        "successes": 3
+      },
+      "cross_session": {
+        "attempts": 8,
+        "successes": 6
+      },
+      "authority": {
+        "attempts": 4,
+        "successes": 3
+      },
+      "unknown": {
+        "attempts": 4,
+        "successes": 3
+      },
+      "single_fact": {
+        "attempts": 4,
+        "successes": 4
+      }
+    }
+  }
+}

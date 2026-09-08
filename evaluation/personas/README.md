@@ -19,7 +19,7 @@ Budget: 64,000 accounted foreground tokens and 150 seconds per trial, 10 model r
 
 ## Metrics
 
-Report exact task success and per-field correctness, broken down by family and split. Also report actual source reads, gold source coverage and gold-citation agreement; none is an independent semantic support judgment. Full-history evidence exposure is not equivalent to a tool read, so retrieval recall is N/A for that baseline. Show foreground tokens/latency and compilation usage separately. Include all attempts and avoid claiming savings from incomplete work.
+Report exact task success and per-field correctness, broken down by family and split. Task success checks all expected answer values after successful parsing; gold-citation agreement is a separate metric, not part of task success. Also report actual source reads, gold source coverage and gold-citation agreement; none is an independent semantic support judgment. Full-history evidence exposure is not equivalent to a tool read, so retrieval recall is N/A for that baseline. Show foreground tokens/latency and compilation usage separately. Include all attempts and avoid claiming savings from incomplete work.
 
 ## Work tracking
 
@@ -27,7 +27,7 @@ Report exact task success and per-field correctness, broken down by family and s
 - [x] Dataset/protocol validation and three-lens review: source alternatives corrected, cumulative input bounded, and failed compilation jobs terminalized with fencing. Twelve Python checks and the database failure-isolation race test passed.
 - [x] Real-model compilation of four isolated user memories. The failed first Nadia attempt and successful schema-repair retry are both retained. The other three published on their initial attempt.
 - [x] Development baseline, RCA, candidate comparison and frozen selection. The controlled candidate passed 21/32 memory-condition tasks versus 14/32 for optional tools; see [decision and limitations](frozen/DEVELOPMENT_DECISION.md).
-- [ ] Held-out evaluation, charts and reproducible report.
+- [x] Held-out evaluation: all 96 trials completed, after 96 development trials. Full history passed 23/32, notes/sessions 26/32 and wiki 27/32. See the [report](../../reports/2026-09-08-persona-evaluation/README.md) and [RCA](../../reports/2026-09-08-persona-evaluation/RCA.md).
 - [x] Report generator three-lens review: verify frozen manifests and file hashes, copy only listed memory files, and suppress precise token deltas for missing or unresolved usage. Focused tests and verification against all four real snapshots passed.
 - [x] Repository Go race suite passed after the verifier schema repair.
 

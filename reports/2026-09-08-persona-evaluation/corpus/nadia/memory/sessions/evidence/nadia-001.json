@@ -1,0 +1,28 @@
+{
+  "event": {
+    "eventId": "nadia-001",
+    "sessionId": "nadia-session-1",
+    "occurredAt": "2026-09-01T12:00:01Z",
+    "sequence": "1",
+    "actor": {
+      "role": "user",
+      "agentId": "synthetic-history-author"
+    },
+    "source": {
+      "id": "persona-nadia-v1",
+      "format": "authored-synthetic",
+      "version": "1"
+    },
+    "message": {
+      "text": "I am organizing my accessibility research trip. For materials you prepare for me, use PDF, light background, and English. Treat these as my default preferences."
+    }
+  },
+  "excerpt": {
+    "id": "nadia-001",
+    "session": "nadia-session-1",
+    "role": "user",
+    "text": "I am organizing my accessibility research trip. For materials you prepare for me, use PDF, light background, and English. Treat these as my default preferences.",
+    "occurred": "2026-09-01T12:00:01Z",
+    "sequence": 1
+  }
+}

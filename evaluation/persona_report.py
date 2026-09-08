@@ -119,7 +119,7 @@ def render(experiment,out):
             m=summaries[name][condition]
             errors=', '.join(f'{code}: {n}' for code,n in m['errors'].items()) or 'none'
             lines.append(f"- {name} / {LABELS[condition]}: {m['no_file_read_trials']}/{m['attempts']} trials without a successful file read; execution failures: {errors}.")
-    lines += ['', 'The strict JSON scorer rejects prose preambles and malformed artifacts even when they contain correct facts. Exact-task success measures the requested machine-readable contract, not a blanket judgment of semantic knowledge. The controlled candidate changes both tool-use and finalization, so their individual causal contributions are not isolated.', '', 'All supplied compilation attempts, including failures and repairs, are retained below. Compilation failures are separate from foreground task scores; a publishable revision is required before the comparison starts.','',
+    lines += ['', 'The strict JSON scorer rejects prose preambles and malformed artifacts even when they contain correct facts. Exact-task success requires successful JSON parsing and all expected answer values; gold-citation agreement is reported separately and is not part of that score. It is not a blanket judgment of semantic knowledge or complete citation support. The controlled candidate changes both tool-use and finalization, so their individual causal contributions are not isolated.', '', 'All supplied compilation attempts, including failures and repairs, are retained below. Compilation failures are separate from foreground task scores; a publishable revision is required before the comparison starts.','',
               '## Held-out results','',
               '| Condition | Tasks correct | Fields correct | Gold-source coverage¹ | Gold-citation agreement² | Median latency³ | Foreground tokens |',
               '|---|---:|---:|---:|---:|---:|---:|']
@@ -143,7 +143,7 @@ def render(experiment,out):
         for condition in LABELS:
             m=h[condition]['families'][family];cells.append(f"{m['successes']}/{m['attempts']}")
         lines.append(f"| {family} | "+' | '.join(cells)+' |')
-    lines += ['', '## Accounting and failures','', '| Compilation attempt | Persona | Published | Generation tokens | Estimated embedding tokens |','|---|---|---:|---:|']
+    lines += ['', '## Accounting and failures','', '| Compilation attempt | Persona | Published | Generation tokens | Estimated embedding tokens |','|---|---|---|---:|---:|']
     compilation_total=0
     for c in compilation:
         usage=c.get('usage',[])
@@ -161,7 +161,7 @@ def render(experiment,out):
             lines.append(f"- {row['task_id']} / {LABELS[row['condition']]} / repeat {row['repeat']}: {reason}.")
     lines += ['', '## Interpretation limits','',
               'Only two held-out personas and shared task templates were tested. Dates, entities and status fields are exact-value checks; the reason clause must be copied verbatim. Semantically equivalent paraphrases can fail, and a correct field does not prove all accompanying claims. No independent semantic judge or confidence interval is claimed. All scheduled attempts, including failures, remain in the denominator.','',
-              'The comparison uses the real Dream-generated wiki and a consuming agent over hash-verified directory snapshots. Search is bounded keyword matching, not live API or embedding retrieval. Six conversations are compiled together in one initial run per persona; this does not measure incremental publication freshness. Full history fits comfortably in context and is deliberately a strong baseline. Deployment, public hosting and native macOS FUSE are outside this evaluation.','',
+              'The comparison uses the real Dream-generated wiki and a consuming agent over hash-verified directory snapshots. Search is bounded keyword matching, not live API or embedding retrieval. Six conversations are compiled together in one initial run per persona; this does not measure incremental publication freshness. Full history fits comfortably in context and is deliberately a strong baseline. The histories contain authored user/assistant messages, not executed external-tool tasks. Snapshot export/preparation time is outside foreground latency. Deployment, public hosting and native macOS FUSE are outside this evaluation.','',
               '## Reproduce and inspect','',
               '- [Dataset and pre-registered protocol](../../evaluation/personas/README.md)',
               f'- [Offline artifact-score verifier](../../evaluation/persona_verify.py) — run with `--report evaluation/{heldout_file}` from this report directory; no model calls.',
@@ -182,13 +182,13 @@ def render(experiment,out):
     for offset,(condition,label) in enumerate(LABELS.items()):
         values=[100*summaries[candidate][condition]['successes']/summaries[candidate][condition]['attempts'] for candidate in ('optional','controlled')]
         bars=axes[0].bar([offset*.25,1+offset*.25],values,width=.23,label=label,color=colors[offset])
-        axes[0].bar_label(bars,fmt='%.0f%%',padding=3,fontsize=9)
+        axes[0].bar_label(bars,fmt='%.1f%%',padding=3,fontsize=9)
     axes[0].set_xticks([.25,1.25],['Optional tools','Controlled actions'])
-    axes[0].set_title('Development: candidate task success')
+    axes[0].set_title('Development: 16 tasks per condition')
     values=[100*m['successes']/m['attempts'] for m in h.values()]
     bars=axes[1].bar(['Full history','Notes + sessions','Full wiki'],values,color=colors,width=.6)
     axes[1].bar_label(bars,fmt='%.1f%%',padding=4)
-    axes[1].set_title(f'Held-out: frozen {winner} candidate')
+    axes[1].set_title(f'Held-out: 32 tasks per condition ({winner})')
     for ax in axes:
         ax.set_ylim(0,115);ax.set_ylabel('Exact-task success (%)');ax.spines[['top','right']].set_visible(False)
     axes[0].legend(loc='upper center',bbox_to_anchor=(.5,-.12),ncols=3,fontsize=8)

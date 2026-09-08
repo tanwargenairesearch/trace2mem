@@ -1,0 +1,28 @@
+{
+  "event": {
+    "eventId": "leena-002",
+    "sessionId": "leena-session-1",
+    "occurredAt": "2026-09-01T12:00:02Z",
+    "sequence": "2",
+    "actor": {
+      "role": "assistant",
+      "agentId": "synthetic-history-author"
+    },
+    "source": {
+      "id": "persona-leena-v1",
+      "format": "authored-synthetic",
+      "version": "1"
+    },
+    "message": {
+      "text": "I will retain your presentation preferences for future work."
+    }
+  },
+  "excerpt": {
+    "id": "leena-002",
+    "session": "leena-session-1",
+    "role": "assistant",
+    "text": "I will retain your presentation preferences for future work.",
+    "occurred": "2026-09-01T12:00:02Z",
+    "sequence": 2
+  }
+}

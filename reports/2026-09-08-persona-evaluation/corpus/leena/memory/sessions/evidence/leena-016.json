@@ -1,0 +1,28 @@
+{
+  "event": {
+    "eventId": "leena-016",
+    "sessionId": "leena-session-6",
+    "occurredAt": "2026-09-06T12:00:16Z",
+    "sequence": "16",
+    "actor": {
+      "role": "user",
+      "agentId": "synthetic-history-author"
+    },
+    "source": {
+      "id": "persona-leena-v1",
+      "format": "authored-synthetic",
+      "version": "1"
+    },
+    "message": {
+      "text": "No hotel has been selected or booked. Do not infer one from the meeting location."
+    }
+  },
+  "excerpt": {
+    "id": "leena-016",
+    "session": "leena-session-6",
+    "role": "user",
+    "text": "No hotel has been selected or booked. Do not infer one from the meeting location.",
+    "occurred": "2026-09-06T12:00:16Z",
+    "sequence": 16
+  }
+}

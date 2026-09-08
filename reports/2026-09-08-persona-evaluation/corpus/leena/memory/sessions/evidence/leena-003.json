@@ -1,0 +1,28 @@
+{
+  "event": {
+    "eventId": "leena-003",
+    "sessionId": "leena-session-1",
+    "occurredAt": "2026-09-01T12:00:03Z",
+    "sequence": "3",
+    "actor": {
+      "role": "user",
+      "agentId": "synthetic-history-author"
+    },
+    "source": {
+      "id": "persona-leena-v1",
+      "format": "authored-synthetic",
+      "version": "1"
+    },
+    "message": {
+      "text": "Unrelated: I enjoyed a documentary about ocean currents yesterday. That does not change this project's scope."
+    }
+  },
+  "excerpt": {
+    "id": "leena-003",
+    "session": "leena-session-1",
+    "role": "user",
+    "text": "Unrelated: I enjoyed a documentary about ocean currents yesterday. That does not change this project's scope.",
+    "occurred": "2026-09-01T12:00:03Z",
+    "sequence": 3
+  }
+}

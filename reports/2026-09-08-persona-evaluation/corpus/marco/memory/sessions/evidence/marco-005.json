@@ -1,0 +1,28 @@
+{
+  "event": {
+    "eventId": "marco-005",
+    "sessionId": "marco-session-2",
+    "occurredAt": "2026-09-02T12:00:05Z",
+    "sequence": "5",
+    "actor": {
+      "role": "assistant",
+      "agentId": "synthetic-history-author"
+    },
+    "source": {
+      "id": "persona-marco-v1",
+      "format": "authored-synthetic",
+      "version": "1"
+    },
+    "message": {
+      "text": "A possible addition would be a visit to Cardiff. This is only my suggestion, not a booking or your decision."
+    }
+  },
+  "excerpt": {
+    "id": "marco-005",
+    "session": "marco-session-2",
+    "role": "assistant",
+    "text": "A possible addition would be a visit to Cardiff. This is only my suggestion, not a booking or your decision.",
+    "occurred": "2026-09-02T12:00:05Z",
+    "sequence": 5
+  }
+}

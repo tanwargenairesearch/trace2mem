@@ -1,0 +1,141 @@
+{
+  "existing_memory": {
+    "attempts": 16,
+    "successes": 15,
+    "checks": 40,
+    "passed_checks": 38,
+    "errors": {},
+    "no_file_read_trials": null,
+    "gold_source_coverage": null,
+    "gold_citation_agreement": 1.0,
+    "accounted_tokens": 33916,
+    "missing_usage_trials": 0,
+    "unresolved_usage_trials": 0,
+    "median_latency_seconds": 3.019,
+    "incomplete_latency_trials": 0,
+    "families": {
+      "preferences": {
+        "attempts": 2,
+        "successes": 2
+      },
+      "currentness": {
+        "attempts": 2,
+        "successes": 2
+      },
+      "temporal": {
+        "attempts": 2,
+        "successes": 2
+      },
+      "cross_session": {
+        "attempts": 4,
+        "successes": 3
+      },
+      "authority": {
+        "attempts": 2,
+        "successes": 2
+      },
+      "unknown": {
+        "attempts": 2,
+        "successes": 2
+      },
+      "single_fact": {
+        "attempts": 2,
+        "successes": 2
+      }
+    }
+  },
+  "notes_sessions": {
+    "attempts": 16,
+    "successes": 5,
+    "checks": 40,
+    "passed_checks": 11,
+    "errors": {
+      "invalid_artifact": 5
+    },
+    "no_file_read_trials": 8,
+    "gold_source_coverage": 0.45,
+    "gold_citation_agreement": 0.175,
+    "accounted_tokens": 76954,
+    "missing_usage_trials": 0,
+    "unresolved_usage_trials": 0,
+    "median_latency_seconds": 8.2665,
+    "incomplete_latency_trials": 0,
+    "families": {
+      "preferences": {
+        "attempts": 2,
+        "successes": 0
+      },
+      "currentness": {
+        "attempts": 2,
+        "successes": 0
+      },
+      "temporal": {
+        "attempts": 2,
+        "successes": 0
+      },
+      "cross_session": {
+        "attempts": 4,
+        "successes": 1
+      },
+      "authority": {
+        "attempts": 2,
+        "successes": 1
+      },
+      "unknown": {
+        "attempts": 2,
+        "successes": 2
+      },
+      "single_fact": {
+        "attempts": 2,
+        "successes": 1
+      }
+    }
+  },
+  "trace2mem": {
+    "attempts": 16,
+    "successes": 9,
+    "checks": 40,
+    "passed_checks": 22,
+    "errors": {
+      "invalid_artifact": 3
+    },
+    "no_file_read_trials": 6,
+    "gold_source_coverage": 0.55,
+    "gold_citation_agreement": 0.45,
+    "accounted_tokens": 78776,
+    "missing_usage_trials": 0,
+    "unresolved_usage_trials": 0,
+    "median_latency_seconds": 11.3555,
+    "incomplete_latency_trials": 0,
+    "families": {
+      "preferences": {
+        "attempts": 2,
+        "successes": 0
+      },
+      "currentness": {
+        "attempts": 2,
+        "successes": 1
+      },
+      "temporal": {
+        "attempts": 2,
+        "successes": 2
+      },
+      "cross_session": {
+        "attempts": 4,
+        "successes": 2
+      },
+      "authority": {
+        "attempts": 2,
+        "successes": 1
+      },
+      "unknown": {
+        "attempts": 2,
+        "successes": 2
+      },
+      "single_fact": {
+        "attempts": 2,
+        "successes": 1
+      }
+    }
+  }
+}
