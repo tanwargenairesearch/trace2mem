@@ -16,10 +16,12 @@ type citationRepairProvider struct {
 	keepInvalid   bool
 }
 
-func (p *citationRepairProvider) Generate(_ context.Context, _ []model.Turn, tools []model.Tool) (model.Reply, error) {
+func (p *citationRepairProvider) Generate(ctx context.Context, turns []model.Turn, tools []model.Tool) (model.Reply, error) {
 	if tools[0].Name == "verify" {
 		p.checks++
-		return model.Reply{Calls: []model.Call{{ID: "verify", Name: "verify", Arguments: json.RawMessage("{\"supported\":true,\"reason\":\"fixture\"}")}}, Usage: domain.Usage{Output: 1}}, nil
+		reply, err := p.Scripted.Generate(ctx, turns, tools)
+		reply.Usage = domain.Usage{Output: 1}
+		return reply, err
 	}
 	p.calls++
 	citation := "e1"

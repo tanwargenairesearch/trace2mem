@@ -98,7 +98,7 @@ func (Scripted) Generate(ctx context.Context, t []Turn, tools []Tool) (Reply, er
 		}
 		if !wikiRead && len(records) > 0 {
 			subject, _, _ := strings.Cut(records[0].Text, ": ")
-			b, _ := json.Marshal(map[string]string{"query": subject})
+			b, _ := json.Marshal(map[string]string{"query": subject, "cursor": ""})
 			r.Calls = []Call{{ID: "wiki", Name: "read_wiki", Arguments: b}}
 			return r, nil
 		}
@@ -131,6 +131,24 @@ func (Scripted) Generate(ctx context.Context, t []Turn, tools []Tool) (Reply, er
 		return r, nil
 	}
 	if has("verify") {
+		var input struct {
+			Units []struct {
+				ID        string   `json:"id"`
+				Citations []string `json:"citations"`
+			} `json:"review_units"`
+		}
+		if len(t) > 0 {
+			_ = json.Unmarshal([]byte(t[len(t)-1].Text), &input)
+		}
+		if len(input.Units) > 0 {
+			reviews := []map[string]any{}
+			for _, u := range input.Units {
+				reviews = append(reviews, map[string]any{"id": u.ID, "supported": true, "attribution_valid": true, "temporal_valid": true, "sources": u.Citations, "conflicts": []string{}, "reason": "scripted fixture; no semantic judgment"})
+			}
+			data, _ := json.Marshal(map[string]any{"supported": true, "reason": "scripted fixture verification", "reviews": reviews})
+			r.Calls = []Call{{ID: "verify", Name: "verify", Arguments: data}}
+			return r, nil
+		}
 		r.Calls = []Call{{"verify", "verify", json.RawMessage(`{"supported":true,"reason":"scripted fixture verification"}`)}}
 		return r, nil
 	}

@@ -24,34 +24,48 @@ func appendUnique(dst, src []domain.Record) []domain.Record {
 	}
 	return dst
 }
-func (e *Engine) prior(ctx context.Context, l domain.Lease, query string) (string, []domain.Record, error) {
+func (e *Engine) prior(ctx context.Context, l domain.Lease, query, cursor string) (string, []domain.Record, error) {
+	if cursor != "" && !domain.ValidPath(cursor) {
+		return "", nil, errors.New("invalid prior-memory cursor")
+	}
 	if len(query) < 1 {
 		return "[]", nil, nil
 	}
-	rows, err := e.Store.DB.Query(ctx, "SELECT content,citations FROM pages WHERE tenant=$1 AND space=$2 AND revision=$3 AND path LIKE 'notes/%' AND strpos(lower(content),lower($4))>0 ORDER BY path LIMIT 64", l.Tenant, l.Space, l.Parent, query)
+	rows, err := e.Store.DB.Query(ctx, "SELECT path,content,citations FROM pages WHERE tenant=$1 AND space=$2 AND revision=$3 AND path LIKE 'notes/%' AND strpos(lower(content),lower($4))>0 AND path>$5 ORDER BY path LIMIT 65", l.Tenant, l.Space, l.Parent, query, cursor)
 	if err != nil {
 		return "", nil, err
 	}
 	var notes []domain.Observation
 	ids := map[string]bool{}
 	size := 0
+	next := ""
+	more := false
 	for rows.Next() {
-		var content string
+		if len(notes) == 64 {
+			more = true
+			break
+		}
+		var path, content string
 		var cites []string
-		if err = rows.Scan(&content, &cites); err != nil {
+		if err = rows.Scan(&path, &content, &cites); err != nil {
 			rows.Close()
 			return "", nil, err
 		}
-		size += len(content)
-		if size > 128<<10 {
-			rows.Close()
-			return "", nil, errors.New("prior subject exceeds tool budget; narrow the query")
+		if size+len(content) > 128<<10 {
+			if len(notes) == 0 {
+				rows.Close()
+				return "", nil, errors.New("individual note exceeds tool budget")
+			}
+			more = true
+			break
 		}
+		size += len(content)
 		note, parseErr := parseNote(content)
 		if parseErr != nil {
 			rows.Close()
 			return "", nil, parseErr
 		}
+		next = path
 		notes = append(notes, note)
 		for _, id := range cites {
 			ids[id] = true
@@ -66,7 +80,7 @@ func (e *Engine) prior(ctx context.Context, l domain.Lease, query string) (strin
 	if err != nil {
 		return "", nil, err
 	}
-	b, _ := json.Marshal(map[string]any{"notes": notes, "sources": records})
+	b, _ := json.Marshal(map[string]any{"notes": notes, "sources": records, "truncated": more, "next_cursor": next})
 	return string(b), records, nil
 }
 func (e *Engine) sources(ctx context.Context, l domain.Lease, ids map[string]bool) ([]domain.Record, error) {
