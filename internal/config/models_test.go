@@ -19,3 +19,13 @@ func TestExplicitIndependentModels(t *testing.T) {
 		t.Fatal("model roles coupled")
 	}
 }
+
+func TestGenerationRequestBudgets(t *testing.T) {
+	c, err := ParseModels(strings.NewReader("version: 1\ngeneration:\n  provider: openai\n  model: explicit-model\n  request_timeout_seconds: 180\nembedding:\n  provider: vertex\n  model: explicit-embedding\nbudgets:\n  max_tokens: 96000\n  max_output_tokens: 8192\n"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if c.MaxOutputTokens != 8192 || c.RequestTimeoutSeconds != 180 || c.GenerationOutputLimit() != 8192 {
+		t.Fatal("request budget lost")
+	}
+}

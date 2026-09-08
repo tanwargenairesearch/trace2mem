@@ -60,6 +60,9 @@ type combined struct {
 }
 
 func New(c domain.ModelConfig) (Provider, error) {
+	if c.MaxOutputTokens < 0 || c.MaxOutputTokens > 32768 || c.RequestTimeoutSeconds < 0 || c.RequestTimeoutSeconds > 300 {
+		return nil, errors.New("model output limit must be 0–32768 and timeout 0–300 seconds")
+	}
 	for _, m := range []string{c.Model, c.EmbeddingModel} {
 		if strings.TrimSpace(m) == "" || strings.Contains(m, "REPLACE_") || m == "latest" || strings.HasSuffix(m, ":latest") {
 			return nil, errors.New("explicit generation and embedding model versions required")
@@ -111,7 +114,11 @@ func newGeneration(c domain.ModelConfig) (Provider, error) {
 				c.Endpoint = "http://localhost:11434"
 			}
 		}
-		return &HTTP{c, &http.Client{Timeout: 90 * time.Second, CheckRedirect: func(*http.Request, []*http.Request) error { return errors.New("model endpoint redirects are disabled") }}}, nil
+		timeout := 90 * time.Second
+		if c.RequestTimeoutSeconds > 0 {
+			timeout = time.Duration(c.RequestTimeoutSeconds) * time.Second
+		}
+		return &HTTP{c, &http.Client{Timeout: timeout, CheckRedirect: func(*http.Request, []*http.Request) error { return errors.New("model endpoint redirects are disabled") }}}, nil
 	default:
 		return nil, errors.New("configure a model provider before compilation")
 	}
@@ -181,6 +188,7 @@ func (p *HTTP) Generate(ctx context.Context, turns []Turn, tools []Tool) (Reply,
 		ts = append(ts, map[string]any{"type": "function", "name": t.Name, "description": t.Description, "parameters": t.Parameters, "strict": true})
 	}
 	var res struct {
+		Status string `json:"status"`
 		Output []struct {
 			Type      string `json:"type"`
 			ID        string `json:"call_id"`
@@ -196,12 +204,12 @@ func (p *HTTP) Generate(ctx context.Context, turns []Turn, tools []Tool) (Reply,
 			Output int64 `json:"output_tokens"`
 		} `json:"usage"`
 	}
-	limit := p.Config.MaxTokens
-	if limit <= 0 || limit > 4096 {
-		limit = 4096
-	}
+	limit := p.Config.GenerationOutputLimit()
 	e := p.post(ctx, "/responses", map[string]any{"model": p.Config.Model, "input": msgs, "tools": ts, "store": false, "max_output_tokens": limit}, &res)
 	out := Reply{Usage: domain.Usage{Input: res.Usage.Input, Output: res.Usage.Output}}
+	if e == nil && res.Status == "incomplete" {
+		return out, errors.New("model response incomplete; review max_output_tokens and provider limits")
+	}
 	for _, o := range res.Output {
 		if o.Type == "function_call" {
 			out.Calls = append(out.Calls, Call{o.ID, o.Name, json.RawMessage(o.Arguments)})
@@ -255,7 +263,11 @@ func (p *HTTP) ollama(ctx context.Context, turns []Turn, tools []Tool) (Reply, e
 		Input  int64 `json:"prompt_eval_count"`
 		Output int64 `json:"eval_count"`
 	}
-	e := p.post(ctx, "/api/chat", map[string]any{"model": p.Config.Model, "messages": msgs, "tools": ts, "stream": false, "options": map[string]any{"num_predict": 2048}}, &res)
+	limit := 2048
+	if p.Config.MaxOutputTokens > 0 {
+		limit = p.Config.GenerationOutputLimit()
+	}
+	e := p.post(ctx, "/api/chat", map[string]any{"model": p.Config.Model, "messages": msgs, "tools": ts, "stream": false, "options": map[string]any{"num_predict": limit}}, &res)
 	out := Reply{Text: res.Message.Content, Usage: domain.Usage{Input: res.Input, Output: res.Output}}
 	for i, c := range res.Message.Calls {
 		out.Calls = append(out.Calls, Call{fmt.Sprint(i), c.Function.Name, c.Function.Arguments})

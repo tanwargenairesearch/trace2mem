@@ -37,7 +37,7 @@ func (m *metered) Generate(ctx context.Context, turns []model.Turn, tools []mode
 	if len(b) > 3<<20 {
 		return model.Reply{}, errors.New("model input exceeds 3 MiB")
 	}
-	reserve := int64(len(b)*2 + 4096)
+	reserve := int64(len(b)*2 + m.config.GenerationOutputLimit())
 	id, e := m.engine.Store.Reserve(ctx, m.tenant, m.space, meteredOperation(ctx, "generation"), reserve, m.config.DailyTokens)
 	if e != nil {
 		return model.Reply{}, e
@@ -46,6 +46,12 @@ func (m *metered) Generate(ctx context.Context, turns []model.Turn, tools []mode
 	defer func() { countUsage(ctx, false, charged) }()
 	r, e := m.provider.Generate(ctx, turns, tools)
 	if e != nil {
+		if r.Usage.Total() > 0 {
+			if err := m.engine.Store.Reconcile(ctx, id, r.Usage); err != nil {
+				return r, errors.Join(e, err)
+			}
+			charged = r.Usage
+		}
 		return r, e
 	}
 	if r.Usage.Total() == 0 {

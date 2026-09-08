@@ -60,3 +60,35 @@ func TestFailedEmbeddingRetainsScopedReservation(t *testing.T) {
 		t.Fatal(embed, used, err)
 	}
 }
+
+type incompleteGeneration struct{ model.Scripted }
+
+func (incompleteGeneration) Generate(context.Context, []model.Turn, []model.Tool) (model.Reply, error) {
+	return model.Reply{Usage: domain.Usage{Input: 42, Output: 8}}, context.DeadlineExceeded
+}
+func TestReportedFailureUsageReconcilesReservation(t *testing.T) {
+	dsn := os.Getenv("TRACE2MEM_TEST_DATABASE")
+	if dsn == "" {
+		t.Skip("requires Docker database")
+	}
+	ctx, usage := WithUsage(context.Background())
+	s, err := store.Open(ctx, dsn)
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer s.Close()
+	p := domain.Principal{Tenant: "usage-" + store.ID(), Subject: "u"}
+	if err := s.EnsureMemory(ctx, p); err != nil {
+		t.Fatal(err)
+	}
+	engine := Engine{Store: s}
+	provider := engine.Meter(incompleteGeneration{}, domain.ModelConfig{DailyTokens: 100000, MaxOutputTokens: 8192}, p.Tenant, p.MemoryID())
+	if _, err := provider.Generate(ctx, nil, nil); err == nil {
+		t.Fatal("expected incomplete generation error")
+	}
+	gen, _ := usage.Snapshot()
+	used, err := s.Used(ctx, p.Tenant, p.MemoryID())
+	if err != nil || used != 50 || gen.Total() != 50 || gen.Estimated || gen.Unresolved {
+		t.Fatal(gen, used, err)
+	}
+}

@@ -64,12 +64,14 @@ type Lease struct {
 	Fence, Watermark, Epoch int64
 }
 type ModelConfig struct {
-	EmbeddingProvider   string `json:"embedding_provider"`
-	EmbeddingEndpoint   string `json:"embedding_endpoint,omitempty"`
-	EmbeddingKey        string `json:"embedding_key,omitempty"`
-	EmbeddingProject    string `json:"embedding_project,omitempty"`
-	EmbeddingLocation   string `json:"embedding_location,omitempty"`
-	EmbeddingDimensions int    `json:"embedding_dimensions,omitempty"`
+	MaxOutputTokens       int    `json:"max_output_tokens,omitempty"`
+	RequestTimeoutSeconds int    `json:"request_timeout_seconds,omitempty"`
+	EmbeddingProvider     string `json:"embedding_provider"`
+	EmbeddingEndpoint     string `json:"embedding_endpoint,omitempty"`
+	EmbeddingKey          string `json:"embedding_key,omitempty"`
+	EmbeddingProject      string `json:"embedding_project,omitempty"`
+	EmbeddingLocation     string `json:"embedding_location,omitempty"`
+	EmbeddingDimensions   int    `json:"embedding_dimensions,omitempty"`
 
 	RetrievalPrompt string `json:"retrieval_prompt,omitempty"`
 	Provider        string `json:"provider"`
@@ -82,6 +84,19 @@ type ModelConfig struct {
 	Prompt          string `json:"prompt,omitempty"`
 	Key             string `json:"key,omitempty"`
 }
+
+// GenerationOutputLimit bounds generation output, defaulting to 4096 and capped by a positive run budget.
+func (c ModelConfig) GenerationOutputLimit() int {
+	limit := c.MaxOutputTokens
+	if limit <= 0 {
+		limit = 4096
+	}
+	if c.MaxTokens > 0 && c.MaxTokens < limit {
+		limit = c.MaxTokens
+	}
+	return limit
+}
+
 type Usage struct {
 	Input      int64 `json:"input_tokens"`
 	Output     int64 `json:"output_tokens"`

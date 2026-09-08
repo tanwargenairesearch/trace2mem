@@ -21,6 +21,18 @@ func TestRejectUnsupportedAndMisattributedClaims(t *testing.T) {
 		t.Fatal(e)
 	}
 }
+func TestRejectMixedOriginCitations(t *testing.T) {
+	records := []domain.Record{{ID: "user-decision", Role: "user", Text: "Use Go"}, {ID: "assistant-repeat", Role: "assistant", Text: "Use Go"}}
+	observation := domain.Observation{Subject: "language", Text: "Use Go", Origin: "user", Status: "current", Citations: []string{"user-decision", "assistant-repeat"}}
+	if Validate([]domain.Observation{observation}, records) == nil {
+		t.Fatal("accepted mixed-role citations as a user observation")
+	}
+	observation.Citations = []string{"user-decision"}
+	if err := Validate([]domain.Observation{observation}, records); err != nil {
+		t.Fatal(err)
+	}
+}
+
 func TestPathsAndEvidence(t *testing.T) {
 	r := []domain.Record{{ID: "e1", Session: "s1", Role: "user", Text: "October"}}
 	o := []domain.Observation{{Subject: "../../launch", Text: "October", Origin: "user", Status: "current", Citations: []string{"e1"}}}
