@@ -1,6 +1,6 @@
 # Docker quickstart
 
-This sequence was validated from clean commit `00a945c` with fresh volumes on 2026-09-08. `make test-fresh-checkout` repeats Docker/FUSE acceptance from tracked HEAD without loading private configuration; it removes only its uniquely named test volumes.
+This sequence was validated from clean commit `9c13818` with fresh volumes on 2026-09-08. `make test-fresh-checkout` repeats Docker/FUSE acceptance from tracked HEAD without loading private configuration; it removes only its uniquely named test volumes.
 
 Requirements: Git, Docker with Compose and a running daemon. The default stack uses PostgreSQL with vectors, shared blob storage, and separate API/worker processes. Linux and Apple Silicon Docker are supported; inference acceleration inside Docker is not promised.
 
