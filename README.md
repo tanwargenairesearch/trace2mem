@@ -2,7 +2,7 @@
 
 An experimental, self-hosted Go agent memory service inspired by Brain. It maintains one memory per authenticated user. It turns agent events into cited notes and a Markdown knowledge wiki. Apache-2.0. This repository is an implementation under validation, not a production release or a claim of memory-quality gains. A small real-model [evaluation](docs/EVALUATION.md) passed in both wiki-enabled and wiki-disabled conditions; it did not establish an advantage.
 
-Start with the [Docker quickstart](docs/QUICKSTART.md), [agent integration guide](docs/INTEGRATION.md), [Brain alignment](docs/BRAIN_ALIGNMENT.md), and [validation status](docs/IMPLEMENTATION.md).
+Start with the [Docker quickstart](docs/QUICKSTART.md), [agent integration guide](docs/INTEGRATION.md), [live Kimi tool-agent exercise](docs/KIMI_AGENT.md), [Brain alignment](docs/BRAIN_ALIGNMENT.md), and [validation status](docs/IMPLEMENTATION.md).
 
 ## Local Docker
 

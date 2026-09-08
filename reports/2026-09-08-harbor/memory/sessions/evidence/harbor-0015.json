@@ -1,0 +1,28 @@
+{
+  "event": {
+    "eventId": "harbor-0015",
+    "sessionId": "harbor-change",
+    "occurredAt": "2026-09-08T08:52:25.638643465Z",
+    "sequence": "15",
+    "actor": {
+      "role": "user",
+      "agentId": "kimi-project-agent"
+    },
+    "source": {
+      "id": "synthetic-harbor-v1",
+      "format": "reference-agent",
+      "version": "1"
+    },
+    "message": {
+      "text": "Continue the synthetic Harbor project with this authoritative change record: launch is now 1 December 2026, replacing 15 November. Legal approved raw payload retention of 7 days, replacing the 30-day proposal; metadata remains 90 days. The confirmed v1 is Go, PostgreSQL outbox, EU-only, EUR 900/month ceiling, at-least-once event_id deduplication. Re-read the baseline as historical measurements, compute storage for seven days at average load, and explain which decisions this changes."
+    }
+  },
+  "excerpt": {
+    "id": "harbor-0015",
+    "session": "harbor-change",
+    "role": "user",
+    "text": "Continue the synthetic Harbor project with this authoritative change record: launch is now 1 December 2026, replacing 15 November. Legal approved raw payload retention of 7 days, replacing the 30-day proposal; metadata remains 90 days. The confirmed v1 is Go, PostgreSQL outbox, EU-only, EUR 900/month ceiling, at-least-once event_id deduplication. Re-read the baseline as historical measurements, compute storage for seven days at average load, and explain which decisions this changes.",
+    "occurred": "2026-09-08T08:52:25.638643465Z",
+    "sequence": 15
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "event": {
+    "eventId": "harbor-0017",
+    "sessionId": "harbor-change",
+    "occurredAt": "2026-09-08T08:52:33.880683469Z",
+    "sequence": "17",
+    "actor": {
+      "role": "assistant",
+      "agentId": "kimi-project-agent"
+    },
+    "source": {
+      "id": "synthetic-harbor-v1",
+      "format": "reference-agent",
+      "version": "1"
+    },
+    "toolCall": {
+      "callId": "call-9c191db1f82015ac56d404fe92c991a6a65990f84d18c8317c03c02c43c7e39d",
+      "name": "inspect_system",
+      "argumentsJson": "{}"
+    }
+  },
+  "excerpt": {
+    "id": "harbor-0017",
+    "session": "harbor-change",
+    "role": "assistant",
+    "text": "Tool call inspect_system: {}",
+    "occurred": "2026-09-08T08:52:33.880683469Z",
+    "sequence": 17
+  }
+}

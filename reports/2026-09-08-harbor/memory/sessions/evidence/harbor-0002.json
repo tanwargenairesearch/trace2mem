@@ -1,0 +1,28 @@
+{
+  "event": {
+    "eventId": "harbor-0002",
+    "sessionId": "harbor-design",
+    "occurredAt": "2026-09-08T08:49:37.831496596Z",
+    "sequence": "2",
+    "actor": {
+      "role": "assistant",
+      "agentId": "kimi-project-agent"
+    },
+    "source": {
+      "id": "synthetic-harbor-v1",
+      "format": "reference-agent",
+      "version": "1"
+    },
+    "message": {
+      "text": "I'll start by inspecting the Harbor system to understand the current state, then run capacity calculations."
+    }
+  },
+  "excerpt": {
+    "id": "harbor-0002",
+    "session": "harbor-design",
+    "role": "assistant",
+    "text": "I'll start by inspecting the Harbor system to understand the current state, then run capacity calculations.",
+    "occurred": "2026-09-08T08:49:37.831496596Z",
+    "sequence": 2
+  }
+}

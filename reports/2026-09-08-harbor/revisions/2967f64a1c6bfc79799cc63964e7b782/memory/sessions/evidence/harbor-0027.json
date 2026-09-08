@@ -1,0 +1,30 @@
+{
+  "event": {
+    "eventId": "harbor-0027",
+    "sessionId": "harbor-change",
+    "occurredAt": "2026-09-08T08:53:34.389018136Z",
+    "sequence": "27",
+    "actor": {
+      "role": "tool",
+      "agentId": "kimi-project-agent"
+    },
+    "source": {
+      "id": "synthetic-harbor-v1",
+      "format": "reference-agent",
+      "version": "1"
+    },
+    "parentEventId": "harbor-0026",
+    "toolResult": {
+      "callId": "call-bfe96e38dbd8d9412b7fe4bba6363ad4668d763c7e09332f077409da42ea1190",
+      "text": "{\"assumption\":\"constant supplied rate for 24 hours; excludes indexes, replicas, compression and metadata\",\"raw_bytes_per_day\":51840000000,\"replicas\":1}"
+    }
+  },
+  "excerpt": {
+    "id": "harbor-0027",
+    "session": "harbor-change",
+    "role": "tool",
+    "text": "{\"assumption\":\"constant supplied rate for 24 hours; excludes indexes, replicas, compression and metadata\",\"raw_bytes_per_day\":51840000000,\"replicas\":1}",
+    "occurred": "2026-09-08T08:53:34.389018136Z",
+    "sequence": 27
+  }
+}

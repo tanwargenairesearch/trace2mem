@@ -1,0 +1,12 @@
+{
+  "compilation/embedding": {
+    "input_tokens": 240044,
+    "output_tokens": 0,
+    "estimated": true
+  },
+  "compilation/generation": {
+    "input_tokens": 87159,
+    "output_tokens": 13443,
+    "estimated": false
+  }
+}

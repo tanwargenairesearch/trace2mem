@@ -1,0 +1,30 @@
+{
+  "event": {
+    "eventId": "harbor-0008",
+    "sessionId": "harbor-design",
+    "occurredAt": "2026-09-08T08:49:41.358259916Z",
+    "sequence": "8",
+    "actor": {
+      "role": "assistant",
+      "agentId": "kimi-project-agent"
+    },
+    "source": {
+      "id": "synthetic-harbor-v1",
+      "format": "reference-agent",
+      "version": "1"
+    },
+    "toolCall": {
+      "callId": "call-b9165f38ae6e3f1a3523682c54d72cf848eea64a45f24dece5f7a2bf8711d358",
+      "name": "capacity",
+      "argumentsJson": "{\"events_per_second\": 2400, \"headroom\": 1.5}"
+    }
+  },
+  "excerpt": {
+    "id": "harbor-0008",
+    "session": "harbor-design",
+    "role": "assistant",
+    "text": "Tool call capacity: {\"events_per_second\": 2400, \"headroom\": 1.5}",
+    "occurred": "2026-09-08T08:49:41.358259916Z",
+    "sequence": 8
+  }
+}

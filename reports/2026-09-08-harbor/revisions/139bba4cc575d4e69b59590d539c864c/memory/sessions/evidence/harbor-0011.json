@@ -1,0 +1,28 @@
+{
+  "event": {
+    "eventId": "harbor-0011",
+    "sessionId": "harbor-design",
+    "occurredAt": "2026-09-08T08:50:17.927410503Z",
+    "sequence": "11",
+    "actor": {
+      "role": "user",
+      "agentId": "kimi-project-agent"
+    },
+    "source": {
+      "id": "synthetic-harbor-v1",
+      "format": "reference-agent",
+      "version": "1"
+    },
+    "message": {
+      "text": "Decision: adopt PostgreSQL outbox consumers for v1, retain Go, EU-only storage, and EUR 900/month ceiling. Do not claim a measured cost. Use six consumers for the initial peak target, subject to load validation. Given only 100 GiB free, identify the retention risk and propose a bounded backpressure and recovery plan."
+    }
+  },
+  "excerpt": {
+    "id": "harbor-0011",
+    "session": "harbor-design",
+    "role": "user",
+    "text": "Decision: adopt PostgreSQL outbox consumers for v1, retain Go, EU-only storage, and EUR 900/month ceiling. Do not claim a measured cost. Use six consumers for the initial peak target, subject to load validation. Given only 100 GiB free, identify the retention risk and propose a bounded backpressure and recovery plan.",
+    "occurred": "2026-09-08T08:50:17.927410503Z",
+    "sequence": 11
+  }
+}

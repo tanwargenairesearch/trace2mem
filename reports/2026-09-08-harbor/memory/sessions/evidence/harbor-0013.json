@@ -1,0 +1,28 @@
+{
+  "event": {
+    "eventId": "harbor-0013",
+    "sessionId": "harbor-design",
+    "occurredAt": "2026-09-08T08:51:41.233292166Z",
+    "sequence": "13",
+    "actor": {
+      "role": "user",
+      "agentId": "kimi-project-agent"
+    },
+    "source": {
+      "id": "synthetic-harbor-v1",
+      "format": "reference-agent",
+      "version": "1"
+    },
+    "message": {
+      "text": "Record the accepted operational policy: processing is at-least-once with event_id deduplication; alert at oldest-outbox age 120 seconds; pause noncritical producers at 300 seconds; replay only after root cause mitigation. Mira owns receiver/outbox, Leon owns consumers/load testing, Saanvi owns operations. Produce an implementation sequence with acceptance checks and clearly separate unapproved recommendations."
+    }
+  },
+  "excerpt": {
+    "id": "harbor-0013",
+    "session": "harbor-design",
+    "role": "user",
+    "text": "Record the accepted operational policy: processing is at-least-once with event_id deduplication; alert at oldest-outbox age 120 seconds; pause noncritical producers at 300 seconds; replay only after root cause mitigation. Mira owns receiver/outbox, Leon owns consumers/load testing, Saanvi owns operations. Produce an implementation sequence with acceptance checks and clearly separate unapproved recommendations.",
+    "occurred": "2026-09-08T08:51:41.233292166Z",
+    "sequence": 13
+  }
+}

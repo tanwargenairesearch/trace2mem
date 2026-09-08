@@ -1,0 +1,28 @@
+{
+  "event": {
+    "eventId": "harbor-0005",
+    "sessionId": "harbor-design",
+    "occurredAt": "2026-09-08T08:49:41.348550333Z",
+    "sequence": "5",
+    "actor": {
+      "role": "assistant",
+      "agentId": "kimi-project-agent"
+    },
+    "source": {
+      "id": "synthetic-harbor-v1",
+      "format": "reference-agent",
+      "version": "1"
+    },
+    "message": {
+      "text": "Now let me calculate capacity for both average and peak load with 50% headroom."
+    }
+  },
+  "excerpt": {
+    "id": "harbor-0005",
+    "session": "harbor-design",
+    "role": "assistant",
+    "text": "Now let me calculate capacity for both average and peak load with 50% headroom.",
+    "occurred": "2026-09-08T08:49:41.348550333Z",
+    "sequence": 5
+  }
+}

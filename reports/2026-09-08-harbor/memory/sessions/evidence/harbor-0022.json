@@ -1,0 +1,28 @@
+{
+  "event": {
+    "eventId": "harbor-0022",
+    "sessionId": "harbor-change",
+    "occurredAt": "2026-09-08T08:53:01.329847134Z",
+    "sequence": "22",
+    "actor": {
+      "role": "user",
+      "agentId": "kimi-project-agent"
+    },
+    "source": {
+      "id": "synthetic-harbor-v1",
+      "format": "reference-agent",
+      "version": "1"
+    },
+    "message": {
+      "text": "New load-test requirement: peak is 3600 events/s, replacing the original 2400 peak; average remains 400. Calculate consumers at 50% headroom. Decision: replace the initial six-consumer target with nine consumers, subject to validating DB contention. No Kafka adoption is approved. Revise the rollout and state which historical values must not appear as current."
+    }
+  },
+  "excerpt": {
+    "id": "harbor-0022",
+    "session": "harbor-change",
+    "role": "user",
+    "text": "New load-test requirement: peak is 3600 events/s, replacing the original 2400 peak; average remains 400. Calculate consumers at 50% headroom. Decision: replace the initial six-consumer target with nine consumers, subject to validating DB contention. No Kafka adoption is approved. Revise the rollout and state which historical values must not appear as current.",
+    "occurred": "2026-09-08T08:53:01.329847134Z",
+    "sequence": 22
+  }
+}

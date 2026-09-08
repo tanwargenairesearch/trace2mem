@@ -1,0 +1,28 @@
+{
+  "event": {
+    "eventId": "harbor-0001",
+    "sessionId": "harbor-design",
+    "occurredAt": "2026-09-08T08:49:33.803004510Z",
+    "sequence": "1",
+    "actor": {
+      "role": "user",
+      "agentId": "kimi-project-agent"
+    },
+    "source": {
+      "id": "synthetic-harbor-v1",
+      "format": "reference-agent",
+      "version": "1"
+    },
+    "message": {
+      "text": "Plan the synthetic Harbor webhook platform migration. Inspect our system, calculate average daily payload volume and peak consumer capacity with 50% headroom. Compare PostgreSQL outbox consumers with adopting Kafka. Recommend a staged architecture; identify what cannot be costed yet."
+    }
+  },
+  "excerpt": {
+    "id": "harbor-0001",
+    "session": "harbor-design",
+    "role": "user",
+    "text": "Plan the synthetic Harbor webhook platform migration. Inspect our system, calculate average daily payload volume and peak consumer capacity with 50% headroom. Compare PostgreSQL outbox consumers with adopting Kafka. Recommend a staged architecture; identify what cannot be costed yet.",
+    "occurred": "2026-09-08T08:49:33.80300451Z",
+    "sequence": 1
+  }
+}

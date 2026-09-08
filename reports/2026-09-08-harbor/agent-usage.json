@@ -1,0 +1,47 @@
+[
+  {
+    "input_tokens": 440,
+    "output_tokens": 28,
+    "estimated": false
+  },
+  {
+    "input_tokens": 787,
+    "output_tokens": 161,
+    "estimated": false
+  },
+  {
+    "input_tokens": 2443,
+    "output_tokens": 221,
+    "estimated": false
+  },
+  {
+    "input_tokens": 5186,
+    "output_tokens": 135,
+    "estimated": false
+  },
+  {
+    "input_tokens": 6425,
+    "output_tokens": 157,
+    "estimated": false
+  },
+  {
+    "input_tokens": 7396,
+    "output_tokens": 157,
+    "estimated": false
+  },
+  {
+    "input_tokens": 10876,
+    "output_tokens": 157,
+    "estimated": false
+  },
+  {
+    "input_tokens": 12727,
+    "output_tokens": 1113,
+    "estimated": false
+  },
+  {
+    "input_tokens": 13907,
+    "output_tokens": 1137,
+    "estimated": false
+  }
+]

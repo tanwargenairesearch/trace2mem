@@ -1,0 +1,28 @@
+{
+  "event": {
+    "eventId": "harbor-0016",
+    "sessionId": "harbor-change",
+    "occurredAt": "2026-09-08T08:52:33.873426260Z",
+    "sequence": "16",
+    "actor": {
+      "role": "assistant",
+      "agentId": "kimi-project-agent"
+    },
+    "source": {
+      "id": "synthetic-harbor-v1",
+      "format": "reference-agent",
+      "version": "1"
+    },
+    "message": {
+      "text": "I'll start by re-reading the Harbor baseline measurements, then compute the storage figures based on what I find."
+    }
+  },
+  "excerpt": {
+    "id": "harbor-0016",
+    "session": "harbor-change",
+    "role": "assistant",
+    "text": "I'll start by re-reading the Harbor baseline measurements, then compute the storage figures based on what I find.",
+    "occurred": "2026-09-08T08:52:33.87342626Z",
+    "sequence": 16
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "event": {
+    "eventId": "harbor-0023",
+    "sessionId": "harbor-change",
+    "occurredAt": "2026-09-08T08:53:34.381508552Z",
+    "sequence": "23",
+    "actor": {
+      "role": "assistant",
+      "agentId": "kimi-project-agent"
+    },
+    "source": {
+      "id": "synthetic-harbor-v1",
+      "format": "reference-agent",
+      "version": "1"
+    },
+    "message": {
+      "text": "Applying the new peak requirement to the measured limits — computing both peak and average sizing at 50% headroom:"
+    }
+  },
+  "excerpt": {
+    "id": "harbor-0023",
+    "session": "harbor-change",
+    "role": "assistant",
+    "text": "Applying the new peak requirement to the measured limits — computing both peak and average sizing at 50% headroom:",
+    "occurred": "2026-09-08T08:53:34.381508552Z",
+    "sequence": 23
+  }
+}

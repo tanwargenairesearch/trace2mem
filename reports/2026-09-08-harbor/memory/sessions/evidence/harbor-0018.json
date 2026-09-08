@@ -1,0 +1,30 @@
+{
+  "event": {
+    "eventId": "harbor-0018",
+    "sessionId": "harbor-change",
+    "occurredAt": "2026-09-08T08:52:33.885322135Z",
+    "sequence": "18",
+    "actor": {
+      "role": "tool",
+      "agentId": "kimi-project-agent"
+    },
+    "source": {
+      "id": "synthetic-harbor-v1",
+      "format": "reference-agent",
+      "version": "1"
+    },
+    "parentEventId": "harbor-0017",
+    "toolResult": {
+      "callId": "call-9c191db1f82015ac56d404fe92c991a6a65990f84d18c8317c03c02c43c7e39d",
+      "text": "SYNTHETIC Harbor baseline: Go webhook receiver writes PostgreSQL outbox in the same transaction as the business change. Three engineers. EU-only event storage. Average 400 events/s; peak 2400 events/s for 20 minutes. Payload 1500 bytes. Measured sustainable consumer throughput 600 events/s per replica. Processing is idempotent by event_id. Existing PostgreSQL storage has 100 GiB free. No Kafka expertise. Infrastructure ceiling EUR 900/month; no vendor price quotes available. Current launch target 15 November 2026. Retention proposal: raw payload 30 days, metadata 90 days."
+    }
+  },
+  "excerpt": {
+    "id": "harbor-0018",
+    "session": "harbor-change",
+    "role": "tool",
+    "text": "SYNTHETIC Harbor baseline: Go webhook receiver writes PostgreSQL outbox in the same transaction as the business change. Three engineers. EU-only event storage. Average 400 events/s; peak 2400 events/s for 20 minutes. Payload 1500 bytes. Measured sustainable consumer throughput 600 events/s per replica. Processing is idempotent by event_id. Existing PostgreSQL storage has 100 GiB free. No Kafka expertise. Infrastructure ceiling EUR 900/month; no vendor price quotes available. Current launch target 15 November 2026. Retention proposal: raw payload 30 days, metadata 90 days.",
+    "occurred": "2026-09-08T08:52:33.885322135Z",
+    "sequence": 18
+  }
+}

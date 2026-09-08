@@ -1,0 +1,28 @@
+{
+  "event": {
+    "eventId": "harbor-0029",
+    "sessionId": "harbor-change",
+    "occurredAt": "2026-09-08T08:53:43.543317792Z",
+    "sequence": "29",
+    "actor": {
+      "role": "user",
+      "agentId": "kimi-project-agent"
+    },
+    "source": {
+      "id": "synthetic-harbor-v1",
+      "format": "reference-agent",
+      "version": "1"
+    },
+    "message": {
+      "text": "Finalize a launch review memo. Confirm Mira owns receiver/outbox, Leon owns consumers/load testing, Saanvi owns operations. Preserve alerts at 120 seconds and pause noncritical producers at 300 seconds. Gate launch on a 3600 events/s soak, duplicate delivery test, recovery drill, EU storage check, and actual cost estimate under EUR 900. Include unresolved risks, rollback triggers, and a concise decision ledger."
+    }
+  },
+  "excerpt": {
+    "id": "harbor-0029",
+    "session": "harbor-change",
+    "role": "user",
+    "text": "Finalize a launch review memo. Confirm Mira owns receiver/outbox, Leon owns consumers/load testing, Saanvi owns operations. Preserve alerts at 120 seconds and pause noncritical producers at 300 seconds. Gate launch on a 3600 events/s soak, duplicate delivery test, recovery drill, EU storage check, and actual cost estimate under EUR 900. Include unresolved risks, rollback triggers, and a concise decision ledger.",
+    "occurred": "2026-09-08T08:53:43.543317792Z",
+    "sequence": 29
+  }
+}
