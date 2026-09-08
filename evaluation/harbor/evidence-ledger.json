@@ -1,0 +1,224 @@
+{
+  "release-config": {
+    "language": {
+      "sources": [
+        "harbor-0011"
+      ],
+      "status": "current",
+      "authority": "user"
+    },
+    "queue": {
+      "sources": [
+        "harbor-0011"
+      ],
+      "status": "current",
+      "authority": "user"
+    },
+    "launch_date": {
+      "sources": [
+        "harbor-0015"
+      ],
+      "status": "current",
+      "authority": "user"
+    },
+    "raw_retention_days": {
+      "sources": [
+        "harbor-0015"
+      ],
+      "status": "current",
+      "authority": "user"
+    },
+    "metadata_retention_days": {
+      "sources": [
+        "harbor-0015"
+      ],
+      "status": "current",
+      "authority": "user"
+    },
+    "peak_events_per_second": {
+      "sources": [
+        "harbor-0022"
+      ],
+      "status": "current",
+      "authority": "user"
+    },
+    "consumer_count": {
+      "sources": [
+        "harbor-0022"
+      ],
+      "status": "current",
+      "authority": "user"
+    },
+    "eu_only": {
+      "sources": [
+        "harbor-0011"
+      ],
+      "status": "current",
+      "authority": "user"
+    }
+  },
+  "decision-history": {
+    "original_launch_date": {
+      "sources": [
+        "harbor-0004"
+      ],
+      "status": "historical",
+      "authority": "tool"
+    },
+    "current_launch_date": {
+      "sources": [
+        "harbor-0015"
+      ],
+      "status": "current",
+      "authority": "user"
+    },
+    "original_consumer_count": {
+      "sources": [
+        "harbor-0011"
+      ],
+      "status": "historical",
+      "authority": "user"
+    },
+    "current_consumer_count": {
+      "sources": [
+        "harbor-0022"
+      ],
+      "status": "current",
+      "authority": "user"
+    },
+    "initial_outbox_status": {
+      "sources": [
+        "harbor-0011"
+      ],
+      "status": "historical",
+      "authority": "user"
+    },
+    "approving_actor": {
+      "sources": [
+        "harbor-0011"
+      ],
+      "status": "current",
+      "authority": "user"
+    }
+  },
+  "operations": {
+    "alert_age_seconds": {
+      "sources": [
+        "harbor-0013"
+      ],
+      "status": "current",
+      "authority": "user"
+    },
+    "pause_age_seconds": {
+      "sources": [
+        "harbor-0013"
+      ],
+      "status": "current",
+      "authority": "user"
+    },
+    "pause_noncritical_only": {
+      "sources": [
+        "harbor-0013"
+      ],
+      "status": "current",
+      "authority": "user"
+    },
+    "replay_requires_mitigation": {
+      "sources": [
+        "harbor-0013"
+      ],
+      "status": "current",
+      "authority": "user"
+    },
+    "delivery_semantics": {
+      "sources": [
+        "harbor-0013"
+      ],
+      "status": "current",
+      "authority": "user"
+    },
+    "deduplication_key": {
+      "sources": [
+        "harbor-0013"
+      ],
+      "status": "current",
+      "authority": "user"
+    }
+  },
+  "owners": {
+    "receiver_outbox_owner": {
+      "sources": [
+        "harbor-0013"
+      ],
+      "status": "current",
+      "authority": "user"
+    },
+    "consumers_load_testing_owner": {
+      "sources": [
+        "harbor-0013"
+      ],
+      "status": "current",
+      "authority": "user"
+    },
+    "operations_owner": {
+      "sources": [
+        "harbor-0013"
+      ],
+      "status": "current",
+      "authority": "user"
+    }
+  },
+  "unknowns": {
+    "monthly_budget_ceiling_eur": {
+      "sources": [
+        "harbor-0011"
+      ],
+      "status": "current",
+      "authority": "user"
+    },
+    "measured_monthly_cost_eur": {
+      "sources": [
+        "harbor-0029"
+      ],
+      "status": "current",
+      "authority": "user"
+    },
+    "kafka_approved": {
+      "sources": [
+        "harbor-0022"
+      ],
+      "status": "current",
+      "authority": "user"
+    },
+    "storage_expansion_approved": {
+      "sources": [
+        "harbor-0021"
+      ],
+      "status": "current",
+      "authority": "assistant proposal; no approval in checkpoint"
+    }
+  },
+  "launch-lookup": {
+    "launch_date": {
+      "sources": [
+        "harbor-0015"
+      ],
+      "status": "current",
+      "authority": "user"
+    }
+  },
+  "_conflicts": {
+    "initial_outbox_status": {
+      "decision": "harbor-0011",
+      "misleading_recap": "harbor-0028",
+      "resolution": "Original user approval precedes later assistant characterization as tentative."
+    },
+    "consumer_count": {
+      "decision": "harbor-0022",
+      "condition": "Nine consumers remain subject to validating DB contention."
+    },
+    "measured_monthly_cost_eur": {
+      "resolution": "900 is a ceiling; no measured quote is present. Null is expected."
+    }
+  }
+}

@@ -56,6 +56,31 @@ class BenchmarkTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             invoke([sys.executable, "-c", 'print("x"*(3<<20))'], {}, 2)
 
+class AdapterFailureTests(unittest.TestCase):
+    def test_adapter_errors_retain_usage_and_skip_scoring(self):
+        suite = BenchmarkTests().suite()
+        def agent(command, request, timeout):
+            return {"model": request["model"], "revision": request["revision"],
+                    "artifact": {}, "error": "provider_failure", "usage": {"input_tokens": 123}}
+        with tempfile.TemporaryDirectory() as root:
+            report = run(suite, ["fixture"], 1, 1, Path(root) / "report.json", call=agent)
+            for row in report["results"]:
+                self.assertEqual(row["error"], "provider_failure")
+                self.assertNotIn("checks", row)
+                self.assertEqual(row["result"]["usage"]["input_tokens"], 123)
+                self.assertFalse(row["passed"])
+
+    def test_configuration_change_rejected(self):
+        suite = BenchmarkTests().suite()
+        suite["agent_config_sha256"] = "frozen"
+        def agent(command, request, timeout):
+            self.assertEqual(request["config_sha256"], "frozen")
+            return {"model": request["model"], "revision": request["revision"],
+                    "artifact": {}, "config_sha256": "changed"}
+        with tempfile.TemporaryDirectory() as root:
+            report = run(suite, ["fixture"], 1, 1, Path(root) / "report.json", call=agent)
+            self.assertTrue(all(row["error"] == "configuration_mismatch" for row in report["results"]))
+
 
 if __name__ == "__main__":
     unittest.main()

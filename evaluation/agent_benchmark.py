@@ -155,6 +155,8 @@ def run(suite, command, repeats, timeout, output, call=invoke):
                            "revision": case["revision"] if condition != "existing_memory" else None,
                            "model": suite["model"], "max_tokens": suite["max_tokens"],
                            "repeat": repeat + 1}
+                if suite.get("agent_config_sha256"):
+                    request["config_sha256"] = suite["agent_config_sha256"]
                 started = time.monotonic()
                 row = {"task_id": case["id"], "history_id": case["history_id"],
                        "split": case["split"], "condition": condition, "repeat": repeat + 1,
@@ -168,6 +170,13 @@ def run(suite, command, repeats, timeout, output, call=invoke):
                     if condition != "existing_memory" and result.get("revision") != case["revision"]:
                         raise ProtocolError("revision_mismatch")
                     row["result"] = result
+                    if result.get("error"):
+                        code = result["error"]
+                        if not isinstance(code, str) or not code or len(code) > 64 or any(c not in "abcdefghijklmnopqrstuvwxyz_" for c in code):
+                            code = "adapter_failure"
+                        raise ProtocolError(code)
+                    if suite.get("agent_config_sha256") and result.get("config_sha256") != suite["agent_config_sha256"]:
+                        raise ProtocolError("configuration_mismatch")
                     row["checks"] = score(case, result)
                     row["passed"] = all(row["checks"].values())
                 except (OSError, ValueError, TypeError, KeyError, RuntimeError, TimeoutError, subprocess.TimeoutExpired) as error:

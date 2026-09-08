@@ -1,0 +1,13 @@
+{
+  "config_sha256": "7648988a420a3dc04c8ca900af5191c1a53aded0281cf2bb3f68bb138a1cfd80",
+  "configuration": {
+    "endpoint": "https://openrouter.ai/api/v1",
+    "max_output_tokens": 2048,
+    "max_steps": 10,
+    "model": "moonshotai/kimi-k3",
+    "provider": "openai",
+    "reasoning_effort": "none",
+    "request_timeout_seconds": 180,
+    "retry_attempts": 1
+  }
+}

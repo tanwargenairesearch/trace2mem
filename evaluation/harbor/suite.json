@@ -1,0 +1,95 @@
+{
+  "model": "moonshotai/kimi-k3",
+  "max_tokens": 64000,
+  "cases": [
+    {
+      "id": "release-config",
+      "family": "cross-session synthesis",
+      "history_id": "harbor",
+      "revision": "2967f64a1c6bfc79799cc63964e7b782",
+      "split": "development",
+      "input": "Produce the current Harbor deployment configuration. Fields: language (lowercase), queue (postgresql_outbox or kafka), launch_date (ISO date), raw_retention_days, metadata_retention_days, peak_events_per_second, consumer_count, eu_only (boolean). Return a JSON object with these fields and a citations object mapping field names to supporting original event IDs. Use null for unknown values.",
+      "expected": {
+        "language": "go",
+        "queue": "postgresql_outbox",
+        "launch_date": "2026-12-01",
+        "raw_retention_days": 7,
+        "metadata_retention_days": 90,
+        "peak_events_per_second": 3600,
+        "consumer_count": 9,
+        "eu_only": true
+      }
+    },
+    {
+      "id": "decision-history",
+      "family": "temporal and authority",
+      "history_id": "harbor",
+      "revision": "2967f64a1c6bfc79799cc63964e7b782",
+      "split": "development",
+      "input": "Reconstruct the Harbor decision ledger. Fields: original_launch_date, current_launch_date (ISO dates), original_consumer_count, current_consumer_count, initial_outbox_status (approved or proposed), approving_actor (user or assistant). Determine initial status from the original decision, not a later recap. Return a JSON object with these fields and a citations object mapping field names to supporting original event IDs. Use null for unknown values.",
+      "expected": {
+        "original_launch_date": "2026-11-15",
+        "current_launch_date": "2026-12-01",
+        "original_consumer_count": 6,
+        "current_consumer_count": 9,
+        "initial_outbox_status": "approved",
+        "approving_actor": "user"
+      }
+    },
+    {
+      "id": "operations",
+      "family": "prior activity",
+      "history_id": "harbor",
+      "revision": "2967f64a1c6bfc79799cc63964e7b782",
+      "split": "development",
+      "input": "Create the accepted Harbor operations configuration. Fields: alert_age_seconds, pause_age_seconds, pause_noncritical_only (boolean), replay_requires_mitigation (boolean), delivery_semantics (at_least_once or exactly_once), deduplication_key. Return a JSON object with these fields and a citations object mapping field names to supporting original event IDs. Use null for unknown values.",
+      "expected": {
+        "alert_age_seconds": 120,
+        "pause_age_seconds": 300,
+        "pause_noncritical_only": true,
+        "replay_requires_mitigation": true,
+        "delivery_semantics": "at_least_once",
+        "deduplication_key": "event_id"
+      }
+    },
+    {
+      "id": "owners",
+      "family": "cross-session handoff",
+      "history_id": "harbor",
+      "revision": "2967f64a1c6bfc79799cc63964e7b782",
+      "split": "development",
+      "input": "Prepare the Harbor ownership handoff. Fields: receiver_outbox_owner, consumers_load_testing_owner, operations_owner. Use the confirmed people, not suggested replacements. Return a JSON object with these fields and a citations object mapping field names to supporting original event IDs. Use null for unknown values.",
+      "expected": {
+        "receiver_outbox_owner": "Mira",
+        "consumers_load_testing_owner": "Leon",
+        "operations_owner": "Saanvi"
+      }
+    },
+    {
+      "id": "unknowns",
+      "family": "authority and uncertainty",
+      "history_id": "harbor",
+      "revision": "2967f64a1c6bfc79799cc63964e7b782",
+      "split": "development",
+      "input": "Prepare the Harbor cost and dependency decision record. Fields: monthly_budget_ceiling_eur, measured_monthly_cost_eur (null if unavailable), kafka_approved (boolean), storage_expansion_approved (boolean). A recommendation is not approval; a budget is not a quote. Return a JSON object with these fields and a citations object mapping field names to supporting original event IDs. Use null for unknown values.",
+      "expected": {
+        "monthly_budget_ceiling_eur": 900,
+        "measured_monthly_cost_eur": null,
+        "kafka_approved": false,
+        "storage_expansion_approved": false
+      }
+    },
+    {
+      "id": "launch-lookup",
+      "family": "single-fact control",
+      "history_id": "harbor",
+      "revision": "2967f64a1c6bfc79799cc63964e7b782",
+      "split": "development",
+      "input": "What is the current Harbor launch date? Field: launch_date (ISO date). Return a JSON object with these fields and a citations object mapping field names to supporting original event IDs. Use null for unknown values.",
+      "expected": {
+        "launch_date": "2026-12-01"
+      }
+    }
+  ],
+  "agent_config_sha256": "7648988a420a3dc04c8ca900af5191c1a53aded0281cf2bb3f68bb138a1cfd80"
+}
