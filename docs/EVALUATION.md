@@ -71,3 +71,7 @@ On 2026-09-08, Apple M4 Pro / macOS arm64 / Go 1.26.6, `go test ./filesystem -ru
 | New memory cache over loopback HTTP | 39.409 ms |
 
 These three iterations are a small reproducible baseline, not a statistically robust benchmark or a kernel FUSE comparison. The cache was slower than the ordinary directory here. The cold result includes manifest/download/hash/write overhead and does not model WAN latency. No earlier comparable baseline exists, so no regression rate is claimed. Linux FUSE is separately smoke-tested; native macOS FUSE is not covered by this benchmark.
+
+## Next evaluation scope
+
+The [outcome measurement plan](OUTCOMES.md) separates external-agent integration gains from the wiki-only ablation, with matched baselines, task-level checks, and complete cost accounting. It is proposed work; its trial counts and metrics are not additional measured results.
