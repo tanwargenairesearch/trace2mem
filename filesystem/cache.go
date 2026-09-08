@@ -16,6 +16,7 @@ import (
 	"path/filepath"
 	"sort"
 	"sync"
+	"time"
 )
 
 type Cache struct {
@@ -25,7 +26,7 @@ type Cache struct {
 	manifest   *trace2memv1.GetManifestResponse
 	MaxBytes   int64
 	mu         sync.Mutex
-	locks      map[string]*sync.Mutex
+	locks      map[string]chan struct{}
 }
 
 func New(ctx context.Context, c *sdk.Client, revision, root string, max int64) (*Cache, error) {
@@ -41,7 +42,7 @@ func New(ctx context.Context, c *sdk.Client, revision, root string, max int64) (
 	if e = os.MkdirAll(root, 0700); e != nil {
 		return nil, e
 	}
-	cache := &Cache{Client: c, root: root, manifest: res.Msg, budgetRoot: budgetRoot, MaxBytes: max, locks: map[string]*sync.Mutex{}}
+	cache := &Cache{Client: c, root: root, manifest: res.Msg, budgetRoot: budgetRoot, MaxBytes: max, locks: map[string]chan struct{}{}}
 	for _, f := range res.Msg.Files {
 		if !domain.ValidPath(f.Path) || len(f.Sha256) != 64 || f.Size < 0 {
 			return nil, errors.New("invalid server manifest")
@@ -52,7 +53,7 @@ func New(ctx context.Context, c *sdk.Client, revision, root string, max int64) (
 		return nil, e
 	}
 	defer lock.Close()
-	if e = unix.Flock(int(lock.Fd()), unix.LOCK_EX); e != nil {
+	if e = lockFile(ctx, lock); e != nil {
 		return nil, e
 	}
 	defer unix.Flock(int(lock.Fd()), unix.LOCK_UN)
@@ -85,12 +86,19 @@ func (c *Cache) Read(ctx context.Context, path string) ([]byte, error) {
 	c.mu.Lock()
 	l := c.locks[file.Sha256]
 	if l == nil {
-		l = &sync.Mutex{}
+		l = make(chan struct{}, 1)
 		c.locks[file.Sha256] = l
 	}
 	c.mu.Unlock()
-	l.Lock()
-	defer l.Unlock()
+	select {
+	case l <- struct{}{}:
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	}
+	defer func() { <-l }()
+	if err := ctx.Err(); err != nil {
+		return nil, err
+	}
 	filename := filepath.Join(c.root, file.Sha256)
 	b, e := os.ReadFile(filename)
 	if e == nil && int64(len(b)) == file.Size && domain.Hash(b) == file.Sha256 {
@@ -107,14 +115,12 @@ func (c *Cache) Read(ctx context.Context, path string) ([]byte, error) {
 	if res.Msg.Revision != c.manifest.Revision || domain.Hash(b) != file.Sha256 || int64(len(b)) != file.Size {
 		return nil, errors.New("content does not match pinned manifest")
 	}
-	c.mu.Lock()
-	defer c.mu.Unlock()
 	lock, e := os.OpenFile(filepath.Join(c.budgetRoot, ".cache-lock"), os.O_CREATE|os.O_RDWR, 0600)
 	if e != nil {
 		return nil, e
 	}
 	defer lock.Close()
-	if e = unix.Flock(int(lock.Fd()), unix.LOCK_EX); e != nil {
+	if e = lockFile(ctx, lock); e != nil {
 		return nil, e
 	}
 	defer unix.Flock(int(lock.Fd()), unix.LOCK_UN)
@@ -249,4 +255,27 @@ func (c *Cache) SyncSelected(ctx context.Context, target string, paths []string)
 // Manifest returns a copy so callers cannot change a cache's pinned revision.
 func (c *Cache) Manifest() *trace2memv1.GetManifestResponse {
 	return proto.Clone(c.manifest).(*trace2memv1.GetManifestResponse)
+}
+
+// Nonblocking attempts let cancellation interrupt a wait on another cache process.
+func lockFile(ctx context.Context, f *os.File) error {
+	for {
+		if err := ctx.Err(); err != nil {
+			return err
+		}
+		err := unix.Flock(int(f.Fd()), unix.LOCK_EX|unix.LOCK_NB)
+		if err == nil {
+			return nil
+		}
+		if !errors.Is(err, unix.EWOULDBLOCK) && !errors.Is(err, unix.EAGAIN) {
+			return err
+		}
+		timer := time.NewTimer(20 * time.Millisecond)
+		select {
+		case <-ctx.Done():
+			timer.Stop()
+			return ctx.Err()
+		case <-timer.C:
+		}
+	}
 }

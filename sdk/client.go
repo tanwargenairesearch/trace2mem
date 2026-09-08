@@ -3,8 +3,10 @@ package sdk
 import (
 	"connectrpc.com/connect"
 	"context"
+	"errors"
 	trace2memv1 "github.com/trace2mem/trace2mem/gen/trace2mem/v1"
 	"github.com/trace2mem/trace2mem/gen/trace2mem/v1/trace2memv1connect"
+	"google.golang.org/protobuf/proto"
 	"net/http"
 )
 
@@ -39,7 +41,10 @@ func (c *Client) Import(ctx context.Context, a Adapter) error {
 		return e
 	}
 	e := a.Read(ctx, func(v *trace2memv1.Event) error {
-		batch = append(batch, v)
+		if v == nil {
+			return errors.New("adapter emitted a nil event")
+		}
+		batch = append(batch, proto.Clone(v).(*trace2memv1.Event))
 		if len(batch) == 64 {
 			return flush()
 		}
