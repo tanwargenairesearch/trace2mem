@@ -64,6 +64,7 @@ type Lease struct {
 	Fence, Watermark, Epoch int64
 }
 type ModelConfig struct {
+	ReasoningEffort       string `json:"reasoning_effort,omitempty"`
 	MaxOutputTokens       int    `json:"max_output_tokens,omitempty"`
 	RequestTimeoutSeconds int    `json:"request_timeout_seconds,omitempty"`
 	EmbeddingProvider     string `json:"embedding_provider"`

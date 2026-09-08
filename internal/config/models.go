@@ -10,6 +10,7 @@ import (
 )
 
 type ModelSelection struct {
+	ReasoningEffort       string `yaml:"reasoning_effort"`
 	RequestTimeoutSeconds int    `yaml:"request_timeout_seconds"`
 	Provider              string `yaml:"provider"`
 	Model                 string `yaml:"model"`
@@ -41,6 +42,9 @@ func ParseModels(r io.Reader) (domain.ModelConfig, error) {
 	var extra any
 	if e := decoder.Decode(&extra); e != io.EOF {
 		return domain.ModelConfig{}, errors.New("one YAML document required")
+	}
+	if f.Embedding.ReasoningEffort != "" {
+		return domain.ModelConfig{}, errors.New("reasoning_effort is supported only for generation")
 	}
 	if f.Embedding.RequestTimeoutSeconds != 0 {
 		return domain.ModelConfig{}, errors.New("request_timeout_seconds is supported only for generation")
@@ -74,5 +78,5 @@ func ParseModels(r io.Reader) (domain.ModelConfig, error) {
 	if e != nil {
 		return domain.ModelConfig{}, e
 	}
-	return domain.ModelConfig{MaxOutputTokens: f.Budgets.MaxOutputTokens, RequestTimeoutSeconds: f.Generation.RequestTimeoutSeconds, Provider: f.Generation.Provider, Model: f.Generation.Model, Endpoint: f.Generation.Endpoint, Key: generation, EmbeddingProvider: f.Embedding.Provider, EmbeddingModel: f.Embedding.Model, EmbeddingEndpoint: f.Embedding.Endpoint, EmbeddingKey: embedding, EmbeddingProject: f.Embedding.Project, EmbeddingLocation: f.Embedding.Location, EmbeddingDimensions: f.Embedding.Dimensions, MaxSteps: f.Budgets.MaxSteps, MaxTokens: f.Budgets.MaxTokens, DailyTokens: f.Budgets.DailyTokens}, nil
+	return domain.ModelConfig{ReasoningEffort: f.Generation.ReasoningEffort, MaxOutputTokens: f.Budgets.MaxOutputTokens, RequestTimeoutSeconds: f.Generation.RequestTimeoutSeconds, Provider: f.Generation.Provider, Model: f.Generation.Model, Endpoint: f.Generation.Endpoint, Key: generation, EmbeddingProvider: f.Embedding.Provider, EmbeddingModel: f.Embedding.Model, EmbeddingEndpoint: f.Embedding.Endpoint, EmbeddingKey: embedding, EmbeddingProject: f.Embedding.Project, EmbeddingLocation: f.Embedding.Location, EmbeddingDimensions: f.Embedding.Dimensions, MaxSteps: f.Budgets.MaxSteps, MaxTokens: f.Budgets.MaxTokens, DailyTokens: f.Budgets.DailyTokens}, nil
 }

@@ -14,6 +14,8 @@ import (
 )
 
 type Tool struct {
+	// Required requests exactly one invocation; adapters reject nonconforming replies.
+	Required    bool           `json:"-"`
 	Name        string         `json:"name"`
 	Description string         `json:"description"`
 	Parameters  map[string]any `json:"parameters"`
@@ -60,6 +62,16 @@ type combined struct {
 }
 
 func New(c domain.ModelConfig) (Provider, error) {
+	if c.ReasoningEffort != "" {
+		if c.Provider != "openai" {
+			return nil, errors.New("reasoning_effort requires the Responses adapter")
+		}
+		switch c.ReasoningEffort {
+		case "none", "minimal", "low", "medium", "high", "xhigh", "max":
+		default:
+			return nil, errors.New("unsupported reasoning_effort")
+		}
+	}
 	if c.MaxOutputTokens < 0 || c.MaxOutputTokens > 32768 || c.RequestTimeoutSeconds < 0 || c.RequestTimeoutSeconds > 300 {
 		return nil, errors.New("model output limit must be 0–32768 and timeout 0–300 seconds")
 	}
@@ -165,7 +177,23 @@ func (p *HTTP) post(ctx context.Context, path string, in, out any) error {
 	}
 	return errors.New("model retry limit reached")
 }
-func (p *HTTP) Generate(ctx context.Context, turns []Turn, tools []Tool) (Reply, error) {
+func (p *HTTP) Generate(ctx context.Context, turns []Turn, tools []Tool) (reply Reply, err error) {
+	required := ""
+	for _, tool := range tools {
+		if tool.Required {
+			if required != "" {
+				return Reply{}, errors.New("only one tool can be required")
+			}
+			required = tool.Name
+		}
+	}
+	defer func() {
+		if err == nil && required != "" && (len(reply.Calls) != 1 || reply.Calls[0].Name != required) {
+			reply.Calls = nil
+			err = errors.New("model did not invoke the required tool")
+		}
+	}()
+
 	if p.Config.Provider == "ollama" {
 		return p.ollama(ctx, turns, tools)
 	}
@@ -205,7 +233,14 @@ func (p *HTTP) Generate(ctx context.Context, turns []Turn, tools []Tool) (Reply,
 		} `json:"usage"`
 	}
 	limit := p.Config.GenerationOutputLimit()
-	e := p.post(ctx, "/responses", map[string]any{"model": p.Config.Model, "input": msgs, "tools": ts, "store": false, "max_output_tokens": limit}, &res)
+	request := map[string]any{"model": p.Config.Model, "input": msgs, "tools": ts, "store": false, "max_output_tokens": limit}
+	if required != "" {
+		request["tool_choice"] = map[string]any{"type": "function", "name": required}
+	}
+	if p.Config.ReasoningEffort != "" {
+		request["reasoning"] = map[string]any{"effort": p.Config.ReasoningEffort}
+	}
+	e := p.post(ctx, "/responses", request, &res)
 	out := Reply{Usage: domain.Usage{Input: res.Usage.Input, Output: res.Usage.Output}}
 	if e == nil && res.Status == "incomplete" {
 		return out, errors.New("model response incomplete; review max_output_tokens and provider limits")
@@ -308,7 +343,7 @@ func Object(properties map[string]any, required ...string) map[string]any {
 	return map[string]any{"type": "object", "properties": properties, "required": required, "additionalProperties": false}
 }
 func Probe(ctx context.Context, p Provider) error {
-	tool := Tool{"probe", "Call this with value ok", Object(map[string]any{"value": map[string]any{"type": "string"}}, "value")}
+	tool := Tool{Name: "probe", Description: "Call this with value ok", Parameters: Object(map[string]any{"value": map[string]any{"type": "string"}}, "value")}
 	r, e := p.Generate(ctx, []Turn{{Role: "system", Text: "Call the probe tool with value ok."}}, []Tool{tool})
 	if e != nil {
 		return e
