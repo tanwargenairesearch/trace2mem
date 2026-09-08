@@ -9,6 +9,7 @@ import (
 	"testing"
 
 	"github.com/trace2mem/trace2mem/internal/domain"
+	"github.com/trace2mem/trace2mem/internal/model"
 	"github.com/trace2mem/trace2mem/internal/store"
 )
 
@@ -23,6 +24,10 @@ func TestWikiJudgmentRequiresEveryPassageAndTemporalSupport(t *testing.T) {
 	judgment.Reviews[0].TemporalValid = true
 	if err = validateWikiJudgment(judgment, units, sources); err != nil {
 		t.Fatal(err)
+	}
+	judgment.Reviews[0].Conflicts = []string{"Duplicate citation token: cosmetic, no factual impact."}
+	if validateWikiJudgment(judgment, units, sources) == nil {
+		t.Fatal("prose accepted as an evidence ID")
 	}
 	judgment.Reviews = nil
 	if validateWikiJudgment(judgment, units, sources) == nil {
@@ -157,5 +162,30 @@ func TestReviewUnitsIncludeEveryNonemptyLine(t *testing.T) {
 	units, err := reviewUnits(map[string]domain.Page{"knowledge/p.md": {Content: "# Title\n\nApproved [cite:e1].\n"}})
 	if err != nil || len(units) != 2 || units[0].ID != "knowledge/p.md:1" || units[1].ID != "knowledge/p.md:3" || units[1].Citations[0] != "e1" {
 		t.Fatal(units, err)
+	}
+}
+
+type verificationSchemaProbe struct{ t *testing.T }
+
+func (p verificationSchemaProbe) Generate(_ context.Context, _ []model.Turn, tools []model.Tool) (model.Reply, error) {
+	entry := tools[0].Parameters["properties"].(map[string]any)["reviews"].(map[string]any)["items"].(map[string]any)
+	for _, name := range []string{"sources", "conflicts"} {
+		schema := entry["properties"].(map[string]any)[name].(map[string]any)
+		enum := schema["items"].(map[string]any)["enum"].([]string)
+		if len(enum) != 2 || enum[0] != "approval" || enum[1] != "recap" {
+			p.t.Fatal("evidence IDs not constrained", enum)
+		}
+	}
+	return model.Reply{}, fmt.Errorf("schema probe complete")
+}
+func (verificationSchemaProbe) Embed(context.Context, []string) ([][]float32, error) {
+	return nil, fmt.Errorf("unused")
+}
+
+func TestVerificationSourceSchemaExcludesProse(t *testing.T) {
+	e := Engine{}
+	_, err := e.verifyWiki(context.Background(), domain.Lease{}, verificationSchemaProbe{t}, map[string]domain.Page{"knowledge/subjects/x.md": {Content: "Approved [cite:approval]."}}, []domain.Record{{ID: "recap"}, {ID: "approval"}}, map[string]any{})
+	if err == nil || err.Error() != "schema probe complete" {
+		t.Fatal(err)
 	}
 }

@@ -162,3 +162,95 @@ func TestFingerprintAndStartupErrors(t *testing.T) {
 		t.Fatal(result)
 	}
 }
+
+func TestControlledReadBeforeAnswerAndCitationResolution(t *testing.T) {
+	pages := map[string]string{"notes/x.md": "value from e1", "sessions/evidence/e1.json": `{"event":{"eventId":"e1","message":{"text":"value"}}}`}
+	seen := false
+	sources := map[string]bool{}
+	coverage := map[string]int{}
+	answer := `{"action":"answer","paths":[],"offset":0,"query":"","answer_json":"{\"value\":\"value\",\"citations\":{\"value\":[\"e1\"]}}"}`
+	call := model.Call{Name: "memory_step", Arguments: json.RawMessage(answer)}
+	value, artifact := controlledStep("notes_sessions", pages, call, &seen, sources, coverage)
+	if artifact != nil || value.(map[string]any)["error"] == nil {
+		t.Fatal("accepted without reading")
+	}
+	controlledStep("notes_sessions", pages, model.Call{Name: "memory_step", Arguments: json.RawMessage(`{"action":"read","paths":["notes/x.md"],"offset":0,"query":"","answer_json":""}`)}, &seen, sources, coverage)
+	if _, artifact = controlledStep("notes_sessions", pages, call, &seen, sources, coverage); artifact != nil {
+		t.Fatal("accepted unresolved citation")
+	}
+	controlledStep("notes_sessions", pages, model.Call{Name: "memory_step", Arguments: json.RawMessage(`{"action":"read","paths":["sessions/evidence/e1.json"],"offset":0,"query":"","answer_json":""}`)}, &seen, sources, coverage)
+	if _, artifact = controlledStep("notes_sessions", pages, call, &seen, sources, coverage); artifact == nil {
+		t.Fatal("rejected resolved evidence")
+	}
+	if _, artifact = controlledStep("existing_memory", pages, call, new(bool), map[string]bool{}, map[string]int{}); artifact == nil {
+		t.Fatal("baseline should cite supplied source without tools")
+	}
+}
+
+func TestControlledProviderProtocol(t *testing.T) {
+	calls := 0
+	host := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		var req map[string]any
+		if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+			t.Fatal(err)
+		}
+		if req["tool_choice"].(map[string]any)["name"] != "memory_step" {
+			t.Error("action not required")
+		}
+		args := map[string]any{"action": "read", "paths": []string{"sessions/evidence/e1.json"}, "offset": 0, "query": "", "answer_json": ""}
+		if calls > 0 {
+			args = map[string]any{"action": "answer", "paths": []string{}, "offset": 0, "query": "", "answer_json": `{"value":"remembered","citations":{"value":["e1"]}}`}
+		}
+		calls++
+		encoded, _ := json.Marshal(args)
+		if err := json.NewEncoder(w).Encode(map[string]any{"output": []any{map[string]any{"type": "function_call", "call_id": fmt.Sprint(calls), "name": "memory_step", "arguments": string(encoded)}}, "usage": map[string]any{"input_tokens": 100, "output_tokens": 20}}); err != nil {
+			t.Error(err)
+		}
+	}))
+	defer host.Close()
+	cfg := domain.ModelConfig{Provider: "openai", Model: "fixture", Endpoint: host.URL}
+	pages := map[string]string{"knowledge/index.md": "source e1", "sessions/evidence/e1.json": `{"event":{"eventId":"e1","message":{"text":"remembered"}}}`}
+	result := run(context.Background(), request{Condition: "trace2mem", Protocol: "controlled_v1", MaxTokens: 32000}, cfg, snapshot{Revision: "r1"}, pages)
+	if calls != 2 || result["error"] != nil {
+		t.Fatal(calls, result["error"])
+	}
+	if result["artifact"].(map[string]any)["value"] != "remembered" {
+		t.Fatal(result["artifact"])
+	}
+	if len(result["evidence_read"].([]string)) != 1 {
+		t.Fatal("resolved source missing")
+	}
+}
+
+func TestPaginatedEvidenceCoverage(t *testing.T) {
+	pages := map[string]string{"sessions/evidence/e1.json": strings.Repeat("é", 8001)}
+	coverage := map[string]int{}
+	sources := map[string]bool{}
+	read := func(offset int) {
+		b, _ := json.Marshal(map[string]any{"path": "sessions/evidence/e1.json", "offset": offset})
+		recordRead(execute("notes_sessions", pages, model.Call{Name: "memory_read", Arguments: b}).(map[string]any), coverage, sources)
+	}
+	read(8000)
+	if sources["e1"] {
+		t.Fatal("skipped first range accepted")
+	}
+	read(0)
+	if sources["e1"] {
+		t.Fatal("incomplete source accepted")
+	}
+	read(8000)
+	if !sources["e1"] {
+		t.Fatal("complete paginated evidence rejected")
+	}
+}
+
+func TestControlledRejectsToolFreeProvider(t *testing.T) {
+	host := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprint(w, `{"output":[{"type":"message","content":[{"type":"output_text","text":"{\"value\":\"guessed\",\"citations\":{}}"}]}],"usage":{"input_tokens":100,"output_tokens":20}}`)
+	}))
+	defer host.Close()
+	result := run(context.Background(), request{Condition: "trace2mem", Protocol: "controlled_v1", MaxTokens: 32000}, domain.ModelConfig{Provider: "openai", Model: "fixture", Endpoint: host.URL}, snapshot{Revision: "r1"}, nil)
+	if result["error"] == nil || len(result["artifact"].(map[string]any)) > 0 {
+		t.Fatal("accepted tool-free final answer")
+	}
+}

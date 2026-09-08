@@ -155,6 +155,8 @@ def run(suite, command, repeats, timeout, output, call=invoke):
                            "revision": case["revision"] if condition != "existing_memory" else None,
                            "model": suite["model"], "max_tokens": suite["max_tokens"],
                            "repeat": repeat + 1}
+                if suite.get("agent_protocol"):
+                    request["protocol"] = suite["agent_protocol"]
                 if suite.get("agent_config_sha256"):
                     request["config_sha256"] = suite["agent_config_sha256"]
                 started = time.monotonic()

@@ -28,3 +28,9 @@ Report exact task success and per-field correctness, broken down by family and s
 - [ ] Real-model compilation of isolated user memories.
 - [ ] Development baseline, RCA, candidate comparison and frozen selection.
 - [ ] Held-out evaluation, charts and reproducible report.
+
+## Compilation RCA recorded before evaluation
+
+The first Nadia compilation failed with `verification cites unavailable source`. Its saved verdict placed a sentence about a duplicate citation in the `conflicts` array, whose entries must be evidence IDs. The schema previously described arrays of strings without constraining their values. The correction enumerates supplied evidence IDs and explicitly sends prose to `reason`; publication validation is unchanged. The failed attempt and usage are retained, and any retry is identified separately. This is a protocol repair learned on development history, not held-out answer tuning.
+
+The controlled-agent review added explicit rejection of tool-free completions and contiguous paginated source-read accounting shared with the optional agent. Merely seeing a citation or skipping the first source range does not count as a complete source read.
