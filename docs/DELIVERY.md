@@ -7,8 +7,8 @@ This tracks the accepted redesign. It is not a completion claim.
 - Scheduling: durable automatic/daily/manual modes, missing-model blocking, credential recovery, and pinned approved ranges implemented. Automatic mode uses 60 seconds quiet and a five-minute cap; daily scheduling coalesces catch-up work and handles DST.
 - LangChain: capture hooks, bounded durable spool, context helper, JSONL import, and a two-conversation example implemented. Five callback/durability tests passed. Live and saved-JSONL flows passed against Docker; a second LangChain conversation receives initial context and invokes retrieval.
 - Console: per-user navigation, model readiness, guide, Connections tokens and Settings scheduling implemented; desktop/mobile Chrome controls verified.
-- Evaluation: pinned paired runs, explicit fact/evidence rubrics, failed-answer records, request usage, optimizer accounting and fenced promotion implemented. Live-model report is in progress.
-- Operations: Terraform validation/mock test passed; public guides and clean-checkout acceptance script added. Fresh-checkout validation is next; cloud/release publication remains separate.
+- Evaluation: pinned paired runs, explicit fact/evidence rubrics, failed-answer records, request usage, optimizer accounting and fenced promotion implemented. Real-model learn/correct/retrieve/forget fixture passed; eight lexical rubric answers passed in both ablation conditions. No advantage established.
+- Operations: Terraform validation/mock test passed; public guides and clean-checkout acceptance script added. Fresh-checkout Docker/FUSE validation of `00a945c` passed with private configuration excluded; cloud/release publication remains separate.
 
 ## Ownership review tracking
 
@@ -41,3 +41,9 @@ Production: credential replacement previously left failed jobs stranded, and Clo
 ## Evaluation review tracking
 
 All review commitments resolved: unresolved embedding reservations included; optimizer invocation/usage persisted separately; pending reindex and baseline generation changes block promotion. Citation recall was accurately renamed, the corrected-deadline rubric strengthened, and nested counters documented. Docker regression tests passed; all three final review lenses report zero findings. Live testing additionally exposed reasoning-item text leaking into answers; the Responses parser now returns only message/output_text, covered by a protocol regression. Failed answers remain visible in evaluation reports.
+
+## Final local validation — 2026-09-08
+
+Clean Git archive `00a945c` passed fresh-volume Docker ingestion/ownership/scheduling/evaluation tests and Linux FUSE, then removed only its uniquely named test resources. OpenRouter Kimi K3 + Vertex Gemini embeddings completed the real synthetic scenario in 169.978 seconds; reports are linked in EVALUATION.md. The fixture learned, corrected, answered and immediately suppressed forgotten evidence. The disposable credential container and database were removed. All final review lenses were clear before the milestone commit. Public cloud smoke deployment, external identity interoperability and publishing remain unperformed.
+
+Final evidence review: production, design and principles reviewers all reported zero findings on the synthetic reports, measured claims, redaction and Protobuf-JSONL history export. No provider credentials or real user trajectories are included in the public artifacts.

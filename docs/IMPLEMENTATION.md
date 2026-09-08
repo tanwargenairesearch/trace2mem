@@ -25,6 +25,8 @@ Trace2Mem is an experimental agent memory service inspired by Brain. The [alignm
 - Chrome desktop/mobile navigation, missing-model Ask readiness, guide and saved scheduling settings passed.
 - LangChain's five callback/spool tests and live/JSONL demonstrations passed in the preceding integration milestone.
 - Terraform formatting, initialization/validation and one mock small-deployment test passed. No cloud apply was performed.
+- Clean-checkout Docker and Linux FUSE acceptance passed for `00a945c`, using fresh disposable volumes and no private configuration.
+- Real Kimi K3 / Vertex Gemini embeddings completed learning, correction, paired retrieval and immediate forgetting suppression. All eight small lexical rubric checks passed; both ablation conditions scored equally. See the measured report, including its limitations.
 
 See [evaluation](EVALUATION.md) for the reproducible fixture, scoring limits, and real-model results. The deterministic model tests plumbing and cannot establish memory quality.
 

@@ -1,6 +1,6 @@
 # Trace2Mem
 
-An experimental, self-hosted Go agent memory service inspired by Brain. It maintains one memory per authenticated user. It turns agent events into cited notes and a Markdown knowledge wiki. Apache-2.0. This repository is an implementation under validation, not a production release or a claim of measured memory-quality gains.
+An experimental, self-hosted Go agent memory service inspired by Brain. It maintains one memory per authenticated user. It turns agent events into cited notes and a Markdown knowledge wiki. Apache-2.0. This repository is an implementation under validation, not a production release or a claim of memory-quality gains. A small real-model [evaluation](docs/EVALUATION.md) passed in both wiki-enabled and wiki-disabled conditions; it did not establish an advantage.
 
 Start with the [Docker quickstart](docs/QUICKSTART.md), [agent integration guide](docs/INTEGRATION.md), [Brain alignment](docs/BRAIN_ALIGNMENT.md), and [validation status](docs/IMPLEMENTATION.md).
 
@@ -72,7 +72,7 @@ This pre-release API removes spaces, memberships, `space_id`, and `--space`. Upg
 
 Agent credentials belong to one user. Scopes are `read`, `ingest`, and `manage`; token creation requires `manage` and cannot grant scopes the issuer lacks. Verified OIDC identities include issuer and subject. The local bootstrap token owns only its local user memory. See the in-app `/guide` for capture and retrieval instructions.
 
-The complete Brain-alignment redesign is underway. Dream summaries and explicit relationship proposals are implemented with deterministic tests. Automatic, daily and manual scheduling are available in Settings or `trace2mem schedule`. The [LangChain adapter](integrations/langchain/README.md) has passed callback, durability, and Docker integration checks; consult [implementation status](docs/IMPLEMENTATION.md).
+The per-user Brain-aligned MVP is implemented and locally validated. Dream summaries and explicit relationship proposals are implemented with deterministic tests. Automatic, daily and manual scheduling are available in Settings or `trace2mem schedule`. The [LangChain adapter](integrations/langchain/README.md) has passed callback, durability, and Docker integration checks; consult [implementation status](docs/IMPLEMENTATION.md).
 
 Automatic compilation waits for 60 seconds without new events, with a five-minute maximum delay; closing a session requests immediate compilation. Daily mode defaults to 02:00 UTC and coalesces missed runs after downtime. Manual mode accepts events until an explicit `trace2mem compile`. Changing the schedule does not cancel already approved work. Missing models block compilation while preserving accepted evidence.
 

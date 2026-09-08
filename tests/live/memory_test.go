@@ -22,6 +22,7 @@ import (
 	"github.com/trace2mem/trace2mem/internal/server"
 	"github.com/trace2mem/trace2mem/internal/store"
 	"github.com/trace2mem/trace2mem/sdk"
+	"google.golang.org/protobuf/encoding/protojson"
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
@@ -145,8 +146,16 @@ func TestMemoryAblation(t *testing.T) {
 		t.Fatal("forgetting did not suppress retrieval")
 	}
 	// Histories are synthetic; persist the exact input envelopes alongside the reports.
-	data, _ := json.MarshalIndent(history, "", "  ")
-	if err := os.WriteFile(filepath.Join(reportDir, "history.json"), data, 0600); err != nil {
+	var saved bytes.Buffer
+	for _, event := range history {
+		data, err := protojson.Marshal(event)
+		if err != nil {
+			t.Fatal(err)
+		}
+		saved.Write(data)
+		saved.WriteByte('\n')
+	}
+	if err := os.WriteFile(filepath.Join(reportDir, "history.jsonl"), saved.Bytes(), 0600); err != nil {
 		t.Fatal(err)
 	}
 }

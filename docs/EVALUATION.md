@@ -45,7 +45,20 @@ Review the YAML's `max_steps`, `max_tokens`, and `daily_tokens` first. The test'
 
 ## Recorded results
 
-Deterministic Docker paired evaluation and fact/citation regression checks passed on 2026-09-08. A real OpenRouter Kimi K3 / Vertex Gemini embedding run is being exercised; no quality improvement, latency gain or cost saving is established. Final results and failures are recorded in the delivery log when that run finishes.
+Deterministic Docker checks and the real-model synthetic scenario passed on 2026-09-08. Generation: `moonshotai/kimi-k3` through OpenRouter Responses. Embeddings: Vertex `gemini-embedding-001`, 768 dimensions, `us-central1`, using ADC. Limits: 12 Dream steps, 32,000 tokens per compilation, 500,000 daily tokens for the isolated test identity. The complete test took 169.978 seconds, including two compilations, eight retrievals and forgetting checks.
+
+| Snapshot / condition | Rubric passes | Sum retrieval latency (2 questions) | Accounted retrieval tokens |
+|---|---:|---:|---:|
+| Initial, wiki | 2/2 | 14.110 s | 5,905 |
+| Initial, notes + sessions | 2/2 | 10.548 s | 4,376 |
+| Corrected, wiki | 2/2 | 11.027 s | 5,410 |
+| Corrected, notes + sessions | 2/2 | 13.327 s | 4,031 |
+
+Both conditions scored 4/4 overall with expected answer-citation recall of 1.0; no wiki quality advantage was demonstrated. Both changed the deadline from September to October. Two compilations used 16,727 reported generation tokens and 13,764 estimated embedding tokens cumulatively. Foreground retrieval used 19,722 accounted tokens including estimated embeddings. Dollar fields are null because no operator price schedule was supplied; these totals are not a provider invoice. The wiki used more retrieval tokens in this tiny fixture and latency varied, so no cost or speed saving is established.
+
+Artifacts: [initial report](../reports/2026-09-08-initial.json), [corrected report](../reports/2026-09-08-corrected.json), [replayable synthetic history](../reports/2026-09-08-history.jsonl). The local project identifier is redacted; model IDs, region, budgets, prompts, revisions, outputs and metrics are preserved. The source corresponds to implementation commit `00a945c`; the subsequent history-export formatting change does not change the evaluated scenario.
+
+There are only two questions per revision and one sample per condition. The deadline question's wording about the “current month” elicited date inferences from event timestamps; the rubric does not assess all extra assertions. No independent semantic judge was run, and the heldout language question is a heldout question within the same small history, not a separate unseen corpus. Earlier development runs found missing structured-response instructions, invalid session-citation placement and reasoning text mixed into final answers; the implementation was corrected and this final run repeated. Failed development attempts are not included in the final-run token totals. These results justify continued experimentation, not production-quality or Brain-equivalence claims.
 
 ### Filesystem working-set measurement
 
