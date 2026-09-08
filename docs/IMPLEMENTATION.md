@@ -1,6 +1,6 @@
 # Implementation and validation status
 
-Trace2Mem is an experimental agent memory service inspired by Brain. The [alignment matrix](BRAIN_ALIGNMENT.md) distinguishes its principles from our engineering adaptations. This is not a production-readiness or equivalent-performance claim.
+Trace2Mem is a self-hosted agent memory service inspired by Brain. The [alignment matrix](BRAIN_ALIGNMENT.md) distinguishes its principles from our engineering adaptations. This is not a production-readiness or equivalent-performance claim.
 
 ## Implemented
 

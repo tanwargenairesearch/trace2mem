@@ -53,7 +53,7 @@ Budgets reserve conservative token estimates before provider requests, serialize
 
 Connect JSON and gRPC, six read-only MCP tools, and directory/FUSE access expose the same published revision. The Memory Agent performs bounded searches and validates final citation IDs against inspected material. Search can run without a generation call and reports semantic fallback explicitly. A miss in the compact index or a local working set does not imply the remote corpus has no evidence.
 
-The filesystem fetches its manifest once, uses local metadata, verifies content hashes, coalesces same-hash reads within one cache, and bounds shared cache bytes. Files are immutable per revision; create a new snapshot/mount to advance. FUSE targets Linux; macOS requires separately installed FUSE and is experimental. Already exported or downloaded material cannot be recalled remotely.
+The filesystem fetches its manifest once, uses local metadata, verifies content hashes, coalesces same-hash reads within one cache, and bounds shared cache bytes. Files are immutable per revision; create a new snapshot/mount to advance. FUSE targets Linux; macOS requires separately installed FUSE and has not been validated. Already exported or downloaded material cannot be recalled remotely.
 
 ## Current implementation limits
 

@@ -1,6 +1,6 @@
 # Trace2Mem
 
-**Persistent, cited memory for your agents, across conversations.** Trace2Mem is an experimental, self-hosted Go service inspired by Brain, licensed under Apache-2.0.
+**Persistent, cited memory for your agents, across conversations.** Trace2Mem is a self-hosted Go service inspired by Brain, licensed under Apache-2.0.
 
 ## Why it exists
 
@@ -26,7 +26,7 @@ Capture and retrieval are separate integrations. An adapter sends events during 
 
 Use Trace2Mem when you control your agent's event capture and want self-hosted, inspectable memory. It does not replace your agent harness. Pi/Hermes adapters are not yet implemented; the framework-neutral API is available. Linux FUSE is optional—MCP, HTTP, and ordinary directories also work.
 
-**Status:** locally validated experimental MVP. The latest [192-trial user-history pilot](reports/2026-09-08-persona-evaluation/README.md) improved the consuming agent on development tasks; held-out wiki/notes/history scores were 27/32, 26/32 and 23/32. The [failure audit](reports/2026-09-08-persona-evaluation/RCA.md) finds execution and exact-format differences, not demonstrated semantic gains.
+**Status:** locally validated MVP. The latest [192-trial user-history pilot](reports/2026-09-08-persona-evaluation/README.md) improved the consuming agent on development tasks; held-out wiki/notes/history scores were 27/32, 26/32 and 23/32. The [failure audit](reports/2026-09-08-persona-evaluation/RCA.md) finds execution and exact-format differences, not demonstrated semantic gains.
 
 Earlier [negative results](reports/2026-09-08-harbor-comparison/README.md) and the [historical-interpretation error](reports/2026-09-08-harbor/README.md) remain documented. See [implemented guarantees and limitations](docs/IMPLEMENTATION.md); no Brain-equivalent quality, speed, or cost claim is made.
 

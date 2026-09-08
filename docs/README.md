@@ -15,7 +15,7 @@ Trace2Mem turns one user's agent experience into persistent, cited memory across
 |---|---|
 | [Architecture](ARCHITECTURE.md) | How do ingestion, Dream, publication, models, and retrieval fit together? |
 | [Brain alignment](BRAIN_ALIGNMENT.md) | Which principles are implemented, adapted, or deferred? |
-| [Implementation status](IMPLEMENTATION.md) | What is tested, experimental, or still unverified? |
+| [Implementation status](IMPLEMENTATION.md) | What is implemented, tested, or still unverified? |
 | [MVP review](reviews/2026-09-08-brain-review.md) | What concrete source and memory-quality gaps should be addressed next? |
 | [Outcome measurement](OUTCOMES.md) | How should an agent integration demonstrate quality, currentness, and cost deltas? |
 | [Evaluation](EVALUATION.md) | What did measured tests establish, and what did they not establish? |

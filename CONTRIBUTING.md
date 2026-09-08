@@ -1,6 +1,6 @@
 # Contributing
 
-Trace2Mem is an experimental agent memory service inspired by Brain. Keep the domain independent of transports and providers; preserve per-user isolation, precise citations, bounded model tools, and atomic publication.
+Trace2Mem is a self-hosted agent memory service inspired by Brain. Keep the domain independent of transports and providers; preserve per-user isolation, precise citations, bounded model tools, and atomic publication.
 
 Use the Go version pinned in `go.mod`, Docker Compose, and the pinned generation tools in CI. Run `make test`, `make test-e2e`, and `make test-fuse` for changes affecting memory or filesystem behavior. Run `make terraform-check` and `terraform -chdir=infra/gcp test` for infrastructure changes. Terraform validation does not authorize an apply.
 
