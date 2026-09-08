@@ -34,3 +34,25 @@ Report exact task success and per-field correctness, broken down by family and s
 The first Nadia compilation failed with `verification cites unavailable source`. Its saved verdict placed a sentence about a duplicate citation in the `conflicts` array, whose entries must be evidence IDs. The schema previously described arrays of strings without constraining their values. The correction enumerates supplied evidence IDs and explicitly sends prose to `reason`; publication validation is unchanged. The failed attempt and usage are retained, and any retry is identified separately. This is a protocol repair learned on development history, not held-out answer tuning.
 
 The controlled-agent review added explicit rejection of tool-free completions and contiguous paginated source-read accounting shared with the optional agent. Merely seeing a citation or skipping the first source range does not count as a complete source read.
+
+## Running the comparison
+
+Build `go build -o /tmp/trace2mem-persona-agent ./evaluation/cmd/memory-agent`. Set `TRACE2MEM_LIVE_CONFIG` to the explicit model YAML and keep the referenced provider credentials in the environment. `TestPersonaCompilation` consumes absolute `TRACE2MEM_PERSONA_INPUT`, `TRACE2MEM_LIVE_REPORT_DIR`, and `TRACE2MEM_LIVE_DATABASE` paths/DSN; use a disposable PostgreSQL database, never the normal application database. Its per-persona export includes manifest, memory files, compilation usage and verifier diagnostics. Preserve each attempt separately.
+
+After all four snapshots are available under `<snapshots>/<persona>/`:
+
+```sh
+python3 evaluation/persona_evaluation.py --stage prepare \
+  --snapshots /absolute/path/to/snapshots --agent /tmp/trace2mem-persona-agent \
+  --output /absolute/path/to/evaluation
+python3 evaluation/persona_evaluation.py --stage development \
+  --snapshots /absolute/path/to/snapshots --agent /tmp/trace2mem-persona-agent \
+  --output /absolute/path/to/evaluation
+python3 evaluation/persona_evaluation.py --stage heldout \
+  --snapshots /absolute/path/to/snapshots --agent /tmp/trace2mem-persona-agent \
+  --output /absolute/path/to/evaluation
+```
+
+Preparation verifies each source envelope matches the authored history and freezes suite, binary, dataset and manifest hashes. Review/commit the prepared suites before inference. Development writes candidate RCA summaries and `selection.json`; held-out execution recomputes the selection rule and verifies the underlying development report hashes. Reports and selection are private by default.
+
+Interrupted runs can be continued by repeating the same stage. Complete reports are reused. Partial reports remain immutable; missing trials continue in a numbered file. A call that was in flight at interruption becomes a failed trial with unknown usage, and is not silently reissued. Its latency is excluded from medians and counted separately as incomplete. Unknown or unresolved usage cannot win a cost tie. Changed suites, binary, configuration or memory manifests invalidate continuation.

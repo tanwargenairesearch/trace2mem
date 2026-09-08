@@ -82,5 +82,35 @@ class AdapterFailureTests(unittest.TestCase):
             self.assertTrue(all(row["error"] == "configuration_mismatch" for row in report["results"]))
 
 
+class ResumeTests(unittest.TestCase):
+    def test_interrupted_trial_is_retained_and_not_reissued(self):
+        suite = BenchmarkTests().suite()
+        calls=[]
+        def agent(command,request,timeout):
+            calls.append(request['condition'])
+            if len(calls)==2:raise KeyboardInterrupt()
+            return {"model":request["model"],"revision":request["revision"],"artifact":{"decision":{"approved":True,"authority":"user","status":"current"}}}
+        with tempfile.TemporaryDirectory() as root:
+            prior=Path(root)/'partial.json'
+            with self.assertRaises(KeyboardInterrupt):run(suite,['fixture'],1,1,prior,call=agent)
+            original=prior.read_bytes()
+            result=run(suite,['fixture'],1,1,Path(root)/'continuation.json',call=agent,resume=prior)
+            self.assertEqual(calls,['existing_memory','notes_sessions','trace2mem'])
+            self.assertEqual(len(result['results']),3)
+            self.assertEqual(result['results'][1]['error'],'interrupted_unknown_usage')
+            self.assertFalse(result['results'][1]['passed'])
+            self.assertTrue(result['results'][1]['latency_incomplete'])
+            self.assertEqual(prior.read_bytes(),original)
+            self.assertEqual(result['summary']['trace2mem']['successes'],1)
+
+    def test_resume_rejects_different_configuration(self):
+        suite=BenchmarkTests().suite()
+        with tempfile.TemporaryDirectory() as root:
+            prior=Path(root)/'partial.json'
+            prior.write_text(json.dumps({'suite':suite,'repeats':2,'timeout_seconds':1,'results':[]}))
+            with self.assertRaisesRegex(ValueError,'configuration differs'):
+                run(suite,['unused'],1,1,Path(root)/'continuation.json',resume=prior)
+
+
 if __name__ == "__main__":
     unittest.main()

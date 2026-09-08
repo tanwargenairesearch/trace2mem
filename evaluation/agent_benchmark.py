@@ -116,12 +116,29 @@ def validate(suite, repeats, timeout):
             raise ValueError("case input required")
 
 
-def run(suite, command, repeats, timeout, output, call=invoke):
+def run(suite, command, repeats, timeout, output, call=invoke, resume=None):
     validate(suite, repeats, timeout)
     report = {"suite_sha256": hashlib.sha256(json.dumps(suite, sort_keys=True).encode()).hexdigest(),
               "suite": suite, "repeats": repeats, "timeout_seconds": timeout,
               "conditions": CONDITIONS, "results": [],
               "limitations": "Trusted adapter enforces memory conditions and budgets. Usage and evidence access are adapter-reported, not independently attested."}
+    if resume is not None:
+        previous_bytes = Path(resume).read_bytes()
+        if len(previous_bytes) > 16 << 20:
+            raise ValueError("prior report exceeds limit")
+        previous = json.loads(previous_bytes)
+        if previous.get("suite") != suite or previous.get("repeats") != repeats or previous.get("timeout_seconds") != timeout:
+            raise ValueError("resume configuration differs")
+        report["results"] = previous["results"]
+        report["resumed_from_sha256"] = hashlib.sha256(previous_bytes).hexdigest()
+        if previous.get("in_flight"):
+            interrupted = previous["in_flight"]
+            interrupted.update(passed=False,error="interrupted_unknown_usage",latency_ms=0,latency_incomplete=True)
+            report["results"].append(interrupted)
+    resume_count = len(report["results"])
+    if resume_count > len(suite["cases"]) * repeats * len(CONDITIONS):
+        raise ValueError("resume contains too many trials")
+    resume_index = 0
     output = Path(output)
     output.parent.mkdir(parents=True, exist_ok=True)
     if output.exists():
@@ -159,10 +176,18 @@ def run(suite, command, repeats, timeout, output, call=invoke):
                     request["protocol"] = suite["agent_protocol"]
                 if suite.get("agent_config_sha256"):
                     request["config_sha256"] = suite["agent_config_sha256"]
+                if resume_index < resume_count:
+                    previous_row = report["results"][resume_index]
+                    if previous_row.get("request") != request or any(previous_row.get(k) != request[k] for k in ("task_id", "history_id", "condition", "repeat")):
+                        raise ValueError("resume is not the expected trial prefix")
+                    resume_index += 1
+                    continue
                 started = time.monotonic()
                 row = {"task_id": case["id"], "history_id": case["history_id"],
                        "split": case["split"], "condition": condition, "repeat": repeat + 1,
                        "passed": False, "request": request}
+                report["in_flight"] = dict(row)
+                checkpoint()
                 try:
                     result = call(command, request, timeout)
                     # Reject non-JSON numeric values before checkpointing the trial.
@@ -188,6 +213,7 @@ def run(suite, command, repeats, timeout, output, call=invoke):
                                     type(error).__name__)
                 row["latency_ms"] = round((time.monotonic() - started) * 1000)
                 report["results"].append(row)
+                report.pop("in_flight", None)
                 checkpoint()
     report["summary"] = {condition: {
         "attempts": sum(row["condition"] == condition for row in report["results"]),
