@@ -24,7 +24,7 @@ Capture and retrieval are separate integrations. An adapter sends events during 
 | See a real model learn and recall | [Kimi exercise](docs/KIMI_AGENT.md) and [recorded results](reports/2026-09-08-harbor/README.md) |
 | Understand the design or contribute | [Architecture](docs/ARCHITECTURE.md), [contributing](CONTRIBUTING.md), and [documentation index](docs/README.md) |
 
-Use Trace2Mem when you control your agent's event capture and want self-hosted, inspectable memory. It does not replace your agent harness. Pi/Hermes adapters are not yet implemented; the framework-neutral API is available. Linux FUSE is optional—MCP, HTTP, and ordinary directories also work.
+Use Trace2Mem when you control your agent's event capture and want self-hosted, inspectable memory. It does not replace your agent harness. First-party [Pi](integrations/pi/README.md), [Hermes](integrations/hermes/README.md), and [LangChain](integrations/langchain/README.md) adapters use the framework-neutral API. Linux FUSE is optional—MCP, HTTP, and ordinary directories also work.
 
 **Status:** locally validated MVP. The latest [192-trial user-history pilot](reports/2026-09-08-persona-evaluation/README.md) improved the consuming agent on development tasks; held-out wiki/notes/history scores were 27/32, 26/32 and 23/32. The [failure audit](reports/2026-09-08-persona-evaluation/RCA.md) finds execution and exact-format differences, not demonstrated semantic gains.
 
@@ -104,7 +104,7 @@ This pre-release API removes spaces, memberships, `space_id`, and `--space`. Upg
 
 Agent credentials belong to one user. Scopes are `read`, `ingest`, and `manage`; token creation requires `manage` and cannot grant scopes the issuer lacks. Verified OIDC identities include issuer and subject. The local bootstrap token owns only its local user memory. See the in-app `/guide` for capture and retrieval instructions.
 
-The per-user Brain-aligned MVP is implemented and locally validated. Dream summaries and explicit relationship proposals are implemented with deterministic tests. Automatic, daily and manual scheduling are available in Settings or `trace2mem schedule`. The [LangChain adapter](integrations/langchain/README.md) has passed callback, durability, and Docker integration checks; consult [implementation status](docs/IMPLEMENTATION.md).
+The per-user Brain-aligned MVP is implemented and locally validated. Dream summaries and explicit relationship proposals are implemented with deterministic tests. Automatic, daily and manual scheduling are available in Settings or `trace2mem schedule`. The [LangChain adapter](integrations/langchain/README.md) has passed callback, durability, and Docker integration checks; A [small live adapter evaluation](reports/2026-09-09-adapter-live/README.md) passed for Pi; Hermes recalled correct values but failed explicit evidence-tool calls. Consult [implementation status](docs/IMPLEMENTATION.md).
 
 Automatic compilation waits for 60 seconds without new events, with a five-minute maximum delay; closing a session requests immediate compilation. Daily mode defaults to 02:00 UTC and coalesces missed runs after downtime. Manual mode accepts events until an explicit `trace2mem compile`. Changing the schedule does not cancel already approved work. Missing models block compilation while preserving accepted evidence.
 

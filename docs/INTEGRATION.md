@@ -40,9 +40,9 @@ bin/trace2mem mount --target ./mounted-memory
 
 Context synthesis requires configured models and a published revision. Filesystem operations pin a revision and verify hashes. Linux is the supported FUSE test platform; use directory sync on macOS unless you have tested its external FUSE installation. Cached files work offline; uncached reads fail clearly. Start a new snapshot to adopt a newer revision.
 
-## Pi and Hermes adapter contracts
+## Pi and Hermes adapters
 
-No first-party Pi or Hermes adapter is implemented. An adapter must map its framework's message/tool/lifecycle events into the same envelope, spool durable retries, load the initial index, and expose retrieval through MCP or the API. Framework hooks and package versions must be validated by the adapter author. Connecting MCP alone supplies neither capture nor initial context.
+The [Pi extension](../integrations/pi/README.md) and [Hermes plugin](../integrations/hermes/README.md) capture framework messages, tool observations and session lifecycle into the common envelope. They share the [bounded durable client](../integrations/core/README.md), load initial index context, and register API-backed search/read/evidence tools. Their READMEs document validated contracts, installation, capture limitations and the results of the small live harness evaluation. Connecting MCP alone still supplies neither capture nor initial context.
 
 ## Custom-agent walkthrough: capture, orient, read
 

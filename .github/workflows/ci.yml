@@ -13,12 +13,21 @@ jobs:
       - run: go test -race ./...
       - run: go vet ./...
       - run: python3 -m unittest discover -s evaluation -v
-      - name: LangChain adapter
+      - name: Python adapters
         run: |
           python3 -m venv /tmp/trace2mem-python
           /tmp/trace2mem-python/bin/pip install --require-hashes -r integrations/langchain/requirements.lock
-          /tmp/trace2mem-python/bin/pip install --no-deps ./integrations/langchain
+          /tmp/trace2mem-python/bin/pip install --no-deps ./integrations/core ./integrations/langchain
           /tmp/trace2mem-python/bin/python -m unittest discover -s integrations/langchain/tests -v
+          /tmp/trace2mem-python/bin/python -m unittest discover -s integrations/core/tests -v
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22'
+      - name: Pi adapter
+        run: |
+          npm ci --ignore-scripts --prefix integrations/pi
+          npm run check --prefix integrations/pi
+          npm test --prefix integrations/pi
       - run: go run golang.org/x/vuln/cmd/govulncheck@v1.1.4 ./...
       - run: scripts/acceptance.sh
       - if: always()

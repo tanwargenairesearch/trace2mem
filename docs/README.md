@@ -6,8 +6,9 @@ Trace2Mem turns one user's agent experience into persistent, cited memory across
 
 1. [Quickstart](QUICKSTART.md): start Docker, authenticate, configure models, import evidence, and check publication.
 2. [Integration guide](INTEGRATION.md): capture events, retry safely, load an initial index, and expose retrieval tools in any harness.
-3. [LangChain reference](../integrations/langchain/README.md): install the callback adapter with its durable local spool and run a two-conversation example.
-4. [Kimi tool-agent example](KIMI_AGENT.md): generate a substantial trajectory and recall it in a fresh conversation. Requires explicit live-model credentials and budgets.
+3. [Pi](../integrations/pi/README.md) and [Hermes](../integrations/hermes/README.md): native capture and retrieval adapters.
+4. [LangChain reference](../integrations/langchain/README.md): install the callback adapter with its durable local spool and run a two-conversation example.
+5. [Kimi tool-agent example](KIMI_AGENT.md): generate a substantial trajectory and recall it in a fresh conversation. Requires explicit live-model credentials and budgets.
 
 ## Understand and operate it
 

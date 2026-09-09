@@ -11,3 +11,6 @@ __pycache__/
 .venv/
 *.sqlite
 *.sqlite-*
+
+node_modules/
+build/

@@ -1,6 +1,6 @@
 # Trace2Mem LangChain integration
 
-Install with `pip install ./integrations/langchain` from the repository root. Python 3.10+ and Linux/macOS are supported; the spool uses POSIX file locks.
+Install with `pip install ./integrations/core ./integrations/langchain` from the repository root. Python 3.10+ and Linux/macOS are supported; the spool uses POSIX file locks.
 
 ```python
 import os
@@ -35,7 +35,7 @@ The adapter uses the [LangChain callback API](https://reference.langchain.com/py
 
 ```sh
 pip install --require-hashes -r integrations/langchain/requirements.lock
-pip install --no-deps ./integrations/langchain
+pip install --no-deps ./integrations/core ./integrations/langchain
 python -m unittest discover -s integrations/langchain/tests -v
 export TRACE2MEM_URL=http://localhost:8787
 # Set TRACE2MEM_TOKEN privately to a user token with read and ingest scopes.

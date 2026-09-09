@@ -10,7 +10,7 @@ Trace2Mem is a self-hosted agent memory service inspired by Brain. The [alignmen
 - Automatic, daily and manual durable schedules; quiet-period cap, timezone/DST behavior, catch-up and missing-model blocking/recovery.
 - Independent explicit generation/embedding configuration, encrypted credentials, endpoint approval, budgets and staged embedding reindex.
 - Search, cited synthesis, initial index, pinned directory materialization and cached read-only Linux FUSE.
-- LangChain callback capture, bounded persistent retry spool, initial context helper and live/saved-history examples. Pi/Hermes documentation defines the adapter contract only.
+- LangChain callback capture, bounded persistent retry spool, initial context helper and live/saved-history examples. Pi extension and Hermes plugin capture, retrieve and orient through a shared durable client. Pi type-checking, hook contract fixtures and bridge tests are included; A [single live OpenRouter scenario](../reports/2026-09-09-adapter-live/README.md) passed for Pi; Hermes recalled correct facts but failed explicit evidence retrieval. Broader reliability evaluation remains outstanding.
 - Memory, Import, Activity, Models, Connections and Settings web screens, provider-neutral onboarding and an in-app integration guide.
 - Pinned paired evaluation with fact/citation rubrics, per-request usage/transcripts and explicit operator candidate promotion.
 - Docker, optional GCP Terraform, CI/release definitions and operational documentation.
