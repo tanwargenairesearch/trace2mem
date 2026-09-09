@@ -3,11 +3,10 @@ requires = ["setuptools>=75"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "trace2mem-langchain"
+name = "trace2mem"
 version = "0.1.0"
-description = "Per-user trajectory capture and memory retrieval for Trace2Mem"
+description = "Durable Trace2Mem capture and Pi bridge"
 requires-python = ">=3.10"
-dependencies = ["trace2mem==0.1.0", "langchain-core==1.6.2"]
 license = "Apache-2.0"
 
 [tool.setuptools.packages.find]

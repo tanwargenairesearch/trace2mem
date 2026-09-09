@@ -1,0 +1,116 @@
+{
+  "generation_model": "moonshotai/kimi-k3",
+  "embedding_model": "openai/text-embedding-3-small",
+  "provider": "OpenRouter",
+  "scenario_count": 1,
+  "conditions": "single capture and fresh recall per harness; no baseline",
+  "initial_capture_attempts": {
+    "pi": "failed: invalid session ID; seven envelopes retained",
+    "hermes": "failed: invalid session ID; eight envelopes retained"
+  },
+  "adapters": {
+    "pi": {
+      "capture_events": 7,
+      "capture_tool_pairs": 1,
+      "capture_duration_seconds": 7.38,
+      "revision": "97d13fc86b6d6fc58659b8c25f685c03",
+      "recall_duration_seconds": 16.29,
+      "correct_release_date": true,
+      "correct_retention": true,
+      "successful_evidence_calls": 2,
+      "tool_calls": [
+        "memory_search",
+        "memory_evidence",
+        "memory_evidence"
+      ],
+      "tool_failures": [],
+      "cited_capture_events": [
+        "49d33e99-4054-44e0-8281-6aa6dcbaab3a",
+        "d01fc96d-81b6-4658-9e96-5d1973433208"
+      ],
+      "supportive_cited_events": [
+        "49d33e99-4054-44e0-8281-6aa6dcbaab3a",
+        "d01fc96d-81b6-4658-9e96-5d1973433208"
+      ],
+      "final_answer": "## Project Cedar Lantern \u2014 Approved Requirements\n\n| Requirement | Value |\n|---|---|\n| **Approved release date** | **2026-11-19** |\n| **Raw log retention period** | **13 days** |\n\n**Supporting evidence (verified via `memory_evidence`):**\n\n- **Event `49d33e99-4054-44e0-8281-6aa6dcbaab3a`** (tool result, 2026-09-09T09:54:15.344Z): *\"Synthetic project Cedar Lantern: release date 2026-11-19; raw log retention 13 days. These are approved user requirements.\"*\n- **Event `d01fc96d-81b6-4658-9e96-5d1973433208`** (assistant acknowledgment, 2026-09-09T09:54:15.346Z): *\"Noted. Project Cedar Lantern requirements: release date 2026-11-19, raw log retention 13 days.\"*\n\nBoth events come from the same session (`pi-15fe225bd16dded0...`) and independently confirm the two values.",
+      "compilation_failed_attempts": 0,
+      "verdict": "pass"
+    },
+    "hermes": {
+      "capture_events": 8,
+      "capture_tool_pairs": 2,
+      "capture_duration_seconds": 14.19,
+      "revision": "ddde2cf54ef1961ca7e1ee2900f88e50",
+      "recall_duration_seconds": 26.26,
+      "correct_release_date": true,
+      "correct_retention": true,
+      "successful_evidence_calls": 0,
+      "tool_calls": [
+        "tool_search",
+        "tool_describe",
+        "memory_search",
+        "tool_call",
+        "tool_call"
+      ],
+      "tool_failures": [
+        {
+          "name": "tool_call",
+          "error": "tool_call to 'memory_evidence' is missing required argument(s): eventId. The tool was NOT invoked. Parameters schema: {\"type\": \"object\", \"properties\": {\"eventId\": {\"type\": \"string\"}}, \"required\": [\"eventId\"], \"additionalProperties\": false}. Retry tool_call with 'arguments' matching the parameters schema above."
+        },
+        {
+          "name": "tool_call",
+          "error": "tool_call to 'memory_evidence' is missing required argument(s): eventId. The tool was NOT invoked. Parameters schema: {\"type\": \"object\", \"properties\": {\"eventId\": {\"type\": \"string\"}}, \"required\": [\"eventId\"], \"additionalProperties\": false}. Retry tool_call with 'arguments' matching the parameters schema above."
+        }
+      ],
+      "cited_capture_events": [
+        "a2fb0360-f018-4ae8-b5a2-09ec7ad3ce2e",
+        "4ddfce6f-341a-4ae5-93f9-295020a5fd48",
+        "7c12ecfc-05a4-490b-bdb6-4e70155dc2db",
+        "fd85611c-2e0d-4973-b577-56bb87a629e2"
+      ],
+      "supportive_cited_events": [
+        "4ddfce6f-341a-4ae5-93f9-295020a5fd48",
+        "fd85611c-2e0d-4973-b577-56bb87a629e2"
+      ],
+      "final_answer": "Based on the memory search results, here are the verified values for project Cedar Lantern:\n\n**Approved release date:** 2026-11-19\n**Raw log retention period:** 13 days\n\n**Supporting event IDs:**\n- `4ddfce6f-341a-4ae5-93f9-295020a5fd48` \u2014 The original tool result from reading fixture.txt containing the raw requirements text\n- `fd85611c-2e0d-4973-b577-56bb87a629e2` \u2014 Assistant acknowledgment restating the requirements\n- `a2fb0360-f018-4ae8-b5a2-09ec7ad3ce2e` \u2014 User request to read and remember the requirements\n- `7c12ecfc-05a4-490b-bdb6-4e70155dc2db` \u2014 The read_file tool call that retrieved the data\n\nThe values were recorded in a prior session (September 9, 2026) when fixture.txt was read, and the requirements were explicitly described as \"approved user requirements\" in the source text.",
+      "compilation_failed_attempts": 1,
+      "verdict": "partial: correct values and supporting search citations; explicit evidence retrieval failed"
+    }
+  },
+  "recovery_isolation": {
+    "pi": {
+      "first_append": [
+        {
+          "accepted": "1",
+          "watermark": "16",
+          "scheduled": true
+        }
+      ],
+      "restart_replay": [
+        {
+          "duplicates": "1",
+          "watermark": "16"
+        }
+      ],
+      "cross_user_evidence_http": 404,
+      "event_id": "4b9ad02d-3586-4f31-acde-57e1f0bb9c46"
+    },
+    "hermes": {
+      "first_append": [
+        {
+          "accepted": "1",
+          "watermark": "18",
+          "scheduled": true
+        }
+      ],
+      "restart_replay": [
+        {
+          "duplicates": "1",
+          "watermark": "18"
+        }
+      ],
+      "cross_user_evidence_http": 404,
+      "event_id": "01636841-e8a4-4d29-a984-c7055959405d"
+    }
+  }
+}

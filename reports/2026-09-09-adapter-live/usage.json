@@ -1,0 +1,228 @@
+{
+  "service": [
+    {
+      "space": "7ffe330f432efb5f5fc216bb5dd902584b81aa0f814e0a5c3e450985d15827e8",
+      "operation": "compilation/embedding",
+      "input_tokens": 26267,
+      "output_tokens": 0,
+      "includes_estimates": true,
+      "calls": 1
+    },
+    {
+      "space": "7ffe330f432efb5f5fc216bb5dd902584b81aa0f814e0a5c3e450985d15827e8",
+      "operation": "compilation/generation",
+      "input_tokens": 14555,
+      "output_tokens": 3623,
+      "includes_estimates": false,
+      "calls": 7
+    },
+    {
+      "space": "7ffe330f432efb5f5fc216bb5dd902584b81aa0f814e0a5c3e450985d15827e8",
+      "operation": "embedding",
+      "input_tokens": 132,
+      "output_tokens": 0,
+      "includes_estimates": true,
+      "calls": 2
+    },
+    {
+      "space": "7ffe330f432efb5f5fc216bb5dd902584b81aa0f814e0a5c3e450985d15827e8",
+      "operation": "generation",
+      "input_tokens": 109,
+      "output_tokens": 41,
+      "includes_estimates": false,
+      "calls": 1
+    },
+    {
+      "space": "84ef2ed03f1af7107398a87281868a1c077e1aac76e97e6de4f995563c82ce06",
+      "operation": "compilation/embedding",
+      "input_tokens": 20156,
+      "output_tokens": 0,
+      "includes_estimates": true,
+      "calls": 1
+    },
+    {
+      "space": "84ef2ed03f1af7107398a87281868a1c077e1aac76e97e6de4f995563c82ce06",
+      "operation": "compilation/generation",
+      "input_tokens": 73211,
+      "output_tokens": 3558,
+      "includes_estimates": true,
+      "calls": 12
+    },
+    {
+      "space": "84ef2ed03f1af7107398a87281868a1c077e1aac76e97e6de4f995563c82ce06",
+      "operation": "embedding",
+      "input_tokens": 84,
+      "output_tokens": 0,
+      "includes_estimates": true,
+      "calls": 2
+    },
+    {
+      "space": "84ef2ed03f1af7107398a87281868a1c077e1aac76e97e6de4f995563c82ce06",
+      "operation": "generation",
+      "input_tokens": 109,
+      "output_tokens": 41,
+      "includes_estimates": false,
+      "calls": 1
+    }
+  ],
+  "hermes": [
+    {
+      "id": "20260909_105233_8f23ee",
+      "model": "moonshotai/kimi-k3",
+      "input_tokens": 9030,
+      "output_tokens": 211,
+      "cache_read_tokens": 4967,
+      "reasoning_tokens": 65,
+      "api_call_count": 3,
+      "estimated_cost_usd": 0.0317451,
+      "actual_cost_usd": null,
+      "cost_status": "estimated"
+    },
+    {
+      "id": "20260909_105413_828a06",
+      "model": "moonshotai/kimi-k3",
+      "input_tokens": 6816,
+      "output_tokens": 351,
+      "cache_read_tokens": 2304,
+      "reasoning_tokens": 185,
+      "api_call_count": 2,
+      "estimated_cost_usd": 0.0264042,
+      "actual_cost_usd": null,
+      "cost_status": "estimated"
+    },
+    {
+      "id": "20260909_105826_52fbdb",
+      "model": "moonshotai/kimi-k3",
+      "input_tokens": 12851,
+      "output_tokens": 368,
+      "cache_read_tokens": 13312,
+      "reasoning_tokens": 0,
+      "api_call_count": 5,
+      "estimated_cost_usd": 0.0480666,
+      "actual_cost_usd": null,
+      "cost_status": "estimated"
+    }
+  ],
+  "pi": [
+    {
+      "trial": "pi-recall.stdout",
+      "responses": {
+        "gen-1788947785-7MGUnHJTfChiWIm3eePi": {
+          "input": 863,
+          "output": 93,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "reasoning": 0,
+          "totalTokens": 956,
+          "cost": {
+            "input": 0.002589,
+            "output": 0.001395,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.003984
+          }
+        },
+        "gen-1788947790-M97ex7m7Wo0rwCO438e6": {
+          "input": 2944,
+          "output": 137,
+          "cacheRead": 768,
+          "cacheWrite": 0,
+          "reasoning": 0,
+          "totalTokens": 3849,
+          "cost": {
+            "input": 0.008832,
+            "output": 0.002055,
+            "cacheRead": 0.0002304,
+            "cacheWrite": 0,
+            "total": 0.0111174
+          }
+        },
+        "gen-1788947795-94uhaUvXmsfHFJLkm8Mt": {
+          "input": 746,
+          "output": 248,
+          "cacheRead": 3584,
+          "cacheWrite": 0,
+          "reasoning": 0,
+          "totalTokens": 4578,
+          "cost": {
+            "input": 0.002238,
+            "output": 0.00372,
+            "cacheRead": 0.0010752,
+            "cacheWrite": 0,
+            "total": 0.0070332
+          }
+        }
+      }
+    },
+    {
+      "trial": "pi-capture.stdout",
+      "responses": {
+        "gen-1788947652-TYQLF7JDBnboS02jjPom": {
+          "input": 0,
+          "output": 50,
+          "cacheRead": 850,
+          "cacheWrite": 0,
+          "reasoning": 0,
+          "totalTokens": 900,
+          "cost": {
+            "input": 0,
+            "output": 0.00075,
+            "cacheRead": 0.00025499999999999996,
+            "cacheWrite": 0,
+            "total": 0.001005
+          }
+        },
+        "gen-1788947655-4SsXCNilUdrNVADya3RX": {
+          "input": 0,
+          "output": 40,
+          "cacheRead": 957,
+          "cacheWrite": 0,
+          "reasoning": 0,
+          "totalTokens": 997,
+          "cost": {
+            "input": 0,
+            "output": 0.0006000000000000001,
+            "cacheRead": 0.0002871,
+            "cacheWrite": 0,
+            "total": 0.0008871
+          }
+        }
+      }
+    },
+    {
+      "trial": "failed-session-id-trial/pi-capture.stdout",
+      "responses": {
+        "gen-1788947554-VX5fP8IWxrOMiCUZrlxC": {
+          "input": 850,
+          "output": 50,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "reasoning": 0,
+          "totalTokens": 900,
+          "cost": {
+            "input": 0.00255,
+            "output": 0.00075,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0.0033
+          }
+        },
+        "gen-1788947559-ywIa3UchBHXTJrF01ez8": {
+          "input": 189,
+          "output": 45,
+          "cacheRead": 768,
+          "cacheWrite": 0,
+          "reasoning": 0,
+          "totalTokens": 1002,
+          "cost": {
+            "input": 0.000567,
+            "output": 0.000675,
+            "cacheRead": 0.0002304,
+            "cacheWrite": 0,
+            "total": 0.0014724
+          }
+        }
+      }
+    }
+  ]
+}
